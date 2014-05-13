@@ -1,0 +1,1217 @@
+@import "functions";
+@mixin wrapper() {
+	.wrapper {
+		max-width: $mw - $gutter;
+		/* overflow: hidden; */
+		margin: auto;
+		height: auto;
+		/* margin-left: - gutter() / 2;
+		margin-right: - gutter() / 2; */
+		box-sizing: border-box;
+		@include c(12);
+    //margin-bottom: 1em;
+    &:after {
+    	@include clear();
+    }
+    .row{
+    	@include c(12);
+    	width: 100% + gutter() + 0.5%;
+    	max-width: $mw;
+    	margin-left: - $gutter / 2;
+    	margin-right: - $gutter / 2;
+    }
+}
+
+}
+@mixin triangle-left($size:10px, $color:white){
+	content:"";
+	@include abs-left(-$size);
+	visibility: visible;
+	width: 0; 
+	height: 0; 
+	border-top: $size solid transparent;
+	border-bottom: $size solid transparent; 
+	border-right:$size solid $color; 
+}
+@mixin a( $color:$mc, $type: solid, $none:"" ){
+
+	@if($none == "none") {
+		text-decoration: none;
+	}
+ /*  @if($none!="none"){
+    border-bottom: 1px #{$type} #{$color};
+    position: relative;
+    overflow:visible;
+    color: #{$color};
+    text-decoration: none;
+    display: inline;
+    @include transition(all 0.3s ease);
+
+    &:hover,&:focus,&:active{
+      text-decoration: none;
+      border-bottom: 0;
+      @include transition(all 0.3s ease);
+    }
+  }@else{
+    border-bottom:0;
+    &:before{
+      border-left: 0;
+      left:auto;
+      @include opacity(1);
+    }
+    &:after{
+      content:none;
+      border-right: 0;
+      right:auto;
+      @include opacity(1);
+    }
+    &:hover,&:focus,&:active{
+      border-bottom: 0;
+    }
+  }*/
+}
+@mixin body() {
+	body {
+		font-family: $ff;
+		font-size: $fs;
+		line-height: $lh;
+		color: $tc;
+		min-height: 100%;
+		text-rendering: optimizeLegibility;
+		-webkit-font-smoothing: antialiased;
+	}
+	em {
+		font-style: italic;
+	}
+	b{
+		font-weight: bold;
+	}
+	html {
+		height: 100%;
+		min-height: 100%;
+	}
+	p {
+		margin:0 0 1em 0;
+		line-height: 1.5;
+		font-family: $ff;
+	}
+	sup {
+		vertical-align: top; font-size: 0.6em; 
+	}
+	.thumbnail{
+		img{
+			display: block;
+			margin: auto;
+		}
+	}
+	.bigInfo{
+		min-height: 200px;
+		padding:$gutter / 2;
+		background-color: $greyL3;
+		font-size: 1.3em;
+		font-weight: bold;
+		a{
+			
+			@extend .btn;
+			display: block;
+		}
+	}
+}
+
+@mixin btn(){
+	.btn-img{
+		display: inline-block;
+		background-color: $borange;
+		padding:2*($gutter/3)  $gutter;
+		text-decoration: none;
+		font-size: 0.95em;
+		@include border-radius(3px);
+		font-weight: 600;
+		max-width: 203px;
+		overflow: hidden;
+		text-transform: uppercase;
+		@include box-shadow(darken($borange,5%) 0 0 0 0px inset);
+		@include transition(box-shadow 0.3s ease-in-out);
+		&:hover,&:focus,&:active{
+			@include box-shadow(darken($borange,5%) 210px 0 0 0 inset);
+			@include transition(box-shadow 0.3s ease-in-out);
+
+		}
+	}
+	.btn-nav{
+		display:inline;
+		@include box-sizing(border-box);
+		font-weight: 500;
+		color:$borange;
+		padding: $gutter / 2;
+		height: auto;
+		max-height: 40px;
+		border:3px solid transparent;
+		&:hover,&:focus,&:active{
+			@include transition(all 0.5s ease-in-out);
+			outline:0;
+			background-color: rgba($borange,0.1);
+			@include border-radius(5px);
+			border:3px solid rgba($borange, 0.3);
+
+		}
+		& span,p{
+			vertical-align: middle;
+			display:inline-block;
+		}
+		&.active{
+			background-color:$borange;
+			color:white; 
+		}
+	}
+	.btn{
+		color:$tc;
+		text-align: center;
+		height: 30px;
+		display:inline-block;
+		line-height: 30px;
+		padding: 0 $gutter / 2;
+		text-decoration: none;
+		background-image: linear-gradient(to bottom,#fff,#f4f4f4);
+		border: 1px solid $greyL2;
+		@include border-radius(3px);
+		&:hover,&:focus,&:active{
+			background-image: linear-gradient(to bottom,#f4f4f4,#fff);
+		}
+	}
+
+	.btn-basic{
+		height: 30px;
+		display:inline-block;
+		line-height: 30px;
+		padding: 2px $gutter / 2;
+		color:white;
+	}
+
+	.btn-inscription{
+		background-image:linear-gradient( bottom ,$borange, lighten($borange,10%));
+		display: block;
+		margin: auto;
+		text-align: center;
+		height: 44px;
+		@include box-sizing( border-box );
+		min-width: 100px;
+		padding:0.6em 0.8em;
+		line-height: 22px;
+		text-transform: uppercase;
+		font-size: 0.9
+		em;
+		text-decoration: none;
+		color:white!important;
+		border:1px solid darken($borange,10%);
+		@include transition(all 0.3s ease-in-out);
+		margin-top: 3px;
+		&:hover,&:focus,&:active{
+			@include transition(all 0.3s ease-in-out);
+			background-image:linear-gradient( top ,$borange, lighten($borange,5%));
+			text-decoration: underline;
+		}
+	}
+
+	.btn1{
+		background-color: $mc;
+		border:2px solid transparent;
+		color:white;
+		@include border-radius(5px);
+		@include transition(all 0.3s ease);
+		&:hover,&:focus,&:active{
+			background-color: transparent;
+			border:2px solid $mc;
+			color:$mc;
+			@include transition(all 0.3s ease);
+		}
+
+	}
+	.send{
+		cursor:pointer;
+		background:lighten($bblue,5%);
+		background: linear-gradient(to bottom,lighten($bblue,15%),lighten($bblue,8%));
+		color:white;
+		width:100%;
+		text-decoration: none;
+		font-weight: 500;
+		margin: auto;
+		@include box-sizing(border-box);
+		text-align: center;
+		line-height: 40px;
+		display:block;
+		font-size: 1em;
+		height:44px;
+		border:1px solid $bblue;
+		border-top: 1px solid lighten($bblue,5%);
+		border-bottom: 1px solid darken($bblue,10%);
+		background:lighten($bblue,5%);
+		@include box-shadow(rgba(255,255,255,0.2) 0 1px 0 inset,rgba(0,0,0,0.1) 0px 2px 3px ,rgba(0,0,0,0) 1px 1px 1px , rgba(0,0,0,0) 1px 1px 1px );
+		padding:1px $gutter/2;
+		border-radius:3px;
+		@include transition(all 0.2s ease-in-out);
+		&:active{
+			background:lighten($bblue,5%);
+			@include transition(all 0.2s ease-in-out);
+			@include box-shadow(rgba(0,0,0,0.2) 0 2px 0 inset,rgba(0,0,0,0.1) 0px 2px 3px ,rgba(0,0,0,0) 1px 1px 1px , rgba(0,0,0,0) 1px 1px 1px );
+		}
+		&:hover,&:focus{
+			outline:0;
+			background-color: $bblueD;
+			text-decoration: underline;
+			@include transition(all 0.2s ease-in-out);  
+		}
+		&:disabled{
+			background:desaturate($bblue,40%);
+		}
+		&.bigSubmit{
+			height:60px;
+			max-height:60px;
+			max-width: 200px;
+			margin-top: $gutter / 2;
+			font-size: 1.218em;
+			@include transition(all 0.3s ease-in-out);
+		}
+	}
+
+}
+@mixin btn1(){
+	background-color: $mc;
+	border:2px solid transparent;
+	color:white;
+	@include border-radius(5px);
+	@include transition(all 0.3s ease);
+	&:hover,&:focus,&:active{
+		background-color: transparent;
+		border:2px solid $mc;
+		color:$mc;
+		@include transition(all 0.3s ease);
+	}
+}
+@mixin mhb-p($height, $item) {
+	background-color: $grey;
+	background: linear-gradient(to bottom, #efefef 0, #cdcdcd 100%);
+	color: white;
+	position: fixed;
+	width: 100%;
+	@include box-sizing(border-box);
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin: auto;
+	height: $height+px;
+	outline: 1px solid $grey;
+	ul {
+		width: 100%;
+		height: $height+px;
+		text-align: center;
+		padding: 0;
+		margin: auto;
+		li, ol {
+			width: (100% / $item) - 2%;
+			display: inline-block;
+			height: 100%;
+			vertical-align: baseline;
+			border-left: 1px solid $grey;
+
+      //position:relative;
+      a {
+      	display: block;
+        //height:100%;
+        //padding-top:8px;
+        height: auto;
+        text-decoration: none;
+        color: white;
+        font-weight: bold;
+        @include box-sizing(border-box);
+        border-top: 5px solid #efefef;
+        &:hover, &:focus {
+          // background-color: darken($greyDH,2%);
+          @include box-sizing(border-box);
+          border-top: 5px solid darken($greyDH, 20%);
+          outline: none;
+      }
+  }
+}
+li:first-child, ol:first-child {
+	border-left: 0;
+}
+li + li, ol + ol {
+      //margin-left: 1%;
+  }
+}
+}
+@mixin boxShadow(){
+	background-color: white;
+	padding:1em;
+	@include border-radius(5px);
+	border:1px solid $greyL2;
+	@include box-shadow( rgba($greyL2,0.7) 2px 2px 6px 0);
+}
+@mixin mb(){
+   background: rgb(53,160,198); /* Old browsers */
+/* IE9 SVG, needs conditional override of 'filter' to 'none' */
+background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzM1YTBjNiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiM1OGFjY2IiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+background: -moz-linear-gradient(top,  rgba(53,160,198,1) 0%, rgba(88,172,203,1) 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(53,160,198,1)), color-stop(100%,rgba(88,172,203,1))); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  rgba(53,160,198,1) 0%,rgba(88,172,203,1) 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  rgba(53,160,198,1) 0%,rgba(88,172,203,1) 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  rgba(53,160,198,1) 0%,rgba(88,172,203,1) 100%); /* IE10+ */
+background: linear-gradient(to bottom,  rgba(53,160,198,1) 0%,rgba(88,172,203,1) 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#35a0c6', endColorstr='#58accb',GradientType=0 ); /* IE6-8 */
+}
+@mixin form(){
+	.formContainer{
+		@include c(12);
+		max-width: 400px;
+		margin: auto;
+		padding:1em;
+		padding-bottom: 3em;
+
+		&.large{
+			max-width: 600px;
+		}
+	}
+	.yesornot:not(:checked),
+	.yesornot:checked {
+		position: absolute;
+		left: -9999px;
+	}
+	.yesornot:not(:checked) + label,
+	.yesornot:checked + label {
+		position: relative;
+		padding-left: 75px;
+		cursor: pointer;
+	}
+	.yesornot:not(:checked) + label:before,
+	.yesornot:checked + label:before,
+	.yesornot:not(:checked) + label:after,
+	.yesornot:checked + label:after {
+		content: '';
+		position: absolute;
+	}
+	.yesornot:not(:checked) + label:before,
+	.yesornot:checked + label:before {
+		left:0; top: 0px;
+		width: 70px; height: 30px;
+		background: #DDDDDD;
+		border-radius: 15px;
+		margin-top: 3px;
+		-webkit-transition: background-color .2s;
+		-moz-transition: background-color .2s;
+		-ms-transition: background-color .2s;
+		transition: background-color .2s;
+	}
+	.yesornot:not(:checked) + label:after,
+	.yesornot:checked + label:after {
+		margin-top: 6px;
+		width: 20px; height: 20px;
+		-webkit-transition: all .2s;
+		-moz-transition: all .2s;
+		-ms-transition: all .2s;
+		transition: all .2s;
+		border-radius: 50%;
+		background: #7F8C9A;
+		top: 2px; left: 5px;
+	}
+
+	/* on checked */
+	.yesornot:checked + label:before {
+		background:$borange; 
+	}
+	.yesornot:checked + label:after {
+		background: white;
+		top: 2px; left: 40px;
+	}
+
+	.yesornot:checked + label .ui,
+	.yesornot:not(:checked) + label .ui:before,
+	.yesornot:checked + label .ui:after {
+		position: absolute;
+		left: 6px;
+		width: 65px;
+		border-radius: 15px;
+		font-size: 14px;
+		font-weight: bold;
+		line-height: 22px;
+		-webkit-transition: all .2s;
+		-moz-transition: all .2s;
+		-ms-transition: all .2s;
+		transition: all .2s;
+	}
+	.yesornot:not(:checked) + label .ui:before {
+		content: attr(data-not);
+		margin-top: 7px;
+		left: 32px
+	}
+	.yesornot:checked + label .ui:after {
+		content: attr(data-yes);
+		margin-top: 7px;
+		color: white;
+	}
+	.yesornot:focus + label:before {
+		-webkit-box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		-ms-box-sizing: border-box;
+		box-sizing: border-box;
+		
+	}
+
+	.born{
+		#day{
+			width: 70px;
+			float: left;
+		}
+		#month, #month_chosen{
+			width: 120px!important;
+			float: left;
+			margin-left: $gutter / 2;
+		}
+		#year{
+			width: 85px;
+			float: left;
+			margin-left: $gutter / 2;
+		}
+	}
+	.chosen-container{
+		height: 42px!important;
+	}
+	.chosen-container-single .chosen-single span{
+		font-size: 1em!important;
+		height: 100%;
+		line-height: 42px;
+	}
+	.chosen-container-single .chosen-single div b{
+		margin-top: 5px;
+	}
+	.fill{
+		background-color: rgb(250, 250, 196)!important;
+		@include box-shadow(0 0 0 0 !important);
+	}
+	.icon-required{
+		&:before{
+			content:"*";
+			color:$bbluel2;
+			font-size: 30px;
+		}
+	}
+
+	.form-error,.form-error+.chosen-container > .chosen-single{
+		border:1px solid $error!important;
+	}
+
+	div.form-error{
+		color:$error!important;
+	}
+	.errors{
+		display:block;
+		padding:$gutter / 2;
+		border: 1px solid darken($errorBackground, 5%);
+		background-color: $errorBackground;
+		@include border-radius(5px);
+		color:$error;
+		font-size: 1em;
+		font-weight: 400;
+		text-align: left;
+		margin:0 auto;
+		margin-bottom: $gutter / 2;
+		&.none{
+			display:none;
+		}
+		li{
+
+		}
+		strong{
+			font-weight: 700;
+			background: none;
+			padding: 0;
+		}
+	}
+	.informations{
+		display:block;
+		padding:$gutter / 2;
+		border: 1px solid darken($infosBackground, 5%);
+		background-color: $infosBackground;
+		@include border-radius(5px);
+		color:$info;
+		font-size: 1em;
+		font-weight: 400;
+		text-align: left;
+		margin:0 auto;
+		margin-bottom: $gutter / 2;
+		margin-top: $gutter / 4;
+		strong{
+			background-color: transparent;
+			padding: 0;
+		}
+		li{
+			margin-bottom: $gutter / 2;
+		}
+	} 
+	.success{
+		display:block;
+		padding:$gutter / 2;
+		border: 1px solid darken($successBackground, 5%);
+		background-color: $successBackground;
+		@include border-radius(5px);
+		color:$success;
+		font-size: 1em;
+		font-weight: 400;
+		text-align: left;
+		margin:0 auto;
+		margin-bottom: $gutter / 2;
+	}
+	.messageError{
+		color:$error;
+		font-size: 0.8em;
+		font-weight: 400;
+		margin: 5px 0;
+		line-height: 1.2;
+		display: inline-block;
+	}
+	.messageInformations{
+		line-height: 0.8;
+		color:$greyD;
+		font-size: 0.8em;
+		font-weight: 400;
+		margin: 5px 0;
+		margin-left: 3px;
+		display: inline-block;
+
+	}
+	.messageTuto{
+		line-height: 0.8;
+		color:$byellow;
+		font-size: 0.8em;
+		font-weight: 400;
+		display: inline-block;
+		margin: 5px 0;
+		margin-left: 3px;
+	}
+	input.form-error, input:focus:invalid{
+		border:1px solid $error!important;
+
+		&:focus,&:active{
+			@include box-shadow($error 0 0 5px 0!important);
+		}
+	}
+	.mainType{
+		.icon-required{
+			&:before{
+				height: 15px;
+				vertical-align: sub;
+			}
+		}
+		.messageError{
+			float: left;
+		}
+		.chosen-container{
+			width: 100%!important;
+		}
+		.requiredField{
+			color:$greyD;
+			text-align: right;
+			font-size: 0.9em;
+			font-style: italic;
+			.icon-required{
+				&:before{
+					margin-top: 0;
+				}
+			}
+		}
+		::-webkit-input-placeholder {
+			font-size: 1em;
+			color:$greyL2;
+			font-weight: 300;
+			font-family: $ff;
+		}
+		.infos{
+			font-size: 0.8em;
+			line-height: 1.2;
+			color: darken($greyL2,10);
+			max-width: 250px;
+			float: left;
+
+		}
+		textarea{
+			@include c(12);
+			float: left;
+			background-color: rgba(255,255,240,0.9);
+			color:$bm;
+			font-size: 1em;
+			border:1px solid $greyL2;
+			padding:$gutter/2;
+			@include box-sizing(border-box);
+			@include border-radius(3px);
+			margin-top: 3px;
+			line-height: normal;
+			vertical-align: baseline; 
+			min-height: 70px;
+
+			&:required{
+				border: 1px solid $greyD2;
+				&:hover,&:focus,&:active{
+					border: 1px solid $tc;
+				}
+			}
+
+			&:hover,&:active{
+				border:1px solid $greyD;
+				background-color: rgba(255,255,240,0.8);
+				outline:0;
+			}
+			&:focus{
+				border:1px solid $mc;
+				background-color: white;
+				outline:0;
+				@include box-shadow(rgba($mc,0.5) 0 0 5px 0);
+			}
+			&.form-icon{
+				padding-right: 30px;
+
+			}
+		}
+:-moz-placeholder { /* Firefox 18- */
+	font-size: 0.9em;
+	color:$greyD;
+	font-weight: 300;
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+	font-size: 0.9em;
+	color:$greyD;
+	font-weight: 300;
+}
+
+:-ms-input-placeholder {  
+	font-size: 0.9em;
+	color:$greyL2;
+	font-weight: 300; 
+}
+.field{
+	@include c(12);
+	margin-bottom: $gutter / 2;
+	&:last-child{
+		margin-bottom: 0;
+	}
+	&.next{
+		max-width: 200px;
+		float: left;
+	}
+	&.col{
+		width: 100% + gutter();
+		margin-left: - gutter() / 2;
+		margin-right: - gutter() / 2;
+	}
+	&.type_location{
+		.chosen-container{
+			@include cl(5 ,!important);
+		}
+		.number{
+			@include cl(4);
+		}
+		.global{
+			@include cl(3);
+		}
+		[class^="th-"]{
+			color:$greyD;
+			min-height: 50px;
+			border-bottom: 1px solid $greyL2;
+			cursor:help;
+		}
+		.th-1{
+			@include cl(5);
+		}
+		.th-2{
+			@include cl(4);
+		}
+		.th-3{
+			@include cl(3);
+		}
+	}	
+	&.choice-2{
+		a{
+			color:$greyD;
+			display: block;
+			height: 44px;
+			padding: $gutter / 2 0;
+			line-height: 1;
+
+			font-size: 0.85em;
+		}
+		input,a,select,.chosen-container{
+			&:first-child{
+				@include cl(8);
+			}
+			&:last-child{
+				@include cl(4);
+			}
+		}
+	}
+}
+input:required{
+	border: 1px solid $greyD2;
+	&:hover,&:focus,&:active{
+		border: 1px solid $tc;
+	}
+}
+.form-error{
+	&+.icon-required:before{
+		color:$error!important;
+	}
+	
+}
+input:required:valid{
+	&+.icon-required:before{
+		color:$success;
+	}
+}
+input:required:invalid{
+	&+.icon-required:before{
+		color:$error;
+	}
+}
+input:required:valid:focus{
+	border: 1px solid $success;
+
+
+}
+input:required:invalid:focus{
+	border: 1px solid $error;
+
+}
+label{
+	/* @include c(12); */
+	/* display:block; */
+	font-weight: 400;
+	position: relative;
+	max-height: 32px;
+	&.label-city{
+		padding-left: 20px;
+		&:before{
+			font-family: $ffi;
+			content:"\e003";
+			display:block;
+			width:20px;
+			height:20px;
+			float:left;
+		}
+	}
+}
+input:-webkit-autofill,textarea:-webkit-autofill{
+	-webkit-box-shadow: 0 0 0px 1000px white inset;
+	color:$tc!important;
+}
+input[type="checkbox"]{
+	width: auto;
+	margin-top: 5px;
+	margin-right: $gutter / 2;
+	background-color: none;
+	background-image: none;
+	&:after{
+		content:none;
+	}
+}
+/* input[type="radio"]{
+	width: auto;
+	margin:0;
+	float: none;
+	background-color: none;
+	background-image: none;
+	&:after{
+		content:none;
+	}
+} */
+.radio{
+	label{
+		float: left;
+		display: inline-block;
+	}
+}
+
+input{
+	@include c(12);
+	float: left;
+	background-color: rgba(255,255,240,0.9);
+	max-height: 50px;
+	color:$bm;
+	font-size: 1em;
+	border:1px solid $greyL2;
+	padding:$gutter/2;
+	@include box-sizing(border-box);
+	@include border-radius(3px);
+	margin-top: 3px;
+	line-height: normal;
+	vertical-align: baseline; 
+	&:after{
+		font-family: $ffi;
+		content:"\e008";
+	}
+	&:hover,&:active{
+		border:1px solid $greyD;
+		background-color: rgba(255,255,240,0.8);
+		outline:0;
+	}
+	&:focus{
+		border:1px solid $mc;
+		background-color: white;
+		outline:0;
+		@include box-shadow(rgba($mc,0.5) 0 0 5px 0);
+	}
+	&.form-icon{
+		padding-right: 30px;
+
+	}
+}
+input[type="text"],input[type="password"],input[type="email"],textarea{
+	cursor:text;
+	@include background-clip(padding-box);
+}
+input[type="checkbox"]{
+	display:inline-block;
+	width:auto;
+	vertical-align: middle;
+	height: auto;
+}
+input[type="submit"]{
+	cursor:pointer;
+	background:lighten($blblue,5%);
+	background: linear-gradient(to bottom,lighten($blblue,15%),lighten($blblue,8%));
+	color:white;
+	text-decoration: none;
+	font-weight: 500;
+	margin: auto;
+	margin-top: $gutter / 2;
+	@include box-sizing(border-box);
+	text-align: center;
+	line-height: 40px;
+	display:block;
+	height:44px;
+	border:1px solid $blblue;
+	border-top: 1px solid lighten($blblue,5%);
+	border-bottom: 1px solid darken($blblue,10%);
+	@include box-shadow(rgba(255,255,255,0.2) 0 1px 0 inset,rgba(0,0,0,0.1) 0px 2px 3px ,rgba(0,0,0,0) 1px 1px 1px , rgba(0,0,0,0) 1px 1px 1px );
+	padding:1px $gutter/2;
+	border-radius:3px;
+	@include transition(all 0.2s ease-in-out);
+	&:active{
+		background:lighten($blblue,5%);
+		@include transition(all 0.2s ease-in-out);
+		@include box-shadow(rgba(0,0,0,0.2) 0 2px 0 inset,rgba(0,0,0,0.1) 0px 2px 3px ,rgba(0,0,0,0) 1px 1px 1px , rgba(0,0,0,0) 1px 1px 1px );
+	}
+	&:hover,&:focus{
+		background:0;
+		outline:0;
+		background-color: $bblueD;
+		border:1px solid $bblueD;
+		border-top: 1px solid lighten($bblueD,5%);
+		border-bottom: 1px solid darken($bblueD,10%);
+		text-decoration: underline;
+
+	}
+	&:disabled{
+		background:desaturate($mc,40%);
+	}
+	&.bigSubmit{
+		height:60px;
+		max-height:60px;
+		max-width: 200px;
+		margin:0;
+		margin-top: $gutter / 2;
+		font-size: 1.218em;
+		@include transition(all 0.3s ease-in-out);
+	}
+}
+}
+.inlineType{
+	@extend .mainType;
+	.chosen-container{
+		margin-left: $gutter ;
+		
+	}
+	.field{
+		@include c(12);
+		margin-bottom: $gutter / 2;
+		&:last-child{
+			margin-bottom: 0;
+		}
+
+	}
+	label,.label{
+		display: block;
+		height: 1.5em;
+		float: left;
+		width: 180px;
+		text-align: right;
+		padding: 0.5em 0;
+		margin-top: 3px;
+	}
+	.messageError{
+		margin-left: 210px;
+		max-width: 300px;
+	}
+	input{
+		float:left;
+		width: 300px;
+		margin-left: $gutter;
+	}
+	input[type="checkbox"]{
+		margin-top:1em;
+	}
+	input[type="radio"]{
+		margin-top:1em;
+		width: auto;
+	}
+	input[type="submit"]{
+		float: none;
+		margin-left: 180px + $gutter;
+		margin-top: 1em;
+	}
+}
+}
+@mixin section() {
+	.section {
+		display: inline-block;
+		position: absolute;
+		height: 0!important;
+		background-color: white;
+		color:$tc!important;
+		text-indent: -99999999px!important;
+		border: 0!important;
+		padding: 0!important;
+		margin: 0!important;
+	}
+	.reader {
+		display: inline-block!important;
+		position: absolute!important;
+		height: 0!important;
+		background-color: transparent!important;
+		color:$tc!important;
+		text-indent: -99999999px!important;
+		border: 0!important;
+	}
+	a.reader{
+		color:$tc!important;
+	}
+
+	.hide {
+		display: none !important;
+	}
+}
+@mixin abs($top:0, $right:0, $bot:0, $left:0 ) {
+	position: absolute;
+	left: $left;
+	right: $right;
+	top: $top;
+	bottom: $bot;
+	margin: auto;
+}
+
+@mixin abs-left($left:0) {
+	position: absolute;
+	left: $left;
+	top: 0;
+	bottom: 0;
+	margin: auto;
+}
+
+@mixin abs-top($top:0) {
+	position: absolute;
+	left: 0;
+	right:0;
+	top: $top;
+	margin: auto;
+}
+
+@mixin abs-right($right:0) {
+	position: absolute;
+	right: $right;
+	top: 0;
+	bottom: 0;
+	margin: auto;
+}
+
+@mixin abs-top-left($top:0, $left: 0) {
+	position: absolute;
+	left: $left;
+	top: $top;
+	margin: auto;
+}
+@mixin abs-top-right($top:0, $right:0) {
+	position: absolute;
+	right:$right;
+	top: $top;
+	margin: auto;
+}
+@mixin abs-bot-right($bot:0, $right:0){
+	position: absolute;
+	right:$right;
+	bottom:$bot;
+	margin: auto;
+}
+
+@mixin abs-bot( $bot:0) {
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: $bot;
+	margin: auto;
+}
+@mixin clear() {
+	content: "";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+}
+
+@mixin c($nNumber) {
+
+	width: colAlone($nNumber);
+	margin: auto;
+  //margin-left: 0;
+  display: block;
+  float: none;
+  @include box-sizing(border-box);
+  &:after {
+  	@include clear();
+  }
+}
+
+@mixin cf($nNumber) {
+
+	width: colf($nNumber);
+	display: block;
+	float: none;
+	@include box-sizing(border-box);
+	margin: 0;
+	&:after {
+		@include clear();
+	}
+}
+
+@mixin cl($nNumber, $important:null) {
+
+	width: col($nNumber) $important;
+	margin-left: gutter() / 2;
+	margin-right: gutter() / 2;
+	float: left;
+	display: block;
+	@include box-sizing(border-box);
+	&:after {
+		@include clear();
+	}
+}
+
+@mixin cl-nm($nNumber) {
+
+	width: colAlone($nNumber);
+	float: left;
+	display: block;
+	@include box-sizing(border-box);
+	&:after {
+		@include clear();
+	}
+}
+
+@mixin offsetL($nNumber) {
+
+	margin-left: colAlone($nNumber);
+}
+
+@mixin offsetR($nNumber) {
+
+	margin-right: col($nNumber);
+}
+
+@mixin cfl($nNumber) {
+
+	width: colf($nNumber);
+	float: left;
+	margin-left:0;
+	margin-right: gutter() / 2;
+	display: block;
+	@include box-sizing(border-box);
+  //margin-top:0; 
+  &:after {
+  	@include clear();
+  }
+}
+@mixin cll($nNumber) {
+
+	width: colf($nNumber);
+	float: left;
+	margin-left:gutter() / 2;
+	margin-right: 0;
+	display: block;
+	@include box-sizing(border-box);
+  //margin-top:0; 
+  &:after {
+  	@include clear();
+  }
+}
+
+@mixin cfl-nm($nNumber) {
+
+	width: colAlone($nNumber);
+	float: left;
+	display: block;
+	@include box-sizing(border-box);
+	margin-top: 0;
+	margin-bottom: 0;
+	&:after {
+		@include clear();
+	}
+}
+
+@mixin cr($nNumber) {
+
+	width: col($nNumber);
+	margin-left: gutter();
+	float: right;
+	display: block;
+	@include box-sizing(border-box);
+	&:after {
+		@include clear();
+	}
+}
+
+@mixin cfr($nNumber) {
+
+	width: colf($nNumber);
+	float: right;
+	margin-left: gutter();
+	margin-right: gutter();
+	display: block;
+	@include box-sizing(border-box);
+	&:after {
+		@include clear();
+	}
+}
+
+@mixin cc($nNumber) {
+	display: block;
+	width: col($nNumber);
+	margin: auto;
+	text-align: center;
+	float: none;
+	@include box-sizing(border-box);
+	&:after {
+		@include clear();
+	}
+}
+/*l * 100 / 1024*/
+@mixin at2x($path, $ext: "jpg", $w: auto, $h: auto) {
+	$at1x_path: "#{$path}.#{$ext}";
+	$at2x_path: "#{$path}@2x.#{$ext}";
+
+	background-image: image-url("#{$at1x_path}");
+
+	@media all and (-webkit-min-device-pixel-ratio : 1.5),
+	all and (-o-min-device-pixel-ratio: 3/2),
+	all and (min--moz-device-pixel-ratio: 1.5),
+	all and (min-device-pixel-ratio: 1.5) {
+		background-image: image-url("#{$at2x_path}");
+		background-size: $w $h;
+	}
+}

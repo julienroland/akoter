@@ -1,0 +1,82 @@
+<?php 
+/**
+* 
+*/
+class AgenceController extends BaseController
+{
+	public function __construct(ImageController $image){
+
+		$this->image = $image;
+	}
+
+	public function index(){
+
+		$agences = Auth::user()->agence()->remember(Config::get('var.remember'), 'agences'.Auth::user()->id)->get();
+
+		return View::make('agence.index', array( 'page'=>'agence'))
+		->with(compact('agences'));
+
+	}
+
+	public function add(){
+
+		return View::make('agence.add', array( 'page'=>'agence', 'widget'=>array('select','validator','city_autocomplete')));
+
+	}
+	public function store( ){
+
+		$input = Input::all();
+		
+		$validator  = Validator::make($input, Agence::$rules);
+
+		if($validator->passes()){
+
+			$agence = new Agence;
+
+			$agence->name = $input['name'];
+			$agence->nb_employes = $input['nb_employer'];
+			$agence->login = $input['login'];
+			$agence->password = Hash::make($input['password']);
+			$agence->created = $input['year'].'-'.$input['month'].'-'.$input['day'];
+			$agence->language_id = Config::get('var.langId')[$input['language']];
+			$agence->user_id = Auth::user()->id;
+			$agence->address = $input['address'];
+			$agence->locality_id = Locality::where('name','like', $input['locality'])->pluck('id');
+			$agence->region_id = Translation::whereContentType('Region')->whereKey('name')->where('value','like', $input['region'])->pluck('content_id');
+			$agence->postal = $input['postal'];
+
+			$agence->save();
+
+			$agence->logo = $this->image->logoAgence( $agence->id );
+
+			$agence->save();
+
+			Cache::forget('agences'.Auth::user()->id);
+
+			if($agence){
+
+				return Redirect::route('index_agence', Auth::user()->slug);
+
+			}else{
+
+				$fields = $validator->failed();
+				return Redirect::route('index_add_agence',Auth::user()->slug)
+				->withInput()
+				->with(compact('fields'))
+				->withErrors($validator);
+			}
+
+		}else{
+
+			
+			$fields = $validator->failed();
+			dd($fields);
+			return Redirect::route('index_add_agence',Auth::user()->slug)
+			->withInput()
+			->with(compact('fields'))
+			->withErrors($validator);
+		}
+
+	}
+	
+}

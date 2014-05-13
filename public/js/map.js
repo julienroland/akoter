@@ -1,0 +1,1748 @@
+
+//ERROR; 
+/*
+ ID:1(geocoder) = aucun résultat trouvé ,
+ ID:2(geocoder) = requete non-autorisée, 
+ ID:3(geocoder) = requete invalide, 
+ ID:4(geocoder) = error interne
+ ID:5(range) = Uniquement des chiffres autorisés
+ */
+ ;(function($){
+  if (typeof google === 'object' && typeof google.maps === 'object') {
+    "use strict";
+       //GENERAL
+       var
+       gMap,
+       sImgDir = 'img/',
+        //ICONS
+        kotIcon = sImgDir+'map/markers/kot.png',
+        schoolIcon = sImgDir+'map/markers/school.png',
+        targetIcon = sImgDir+'map/markers/target.png',
+        //MAP
+       panorama,
+       jsStandardMapStyle = [{"featureType":"road","elementType":"labels","stylers":[{"visibility":"simplified"},{"lightness":20}]},{"featureType":"administrative.land_parcel","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"landscape.man_made","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"transit","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"road.local","elementType":"labels","stylers":[{"visibility":"simplified"}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"visibility":"simplified"}]},{"featureType":"road.highway","elementType":"labels","stylers":[{"visibility":"simplified"}]},{"featureType":"poi","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"road.arterial","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"water","elementType":"all","stylers":[{"hue":"#a1cdfc"},{"saturation":30},{"lightness":49}]},{"featureType":"road.highway","elementType":"geometry","stylers":[{"hue":"#f49935"}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"hue":"#fad959"}]}],
+       jsColorBlindMapStyle = [ {"featureType": "administrative.country","elementType": "geometry.stroke","stylers": [{ "color": "#00006f" },{ "lightness": -5 },{ "visibility": "on" },{ "weight": 3 },{ "hue": "#ff0091" }]},{"featureType":"all","elementType":"all","stylers":[{"invert_lightness":true},{"saturation":0},{"lightness":25},{"gamma":0.6},{"hue":"#435158"}]}],
+       gMarkerArrayKot = [],
+       gMarkerArrayEcole = [],
+       gMarkerKot,
+       gMarkerEcole,
+       gCenter = new google.maps.LatLng(50.5,4.6),
+       oKots,
+       nDistanceValueOk,
+       oEcoles,
+       bEcoleClick =false,
+       aKots = [],
+       oEcole = [],
+       gEcole = new google.maps.LatLng(),
+       sNom = [],
+       sCachet,
+       cityCircle = new google.maps.Circle(),
+       rectangle = new google.maps.Rectangle(),
+       listKot = [],
+       $listKot = $('#listKot'),
+       listEcole = [],
+       regLatLng = new RegExp("[,]"),
+       geocoder = new google.maps.Geocoder(),
+       oRayon,
+       nMinZoom = 7,
+       gMarker = new google.maps.Marker({icon : targetIcon}),
+       gSpherical = google.maps.geometry.spherical,
+       sCity = document.getElementById('form-city'),
+       sRange = document.getElementById('form-range'),
+       $city = $('#form-city'),
+       $range = $('#form-range'),
+       $l_range = $('.label-range'),
+       optionsPlaces = {types: ['(cities)'],componentRestrictions: {country:"be"},setTypes: ['geocode']},
+       gPlaceAutoComplete,
+       isAutoComplete = false,
+       gCurrentPlace,
+    //key
+    nUp = 38,
+    nDown = 40,
+    nLeft = 37,
+    nRight = 39,
+  //FORM
+  $submit = $('.mapItem input[type="submit"]'),
+  sOldValue,
+  sCenterCity,
+  gCenterCity,
+  nDistanceValueOk,
+  //SELECTOR
+  $loading = $('.loading'),
+  $filter = $('#filter'),
+  $zoom = $('#zoom'),
+  $mapItem = $('.mapItem'),
+  $mapItemTab = $('.mapItem .tab'),
+  mc,
+
+    //ERRORS
+    $errorsNotifications = $('.errorsNotifications'),
+    $errorsNotificationsAppend = $('.errorsNotifications .list'),
+    sErrorsNotifcationOutput = '<li class="notSee" data-id=":id"><a href=""><div class="iconError"><img src=":icon"></img></div><span class="textError">:message</span></a></li>',
+    sErrorsTitle = '<span class="numberTitle">:number</span> problème(s) rencontré(s)',
+    $errorsTab = $('.errorsNotifications .tab'),
+    bErrorsTabStatus = 0,
+
+    //ANIMATIONS
+    sAnimationEvent = 'animated',
+    //CLUSTER
+    clusterStyle = [
+    {
+     opt_textColor: 'white',
+     url: sImgDir+'map/clusters/small.png',
+     height: 30,
+     width: 30
+   },
+   {
+     opt_textColor: 'white',
+     url: sImgDir+'map/clusters/medium.png',
+     height: 45,
+     width: 45
+   },
+   {
+     opt_textColor: 'white',
+     url: sImgDir+'map/clusters/big.png',
+     height: 60,
+     width: 60
+   }
+   ],
+ 
+    //CONTROL
+    $showMarkersKot = $('.showAllMarkerKot'),
+    bShowAllKot,
+    $colorBlind = $('.colorBlind'),
+    $streetView = $('.streetView'),
+    jsStyledMap,
+    bColorBlindOn;
+
+    $(function(){
+
+      /**
+      *
+      * Street view
+      *
+      **/
+      
+      $streetView.on( 'click', 'a', toggleStreetView );
+
+      /**
+      *
+      * Range Append for data
+      *
+      **/
+      
+      $('#form-range').on('change', displayDataRange );
+
+      /**
+      *
+      * Change zoom on scroll or keyup and down
+      *
+      **/
+      
+      $zoom.bind("mousewheel", changeZoom);
+
+      $zoom.on("keydown", changeZoom);
+
+      /**
+      *
+      * On click on html, hide popup
+      *
+      **/
+      $('html').on('click', hidePopup );
+
+      /**
+      *
+      * On click on colorblind button, change map stype
+      *
+      **/
+      
+      $colorBlind.on('click','a',toogleMapStyle );
+
+      /**
+      *
+      * On click on showAllMarker button, show all marker
+      *
+      **/
+      
+      $showMarkersKot.on('click','a',showAllMarkerKot);
+
+    });
+
+    /**
+    *
+    * When google map is loaded
+    *
+    **/
+    
+    var initialize = function(){
+
+      /**
+      *
+      * Display map
+      *
+      **/
+      
+      displayGoogleMap();
+
+      /**
+      *
+      * Hidding map on listing page
+      *
+      **/
+      
+      $('#locations .map').css('display','none');
+      /**
+      *
+      * Preload street view
+      *
+      **/
+      
+      displayStreetView( new google.maps.LatLng(50.5,4.6) );
+
+      /**
+      *
+      * Display map item
+      *
+      **/
+      
+      $mapItem.css('display','block');
+
+      /**
+      *
+      * Get locations and schools with ajax
+      *
+      **/
+
+      // ajaxAllEcole();
+
+      ajaxAllKot();
+
+      /**
+      *
+      * Loading google autoComplete
+      *
+      **/
+      
+      gPlaceAutoComplete = new google.maps.places.Autocomplete(sCity,optionsPlaces);
+
+      /**
+      *
+      * When it's done, hide loading state
+      *
+      **/
+      
+      $loading.delay(400).fadeOut( function(){
+
+        $(this).remove();
+
+      });
+
+      eventInput();
+
+      /**
+      *
+      * @change autocomplete
+      *
+      **/
+      
+      google.maps.event.addListener(gPlaceAutoComplete, 'place_changed', function() {
+
+    /**
+    *
+    * Set autocomplete on true to avoid bug with other filter systems
+    *
+    **/
+    
+    isAutoComplete = true;
+
+    /**
+    *
+    * Get place of element targeted
+    *
+    **/
+    
+    var place = gPlaceAutoComplete.getPlace();
+
+    if (!place.geometry){
+
+      return;
+
+    }
+
+    /**
+    *
+    * Get lat & lng
+    *
+    **/
+    
+    var center = place.geometry.location;
+
+    /**
+    *
+    * Change map position
+    *
+    **/
+    
+    gMap.panTo(center);
+
+    smoothZoom(gMap, 17, gMap.getZoom());
+
+    gMarker.setPosition( center );
+
+    gMarker.setMap( gMap );
+
+    /**
+    *
+    * Define globaly currentPlace for streetView
+    *
+    **/
+    
+    gCurrentPlace = center;
+
+    /**
+    *
+    * Get distance
+    *
+    **/
+    
+    nDistanceValueOk = Number(sRange.value);
+
+    /**
+    *
+    * @if distance not number, generate an error message (id 5)
+    *
+    **/
+    
+    if(!$.isNumeric(nDistanceValueOk))
+    {
+
+     var id = 5;
+     var sMessage = 'Distance: chiffres requis';
+     var sIcon = sImgDir+"reseaux/fb.jpg";
+
+     e_errorNotification(id, sMessage, sIcon );
+   }   
+
+   /**
+   *
+   * Define globaly the center
+   *
+   **/
+   
+   sCenterCity = center;
+   console.log(place);
+   window.setTimeout(function(){
+    $city.val(place.address_components[0].long_name);
+  }, 10);
+   
+   if(bEcoleClick)
+   {
+    actionEcoleClick( nDistanceValueOk );
+  }
+  else
+  {
+    /**
+    *
+    * getCity( latLng, range, type = "geocoder", callback)
+    *
+    **/
+    
+    getCity( sCenterCity , nDistanceValueOk , "latlng", function( bType, sMessage ){
+
+      /**
+      *
+      * @if no range define, generate tutorial
+      *
+      **/
+      
+      if(bType){
+
+        gCenterCity  = sMessage;
+
+        /**
+        *
+        * On filter loading, change submit to disabled to prevent spam
+        *
+        **/
+        
+        processSubmit( $submit, 0 );
+
+        if($range.next().hasClass('tuto')){
+
+        }else{
+
+          if($range.next().hasClass('messageTuto')){
+
+          }else{
+
+            $range.after('<span class="range messageTuto">Vous pouvez régler la distance</span>');
+          }
+        }
+
+      }else{
+
+        processSubmit( $submit, 0 );
+
+      }
+    });
+
+  }
+});
+
+
+/* FORM */
+
+
+/* END FORM*/
+
+};
+
+/**
+*
+* On click on html, hide popup
+*
+**/
+
+var hidePopup = function( e ){
+
+/**
+*
+* Stop la propagation
+*
+**/
+
+e.stopPropagation();
+
+/**
+*
+* @if errors is display, hide 
+*
+**/
+
+if(bErrorsTabStatus === 1 ){
+
+  $errorsNotifications.css({
+    right:"-250px",
+  });
+
+  bErrorsTabStatus = 0;
+}
+};
+/**
+*
+* Range Append for data
+*
+**/
+var displayDataRange = function(){
+    /**
+    *
+    * @if range > 999 display it on kilometers type else on meters
+    *
+    **/
+    
+    if($(this).val()>999){
+
+      $l_range.html('Distance: '+($(this).val()/1000)+'km');
+
+    }else{
+
+      $l_range.html('Distance: '+$(this).val()+'m');
+    }
+
+  };
+
+/**
+*
+* Change zoom using input #zoom using scroll or keyup & keydown
+*
+**/
+
+var changeZoom = function(event, delta ){
+
+  /**
+  *
+  * Get basic data
+  *
+  **/
+  
+  var nMin = Number($zoom.attr('data-min'));
+  var nMax = Number($zoom.attr('data-max'));
+  var nStep = Number($zoom.attr('data-step'));
+
+  /**
+  *
+  * @if it's scroll
+  *
+  **/
+  
+  if(event.type ==="mousewheel"){
+    /**
+    *
+    * @if zoom use positively (scrollup)
+    *
+    **/
+    
+    if (delta > 0 ) {
+
+      if(this.value){
+
+        /**
+        *
+        * @if not higher than max value
+        *
+        **/
+        
+        if(this.value < nMax) {
+
+          /**
+          *
+          * get value, increment by one step
+          *
+          **/
+          
+          this.value = parseInt(this.value) + nStep;
+
+          /**
+          *
+          * define zoom
+          *
+          **/
+          
+          gMap.setZoom( Number(this.value) ); 
+
+          /**
+          *
+          *  change cursor to show that we can go higher or
+          *
+          **/
+
+          $zoom.css('cursor','ns-resize');
+
+        }
+        else
+        {
+
+          /**
+          *
+          * We are on maximun, so only show cursor for going less
+          *
+          **/
+          
+          $zoom.css('cursor','s-resize');
+        } 
+
+      }
+      else{
+
+        /**
+        *
+        * @if no value, that mean it's the first use, define base on min-zoom
+        *
+        **/
+
+        this.value = parseInt( nMin );
+
+        /**
+        *
+        * Define zoom
+        *
+        **/
+        
+        gMap.setZoom( Number(this.value ));
+
+        /**
+        *
+        * Show cursor that we only can go higher
+        *
+        **/
+        
+        $zoom.css('cursor','n-resize');
+
+      }
+    } 
+    else{
+      /**
+      *
+      * @if higher than min
+      *
+      **/
+      
+      if (parseInt(this.value) > nMin ) {
+
+        /**
+        *
+        * decrement step
+        *
+        **/
+        
+        this.value = parseInt(this.value) - nStep;
+        /**
+        *
+        * Define zoom
+        *
+        **/
+        
+        gMap.setZoom( Number(this.value ));
+
+        /**
+        *
+        * Show that we can go higher and lower
+        *
+        **/
+        
+        $zoom.css('cursor','ns-resize');
+      }
+      else{
+
+        /**
+        *
+        * We are on min, show that we only can go higher
+        *
+        **/
+        
+        $zoom.css('cursor','n-resize');
+      } 
+    }
+  }
+  else if(event.type ==="keydown"){
+
+    /**
+    *
+    * Same way and logique just check key
+    *
+    **/
+    
+    if(event.keyCode === nUp){
+
+      if(this.value){
+
+        if(this.value < nMax) {
+
+          this.value = parseInt(this.value) + nStep;
+          gMap.setZoom( Number(this.value) );  
+          $zoom.css('cursor','ns-resize');
+
+        }
+        else{
+
+          $zoom.css('cursor','n-resize');
+
+        }
+      }
+      else{
+
+        this.value = parseInt( nMin ) + nStep;
+        gMap.setZoom( Number(this.value ));
+
+      }
+
+    }else if(event.keyCode === nDown){
+
+      if(this.value){
+
+        if(this.value > nMin) {
+
+          this.value = parseInt(this.value) - nStep;
+          gMap.setZoom( Number(this.value) );  
+
+        }
+      }
+      else{
+
+        this.value = parseInt( nMin ) - nStep;
+        gMap.setZoom( Number(this.value ));
+
+      }
+
+      /**
+      *
+      * Add left and right key to navigate on map
+      *
+      **/
+      
+    }else if(event.keyCode === nLeft) {
+      /**
+      *
+      * get latLng and zoom
+      *
+      **/
+      
+      var gLat = gMap.getCenter().lat();
+
+      var gLng = gMap.getCenter().lng();
+
+      var gZoom = gMap.getZoom();
+
+      /**
+      *
+      * Change position to those value incremented on zoom ratio
+      *
+      **/
+      
+      gMap.panTo( new google.maps.LatLng(gLat, gLng - ((0.1) / gZoom)*2));
+
+      /**
+      *
+      * Same than left key
+      *
+      **/
+      
+    }else if(event.keyCode === nRight) {
+
+      /**
+      *
+      * get latLng and zoom
+      *
+      **/
+      var gLat = gMap.getCenter().lat();
+
+      var gLng = gMap.getCenter().lng();
+
+      var gZoom = gMap.getZoom();
+
+      /**
+      *
+      * Change position to those value incremented on zoom ratio
+      *
+      **/
+
+      gMap.panTo( new google.maps.LatLng(gLat, gLng + ((0.1) / gZoom)*2));
+
+    }
+
+  }
+
+/**
+ *
+ * Prevent default use of input
+ *
+ **/
+ 
+ return false;
+
+};
+/**
+*
+* Change map style for colorblind
+*
+**/
+
+var switchStyleMap = function( style ){
+
+/**
+*
+* Define new style using map_style created on displayGoogleMap()
+*
+**/
+
+styledMap = new google.maps.StyledMapType(style,
+  {name: "Styled Map"});
+
+gMap.mapTypes.set('map_style', styledMap);
+
+gMap.setMapTypeId('map_style');
+
+
+};
+
+/**
+*
+* On click on colorblind button, change map stype
+*
+**/
+var toogleMapStyle = function( e ){
+
+  e.preventDefault();
+
+  /**
+  *
+  * toggle using global variable
+  *
+  **/
+  
+  if(typeof(bColorBlindOn) === "undefined" ) {
+
+    bColorBlindOn = false;
+
+  }
+
+  if(!bColorBlindOn){
+
+    switchStyleMap( jsColorBlindMapStyle );
+    $colorBlind.removeClass('active').addClass('active');
+    bColorBlindOn = true;
+
+  }
+  else
+  {
+
+    switchStyleMap( jsStandardMapStyle );
+    $colorBlind.removeClass('active');
+    bColorBlindOn = false;
+
+  }
+
+};
+
+/**
+*
+* Check if all markers targeted or filtered is on view
+*
+**/
+
+var fitToAllMarkers = function( markers ) {
+
+  var bounds = new google.maps.LatLngBounds();
+
+    /**
+    *
+    * Create bounds from markers
+    *
+    **/
+    
+    for( var index in markers ) {
+
+      /**
+      
+        TODO:
+        - Check if this work
+      
+        **/
+
+        if( marker[index].getVisible() === true && marker[index].getMap() !== null ){
+
+          var latlng = markers[index].getPosition();
+
+        }
+
+        bounds.extend(latlng);
+      }
+
+    /**
+    *
+    * Don't zoom in too far on only one marker
+    *
+    **/
+    
+    if (bounds.getNorthEast().equals(bounds.getSouthWest())) {
+
+     var extendPoint1 = new google.maps.LatLng(bounds.getNorthEast().lat() + 0.1, bounds.getNorthEast().lng() + 0.1);
+
+     var extendPoint2 = new google.maps.LatLng(bounds.getNorthEast().lat() - 0.1, bounds.getNorthEast().lng() - 0.1);
+
+     bounds.extend(extendPoint1);
+
+     bounds.extend(extendPoint2);
+   }
+
+   gMap.fitBounds( bounds );
+
+    /**
+     
+       TODO:
+       -  Adjusting zoom here doesn't work :/
+     
+       **/
+
+
+     };
+
+/**
+*
+* On click on showAllMarker button, show all marker
+*
+**/
+
+var showAllMarkerKot = function( e ){
+
+  e.preventDefault();
+
+  if(typeof bShowAllKot === 'undefined'){
+
+    bShowAllKot = false;
+
+  }
+
+/**
+*
+* Hide all markers if not in range
+*
+**/
+
+if( bShowAllKot ){
+
+  bShowAllKot = false;
+
+  $showMarkersKot.removeClass('active');
+
+  /**
+  *
+  * Call inRange to hide marker not in range
+  *
+  **/
+  
+  inRange( gCenterCity, nDistanceValueOk );
+
+  /**
+  *
+  * Show all
+  *
+  **/
+  
+}else{
+
+  for(var i =0; i < gMarkerArrayKot.length; i++){
+
+    gMarkerArrayKot[i].setMap(gMap);
+
+    gMarkerArrayKot[i].setOptions({'visible':true});
+
+  }
+
+  $showMarkersKot.removeClass('active').addClass('active');
+
+  bShowAllKot = true;
+
+}
+
+};
+/**
+*
+* On event on map item 
+*
+**/
+
+var eventInput = function()
+{
+
+  $filter.click(function(e){ ///CLICK
+    e.preventDefault();
+    nDistanceValueOk = Number(sRange.value);
+
+    if(!$.isNumeric(nDistanceValueOk))
+    {
+     var id = 5;
+     var sMessage = 'Distance: chiffres requis';
+     var sIcon = sImgDir+"reseaux/fb.jpg";
+
+     e_errorNotification(id, sMessage, sIcon );
+   }   
+
+   sCenterCity = sCity.value;
+   
+   if(bEcoleClick)
+   {
+    actionEcoleClick( nDistanceValueOk );
+  }
+  else
+  {
+   getCity( sCenterCity , nDistanceValueOk , "geocoder", function( bType, sMessage ){
+
+    if(bType){
+
+      gCenterCity  = sMessage;
+
+      processSubmit( $submit, 0 );
+
+      removeFormTuto($range, 'messageTuto');
+
+    }else{
+
+      processSubmit( $submit, 0 );
+
+    }
+  });
+ }
+ return false;
+
+}); 
+
+  $city.change(function(){ ///CHANGE INPUT TEXT
+    console.log('ok');
+    nDistanceValueOk = Number(sRange.value);
+
+    if(!$.isNumeric(nDistanceValueOk))
+    {
+     var id = 5;
+     var sMessage = 'Distance: chiffres requis';
+     var sIcon = sImgDir+"reseaux/fb.jpg";
+
+     e_errorNotification(id, sMessage, sIcon );
+   }   
+
+   sCenterCity = sCity.value;
+
+   bEcoleClick = false;
+
+   removeFormTuto($range, 'messageTuto');
+
+   removeFormError( $city );
+
+   if(bEcoleClick)
+   {
+    actionEcoleClick( nDistanceValueOk );
+  }
+  else
+  {
+
+    getCity( sCenterCity , nDistanceValueOk , "geocoder", function( bType, sMessage ){
+      if(bType){
+        gCenterCity  = sMessage;
+
+        processSubmit( $submit, 0 );
+
+        if($range.next().hasClass('tuto')){
+
+        }else{
+
+         if($range.next().hasClass('messageTuto')){
+
+         }else{
+          $range.after('<span class="range messageTuto">Vous pouvez régler la distance</span>');
+        }
+      }
+
+    }else{
+
+      processSubmit( $submit, 0 );
+
+    }
+  });
+
+  }
+    //actionChangeType ();
+    //ajaxAllKot();
+  });
+
+  $range.change(function(){ // CHANGE RANGE SLIDER
+
+    nDistanceValueOk = Number(sRange.value);
+
+    if(!$.isNumeric(nDistanceValueOk))
+    {
+     var id = 5;
+     var sMessage = 'Distance: chiffres requis';
+     var sIcon = sImgDir+"reseaux/fb.jpg";
+
+     e_errorNotification(id, sMessage, sIcon );
+   }   
+
+
+   sCenterCity = sCity.value;
+   if( sCenterCity === ""){
+
+    $showMarkersKot.css('display','block');
+
+  }
+
+  formError(sCenterCity === "", $('.localite.messageError'), $city ,'localite', $('.mainType') ,'Selectionnez une location', $city);
+
+  bEcoleClick = false;
+
+  if(bEcoleClick) {
+
+    actionEcoleClick( nDistanceValueOk );
+
+  }
+  else
+  {
+
+    if(gCenterCity){
+
+      drawCircle('ville' , gCenterCity , nDistanceValueOk);
+
+    }else{
+
+      $range.prop('disabled', true);
+
+    }
+  }
+
+});
+
+};
+$.fn.extend({
+  a_animate: function( animation){
+    if(typeof animation === 'undefined'){
+      animation = 'bounce';
+    }
+
+    if(this.hasClass(animation)){
+      this.removeClass(animation).addClass(sAnimationEvent)
+      .addClass(animation).addClass(sAnimationEvent)
+      .delay(1000)
+      .queue(function(){
+        $(this).removeClass(animation).addClass(sAnimationEvent)
+        .dequeue();
+      });
+
+    }else{
+
+      this.removeClass(sAnimationEvent)
+      .addClass(animation).addClass(sAnimationEvent)
+      .delay(1000)
+      .queue(function(){
+        $(this).removeClass(animation).addClass(sAnimationEvent)
+        .dequeue();
+      });
+    }
+  }
+});
+var removeFormTuto = function( selector, hasClass ){
+  if(selector.next().hasClass(hasClass)){
+    selector.next().remove();
+  }
+};
+var removeFormError = function( form ){
+  if(form.hasClass('form-error')){
+    form.removeClass('form-error');
+    form.next().remove();
+  }
+  if(form.find('.messageError').length <= 0){
+    $('.errors').removeClass('none').addClass('none');
+  }
+};
+var formError = function( condition, exist, form , name, parent, content, giveFocus){
+  if(condition){
+    if(exist.length <= 0){  
+      form.after('<span class="'+name+' messageError">Entrez une localité en premier</span>').html(content);
+    }
+    form.addClass('form-error');
+    if(giveFocus){
+      /*giveFocus.focus();*/
+    }
+  }
+
+  //thereIsError(parent.find('.errors'));
+  
+};
+var thereIsError = function( element ){
+  if(element.length > 0){
+    if(element.hasClass('none')){
+      element.removeClass('none');
+      if(element.find('span').length <= 0){
+        element.append('<span>erreur(s) détectée(s)</span>');
+      }
+    }
+  }
+};
+var processSubmit = function(that, nType){
+
+  if(nType === 1){
+
+   that.prop('disabled', true).val('Recherche...');
+
+ }else if(nType === 0){
+
+  that.delay(600)
+  .queue(function(next){
+    $(this).prop('disabled', false).val('Filtrer');
+    next();
+  });
+}
+
+
+};
+
+var ajaxAllKot = function(){
+ $.ajax({
+  dataType:"json",
+  url:"getKots",
+  type:"get",
+  success: function ( oData ){
+    oKots = oData;
+    createMarkerKot(oKots);
+  }
+})
+}
+
+var ajaxAllEcole = function(){
+ $.ajax({
+  dataType: "json",
+  url:"dataEcole",
+  type:"get",
+  success: function ( oResponse ){
+    oEcoles= oResponse.data;
+    createMarkerEcole(oEcoles);
+  }
+})
+}
+var getLatLng = function( value, type ){
+
+    if(type ==='lat'){
+
+      return value.split(',')[0];
+
+    }else if(type ==='lng'){
+
+      return value.split(',')[1];
+    }
+  }
+var createMarkerKot = function(oData){
+
+ for(var i=0;i < oData.length;i++)
+ {
+  var lat = getLatLng(oData[i].latlng, 'lat');
+  var lng = getLatLng(oData[i].latlng, 'lng');
+  /*listKot.push(LatLng);
+  console.log(listKot);*/
+
+  drawMarkerKot( new google.maps.LatLng(lat,lng), oData[i].id, i);
+}
+
+$streetView.css('display','block');
+
+mc = new MarkerClusterer(gMap, gMarkerArrayKot, {
+  gridSize: 50,
+  maxZoom: 15,
+  styles: clusterStyle,
+}); 
+//mc.clusters[i].markers[i].getVisible() <== si false alors mc.clusters[i].setMap(null)
+} 
+
+var createMarkerEcole = function(oData){
+ var blueIcon = new google.maps.MarkerImage('http://www.google.com/intl/en_us/mapfiles/ms/micons/blue-dot.png');
+
+ for(var i=0;i<=oData.length-1;i++)
+ {
+  var lat = oData[i].lat;
+  var lng = oData[i].lng;
+  var LatLng = [lat,lng];
+  listEcole.push(LatLng);
+  drawMarkerEcole( Number(listEcole[i][0]) , Number(listEcole[i][1]), oData[i].nom, blueIcon);
+}
+}
+
+var drawMarkerKot = function ( mPosition, sId, i)
+{
+
+  gMarkerKot = new google.maps.Marker({
+    position: mPosition,
+    map : gMap,
+    id : sId,
+    order:i,
+    icon : kotIcon,
+    /*visible: true,*/
+  });
+
+  gMarkerArrayKot.push(gMarkerKot);
+
+  google.maps.event.addListener(gMarkerKot, 'click', function() {
+    /*gMap.setZoom(17);*/
+    smoothZoom(gMap, 17, gMap.getZoom());
+    console.log(oKots[this.order]);
+
+    gMap.panTo(this.getPosition());
+
+    gCurrentPlace = this.getPosition();
+
+  });
+
+}
+
+var drawMarkerEcole = function ( nLat , nLng, sAdresse , icon)
+{
+  var position = new google.maps.LatLng(nLat,nLng);
+
+  gMarkerEcole = new google.maps.Marker({
+    position:position,
+    map : gMap,
+    animation: google.maps.Animation.DROP,
+    title : sAdresse,
+    icon : icon
+  });
+
+  gMarkerArrayEcole.push(gMarkerEcole);
+
+ // actionEcoleClick();
+ google.maps.event.addListener(gMarkerEcole,'click',function( e ){
+
+  bEcoleClick = true;
+  console.log(bEcoleClick);
+  sNom = [];
+    //centrer sur l'école
+    /*gMap.setZoom(12);*/
+    smoothZoom( gMap, 17, gMap.getZoom());
+    gMap.panTo(gMarkerEcole.getPosition());
+
+    gCurrentPlace = gMarkerEcole.getPosition();
+  //recuperer la lat/lng 
+  //récuperer les valeurs dans array
+  for(var i=0;i<=oEcoles.length-1;i++)
+  {
+    sNom = {latlng : new google.maps.LatLng( oEcoles[i].lat , oEcoles[i].lng ),nom:oEcoles[i].nom};
+    oEcole.push(sNom); 
+
+  }
+  
+  for (var i =0; i<=oEcole.length-1;i++){ 
+  //tester si un kot BDD === au kot clické
+
+  if( e.latLng.lat() === oEcole[i].latlng.lat() && e.latLng.lng() === oEcole[i].latlng.lng())
+  {
+      //afficher le nom dans l'input
+
+      $('#map').attr('value',oEcole[i].nom);
+
+      //enregistrer la valeur
+
+      gEcole = new google.maps.LatLng( oEcole[i].latlng.lat() , oEcole[i].latlng.lng());
+
+    }
+  }
+});
+
+}
+
+var actionEcoleClick = function( nDistance ){
+  //filtrer les kots en fonction d'un rayon
+   //afficher le cercle
+   
+   drawCircle( 'ecole', gEcole , nDistanceValueOk );
+ }
+ var defineCircle = function(center, radius, sColor){
+  return {
+    fillColor: '#fff',
+    fillOpacity: .6,
+    strokeColor: '#313131',
+    strokeOpacity: .4,
+    clickable: false,
+    strokeWeight: .8,
+    map: gMap,
+    center: center,
+    radius: radius
+  };
+}
+var inRange = function ( oCenter, nDistance ) //obj Google / numeric
+{
+
+  aKots = [];
+  var options = defineCircle(oCenter, nDistance);
+  cityCircle.setOptions( options );
+  cityCircle.bindTo('center', gMarker, 'position');
+  gMarker._cityCircle = cityCircle;
+
+  var boundd = cityCircle.getBounds();
+  for(var i=0;i<oKots.length;i++)
+  {
+
+   /*console.log(oKots[i].id+boundd.contains(new google.maps.LatLng(oKots[i].lat,oKots[i].lng)));*/
+   if(!boundd.contains(new google.maps.LatLng(oKots[i].lat,oKots[i].lng))){
+
+    if(typeof bShowAllKot === 'undefined'){
+
+     gMarkerArrayKot[i].setMap(null);
+     gMarkerArrayKot[i].setOptions({visible: false});
+     mc.redraw(); //TODO FAIRE FONCTIONNER CLUSTER AVEC DES MARKERS HIDDEN
+
+   }else{
+
+    if(bShowAllKot){// JE LES LAISSES VISIBLES
+      gMarkerArrayKot[i].setMap(gMap);
+      gMarkerArrayKot[i].setOptions({visible: true});
+
+      mc.redraw();
+
+    }else{
+
+     gMarkerArrayKot[i].setMap(null);
+     gMarkerArrayKot[i].setOptions({visible: false});
+     mc.redraw();
+   }
+ }
+
+
+}
+else
+{
+
+  aKots.push(oKots[i].id);
+
+  displayNumberResult(aKots.length);
+
+  gMarkerArrayKot[i].setMap( gMap );
+  gMarkerArrayKot[i].setOptions({visible: true});
+  gMap.fitBounds(boundd);
+  mc.redraw();
+
+}
+
+
+}
+
+if(aKots.length <= 0){
+
+  $showMarkersKot.css('display','block').a_animate();
+}
+
+$listKot.attr('value',JSON.stringify(aKots));
+
+}
+var displayNumberResult = function( nNumber ){
+
+  if($l_range.html().indexOf('(') < 0){
+
+    $l_range.html( $l_range.html() + '('+ nNumber +')');
+
+  }else{
+
+    $l_range.html( $l_range.html().replace(/\(.*?\)/g, "("+ nNumber +")"));
+
+  }
+}
+var hideGoogleMap = function() {
+
+  $('#gmap').css({display:"none"});
+  $('.mapInfo').css({height:"auto",marginLeft:0,float:"none"});
+
+}
+var showGoogleMap = function() {
+
+  $('#gmap').css({display:"block"});
+  $('.mapInfo').css({height:"auto",marginLeft:0,float:"left"});
+
+}
+var displayGoogleMap = function ( jsStyle  ){
+
+ var jsStyle = jsStyle || jsStandardMapStyle;
+
+ var aMapOptions = {
+  disableDefaultUI:true,
+  scrollwheel:false,
+  zoom: 8,
+  minZoom:nMinZoom,
+  center:gCenter,
+  styles: jsStyle,
+  streetViewControl: false,
+  mapTypeControlOptions: {
+
+    mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'map_style']
+  }
+}
+gMap = new google.maps.Map(document.getElementById('gmap'),aMapOptions);
+
+  //ajaxAllEcole();
+};
+
+var toggleStreetView = function( e ) {
+
+  e.preventDefault();
+
+  var toggle = panorama.getVisible();
+
+  
+  if(typeof gCurrentPlace !== "undefined"){
+
+    if (toggle == false) {
+
+      panorama.setPosition( gCurrentPlace );
+      panorama.setVisible( true );
+
+    } else {
+
+      panorama.setPosition( gCurrentPlace );
+      panorama.setVisible( false );
+
+    }
+  }else{
+
+    var id  = 6
+    var sMessage = "Aucun endroit ciblé";
+    e_errorNotification(id, sMessage, sIcon );
+
+  }
+
+};
+var displayStreetView = function( center ){
+
+  var panoramaOptions = {
+    position: center,
+    addressControlOptions: {
+      position: google.maps.ControlPosition.BOTTOM
+    },
+    visible:false,
+    panControl: true,
+    enableCloseButton: false,
+    pov: {
+      heading: 34,
+      pitch: 0
+    }
+  };
+  panorama = new  google.maps.StreetViewPanorama(document.getElementById('gmap'), panoramaOptions);
+  gMap.setStreetView(panorama);
+};
+var drawCircle = function(sType , oCenter, sDistance){
+  if( cityCircle )
+  {
+    cityCircle.setMap( null );
+  }
+  nDistance = Number(sDistance);
+
+  var oCenterCity = oCenter;
+  var oCircleRangeN = gSpherical.computeOffset(oCenterCity, nDistance, 0); //marker limitant au NORD
+  var oCircleRangeO = gSpherical.computeOffset(oCenterCity, nDistance, -90); //marker limitant au OUERT
+  var oCircleRangeS = gSpherical.computeOffset(oCenterCity, nDistance, 180); //marker limitant au SUD
+  var oCircleRangeE = gSpherical.computeOffset(oCenterCity, nDistance, 90); //marker limitant au EST
+  
+  if(sType ==='ville'){
+
+    gMarker.setPosition( oCenterCity );
+    gMarker.setMap( gMap );
+    var sColor = '#FF0000';
+
+  }
+  else(sType ==='ecole')
+  {
+    var sColor = '#0000FF';
+  }
+
+  var nDistance = google.maps.geometry.spherical.computeDistanceBetween(oCenterCity, oCircleRangeN);
+
+  var aCircleOptions = defineCircle(oCenter, nDistance, sColor);
+
+  cityCircle.setOptions(aCircleOptions);
+  var LatLngList = new Array (oCircleRangeN,oCircleRangeO,oCircleRangeS,oCircleRangeE);
+  var bounds = new google.maps.LatLngBounds();
+  for (var i = 0, LtLgLen = LatLngList.length; i < LtLgLen; i++) {
+    bounds.extend (LatLngList[i]);
+  }
+  gMap.fitBounds(bounds) ;
+
+  inRange(oCenter, nDistance);
+
+
+};
+var smoothZoom = function(map, max, cnt) {
+  if (cnt >= max) {
+    return;
+  }
+  else {
+    var z = google.maps.event.addListener(map, 'zoom_changed', function(event){
+      google.maps.event.removeListener(z);
+      smoothZoom(map, max, cnt + 1);
+    });
+        setTimeout(function(){map.setZoom(cnt)}, 80); // 80ms is what I found to work well on my system -- it might not work well on all systems
+      }
+    };
+    var e_isSaw = function( e , that){
+      that.parent().removeClass('notSee');
+
+      var nNumberOfErrorsTab = Number($errorsTab.find('.number').html());
+
+      if(nNumberOfErrorsTab > 0 ){
+
+        $errorsTab.find('.number').html(nNumberOfErrorsTab-1);
+
+        $errorsNotificationsAppend.find('li a').each(function(){if($(this).parent().hasClass('notSee')){$(this).parent().hasClass('notSee');$(this).mouseover(function(e){e_isSaw(e, $(this));})};}); 
+      }
+
+    };
+
+    var e_showCloseErrorsTab = function( e ){
+      if( e ){
+        e.preventDefault();
+      }
+
+      if(bErrorsTabStatus === 0 ){
+
+        $errorsNotifications.css({
+
+          right:"-12px",
+
+        }).queue(function(){
+
+          bErrorsTabStatus = 1;
+          $(this).dequeue();
+
+        }).delay(3000).queue(function(){
+         if($errorsNotifications.is(':hover',':focus')){
+          bErrorsTabStatus = 1
+        }else{
+          $(this).css({
+
+            right:"-250px",
+
+          }).dequeue();
+          bErrorsTabStatus = 0;
+        }
+      });
+
+
+        
+      }
+
+    };
+    var e_errorNotification = function( id, sMessage, sIcon, animate ){
+
+      if(animate){
+
+        var animate = animate;
+
+      }else{
+
+        var animate = 'shake'
+      }
+
+      e_showCloseErrorsTab();
+
+      if($errorsNotificationsAppend.find('li').attr('data-id',id).length > 0){
+        $errorsNotificationsAppend.find('li').attr('data-id',id).removeClass('notSee').addClass('notSee');
+                //REPLACEMENT
+                var nNumberOfErrorsTab = Number($errorsTab.find('.number').html());
+                // APPEND
+                $errorsTab.find('.number').html(nNumberOfErrorsTab+1);
+
+                $errorsNotifications.a_animate( animate );
+
+
+                $errorsNotificationsAppend.find('li a').each(function(){if($(this).parent().hasClass('notSee')){$(this).parent().hasClass('notSee');$(this).mouseover(function(e){e_isSaw(e, $(this));})};}); 
+                /*$errorsNotificationsAppend.find('li a').each(function(){$(this).focus(function(e){e_isSaw(e, $(this));});}); */
+
+              }else{
+
+                //REPLACEMENT
+                var nNumberOfErrorsTab = Number($errorsTab.find('.number').html());
+                var nNumberOfErrorsTitle = Number($errorsNotifications.find('.numberTitle').html());
+
+                var sCode = sErrorsNotifcationOutput.replace(':message',sMessage).replace(':icon',sIcon).replace(':id',id);
+                var title = sErrorsTitle.replace(':number',nNumberOfErrorsTitle+1);
+                // APPEND
+                $errorsTab.find('.number').html(nNumberOfErrorsTab+1);
+                $errorsNotifications.find('.titleMessageError').html(title);
+                $errorsNotificationsAppend.append(sCode);
+
+                
+                $errorsNotifications.a_animate( animate );
+
+                $errorsNotificationsAppend.find('li a').each(function(){if($(this).parent().hasClass('notSee')){$(this).parent().hasClass('notSee');$(this).mouseover(function(e){e_isSaw(e, $(this));})};}); 
+                /*$errorsNotificationsAppend.find('li a').each(function(){$(this).focus(function(e){e_isSaw(e, $(this));});}); */
+              }
+            };
+
+            var getCity = function(sPosition, sDistance, sType, callback){
+
+              var nDistance = Number(sDistance);
+
+              if(sType ==="geocoder"){
+
+                processSubmit($submit, 1);
+
+                var aMapOptions = {
+                  disableDefaultUI:true,
+                  scrollwheel:false,
+                  mapTypeId: google.maps.MapTypeId.ROADMAP,
+                  center:geocoder.geocode({
+                    address:sPosition,
+                    region:"be"
+
+                  },function(aResults,sStatus)
+                  {
+                    if(sStatus ===google.maps.GeocoderStatus.OK)
+                    {
+                      var center = aResults[0].geometry.location;
+                      
+                      /**
+                      *
+                      * @if circle already create, the zoom is define by the bounds of gMap
+                      * @else zoom is define basicaly
+                      *
+                      **/
+                      
+                      if( typeof cityCircle !== "undefined" && cityCircle.getBounds() !== null){
+
+                        gMap.fitBounds( cityCircle.getBounds() );
+
+                      }
+                      else
+                      {
+
+                        smoothZoom(gMap, 15, gMap.getZoom());
+
+                      }
+
+                      gMap.panTo ( center );
+                      gCurrentPlace = center;
+
+                      $('#coords').attr('value',center);
+
+                      var oCircleRangeN = gSpherical.computeOffset(center, nDistance, 360);
+
+                      gMarker.setPosition( center );
+                      gMarker.setMap( gMap );
+
+                      $streetView.css('display','block');
+
+                      google.maps.event.addListener(gMarker, 'click', function() {
+                        smoothZoom(gMap, 17, gMap.getZoom());
+                        gMap.panTo(gMarker.getPosition());
+                      });
+
+                      //drawCircle( 'ville' ,center , sDistance );
+                      callback( true , center);
+                    }
+                    else if(sStatus ===google.maps.GeocoderStatus.ZERO_RESULTS)//1
+                    {
+                      var id = 1;
+                      var sMessage = 'Nous avons trouvé aucun résultat pour votre recherche';
+                      var sIcon = sImgDir+"reseaux/fb.jpg";
+
+                      e_errorNotification(id, sMessage, sIcon, 'shake' );
+                      callback( false, sMessage);
+
+                    }
+                    else if(sStatus ===google.maps.GeocoderStatus.REQUEST_DENIED)//2
+                    {
+
+                      var id = 2;
+                      var sMessage = 'Requête refusée, changez vos termes et réessayé';
+                      var sIcon = sImgDir+"reseaux/fb.jpg";
+
+                      e_errorNotification(id, sMessage, sIcon );
+                      callback( false, sMessage);
+                    }
+                    else if(sStatus ===google.maps.GeocoderStatus.INVALID_REQUEST)//3
+                    {
+
+                      var id = 3;
+                      var sMessage = 'Entrez une adresse (rue, localité)';
+                      var sIcon = sImgDir+"reseaux/fb.jpg";
+
+                      e_errorNotification(id, sMessage, sIcon );
+                      callback( false, sMessage);
+                    }
+                    else if(sStatus ===google.maps.GeocoderStatus.UNKNOWN_ERROR)//4
+                    {
+
+                      var id =4;
+                      var sMessage = 'Erreur interne, relancez votre recherche';
+                      var sIcon = sImgDir+"reseaux/fb.jpg";
+
+                      e_errorNotification(id, sMessage, sIcon );
+                      callback( false, sMessage);
+                    }
+
+                  })
+}
+}else if( sType === "latlng" ){
+
+  processSubmit($submit, 1);
+  
+  smoothZoom(gMap, 15, gMap.getZoom());
+  gMap.panTo ( sPosition );
+  gMarker.setPosition( sPosition );
+  gMarker.setMap( gMap );
+  gCurrentPlace = sPosition;
+
+  $streetView.css('display','block');
+
+  google.maps.event.addListener(gMarker, 'click', function() {
+    smoothZoom(gMap, 17, gMap.getZoom());
+    gMap.panTo(gMarker.getPosition());
+  });
+  //drawCircle( 'ville' ,sPosition , sDistance );
+  callback(true, sPosition);
+}
+}
+google.maps.event.addDomListener(window, 'load', initialize);
+}
+}).call(this,jQuery);

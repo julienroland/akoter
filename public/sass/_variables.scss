@@ -1,0 +1,142 @@
+
+
+$h-m: 60px; //TOP BAR CONTENTS HEIGHT SIZE
+
+$hm: 80px; //TOP BAR HEIGHT SIZE
+
+$black:rgb(100,100,100);
+
+$lightBlack:rgba(100,100,100,0.4);
+
+$bm: #333333;
+
+$bg: #202020;
+
+$blblue: #298AE8;
+
+$byellow: #f927b6;
+
+$facebook :#3A599A;
+
+$twitter :#4EABFB;
+
+$bgrey: #d7d7d7;
+
+$bblue: #206CB5;
+
+$bbluel2: #70AFEC;
+
+$bblueD2: #123E68;
+
+$bblueD: #324E68;
+
+$borange: #ef672f;
+
+$bgreen:#3ece7b;
+
+$bblack: #2d363e;
+
+/* $bred: darken(#F27071,10%); */
+$bred: #E33337;
+
+$gMain : rgb(20,200,30);
+
+$cacaA : rgba(202,202,202,0.9);
+
+$caca : rgb(202,202,202);
+
+$blue: rgb(10,60,70);
+
+$lBlue: rgb(10,100,200);
+
+/* CONFIG */
+$mw:960px;
+
+$nMw: 960;
+
+$gutter: 24px;
+
+$nbG:1.618; // nombre d'or
+
+$bh:1px solid #eee;
+/* typography */
+$pd: $gutter / 2;
+
+$ff2: palatino, 'palatino lt std', 'palatino linotype', 'book antiqua', garamond, serif;
+
+
+$ff:'Gotham','Helvetica Neue Light', 'Helvetica Neue',Helvetica, Arial, sans-serif;
+
+$ff: 'Helvetica Neue Light', 'Helvetica Neue',Helvetica, Arial, sans-serif;
+
+//$ffi: FontAwesome;
+$ffi: "Flaticon";
+
+$fs:15px; //font-size
+
+$fsn:15; //font-size
+
+$lh:1.5; //line-height
+
+$tc: #3a3a3a; //text-color 333333
+
+$menu: #f7f7f4;
+
+$success: #3c763d;
+
+$error: #a94442;
+
+$info: #8a6d3b;
+
+$errorBackground: #f2dede;
+
+$infosBackground: #fcf8e3;
+
+$successBackground: #dff0d8;
+/* END typography */
+
+/*media*/
+$m1:600px;
+
+$m2:1000px;
+
+$m2:1200px;
+/*END MEDIA*/
+
+/*COLOR*/
+
+/* $mc: #F68C0E; */
+$mc: #298AE8;
+//7661b0;
+
+$mcc: darken($mc,20%);
+
+$footer: #353535;
+
+$blueH : darken(#5382d9,10%);
+
+$grey : #7c7c7c;
+
+$greyH: darken(#494949,10%);
+
+$greyA: #626262;
+
+$greyL: #F1F1F1;
+
+$greyDB:#2d292a;
+
+$greyL2: darken(#F2F2F2,20%);
+
+$greyl2: lighten($greyL2,15%);
+
+$greyL3: #f7f3eb;
+
+$greyL2H: darken($greyL2,10%);
+
+$greyD:#737373;
+
+$greyDH:darken($greyD,10%);
+
+$greyD2:darken(#737373,5%);
+
+$greyD2H:darken($greyD2,10%);

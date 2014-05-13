@@ -1,0 +1,482 @@
+
+@font-face {
+  font-family: "Flaticon";
+  src: font-url("flaticon.eot");
+  src:font-url("flaticon.eot#iefix") format("embedded-opentype"),
+  font-url("flaticon.woff") format("woff"),
+  font-url("flaticon.ttf") format("truetype"),
+  font-url("flaticon.svg") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+.success-tick-box{
+  position: relative;
+  float: right;
+  &:before{
+    content:"\e009";
+    font-family: $ffi;
+    width:25px;
+    @include box-sizing(border-box);
+    color:$success; 
+    display:block;
+  }
+}
+.warning-tick{
+  color:$info;  
+  text-decoration: none;
+  cursor:pointer;
+  @include transition(all 0.3s ease-in-out 0.2s);
+  &:hover,&:focus,&:active{
+    &+ .warning-tick-box{
+      @include transition(all 0.3s ease-in-out 0.2s);
+      display:block;
+    }
+  }
+}
+.warning-tick-box{
+  border:1px solid $info;
+  position:absolute;
+  display:block;
+  min-height:50px;
+  max-width: 400px;
+  min-width: 250px;
+  top: -30px;
+  left: 180px;
+  padding:$gutter / 2;
+  @include box-shadow( lighten($info,10%) 0 0 1px 0px);
+  background-color:white;
+  display:none;
+  z-index: 10;
+  &:before{
+    @include triangle-left(10px, $info);
+  }
+  &:hover,&:focus,&:active{
+    display: block;
+  }
+
+}
+.input-city{
+  @include c(12);
+  position: relative;
+  &:before{
+    content:"\e009";
+    font-family: $ffi;
+    vertical-align: middle;
+    line-height: 44px;
+    width:25px;
+    @include box-sizing(border-box);
+    padding:0 5px 0 5px;
+    max-height: 44px;
+    text-align: center;
+    color:$greyD; 
+    display:block;
+    @include abs-right();
+    right:3px;
+    pointer-events:none;
+  }
+}
+.input-email{
+  @extend .input-city;
+  &:before{
+    font-size:25px!important;
+  }
+}
+.input-search{
+  @extend .input-city;
+  &:before{
+  }
+}
+.input-password{
+  @extend .input-city;
+  &:before{
+    content:"\e011";
+    pointer-events:auto;
+    cursor:pointer;
+  }
+}
+.input-price{
+  @extend .input-city;
+  &:before{
+    right: 12px;
+    content:"€";
+  }
+}
+.input-size{
+  @extend .input-city;
+  &:before{
+    right: 12px;
+    content:"\e011";
+  }
+}
+.input-date{
+  @extend .input-city;
+  &:before{
+    content:"\e011";
+  }
+}
+.input-range{
+  position: relative;
+  &:before{
+    content:"\e00f";
+    font-family: $ffi;
+    vertical-align: middle;
+    line-height: 35px;
+    width:25px;
+    pointer-events:none;
+    @include box-sizing(border-box);
+    padding:0 5px 0 5px;
+    text-align: center;
+    color:$greyD; 
+    display:block;
+    @include abs-right();
+  }
+}
+[class^="icon-"]:before, [class*=" icon-"]:before,
+[class^="icon-"]:after, [class*=" icon-"]:after {   
+  font-family: Flaticon;
+  font-size: $fs;
+  font-style: normal;
+  margin:0 5px;
+  margin-top: 3px;
+  @include box-sizing(border-box);
+  min-width:$fs;
+  border-bottom: 0;
+  display:inline-block;
+
+  @include transition(none);
+
+}.icon-address14:before {
+  content: "\e000";
+}
+.icon-approve:before {
+  content: "\e001";
+}
+.icon-arroba:before {
+  content: "\e002";
+}
+.icon-arrow:before {
+  content: "\e003";
+}
+.icon-arrow198:before {
+  content: "\e004";
+}
+.icon-arrow259:before {
+  content: "\e005";
+}
+.icon-arrow270:before {
+  content: "\e006";
+}
+.icon-arrow367:before {
+  content: "\e007";
+}
+.icon-back3:before {
+  content: "\e008";
+}
+.icon-bath1:before {
+  content: "\e009";
+}
+.icon-big61:before {
+  content: "\e00a";
+}
+.icon-bookmark:before {
+  content: "\e00b";
+}
+.icon-business9:before {
+  content: "\e00c";
+}
+.icon-calendar68:before {
+  content: "\e00d";
+}
+.icon-camera44:before {
+  content: "\e00e";
+}
+.icon-check30:before {
+  content: "\e00f";
+}
+.icon-chevron11:before {
+  content: "\e010";
+}
+.icon-circle45:before {
+  content: "\e011";
+}
+.icon-clock4:before {
+  content: "\e012";
+}
+.icon-close13:before {
+  content: "\e013";
+}
+.icon-close3:before {
+  content: "\e014";
+}
+.icon-comment7:before {
+  content: "\e015";
+}
+.icon-contrast:before {
+  content: "\e016";
+}
+.icon-create1:before {
+  content: "\e017";
+}
+.icon-dislike5:before {
+  content: "\e018";
+}
+.icon-eating:before {
+  content: "\e019";
+}
+.icon-education14:before {
+  content: "\e01a";
+}
+.icon-email11:before {
+  content: "\e01b";
+}
+.icon-error2:before {
+  content: "\e01c";
+}
+.icon-euro2:before {
+  content: "\e01d";
+}
+.icon-exclamation9:before {
+  content: "\e01e";
+}
+.icon-favourite1:before {
+  content: "\e01f";
+}
+.icon-gearwheels:before {
+  content: "\e020";
+}
+.icon-help5:before {
+  content: "\e021";
+}
+.icon-help7:before {
+  content: "\e022";
+}
+.icon-home63:before {
+  content: "\e023";
+}
+.icon-key105:before {
+  content: "\e024";
+}
+.icon-loading1:before {
+  content: "\e025";
+}
+.icon-location2:before {
+  content: "\e026";
+}
+.icon-location32:before {
+  content: "\e027";
+}
+.icon-lock24:before {
+  content: "\e028";
+}
+.icon-longa:before {
+  content: "\e029";
+}
+.icon-magnifier10:before {
+  content: "\e02a";
+}
+.icon-map25:before {
+  content: "\e02b";
+}
+.icon-map43:before {
+  content: "\e02c";
+}
+.icon-map54:before {
+  content: "\e02d";
+}
+.icon-map57:before {
+  content: "\e02e";
+}
+.icon-medal:before {
+  content: "\e02f";
+}
+.icon-medal30:before {
+  content: "\e030";
+}
+.icon-meter2:before {
+  content: "\e031";
+}
+.icon-mini9:before {
+  content: "\e032";
+}
+.icon-mobile41:before {
+  content: "\e033";
+}
+.icon-move6:before {
+  content: "\e034";
+}
+.icon-new16:before {
+  content: "\e035";
+}
+.icon-nope:before {
+  content: "\e036";
+}
+.icon-open19:before {
+  content: "\e037";
+}
+.icon-opened4:before {
+  content: "\e038";
+}
+.icon-person3:before {
+  content: "\e039";
+}
+.icon-piggy1:before {
+  content: "\e03a";
+}
+.icon-pins18:before {
+  content: "\e03b";
+}
+.icon-pins20:before {
+  content: "\e03c";
+}
+.icon-plus12:before {
+  content: "\e03d";
+}
+.icon-prohibited1:before {
+  content: "\e03e";
+}
+.icon-recurring1:before {
+  content: "\e03f";
+}
+.icon-remove11:before {
+  content: "\e040";
+}
+.icon-resize1:before {
+  content: "\e041";
+}
+.icon-send5:before {
+  content: "\e042";
+}
+.icon-seo1:before {
+  content: "\e043";
+}
+.icon-shield35:before {
+  content: "\e044";
+}
+.icon-shower2:before {
+  content: "\e045";
+}
+.icon-speech76:before {
+  content: "\e046";
+}
+.icon-star51:before {
+  content: "\e047";
+}
+.icon-tap1:before {
+  content: "\e048";
+}
+.icon-thumbs26:before {
+  content: "\e049";
+}
+.icon-time2:before {
+  content: "\e04a";
+}
+.icon-tools6:before {
+  content: "\e04b";
+}
+.icon-user3:before {
+  content: "\e04c";
+}
+.icon-wifi42:before {
+  content: "\e04d";
+}
+
+
+@mixin icon() {
+  .icon {
+    width: 32px;
+    height: 32px;
+    display: inline-block;
+    float: left;
+    margin-right: 0.5em;
+    top: 0;
+    text-indent: -999999px;
+    background-size: 100%;
+    vertical-align: middle;
+  }
+  .icon-menu {
+
+    background-image: url('../img/framework/icon/menu2White.png');
+  }
+  .icon-chevron-left-little {
+    width: 16px;
+    height: 16px;
+
+    background-image: url('../img/framework/icon/chevron-left-little.png');
+
+  }
+  .icon-chevron-right-little {
+    width: 16px;
+    height: 16px;
+
+    background-image: url('../img/framework/icon/chevron-right-little.png');
+
+  }
+  .icon-chevron-right-white {
+
+    float: right;
+    background-image: url('../img/framework/icon/chevron-rightWhite.png');
+
+  }
+  .icon-chevron-right-little-white {
+    height: 16px;
+    width: 16px;
+    float: right;
+    background-image: url('../img/framework/icon/chevron-right-littleWhite.png');
+  }
+  .icon-chevron-bottom-white {
+
+    float: right;
+    background-image: url('../img/framework/icon/chevron-bottomWhite.png');
+
+  }
+  .icon-shop-white {
+
+    float: right;
+    background-image: url('../img/framework/icon/shopWhite.png');
+
+  }
+  .icon-map-little {
+    height: 16px;
+    width: 16px;
+    float: right;
+
+    background-image: url('../img/framework/icon/map-little.png');
+
+  }
+  .icon-email-little {
+    height: 16px;
+    width: 16px;
+    float: right;
+    background-image: url('../img/framework/icon/mail-little.png');
+
+  }
+  .icon-tel-little {
+    height: 16px;
+    width: 16px;
+    float: right;
+    background-image: url('../img/framework/icon/tel-little.png');
+
+  }
+  .icon-bag-white {
+    height: 32px;
+    width: 32px;
+    background-image: url('../img/framework/icon/bagWhite.png');
+  }
+  .icon-go-white {
+    height: 32px;
+    width: 32px;
+    background-image: url('../img/framework/icon/goWhite.png');
+  }
+  .icon-login {
+    height: 16px;
+    width: 16px;
+    float: none;
+    background-image: url('../img/framework/icon/login.png');
+  }
+  .icon-account {
+    height: 16px;
+    float: none;
+    width: 16px;
+    background-image: url('../img/framework/icon/account.png');
+  }
+}

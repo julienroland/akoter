@@ -1,0 +1,247 @@
+
+@media screen and (min-width:queries($nMw / 2)){ //512px
+  /* GENERAL */
+
+  /* END GENERAL */
+  /* NAV */
+
+  /* END NAV */
+
+  /* HOME */
+  .onePeople{
+      @include cl(6);
+    }
+  .home{
+    
+
+  /* END HOME */
+ /* KOTS */
+ .kots{
+
+  .kot{
+
+    .mainInfos{
+      margin-bottom: 0;
+      .photo{
+
+      }
+      .content{
+        .typeAndLocation{
+
+        }
+        p{
+          font-size: 0.9em;
+        }
+      }
+      .special{
+        @include c(12);
+        .spe{
+          &:before{
+            font-size: 1.435em;
+          }
+        }
+      }
+    }
+    .addInfos{
+      .star{
+        &:after{
+          display:block;
+          height:100%;
+          visibility:visible;
+        }
+      }
+      .howMuch{
+      }
+      .locateBy{
+
+      }
+
+    }
+
+  }
+}
+  /* END KOTS */
+}
+}
+@media screen and (min-width: queries(800)){
+  /* GENERAL */
+  .titlePopup{
+    font-size: 2.168em;
+
+  }
+  /* END GENERAL */
+  /* HOME */
+  /* BANNER */
+  .addInfos{
+    .topInfos{
+      float:right;
+    }
+    .topLinks{
+      display:block;
+      float:left;
+    }
+  }
+  .logo{
+    //float:left;
+  }
+  .banner{
+    .nav{
+      @include c(12);
+      margin-top: 0;
+    }
+  }
+  .whatWeDo{
+    line-height: 1;
+    display:inline-block;
+    margin-top: ($hm - $h-m) / 2;
+    margin-bottom: ($hm - $h-m) / 2;
+    font-size: 1em;
+    margin-left:$gutter / 2;
+    line-height: 1;
+    height:auto;
+   // float:left;
+
+ }
+ .profilItem{
+  width:auto;
+    //float:left;
+  }
+  /* END BANNER */
+  /* INFOS */
+  .home{
+    .infos{
+      @include cl(4);
+      max-width: 300px;
+    }
+  }
+  /* END INFOS */
+  /* END HOME */
+  /* POPUP */
+  $country-h:188px;
+  .country-french{
+    height:$country-h;
+  }
+  .country-english{
+    height:$country-h;
+  }
+  .country-neederlands{
+    height:$country-h;
+  }
+  .country-text{
+    display:inline-block;
+  }
+  .lang-choice{
+    @include cl(4);
+    
+  }
+  /* END POPUP */
+}
+@media screen and (min-width: queries(( $nMw / 4) * 3)){ // 768
+/* GENERAL */
+.mainTitle{
+  //text-align: left;
+  font-size: 2.618em;
+}
+.accountTitle{
+  //text-align: left;
+  font-size: 1.818em;
+}
+.listingTitle{
+	font-size:2.3em;
+}
+.sortTitle{
+  font-size: 1.3em;
+}
+/* END GENERAL */
+   /* HOME */
+   .onePeople{
+      @include cl(4);
+    }
+
+  .kots{
+
+    .kot{
+      /* @include cl(3); */
+    }
+  }
+  /* END HOME */
+
+}
+@media screen and (min-width: queries(860)){
+  /* HOME */
+  .home{
+
+  }
+  /* END HOME */
+  .kots{
+    @include c(12);
+  }
+  .kotsByCities{
+    display:block;
+    margin-top: 45px + 48px;
+    @include cll(4.5);
+    .photo{
+      max-height: 160px;
+    }
+  }
+}
+@media screen and (min-width: queries(900)){
+ /* BANNER */
+ .logo{
+  float:left;
+}
+.whatWeDo{
+  float:left;
+  display:block;
+  height:$h-m;
+  line-height: $h-m;
+  margin-top: ($hm - $h-m) / 2;
+  margin-bottom: ($hm - $h-m) / 2;
+  vertical-align: baseline;
+}
+.menu{
+  float:right;
+}
+ /* END BANNER */
+ /* HOME */
+ .home{
+
+
+}
+  /* END HOME */
+  .kots{
+    @include c(12);
+  }
+  .kot{
+    /* @include cl(4); */
+  }
+  .kotsByCities{
+    display:block;
+    @include cll(4);
+    .photo{
+      max-height:200px;
+      img{
+        min-height: 100%;
+      }
+    }
+  }
+}
+@media screen and (min-width: queries($nMw)){
+ /* HOME */
+  .onePeople{
+    @include cl(4);
+  }
+
+.kotsByCities{
+  display:block;
+  .city{
+    .photo{
+      max-height: 200px;
+    }
+  }
+}
+  /* END HOME */
+}
+@media screen and (max-width: queries($nMw)){
+
+}
