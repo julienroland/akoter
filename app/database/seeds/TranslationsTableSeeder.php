@@ -967,7 +967,7 @@ for($m=1;$m <= count($lang); $m++){
 				"content_type"=>"Location",
 				"content_id"=>$i,
 				"key"=>"slug",
-				"value"=>Helpers::toSlug($lang[$m-1].Hash::make(rand(1, 1000))."title long ou court"),
+				"value"=>Helpers::toSlug($lang[$m-1].sha1(rand(1, 1000))."title long ou court"),
 				"language_id"=>$m,
 				)
 			);

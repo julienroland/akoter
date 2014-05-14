@@ -4,7 +4,13 @@
 */
 class AjaxController extends BaseController
 {
-	
+	public function createCookie( $name ){
+		
+		$forever = Cookie::forever($name, false);
+
+		return Response::json('success', 200)
+		->withCookie($forever);
+	}
 	public function listKot()
 	{
 		$datas = DB::table('kot')->get();

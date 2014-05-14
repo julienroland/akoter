@@ -129,7 +129,7 @@ var filterMenu = function( e ){
 		$searchBar.css('display','none');
 
 		$map.css({
-			'padding-top':70,
+			'margin-top':70,
 		});
 
 		$listing.css({
@@ -151,7 +151,7 @@ var filterMenu = function( e ){
 		$searchBar.css('display','block');
 
 		$map.css({
-			'padding-top':94,
+			'margin-top':112,
 		});
 
 		$listing.css({

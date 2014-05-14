@@ -74,16 +74,16 @@
 		@endif
 		<div class="howMuchLocations" style="background:url(/img/posts/howMuchLocations.jpg); background-position: center bottom; background-repeat: no-repeat; background-size: cover;">
 			<div class="wrapper">
-					<div class="content">
-						<span class="accroche">
-							<span class="b">Akoter</span> c'est <span class="nb_locations">{{$nb_locations}}</span> locations
-						</span>
-						<p>
-							dans toute la Belgique.
-							Trouvez le logement de vos rêves grâce à notre système de recherche !
-						</p>
-						<a href="{{route('listLocation')}}" class="btn-img">{{trans('general.list_locations2')}}</a>
-					</div>
+				<div class="content">
+					<span class="accroche">
+						<span class="b">Akoter</span> c'est <span class="nb_locations">{{$nb_locations}}</span> locations
+					</span>
+					<p>
+						dans toute la Belgique.
+						Trouvez le logement de vos rêves grâce à notre système de recherche !
+					</p>
+					<a href="{{route('listLocation')}}" class="btn-img">{{trans('general.list_locations2')}}</a>
+				</div>
 			</div>
 		</div>	
 		@if(Helpers::isOk( $posts ) )
@@ -113,5 +113,9 @@
 <div class="overlay" aria-hidden="true">
 
 </div>
+@if(!Cookie::has('map') && !Cookie::has('tuto'))
+
 @include('includes.tutoMap')
+
+@endif
 @stop

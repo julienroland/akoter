@@ -31,6 +31,18 @@ class Translation extends Eloquent {
 	 public function scopeTitle($query)
     {
         return $query->whereKey('title');
+    } 
+    public function scopeName($query)
+    {
+        return $query->whereKey('name');
+    }
+	 public function scopeDescription($query)
+    {
+        return $query->whereKey('description');
+    }
+	 public function scopeSlug($query)
+    {
+        return $query->whereKey('slug');
     }
 
 }

@@ -1385,11 +1385,11 @@ var displayNumberResult = function( nNumber ){
 
 	if($l_range.html().indexOf('(') < 0){
 
-		$l_range.html( $l_range.html() + '('+ nNumber +')');
+		$l_range.html( $l_range.html() + ' ('+ nNumber +')');
 
 	}else{
 
-		$l_range.html( $l_range.html().replace(/\(.*?\)/g, "("+ nNumber +")"));
+		$l_range.html( $l_range.html().replace(/\(.*?\)/g, " ("+ nNumber +")"));
 
 	}
 }

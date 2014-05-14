@@ -98,7 +98,7 @@
   @extend .input-city;
   &:before{
     right: 12px;
-    content:"€";
+    content:"&euro;";
   }
 }
 .input-size{
@@ -106,6 +106,7 @@
   &:before{
     right: 12px;
     content:"\e011";
+    font-size: 1.8em!important;
   }
 }
 .input-date{

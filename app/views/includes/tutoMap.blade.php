@@ -1,3 +1,4 @@
+
 <div class="helper">
 	<a href="javascript:void(0)" class="closeTuto icon icon-prohibited1">Fermer l'aide</a>
 	<div class="showIt">
@@ -43,7 +44,7 @@
 	<div class="interaction">
 
 		<a href="javascript:void(0)" class="notDisplayThisTuto" data-name="map">Merci de plus afficher cette aide</a> <b>|</b>
-		<a href="javascript:void(0)" class="notDisplayAllTuto" data-name="map">Merci de ne plus afficher d'aide sur l'ensemble du site</a>
+		<a href="javascript:void(0)" class="notDisplayAllTuto" data-name="tuto">Merci de ne plus afficher d'aide sur l'ensemble du site</a>
 	</div>
 
 </div>

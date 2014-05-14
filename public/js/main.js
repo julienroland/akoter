@@ -38,6 +38,8 @@
 	//TUTO
 	$tuto = $('.helper'),
 	$closeTuto = $('.closeTuto'),
+	$notDisplayThisTuto = $('.notDisplayThisTuto'),
+	$notDisplayAllTuto = $('.notDisplayAllTuto'),
 	//POPUP
 	$popup = $('.popup'),
 	$popupLang = $('.popup.lang'),
@@ -209,6 +211,9 @@ $toPopup.on('click',openPopup);
 	**/
 	$closeTuto.on('click', closeTuto);
 
+	$notDisplayThisTuto.on('click', createCookie);
+
+	$notDisplayAllTuto.on('click', createCookie);
 });	
 /*var fixSort = function(){
 	var $sort = $('.short');
@@ -232,11 +237,28 @@ $toPopup.on('click',openPopup);
 		});
 	}
 };*/
-var closeTuto = function(e){
+var createCookie = function(e){
+	e.preventDefault();
+
+	$.ajax({
+		url:'createCookie/'+$(this).attr('data-name'),
+	});
+
+	closeTuto(e, $(this).parent());
+}
+var closeTuto = function(e, $that){
 
 	e.preventDefault();
 
-	$(this).parent().css('display','none');
+	if(typeof $that !=="undefined"){
+
+		$that.parent().css('display','none');
+
+	}else{
+
+		$(this).parent().css('display','none');
+
+	}
 }
 var showTickBox = function( ){
 	$(this).next($warningBox).show();
@@ -259,9 +281,9 @@ var showSearch = function(e){
 
 	var $that = $(this);
 	$m_oneBuilding.css('display','none')
-		$m_research.css('display','block');
-		$switchView.find('a').removeClass('active');
-		$that.addClass('active');
+	$m_research.css('display','block');
+	$switchView.find('a').removeClass('active');
+	$that.addClass('active');
 };
 var addAgence = function(e){
 

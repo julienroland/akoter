@@ -33,7 +33,7 @@ class LocationController extends BaseController
 
 				$locations = Location::getLocationsFilter( $input );
 
-			}
+			}	
 			else{
 
 				/**
@@ -92,7 +92,7 @@ class LocationController extends BaseController
 		$input = Input::except('page');
 
 		Session::put('filter', $input );
-
+		
 		return View::make('listing.locations', array( 'page' => 'locations','widget'=>array(
 			'date',
 			'ui',

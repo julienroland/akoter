@@ -27,25 +27,34 @@ class TypeLocation extends Eloquent {
 
 			$value = trans('form.all');
 		}
+		/**
+		
+			TODO:
+			- Prob souvent avec le cache sur la trad d'internat
+			- Second todo item
+		
+			**/
 
-		$typeLocationDump = TypeLocation::with(array('translation'=>function($query){
+			$typeLocationDump = TypeLocation::with(array('translation'=>function($query){
 
-			$query->remember(Config::get('var.remember'), 'typeLocation.translation');
+				$query->remember(Config::get('var.remember'), 'typeLocation.translation');
 
-		}))->remember(Config::get( 'var.remember'), 'typeLocation' )->get();
+			}))->remember(Config::get( 'var.remember'), 'typeLocation' )->get();
 
-		$data = array(
-			''=>$value,
-			);
+			$data = array(
+				''=>$value,
+				);
 
-		foreach( $typeLocationDump as $type){
-			
-			$data[$type->id] = $type->translation[0]->value;
+			foreach( $typeLocationDump as $type){
 
-		}
+				if(isset($type->translation[0])){
+					$data[$type->id] = $type->translation[0]->value;
+				}
 
-		return $data;
+			}
 
-	} 
+			return $data;
 
-}
+		} 
+
+	}

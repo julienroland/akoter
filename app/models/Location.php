@@ -389,9 +389,9 @@ class Location extends Eloquent implements SluggableInterface{
 			$lang_id = Session::get('langId');
 		}
 
-		if(isset($input['listKot'])){
+		if(isset($input['list'])){
 
-			$list = json_decode($input['listKot']);
+			$list = json_decode($input['list']);
 		}
 
 		//[img, title, type_location, city, short-description, rating, room_remaining, owner, charge[price,type]]
@@ -406,11 +406,7 @@ class Location extends Eloquent implements SluggableInterface{
 				},
 				'building.region.translation',
 				'building.user',
-				'typeLocation.translation'=>function($query){
-
-					$query->remember(Config::get('var.remember'), 'typeLocation.translation');
-
-				},
+				'typeLocation.translation',
 				'building.locality',
 				'particularity.translation',
 				))
@@ -421,6 +417,24 @@ class Location extends Eloquent implements SluggableInterface{
 
 			$locations->whereIn('id', $list);
 
+		}
+
+		if(isset($input['search']) && Helpers::isOk($input['search'])){
+
+			$terms = explode(' ',$input['search']);
+
+			foreach( $terms as $term){
+
+				$locations = $locations->whereHas('translation',function($query) use($term){
+					$query
+					->title()->where('value','like', '%'.$term.'%')
+					->where('key','slug')->orWhere('value','like', '%'.$term.'%');
+				});
+
+				$locations = $locations->with(array('typeLocation.translation'=>function($query) use($term){
+					$query->where('key','name')->orWhere('value','like','%'.$term.'%');
+				}));
+			}
 		}
 
 		if(isset($input['typeLocation']) && Helpers::isOk( $input['typeLocation'] )){
@@ -533,7 +547,7 @@ class Location extends Eloquent implements SluggableInterface{
 
 		}*/
 
-		if(isset($input['city']) && Helpers::isOk( $input['city'] ) && (!isset($input['listKot']) || Helpers::isNotOk($input['listKot']))){
+		if(isset($input['city']) && Helpers::isOk( $input['city'] ) && (!isset($input['list']) || Helpers::isNotOk($input['list']))){
 
 			$region = ucfirst(Helpers::cleanString( $input['city'] ));
 
@@ -574,7 +588,7 @@ class Location extends Eloquent implements SluggableInterface{
 
 
 	/*	$locations = $locations->take(30)->get();
-		Helpers::getQuery();
+
 		dd($locations);*/
 		$locations = $locations->paginate( $paginate );
 		return $locations;

@@ -37,6 +37,9 @@
 p{
 	line-height: 1.3;
 }
+.info{
+	color: white;
+}
 .chosen-container{
 	color:$tc;
 }
@@ -61,6 +64,7 @@ p{
 .nb_result{
 	color: white;
 	font-weight:bold;
+	font-size: 1.1em;
 	margin-bottom:1em;
 }
 .wifi{
@@ -1310,6 +1314,7 @@ input[type="checkbox"]:checked + label{
 	padding:3em 0;
 	padding-top: 112px + $gutter;
 	position: relative;
+	min-height: 100%;
 	.wrapper{
 		overflow:visible;
 	}
@@ -2508,7 +2513,7 @@ $country-h:100px;
 }
 #locations{
 	.map{
-		padding-top: 112px;
+		margin-top: 112px;
 	}
 }
 .sortmenu{
@@ -2546,6 +2551,9 @@ $country-h:100px;
 		@include cl(2);
 		.clearAll{
 			margin-top: 5px;
+		}
+		input[type="submit"]{
+			margin-top: 0;
 		}
 		.pannel{
 			.toogleMap, .toogleList{
@@ -2718,7 +2726,7 @@ $country-h:100px;
 			float: right;
 		}
 		#input-chargePrice{
-			height: 40px;
+			height: 44px;
 			padding-top: 8px;
 			padding-bottom: 8px;
 		}

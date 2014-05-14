@@ -210,6 +210,14 @@ Route::group(array('prefix' => $lang), function() use($lang)
 
 	Route::post(trans('routes.contact_us'), array('as'=>'contact_us','uses'=>'ContactController@sendMessage'));
 	
+	/**
+	*
+	* Create cookie for tuto
+	*
+	**/
+
+	Route::get('createCookie/{name}', array('uses'=>'AjaxController@createCookie'));
+	
 /*
 *
 *	IF LOGIN
