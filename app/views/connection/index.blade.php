@@ -36,6 +36,7 @@
 					@include('includes.errors')
 
 					@if(Session::has('error'))
+
 					<div class="errors">
 						<ul>
 							<li class="error">{{Session::get('error')}}</li>
@@ -46,7 +47,7 @@
 					<div class="field">
 						{{Form::label('email_co', trans('connections.your_field',array('name'=>'email')))}}
 						<div class="input-email icon-arroba">
-							<input value="{{Cookie::has('login') ? Cookie::get('login')['email']: ''}}" type="email" name="email_co" required placeholder="email@email.com" class="form-email form-icon {{isset(Session::get('fields')['email']) ? 'form-error':''}}" id="email_co">
+							<input autofocus value="{{Cookie::has('login') ? Cookie::get('login')['email']: ''}}" type="email" name="email_co" required placeholder="email@email.com" class="form-email form-icon {{isset(Session::get('fields')['email']) ? 'form-error':''}}" id="email_co">
 
 						</div>
 					</div>

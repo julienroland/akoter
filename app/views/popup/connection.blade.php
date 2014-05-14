@@ -24,7 +24,7 @@
          <div class="field">
            {{Form::label('email_co', trans('connections.your_field',array('name'=>'email')))}}
            <div class="input-email icon-arroba">
-            {{Form::email('email_co', Cookie::has('login') ? Cookie::get('login')['email']: '',array('class'=>'form-email form-icon','required', 'placeholder'=>'email@email.com'))}}
+            {{Form::email('email_co', Cookie::has('login') ? Cookie::get('login')['email']: '',array('class'=>'form-email form-icon','required', 'placeholder'=>'email@email.com','autofocus'))}}
           </div>
         </div>
         <div class="field">

@@ -1353,7 +1353,6 @@ var inRange = function ( oCenter, nDistance ) //obj Google / numeric
 
 	}
 	mc.clearMarkers();
-	console.log(mc);
 	
 }
 else

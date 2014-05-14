@@ -110,7 +110,8 @@
 	</div>
 </section>
 
-<div class="overlay">
+<div class="overlay" aria-hidden="true">
 
 </div>
+@include('includes.tutoMap')
 @stop

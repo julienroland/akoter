@@ -35,6 +35,9 @@
 	$city = $('#form-city'),
 	//OVERLAY
 	$overlay = $('.overlay'),
+	//TUTO
+	$tuto = $('.helper'),
+	$closeTuto = $('.closeTuto'),
 	//POPUP
 	$popup = $('.popup'),
 	$popupLang = $('.popup.lang'),
@@ -199,6 +202,12 @@ $toPopup.on('click',openPopup);
 	
 	/*$warningIcon.hover( showTickBox, hideTickBox);*/
 
+	/**
+	*
+	* Tuto
+	*
+	**/
+	$closeTuto.on('click', closeTuto);
 
 });	
 /*var fixSort = function(){
@@ -223,6 +232,12 @@ $toPopup.on('click',openPopup);
 		});
 	}
 };*/
+var closeTuto = function(e){
+
+	e.preventDefault();
+
+	$(this).parent().css('display','none');
+}
 var showTickBox = function( ){
 	$(this).next($warningBox).show();
 }
