@@ -22,15 +22,15 @@
        <span class="or">{{strtolower(trans('connections.or'))}}</span>
          {{Form::open(array('route'=>'connection','class'=>'mainType'))}}
          <div class="field">
-           {{Form::label('email', trans('connections.your_field',array('name'=>'email')))}}
+           {{Form::label('email_co', trans('connections.your_field',array('name'=>'email')))}}
            <div class="input-email icon-arroba">
-            {{Form::email('email', Cookie::has('login') ? Cookie::get('login')['email']: '',array('class'=>'form-email form-icon','required', 'placeholder'=>'email@email.com'))}}
+            {{Form::email('email_co', Cookie::has('login') ? Cookie::get('login')['email']: '',array('class'=>'form-email form-icon','required', 'placeholder'=>'email@email.com'))}}
           </div>
         </div>
         <div class="field">
-         {{Form::label('password', trans('connections.your_password',array('name','password')))}}
+         {{Form::label('password_co', trans('connections.your_password',array('name','password')))}}
          <div class="input-password icon-lock24">
-         <input type="password" name="password" required class="form-password" autocomplete="off" value="{{Cookie::has('login') ? Cookie::get('login')['password']: ''}}">
+         <input id="password_co" type="password" name="password" required class="form-password" autocomplete="off" value="{{Cookie::has('login') ? Cookie::get('login')['password']: ''}}">
         </div>
       </div>
       <div class="field">

@@ -10,6 +10,7 @@
         <span class="whatWeDo">{{trans('title.whatWeDo')}}</span>
         <div class="profilItem">
           <ul class="menu elem">
+
           @if(!Auth::check())
             <li class="register">
               <a class="" href="{{route('inscription_index')}}" tabindex="1">

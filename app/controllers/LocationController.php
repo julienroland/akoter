@@ -28,7 +28,7 @@ class LocationController extends BaseController
 			*
 			**/
 			
-			if(  isset($input['list']) && Helpers::isOk($input['list'] )){
+			if(  isset($input['list']) && Helpers::isOk($input['list'] ) && $input['list'] != "[]"){
 
 
 				$locations = Location::getLocationsFilter( $input );

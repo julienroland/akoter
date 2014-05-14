@@ -25,9 +25,9 @@ class ConnectionController extends BaseController
 		if ($validator->passes()) {
 
 
-			if (Auth::attempt( array( 'email'=> $input['email'], 'password'=>$input['password'] ), isset($input['remember']) ? true : false )) {
+			if (Auth::attempt( array( 'email'=> $input['email_co'], 'password'=>$input['password_co'] ), isset($input['remember']) ? true : false )) {
 
-				$user = User::whereEmail($input['email'])->first();				
+				$user = User::whereEmail($input['email_co'])->first();				
 
 				if($user->suspend == 1){
 

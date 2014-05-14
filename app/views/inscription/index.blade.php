@@ -30,12 +30,12 @@
 					@endif
 					<div class="field">
 						{{Form::label('first_name',trans('inscription.first_name'))}}
-						<input type="text" name="first_name" value="{{Session::has('inscription') ? Session::get('inscription')['first_name'] :''}}" required placeholder="{{trans('inscription.first_name')}}">
+						<input type="text" id="first_name" name="first_name" autofocus value="{{Session::has('inscription') ? Session::get('inscription')['first_name'] :''}}" required placeholder="{{trans('inscription.first_name')}}">
 						<i class="icon-required" aria-hidden="true"></i>
 					</div>
 					<div class="field">
 						{{Form::label('name',trans('inscription.name'))}}
-						<input type="text" name="name" value="{{Session::has('inscription') ? Session::get('inscription')['name']:''}}" required placeholder="{{trans('inscription.name')}}">
+						<input type="text" id="name" name="name" value="{{Session::has('inscription') ? Session::get('inscription')['name']:''}}" required placeholder="{{trans('inscription.name')}}">
 						<i class="icon-required" aria-hidden="true"></i>
 					</div>
 
@@ -58,17 +58,17 @@
 					<div class="field">
 
 						{{Form::label('email', trans('inscription.email'))}}
-						<input value="{{Session::has('inscription') ? Session::get('inscription')['email']:''}}" type="email" name="email" required placeholder="email@email.com" class="form-email form-icon {{isset(Session::get('fields')['email']) ? 'form-error':''}}" id="">
+						<input id="email" value="{{Session::has('inscription') ? Session::get('inscription')['email']:''}}" type="email" name="email" required placeholder="email@email.com" class="form-email form-icon {{isset(Session::get('fields')['email']) ? 'form-error':''}}" id="">
 						<i class="icon-required" aria-hidden="true"></i>
 					</div>
 					<div class="field">
 						{{Form::label('password', trans('inscription.password'))}}
-						<input value="{{Session::has('inscription') ? Session::get('inscription')['password']:''}}" type="password" name="password" required autocomplete="off" placeholder="{{trans('form.password')}}" class="form-password {{isset(Session::get('fields')['password']) ? 'form-error':''}}" id="">
+						<input id="password" value="{{Session::has('inscription') ? Session::get('inscription')['password']:''}}" type="password" name="password" required  placeholder="{{trans('form.password')}}" class="form-password {{isset(Session::get('fields')['password']) ? 'form-error':''}}" id="">
 						<i class="icon-required" aria-hidden="true"></i>
 					</div>
 					<div class="field">
 						{{Form::label('password_ck', trans('inscription.password_ck'))}}
-						<input value="{{Session::has('inscription') ? Session::get('inscription')['password_ck']:''}}" type="password" name="password_ck" required autocomplete="off" placeholder="{{trans('form.password-ck')}}" class="form-password {{isset(Session::get('fields')['password_ck']) ? 'form-error':''}}" id="">
+						<input id="password_ck" value="{{Session::has('inscription') ? Session::get('inscription')['password_ck']:''}}" type="password" name="password_ck" required  placeholder="{{trans('form.password-ck')}}" class="form-password {{isset(Session::get('fields')['password_ck']) ? 'form-error':''}}" id="">
 						<i class="icon-required" aria-hidden="true"></i>
 					</div>
 					{{Form::hidden('region',Session::has('inscription') ? Session::get('inscription')['region']:'',array('class'=>'autocomplete'))}}

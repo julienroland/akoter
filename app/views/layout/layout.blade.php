@@ -10,7 +10,11 @@
 
 @if(Auth::guest())
 
+@if(isset($page) && ($page !== 'connection' ))
+
 @include('popup.connection')
+
+@endif
 
 @endif
 

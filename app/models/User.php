@@ -2,9 +2,10 @@
 
 use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableInterface;
-
-class User extends Eloquent implements UserInterface, RemindableInterface {
-
+use Cviebrock\EloquentSluggable\SluggableInterface;
+use Cviebrock\EloquentSluggable\SluggableTrait;
+class User extends Eloquent implements UserInterface, RemindableInterface, SluggableInterface {
+	use SluggableTrait;
 
 	public function getDates()
 	{
@@ -17,8 +18,8 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	**/
 	
 	public static $rules = array(
-		'email' => 'required|email',
-		'password'=>'required|min:3',
+		'email_co' => 'required|email',
+		'password_co'=>'required|min:5',
 		);
 	public static $inscription_rules = array(
 		'first_name'=>'required|alpha ',
@@ -74,7 +75,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	public static $config_rules = array(
 		'email-comfirm'=>'required | accepted | not_in:null',
 		);
-	public static $sluggable = array(
+	protected $sluggable = array(
 		'build_from' => 'fullname',
 		'save_to'    => 'slug',
 		);

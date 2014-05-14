@@ -139,6 +139,8 @@ return array(
         "email_bc"=>'E-mail de secours',
         "password-ck"=>'Vérication du mot de passe',
         "password_ck"=>'Vérication du mot de passe',
+        "email_co"=>'E-mail',
+        "password_co"=>'Mot de passe',
     ),
 
 );

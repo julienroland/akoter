@@ -44,22 +44,23 @@
 					@endif
 
 					<div class="field">
-						{{Form::label('email', trans('connections.your_field',array('name'=>'email')))}}
+						{{Form::label('email_co', trans('connections.your_field',array('name'=>'email')))}}
 						<div class="input-email icon-arroba">
-							<input value="{{Cookie::has('login') ? Cookie::get('login')['email']: ''}}" type="email" name="email" required placeholder="email@email.com" class="form-email form-icon {{isset(Session::get('fields')['email']) ? 'form-error':''}}" id="">
+							<input value="{{Cookie::has('login') ? Cookie::get('login')['email']: ''}}" type="email" name="email_co" required placeholder="email@email.com" class="form-email form-icon {{isset(Session::get('fields')['email']) ? 'form-error':''}}" id="email_co">
 
 						</div>
 					</div>
 					<div class="field">
-						{{Form::label('password', trans('connections.your_password',array('name','password')))}}
+						{{Form::label('password_co', trans('connections.your_password',array('name','password')))}}
 						<div class="input-password icon-lock24">
-							<input value="{{Cookie::has('login') ? Cookie::get('login')['password']: ''}}" type="password" name="password" required autocomplete="off" placeholder="{{trans('form.password')}}" class="form-password {{isset(Session::get('fields')['password']) ? 'form-error':''}}" id="">
+							<input value="{{Cookie::has('login') ? Cookie::get('login')['password']: ''}}" type="password" name="password_co" required  placeholder="{{trans('form.password')}}" class="form-password {{isset(Session::get('fields')['password']) ? 'form-error':''}}" id="password_co">
 
 						</div>
 					</div>
 					<div class="field">
+					{{Form::label('remember', trans('connections.remember_me',array('name','password')))}}
 						{{Form::checkbox('remember',true,Cookie::get('login')['remember'] ? true: false ,array('id'=>'remember'))}}  
-						{{Form::label('remember', trans('connections.remember_me',array('name','password')))}}
+						
 
 					</div>
 					<div class="field">

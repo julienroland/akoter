@@ -25,6 +25,7 @@
 
 			sOneRule = JSON.parse($(this).parents('form.rules').attr('data-rules'));
 		}
+
 		var sName = $(this).attr('name');
 
 		var sValue = $(this).val();
@@ -56,7 +57,7 @@
 			var sPath = sBasePath+'getOneValidation/' + sName + '/'+ sRule;
 
 		}
-
+		console.log(sPath)
 		$.ajax({
 
 			url:sPath,
