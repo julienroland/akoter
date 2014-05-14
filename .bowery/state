@@ -1,0 +1,25 @@
+{
+  "app": {
+    "_id": "53732549332199011c00003b",
+    "developerId": "537084d30f0c9a9b05000063",
+    "updatedAt": 1400055116389,
+    "services": [
+      {
+        "dockerId": "80cd0a4f0d3d1994d2fc668c4fa69768e0f473eb5eb0fc70ed3567185a0f20ea",
+        "name": "web",
+        "privateAddr": "172.17.1.4:80",
+        "publicAddr": "ec2-54-80-183-153.compute-1.amazonaws.com:50013",
+        "satelliteAddr": "ec2-54-80-183-153.compute-1.amazonaws.com:50012",
+        "sshAddr": "ec2-54-80-183-153.compute-1.amazonaws.com:50011",
+        "image": "php55",
+        "customPorts": {}
+      }
+    ]
+  },
+  "config": {
+    "web": {
+      "image": "php55",
+      "path": "public"
+    }
+  }
+}

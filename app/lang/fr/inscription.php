@@ -43,5 +43,8 @@ return array(
 		'3'=>'3) Déplacé le l\'îcone en cliquant longtemps tout en déplacant la souris;',
 
 		),
-
+	'types_data_present'=>'<strong>Si des valeurs sont déjà présente</strong> et qu\'elles correspondent à votre logement, ne les modifier pas et passez à l\'étape suivante.',
+	'type_location'=>'Type de location',
+	'number_location'=>'Nombre de logements',
+	'spe_advert'=>'Annonce spécifique ?',
 	);

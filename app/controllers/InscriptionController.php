@@ -200,9 +200,13 @@ class InscriptionController extends BaseController {
 
 		$typeLocation = TypeLocation::getList(trans('general.none'));
 
+		$typesLocations = Location::getLocationByType( $building );
+
+		/*$locations = $building->location()->remember(Config::get('var.remember'), 'building.location'.$building->id )->get();*/
+
 		return View::make('inscription.owner.typeLocation', array('page'=>'inscription','widget'=>array('select')))
 		->withSuccess(Session::get('success'))
-		->with(compact('typeLocation','building'));
+		->with(compact('typeLocation','building','typesLocations'));
 	}
 
 	public function saveTypesLocations( $user_slug, $building ){
@@ -211,36 +215,62 @@ class InscriptionController extends BaseController {
 
 		$typeLocation = array_filter($input['type_location']);
 
+		$typesLocations = Location::getLocationByType( $building );
+
 		$number = array_filter($input['number']);
 		
 		$specifique = $input['global'];
 
 		foreach($typeLocation as $key => $type){
 
-			if(isset($specifique[$key])){
-				
-				for($i = 1; $i <= (int)$number[$key]; $i++){
+			if(isset($number[$key])){
 
-					$location  =  new Location;
+				if($typesLocations[$key]['number'] !== (int)$number[$key]){
 
-					$location->building_id = $building->id;
-					$location->type_location_id = $type; 
+					if(Helpers::isOk($typesLocations[$key]['number']) || $typesLocations[$key]['number'] != 0){
 
-					$location->save();
+						$building->location()->whereTypeLocationId($type)->delete();
 
+					}
+						
+					if(isset($specifique[$key])){
+
+						for($i = 1; $i <= (int)$number[$key]; $i++){
+
+							$location  =  new Location;
+
+							if($type = 1){
+
+								$location->nb_room = 1;
+								$location->remaining_room = 1;
+							}
+
+							$location->type_location_id = $type; 
+							$location->building_id = $building->id;
+							$location->advert_specific = 1; 
+
+							$location->save();
+
+						}
+
+					}else{
+
+						$location  =  new Location;
+
+						$location->building_id = $building->id;
+						$location->type_location_id = $type; 
+						$location->advert_specific = 0; 
+
+						$location->save();
+					}
 				}
-
-			}else{
-
-				$location  =  new Location;
-
-				$location->building_id = $building->id;
-				$location->type_location_id = $type; 
-
-				$location->save();
 			}
 		}
-		/*$building->location()->get()->count()*/
+
+		Cache::forget('building.location'.$building->id);
+
+		$building->location()->remember(Config::get('var.remember'), 'building.location'.$building->id )->get();
+
 		if( count($typeLocation) > 1 || count($number) > 1 ){
 
 			return Redirect::route('index_inscription_building', array(Auth::user()->slug, $building->id ))
@@ -251,6 +281,17 @@ class InscriptionController extends BaseController {
 			return Redirect::route('index_inscription_building',  array(Auth::user()->slug, $building->id ))
 			->withSuccess(trans('validation.custom.inscription_types_locations_single'));
 		}
+	}
+
+	/**
+	*
+	* Description building
+	*
+	**/
+	
+	public function indexBuilding(){
+
+		return View::make('inscription.owner.building_description', array('page'=>'inscription','widget'=>array('select','validator')));
 	}
 
 	/*-----  End of INSCRIPTION OWNER  ------*/

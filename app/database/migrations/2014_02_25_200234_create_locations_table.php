@@ -23,6 +23,7 @@ class CreateLocationsTable extends Migration {
 			$table->date('end_date')->nullable();
 			$table->float('charge_price');
 			$table->boolean('validate');
+			$table->boolean('advert_specific');
 			$table->boolean('comments_status');
 			$table->integer('nb_views');
 			$table->float('rating');
@@ -34,9 +35,6 @@ class CreateLocationsTable extends Migration {
 			$table->integer('building_id')->unsigned();
 			$table->foreign('building_id')->references('id')->on('buildings');
 
-
-
-			
 			$table->timestamps();
 		});
 	}

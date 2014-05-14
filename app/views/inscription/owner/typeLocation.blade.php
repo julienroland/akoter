@@ -16,19 +16,25 @@
 
 	@include('includes.errors')
 	@include('includes.success')
-	
-	<div class="field type_location col">
-		<div class="th-1" title="Quel type de logement disposez-vous ? Choissisez aucune pour ne pas en définir"> Type de location</div>
-		<div class="th-2" title="Définissez le nombre de logement de ce type que contient votre bien"> Nombre de logements</div>
-		<div class="th-3" title="Chaque annonce aura sa propre annonce"> Annonce spéficique ?</div>
+
+	<div class="informations">
+		{{trans('inscription.types_data_present')}}
 	</div>
+
+	<div class="field type_location col">
+		<div class="th-1" title="Quel type de logement disposez-vous ? Choissisez aucune pour ne pas en définir"> {{trans('inscription.type_location')}}</div>
+		<div class="th-2" title="Définissez le nombre de logement de ce type que contient votre bien"> {{trans('inscription.number_location')}}</div>
+		<div class="th-3" title="Chaque annonce aura sa propre annonce"> {{trans('inscription.spe_advert')}}</div>
+	</div>
+
 	@for($i = 1; $i < count($typeLocation); $i++ )
 
 	<div class="field type_location col">
 		{{Form::select('type_location['.$i.']',$typeLocation,
-		$typeLocation[$i],array('class'=>'select'))}}
-		<input type="number" class="number" placeholder="{{trans('form.number')}}" name="number[{{$i}}]">
-		<input type="checkbox" class="yesornot" id="global" name="global[{{$i}}]" class="global" id="">
+		$typesLocations[$i]['id'],array('class'=>'select'))}}
+
+		<input type="number" class="number" placeholder="{{trans('form.numberLocations')}}" value="{{$typesLocations[$i]['number']}}" name="number[{{$i}}]">
+		<input type="checkbox" class="yesornot" {{$typesLocations[$i]['advert'] == 1 ? 'checked' : '' }} id="global" name="global[{{$i}}]" class="global" id="">
 		<label for="global"><span class="ui" data-yes="{{trans('general.yes')}}" data-not="{{trans('general.no')}}"></span></label>
 	</div>
 

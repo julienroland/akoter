@@ -124,11 +124,33 @@ class Location extends Eloquent implements SluggableInterface{
 
 		$save_to = $this->sluggable['save_to'];
 		if(isset($this->id)){
-			
+
 		}
 		/*$this->setAttribute('','' );*/
 	}
+	public static function getLocationByType( $building ){
 
+		$kots = $building->location()->whereTypeLocationId(1)->get();
+
+		$studios = $building->location()->whereTypeLocationId(2)->get();
+
+		$duplex = $building->location()->whereTypeLocationId(3)->get();
+
+		$appartement = $building->location()->whereTypeLocationId(4)->get();
+
+		$house = $building->location()->whereTypeLocationId(5)->get();
+		
+		$internat = $building->location()->whereTypeLocationId(6)->get();
+
+		return array(
+			'1'=>array('id'=>1,'number'=>$kots->count(),'advert'=>$kots[0]->advert_specific),
+			'2'=>array('id'=>2,'number'=>$studios->count(),'advert'=>isset($studios[0]) ? $studios[0]->advert_specific :''),
+			'3'=>array('id'=>3,'number'=>$duplex->count(),'advert'=>isset($duplex[0]) ? $duplex[0]->advert_specific:''),
+			'4'=>array('id'=>4,'number'=>$appartement->count(),'advert'=>isset($appartement[0]) ? $appartement[0]->advert_specific:''),
+			'5'=>array('id'=>5,'number'=>$house->count(),'advert'=>isset($advert_specific[0]) ? $house[0]->advert_specific:''),
+			'6'=>array('id'=>6,'number'=>$internat->count(),'advert'=>isset($internat[0]) ? $internat[0]->advert_specific:''),
+			);
+	}
 	public function user(){
 
 		return $this->belongsToMany('User','user_location'); 
