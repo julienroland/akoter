@@ -37,7 +37,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface, Slugg
 		'first_name'=>'required |alpha | not_in:null',
 		'name'=>'required |alpha | not_in:null',
 		'email'=>' required | email |not_in:null',
-		'email_bc'=>'email',
+		'email_bc'=>'email|different:email',
 		'civility'=>'required | not_in:null',
 		'address'=>'required | not_in:null ',
 		'region'=>'required | not_in:null',

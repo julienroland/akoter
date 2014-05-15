@@ -11,7 +11,7 @@
 				{{trans('inscription.create_account_intro')}}
 			</div>
 		</div>
-		</div>
+	</div>
 
 	<div class="wrapper">
 		<h3 aria-level="3" role="heading" class="section titlePopup">{{trans('connections.connect_you')}}</h3>
@@ -59,7 +59,7 @@
 						</div>
 					</div>
 					<div class="field">
-					{{Form::label('remember', trans('connections.remember_me',array('name','password')))}}
+						{{Form::label('remember', trans('connections.remember_me',array('name','password')))}}
 						{{Form::checkbox('remember',true,Cookie::get('login')['remember'] ? true: false ,array('id'=>'remember'))}}  
 						
 
@@ -69,7 +69,7 @@
 					</div>
 					{{Form::close()}}
 				</div>
-
+				<p class="registerYou">{{trans('general.dont_have_account')}} <a href="{{route('inscription_index')}}">{{trans('general.register_you')}}</a></p>
 			</div>
 
 		</div>

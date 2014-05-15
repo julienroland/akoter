@@ -143,7 +143,7 @@ class Location extends Eloquent implements SluggableInterface{
 		$internat = $building->location()->whereTypeLocationId(6)->get();
 
 		return array(
-			'1'=>array('id'=>1,'number'=>$kots->count(),'advert'=>$kots[0]->advert_specific),
+			'1'=>array('id'=>1,'number'=>$kots->count(),'advert'=>isset($kots[0]) ? $kots[0]->advert_specific:''),
 			'2'=>array('id'=>2,'number'=>$studios->count(),'advert'=>isset($studios[0]) ? $studios[0]->advert_specific :''),
 			'3'=>array('id'=>3,'number'=>$duplex->count(),'advert'=>isset($duplex[0]) ? $duplex[0]->advert_specific:''),
 			'4'=>array('id'=>4,'number'=>$appartement->count(),'advert'=>isset($appartement[0]) ? $appartement[0]->advert_specific:''),

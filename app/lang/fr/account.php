@@ -39,6 +39,7 @@ array(
 	'pro'=>'S\'inscrire en tant que professionnel vous permet d\'ajouter votre entreprise à notre base de donnée, vous obtiendrez des avatanges t\'elle que de la visiblité sur les annonces, ...',
 	'completeProfile'=>'Completer mon profile',
 	'registerLocation'=>'Inscrire une location',
+	'edit_photo'=>'Modifier la photo',
 
 
 	);

@@ -36,6 +36,7 @@ return array(
     'inscription_step2' => 'types-de-locations',
     'inscription_step3' => 'description-du-bien',
     'how_be_owner' => 'comment-devenir-proprietaire',
+    'edit_photo' => 'changer-la-photo-de-profil',
 
 );
 

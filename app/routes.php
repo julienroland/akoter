@@ -233,6 +233,15 @@ Route::group(array('before'=>'auth'),function(){
 	* Profil
 	*
 	**/
+
+	/**
+	*
+	* Photo
+	*
+	**/
+
+	Route::get(trans('routes.account').'/{user_slug}/'.trans('routes.edit_photo'),array('as'=>'edit_photo','uses'=>'AccountController@editPhoto'));
+	
 /*	Route::bind('user_slug', function($value, $route)
 	{	
 		if($value === Auth::user()->slug){

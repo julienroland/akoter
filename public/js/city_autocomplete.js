@@ -64,25 +64,25 @@
         if(street!= "" && typeof street !=="undefined"){
           window.setTimeout(function(){
             $('input[name="address"]').val(street);
-          }, 10);
+          }, 20);
         }
 
         if(street!= "" && typeof locality !=="undefined"){
           window.setTimeout(function(){
             $('input[name="locality"]').val(locality);
-          }, 10);
+          }, 20);
         }
 
         if(street!= "" && typeof region !=="undefined"){
           window.setTimeout(function(){
             $('input[name="region"]').val(region);
-          }, 10);
+          }, 20);
         }
 
         if(street!= "" && typeof postal !=="undefined"){
           window.setTimeout(function(){
             $('input[name="postal"]').val(postal);
-          }, 10);
+          }, 20);
         }
       }
     }

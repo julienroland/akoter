@@ -293,4 +293,8 @@ public function how_be_owner( ){
 	return View::make('account.owner.how_be', array('page'=>'account'))
 	->with(compact('personnalNotComplete'));
 }
+public function editPhoto(){
+
+return View::make('account.photo',array('page'=>'photo'));
+}
 }

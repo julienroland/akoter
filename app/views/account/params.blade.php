@@ -2,7 +2,7 @@
 
 @section('account')
 @if($user->count())
-
+<div class="account-container">
 <div class="account-dates">
 	<?php setlocale(LC_TIME, Config::get('app.setLocale')[App::getLocale()]); ?> 
 	<ul>
@@ -68,5 +68,6 @@
 </ul>
 {{Form::submit(trans('form.update'))}}
 {{Form::close()}}
+</div>
 @endif
 @stop

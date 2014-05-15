@@ -1,22 +1,11 @@
 
 <div class="helper">
 	<a href="javascript:void(0)" class="closeTuto icon icon-prohibited1">Fermer l'aide</a>
+			<h2 aria-level="2" role="heading">Comment utiliser la carte</h2>
+			
 	<div class="showIt">
 		<div class="tutoItem toolbar left-top-position">
-			<p>
-				Cette barre d'outil vous permet de: 
-			</p>
-			<ul>
-				<li>
-					changer la couleur de la carte;
-				</li>
-				<li>
-					Voir la rue d'une location;
-				</li>
-				<li>
-					Affiche tous les icones de locations;
-				</li>
-			</ul>
+			{{trans('tuto.map_research')}}
 		</div>
 		<div class="tutoItem searchbar left-top-position">
 			<p>
@@ -24,7 +13,7 @@
 			</p>
 			<ol>
 			<li>
-				Entrez une localitée;
+				Entrez une localité;
 			</li>
 			<li>
 				changer la distance du rayon de recherche autour de cette localitée.

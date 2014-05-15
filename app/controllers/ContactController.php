@@ -17,15 +17,15 @@ class ContactController extends BaseController {
 
 		if( $validator->passes() ){
 
-			/*Mail::send('emails.contact_us', array('input'=>$input), function($message) use($input)
+			Mail::send('emails.contact_us', array('input'=>$input), function($message) use($input)
 			{
-				$message->to(Mail::get('from.address'), Mail::get('from.name'));
-			});*/
 
-			$success = trans('form.success_message');
+				$message->to($input['email'], $input['name']);
+				
+			});
 
 			return Redirect::route('contact_us')
-			->with(compact('success'));
+			->withSuccess(trans('form.success_message'));
 		}
 		else{
 

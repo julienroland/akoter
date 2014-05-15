@@ -133,7 +133,8 @@ class InscriptionController extends BaseController {
 
 			Session::put('inscription.current', 1);
 
-			return Redirect::route('index_types_locations', Auth::user()->slug);
+			return Redirect::route('index_types_locations', array(Auth::user()->slug, $building->id))
+			->withSuccess(trans('validation.custom.inscription_localisation'));
 
 		}else{
 
@@ -175,7 +176,7 @@ class InscriptionController extends BaseController {
 
 			}
 
-			return Redirect::route('index_types_locations', Auth::user()->slug)
+			return Redirect::route('index_types_locations', array(Auth::user()->slug, $building->id))
 			->withSuccess(trans('validation.custom.inscription_localisation'));
 
 		}else{
@@ -199,7 +200,7 @@ class InscriptionController extends BaseController {
 	public function indexTypesLocations( $user_slug, $building ){
 
 		$typeLocation = TypeLocation::getList(trans('general.none'));
-
+		
 		$typesLocations = Location::getLocationByType( $building );
 
 		/*$locations = $building->location()->remember(Config::get('var.remember'), 'building.location'.$building->id )->get();*/

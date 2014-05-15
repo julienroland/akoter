@@ -46,6 +46,13 @@ p{
 .hero{
 	color:$borange;
 }
+.registerYou{
+	margin: $gutter / 2 0;
+	color:$greyD;
+	a{
+		color:$mc;
+	}
+}
 .container{
 	@include c(12);
 	min-height: 400px;
@@ -690,7 +697,7 @@ a{
 		}
 	}
 	.research{
-		display: none;
+		display: block;
 	}
 	.switchView{
 		height: 50px;
@@ -722,6 +729,7 @@ a{
 		@include c(12);
 		overflow: visible; 
 		height: 100%;
+		display: none;
 		.slider{
 			@include c(12);
 			@include box-shadow($greyL 0 2px 2px 0px);
@@ -1599,6 +1607,7 @@ input[type="checkbox"]:checked + label{
 	margin-bottom: 1em;
 	max-width: 400px;
 	margin: auto;
+	margin-bottom: $gutter / 2;
 	a{
 		@include c(12);
 		background-color: $facebook;
@@ -1630,12 +1639,15 @@ input[type="checkbox"]:checked + label{
 	}
 	.text{
 		@include cl-nm(12);
-		display:inline-block;
+		display:block;
+		margin: auto;
 		width:230px - $gutter/2;
 		padding-left: $gutter/2;
 		font-size: 0.9em;
 		font-weight: 500;
 		text-align: center;
+		float: none;
+		margin-bottom: 0;
 	}
 }
 .connection{
@@ -1657,7 +1669,7 @@ input[type="checkbox"]:checked + label{
 	&.large{
 		max-width: 100%;
 		background-color: white;
-		
+		padding: 0;
 		.connexion{
 			width: 26em;
 			margin: auto;
@@ -2798,6 +2810,25 @@ $country-h:100px;
 			color:$tc;
 			text-decoration: none;
 		}
+		.profil{
+			@include c(12);
+			margin-bottom: $gutter / 2;
+
+			.name{
+				display: inline-block;
+				margin-top: $gutter / 2;
+
+			}
+			a{
+				font-size: 12px;
+				text-decoration: underline;
+			}
+		}
+		.thumbnail{
+			width: 64px;
+			float: left;
+			margin-right: $gutter / 4;
+		}
 		li{
 			position: relative;
 			margin-bottom: $gutter / 5;
@@ -2820,11 +2851,7 @@ $country-h:100px;
 				}
 			}
 		}
-		.name{
-			display: inline-block;
-			text-align: center;
-			font-style: italic;
-		}
+		
 		.opGroup{
 			margin-top: $gutter / 2;
 			color:$greyD;
@@ -2839,6 +2866,9 @@ $country-h:100px;
 		background-color: white;
 		max-width: ($mw - 150px) - $gutter * 2;
 
+	}
+	.account-container{
+		padding: 3em 1em;
 	}
 }
 .introOwner{
@@ -3369,7 +3399,7 @@ $country-h:100px;
 	z-index: 1000;
 	display: block;
 	background-color: $greyD2;
-	background-color: rgba(0,0,0,0.9);
+	background-color: rgba(0,0,0,0.75);
 
 	p,li{
 		font-family: serif;
@@ -3467,6 +3497,47 @@ $country-h:100px;
 		}
 	}
 
+}
+/**
+*
+* How be a owner 
+*
+**/
+.how_be_owner{
+	text-align: center;
+	.owner_step{
+		width: 400px;
+		position: relative;
+		border: 1px solid $greyD;
+		padding: 1em;
+		margin-bottom: $gutter;
+		display: inline-block;
+		&:after{
+			content:"";
+			@include abs-bot(-$gutter - 1px);
+			visibility: visible;
+			width: 1px;
+			background-color: black;
+			height: $gutter;
+			display: block;
+			margin: auto;
+		}
+		&:last-child{
+			&:after{
+				background-color: transparent;
+				height: 0;
+				visibility: hidden;
+
+			}
+		}
+	}
+	.btn-inscription{
+		max-width: 200px;
+	}
+	p{
+		font-weight:500;
+		color:$greyD;
+	}
 }
 
     /* END LOADING MAP */

@@ -189,7 +189,7 @@
 	}
 
 	.btn-inscription{
-		background-image:linear-gradient( bottom ,$borange, lighten($borange,10%));
+		background:linear-gradient( bottom ,$borange, lighten($borange,10%));
 		display: block;
 		margin: auto;
 		text-align: center;
@@ -199,13 +199,13 @@
 		padding:0.6em 0.8em;
 		line-height: 22px;
 		text-transform: uppercase;
-		font-size: 0.9
-		em;
+		font-size: 0.85em;
 		text-decoration: none;
 		color:white!important;
 		border:1px solid darken($borange,10%);
 		@include transition(all 0.3s ease-in-out);
 		margin-top: 3px;
+		font-weight: 500;
 		&:hover,&:focus,&:active{
 			@include transition(all 0.3s ease-in-out);
 			background-image:linear-gradient( top ,$borange, lighten($borange,5%));
@@ -361,6 +361,16 @@ background: linear-gradient(to bottom,  rgba(53,160,198,1) 0%,rgba(88,172,203,1)
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#35a0c6', endColorstr='#58accb',GradientType=0 ); /* IE6-8 */
 }
 @mixin form(){
+	fieldset{
+		border:1px solid $greyL2;
+		padding: 2em 1em;
+		margin-bottom: $gutter;
+		legend{
+			font-weight: bold;
+			font-style: italic;
+			margin-left: $gutter / 2;
+		}
+	}
 	.formContainer{
 		@include c(12);
 		max-width: 400px;
@@ -735,6 +745,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#35a0c6', end
 			display: block;
 			height: 44px;
 			padding: $gutter / 2 0;
+			margin-top: $gutter / 2;
 			line-height: 1;
 
 			font-size: 0.85em;
@@ -910,7 +921,11 @@ input[type="submit"]{
 
 	}
 	&:disabled{
-		background:desaturate($mc,40%);
+		background:desaturate($mc,70%);
+		text-decoration: none;
+		border: 1px solid desaturate($mc,70%);
+		cursor:not-allowed;
+		@include transition(all 0.3s ease-in);
 	}
 	&.bigSubmit{
 		height:60px;

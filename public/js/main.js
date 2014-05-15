@@ -33,6 +33,7 @@
 	$submit = $('input[type="submit"]'),
 	$form = $('form'),
 	$city = $('#form-city'),
+	$submitDisabled = $('input[data-disabled]'),
 	//OVERLAY
 	$overlay = $('.overlay'),
 	//TUTO
@@ -214,6 +215,14 @@ $toPopup.on('click',openPopup);
 	$notDisplayThisTuto.on('click', createCookie);
 
 	$notDisplayAllTuto.on('click', createCookie);
+
+	$('form').on('submit', function(){
+
+		$(this).prop('disabled',true);
+		if($(this).attr('data-disabled').length > 0){
+			$(this).val($(this).attr('data-disabled'));
+		}
+	});
 });	
 /*var fixSort = function(){
 	var $sort = $('.short');

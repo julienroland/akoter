@@ -77,6 +77,7 @@ return array(
 	'number'=>'Numero',
 	'next'=>'Suivant',
 	'numberLocations'=>'Nombre de location',
+	'street'=>'Rue',
 	'success_message'=>'<span class="b">Message bien envoyé !</span> Nous reviendrons vers vous par mail le plus rapidement possible.',
 	'search_location_keywords'=>'Recherche par mots clefs, référence d\'annonce',
 

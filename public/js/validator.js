@@ -45,6 +45,10 @@
 			if(sName ==="password-ck" || sName ==="password_ck"){
 
 				sValue = $(this).val()+':'+$that.parents('form').find('input[name="password"]').val();
+			}	
+			if(sName==="email_bc"){
+
+				sValue = $(this).val()+':'+$that.parents('form').find('input[name="email"]').val();
 			}
 			
 		}

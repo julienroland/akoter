@@ -27,7 +27,7 @@
 	<div class="requiredField"><span class="icon-required" aria-hidden="true"></span> Champs obligatoire</div>
 	<div class="field">
 		<label for="region">{{trans('form.region')}} <span class="icon-required" aria-hidden="true"></span></label>
-		{{Form::select('region',$regions->data,Session::has('inscription.localisation_input') ? Session::get('inscription.localisation_input')['region'] : '',array('class'=>'select autocomplete','data-placeholder'=>trans('form.region'),'data-validator'=>'false'))}}
+		{{Form::select('region',$regions->data,Session::has('inscription.localisation_input') ? Session::get('inscription.localisation_input')['region'] : '',array('class'=>'select autocomplete','data-placeholder'=>trans('form.region'),'data-validator'=>'false','autofocus'))}}
 	</div>
 
 	<div class="field">
@@ -36,8 +36,8 @@
 	</div>
 
 	<div class="field">
-		<label for="address">{{trans('form.address')}} <span class="icon-required" aria-hidden="true"></span></label>
-		<input type="text" name="address" class="autocomplete" required id="address" value="{{Session::has('inscription.localisation_input') ? Session::get('inscription.localisation_input')['address'] : ''}}" placeholder="{{trans('form.address')}}">
+		<label for="address">{{trans('form.street')}} <span class="icon-required" aria-hidden="true"></span></label>
+		<input type="text" name="address" class="autocomplete" required id="address" value="{{Session::has('inscription.localisation_input') ? Session::get('inscription.localisation_input')['address'] : ''}}" placeholder="{{trans('form.street')}}">
 	</div>
 
 	<div class="field">
@@ -53,11 +53,8 @@
 	<a href="javascript:void(0)" class="btn" id="rechercheMap">{{trans('inscription.locate_map_btn')}}</a>
 
 	<div class="localisation_map">
-		<div id="gmapLocalisation">
-			
-		</div>
 		<div class="informations">
-			<ul>
+			<ol>
 				<li>
 					{{trans('inscription.locate_map_infos.1')}}
 				</li>
@@ -67,8 +64,12 @@
 				<li>
 					{{trans('inscription.locate_map_infos.3')}}
 				</li>
-			</ul>
+			</ol>
 		</div>
+		<div id="gmapLocalisation">
+			
+		</div>
+		
 	</div>
 
 	<div class="field">

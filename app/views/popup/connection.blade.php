@@ -30,7 +30,7 @@
         <div class="field">
          {{Form::label('password_co', trans('connections.your_password',array('name','password')))}}
          <div class="input-password icon-lock24">
-         <input id="password_co" type="password" name="password" required class="form-password" autocomplete="off" value="{{Cookie::has('login') ? Cookie::get('login')['password']: ''}}">
+         <input id="password_co" type="password" name="password_co" required class="form-password" autocomplete="off" value="{{Cookie::has('login') ? Cookie::get('login')['password']: ''}}">
         </div>
       </div>
       <div class="field">
@@ -43,6 +43,7 @@
       </div>
       {{Form::close()}}
     </div>
+    <p class="registerYou">{{trans('general.dont_have_account')}} <a href="{{route('inscription_index')}}">{{trans('general.register_you')}}</a></p>
 
   </div>
 

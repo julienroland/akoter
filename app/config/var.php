@@ -43,8 +43,8 @@ return array(
 	'logo'=>'/img/logo/logo.png',
 	'remember'=>60 * 24,
 //user photo 
-	'user_photo_width'=>104,
-	'user_photo_height'=>104,
+	'user_photo_width'=>64,
+	'user_photo_height'=>64,
 	'lang'=>array(
 		'1'=>'fr',
 		'2'=>'en',

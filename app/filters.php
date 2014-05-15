@@ -143,7 +143,7 @@ Route::filter('lang', function(){
 
 Route::filter('allow_advance', function(){
 
-	/*$personnal = array(
+	$personnal = array(
 		'first_name' => Auth::user()->first_name,
 		'name' => Auth::user()->name,
 		'email' => Auth::user()->email,
@@ -161,7 +161,7 @@ Route::filter('allow_advance', function(){
 	if(Helpers::isOK($personnalNotComplete) && $personnalNotComplete->count < $personnalNotComplete->total ){
 		
 		return Redirect::route('how_be_owner', Auth::user()->slug );
-	}*/
+	}
 
 });
 /*

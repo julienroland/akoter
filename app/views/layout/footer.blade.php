@@ -7,7 +7,7 @@
 		<a href="#nav" class="reader">Revenir à la navigation</a>
 		<ul class="permalink">
 			<li><a href="">Conditions général d'utilisation</a></li>
-			<li><a href="">Contact</a></li>
+			<li><a href="{{route('contact')}}">Contact</a></li>
 		</ul>
 	</div>
 </footer>
