@@ -3539,7 +3539,73 @@ $country-h:100px;
 		color:$greyD;
 	}
 }
+/**
+*
+* Steps
+*
+**/
 
+.steps{
+	@include c(12);
+	height: 70px;
+	margin-bottom:  $gutter;
+	margin-top: $gutter / 2;
+	.step{
+		@include cl(3);
+		height: 100%;
+		&:first-child{
+			.cnt{
+				padding-left: $gutter / 2;
+				&:before{
+					visibility: hidden;
+				}
+			}
+		}
+		.cnt{
+			@include c(12);
+			background-color: $greyL2;
+			height: 100%;
+			position: relative;
+			text-decoration: none;
+			padding:20px 0;
+			padding-left: 30px + $gutter / 2;
+			line-height: 1;
+			font-weight: 500;
+			cursor:default;
+			&:before{
+				content:"";
+				display: block;
+				visibility: visible;
+				width: 0; 
+				height: 0; 
+				border-top: 35px solid transparent;
+				border-bottom: 35px solid transparent;
+				border-left: 30px solid white;
+				@include abs-left(0px);
+			}
+			&:after{
+				content:"";
+				display: block;
+				visibility: visible;
+				width: 0; 
+				height: 0; 
+				border-top: 35px solid transparent;
+				border-bottom: 35px solid transparent;
+				border-left: 30px solid $greyL2;
+				@include abs-right(-30px);
+				z-index: 2;
+			}
+
+			&.done{
+				background-color: $bgreen;
+				cursor:pointer;
+				&:after{
+					border-left-color:$bgreen;
+				}
+			}
+		}
+	}
+}
     /* END LOADING MAP */
     /* ANIMATION CSS3 */
     @import "animate";

@@ -12,6 +12,8 @@
 </div>
 <div class="formContainer large">
 
+	@include('includes.steps')
+
 	{{Form::open(array('route'=>array('save_types_locations',Auth::user()->slug, $building->id),'class'=>'mainType'))}}
 
 	@include('includes.errors')
@@ -39,7 +41,10 @@
 	</div>
 
 	@endfor
-	
+	<div class="field previous">
+		<a href="{{route(Config::get('var.steps_routes.1'), array(Auth::user()->slug, $building->id))}}" title="{{trans('account.back_previous_step')}}">{{trans('general.back')}}</a>
+	</div>
+
 	<div class="field next">
 		{{Form::submit(trans('form.next'))}}
 	</div>

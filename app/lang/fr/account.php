@@ -40,6 +40,8 @@ array(
 	'completeProfile'=>'Completer mon profile',
 	'registerLocation'=>'Inscrire une location',
 	'edit_photo'=>'Modifier la photo',
+	'back_home'=>'Retour à l\'accueil de votre compte',
+	'back_previous_step'=>'Retour à l\'étape précédente',
 
 
 	);

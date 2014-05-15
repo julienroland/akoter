@@ -379,11 +379,11 @@ Route::group(array('before'=>'auth'),function(){
 
 			});
 			/* Localisation */
-			Route::get(trans('routes.account').'/{user_slug}/'.trans('routes.add_location').'/'.trans('routes.inscription_step1'), array('as'=>'index_localisation_building','uses'=>'InscriptionController@indexLocalisation'));
+			Route::get(trans('routes.account').'/{user_slug}/'.trans('routes.add_location').'/'.trans('routes.inscription_step1').'/{building_id?}/', array('as'=>'index_localisation_building','uses'=>'InscriptionController@indexLocalisation'));
 
-			Route::post(trans('routes.account').'/{user_slug}/'.trans('routes.add_location').'/'.trans('routes.inscription_step1'), array('as'=>'save_localisation_building','uses'=>'InscriptionController@saveLocalisation'));
+			Route::post(trans('routes.account').'/{user_slug}/'.trans('routes.add_location').'/'.trans('routes.inscription_step1').'/{building_id?}/', array('as'=>'save_localisation_building','uses'=>'InscriptionController@saveLocalisation'));
 
-			Route::put(trans('routes.account').'/{user_slug}/'.trans('routes.add_location').'/'.trans('routes.inscription_step1'), array('as'=>'update_localisation_building','uses'=>'InscriptionController@updateLocalisation'));
+			Route::put(trans('routes.account').'/{user_slug}/'.trans('routes.add_location').'/'.trans('routes.inscription_step1').'/{building_id?}/', array('as'=>'update_localisation_building','uses'=>'InscriptionController@updateLocalisation'));
 
 			/* Type of location*/
 			Route::get(trans('routes.account').'/{user_slug}/'.trans('routes.add_location').'/{building_id}/'.trans('routes.inscription_step2'), array('as'=>'index_types_locations','uses'=>'InscriptionController@indexTypesLocations'));

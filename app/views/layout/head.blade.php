@@ -32,7 +32,7 @@
   @endif
   
   <!-- <link rel="stylesheet" href="css/range-slider.css"> -->
-  <script src="js/vendor/modernizr-2.6.2.min.js"></script>
+  {{HTML::script('js/vendor/modernizr-2.6.2.min.js')}}
 </head>
 <body {{isset($page) || isset($tools) ? 'id= ': ''}} {{isset($page) ? $page : "" }}>
         <!--[if lt IE 7]>

@@ -84,6 +84,17 @@ return array(
 			'created_at:asc'=>trans('form.created_date'),
 			),
 		),
+	'steps'=>4,
+	'steps_names'=>array(
+		1=>trans('inscription.steps.1'),
+		2=>trans('inscription.steps.2'),
+		3=>trans('inscription.steps.3'),
+		4=>trans('inscription.steps.4'),
+		),
+	'steps_routes'=>array(
+		1=>'index_localisation_building',
+		2=>'index_types_locations',
+		),
 
 
 

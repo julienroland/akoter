@@ -143,12 +143,30 @@ class Location extends Eloquent implements SluggableInterface{
 		$internat = $building->location()->whereTypeLocationId(6)->get();
 
 		return array(
-			'1'=>array('id'=>1,'number'=>$kots->count(),'advert'=>isset($kots[0]) ? $kots[0]->advert_specific:''),
-			'2'=>array('id'=>2,'number'=>$studios->count(),'advert'=>isset($studios[0]) ? $studios[0]->advert_specific :''),
-			'3'=>array('id'=>3,'number'=>$duplex->count(),'advert'=>isset($duplex[0]) ? $duplex[0]->advert_specific:''),
-			'4'=>array('id'=>4,'number'=>$appartement->count(),'advert'=>isset($appartement[0]) ? $appartement[0]->advert_specific:''),
-			'5'=>array('id'=>5,'number'=>$house->count(),'advert'=>isset($advert_specific[0]) ? $house[0]->advert_specific:''),
-			'6'=>array('id'=>6,'number'=>$internat->count(),'advert'=>isset($internat[0]) ? $internat[0]->advert_specific:''),
+			'1'=>array(
+				'id'=>1,
+				'number'=>$kots->count() == 0 || $kots->count() > 1 ? $kots->count(): $kots[0]->nb_locations,
+				'advert'=>isset($kots[0]) ? $kots[0]->advert_specific:''),
+			'2'=>array(
+				'id'=>2,
+				'number'=>$studios->count() == 0 || $studios->count() > 1 ? $studios->count(): $studios[0]->nb_locations,
+				'advert'=>isset($studios[0]) ? $studios[0]->advert_specific :''),
+			'3'=>array(
+				'id'=>3,
+				'number'=>$duplex->count() == 0 || $duplex->count() > 1 ? $duplex->count(): $duplex[0]->nb_locations,
+				'advert'=>isset($duplex[0]) ? $duplex[0]->advert_specific:''),
+			'4'=>array(
+				'id'=>4,
+				'number'=>$appartement->count() == 0 || $appartement->count() > 1 ? $appartement->count(): $appartement[0]->nb_locations,
+				'advert'=>isset($appartement[0]) ? $appartement[0]->advert_specific:''),
+			'5'=>array(
+				'id'=>5,
+				'number'=>$house->count() == 0 || $house->count() > 1 ? $house->count(): $house[0]->nb_locations,
+				'advert'=>isset($advert_specific[0]) ? $house[0]->advert_specific:''),
+			'6'=>array(
+				'id'=>6,
+				'number'=>$internat->count() == 0 || $internat->count() > 1 ? $internat->count(): $internat[0]->nb_locations,
+				'advert'=>isset($internat[0]) ? $internat[0]->advert_specific:''),
 			);
 	}
 	public function user(){

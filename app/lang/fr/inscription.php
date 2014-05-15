@@ -47,4 +47,10 @@ return array(
 	'type_location'=>'Type de location',
 	'number_location'=>'Nombre de logements',
 	'spe_advert'=>'Annonce spécifique ?',
+	'steps'=>array(
+		'1'=>'Localisation du batiment',
+		'2'=>'Type de location',
+		'3'=>'Description du batiment',
+		'4'=>'Informations générales',
+		),
 	);

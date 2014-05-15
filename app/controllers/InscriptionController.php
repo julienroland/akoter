@@ -93,17 +93,23 @@ class InscriptionController extends BaseController {
 	*
 	**/
 	
-	public function indexLocalisation(){
+	public function indexLocalisation( $user_slug, $building = null){
 
 		$regions = Region::getList();
 
 		$localities = Locality::getList();
 
-		return View::make('inscription.owner.location', array('page'=>'inscription_localisation','widget'=>array('validator','select','city_autocomplete')))
+		if(Helpers::isOk($building)){
+
+			return View::make('inscription.owner.localisation', array('page'=>'inscription_localisation','widget'=>array('validator','select','city_autocomplete')))
+			->with(compact('regions','localities','building'));
+		}
+
+		return View::make('inscription.owner.localisation', array('page'=>'inscription_localisation','widget'=>array('validator','select','city_autocomplete')))
 		->with(compact('regions','localities'));
 	}
 
-	public function saveLocalisation(){
+	public function saveLocalisation($user_slug, $building = null){
 
 		$input = Input::all();
 
@@ -147,7 +153,7 @@ class InscriptionController extends BaseController {
 
 		}
 	}
-	public function updateLocalisation(){
+	public function updateLocalisation($user_slug, $building = null){
 
 		$input = Input::all();
 
@@ -161,7 +167,11 @@ class InscriptionController extends BaseController {
 
 			if(Session::has(Session::get('inscription_building_id'))){
 
-				$building = Building::find(Session::get('inscription.building_id'));
+				if(Helpers::isNotOk($building)){
+
+					$building = Building::find(Session::get('inscription.building_id'));
+
+				}
 
 				$building->latlng = $input['latlng'];
 				$building->region_id = $input['region'];
@@ -174,10 +184,12 @@ class InscriptionController extends BaseController {
 
 				$building->save();
 
+				Session::put('inscription.current', 1);
+
 			}
 
 			return Redirect::route('index_types_locations', array(Auth::user()->slug, $building->id))
-			->withSuccess(trans('validation.custom.inscription_localisation'));
+			->withSuccess(trans('validation.custom.inscription_update_localisation'));
 
 		}else{
 
@@ -220,7 +232,7 @@ class InscriptionController extends BaseController {
 
 		$number = array_filter($input['number']);
 		
-		$specifique = $input['global'];
+		$specifique = isset($input['global']) ? $input['global'] : null;
 
 		foreach($typeLocation as $key => $type){
 
@@ -233,8 +245,8 @@ class InscriptionController extends BaseController {
 						$building->location()->whereTypeLocationId($type)->delete();
 
 					}
-						
-					if(isset($specifique[$key])){
+
+					if(isset($specifique[$key]) && Helpers::isOk($specifique)){
 
 						for($i = 1; $i <= (int)$number[$key]; $i++){
 
@@ -244,6 +256,7 @@ class InscriptionController extends BaseController {
 
 								$location->nb_room = 1;
 								$location->remaining_room = 1;
+								$location->nb_locations = 1; 
 							}
 
 							$location->type_location_id = $type; 
@@ -261,6 +274,7 @@ class InscriptionController extends BaseController {
 						$location->building_id = $building->id;
 						$location->type_location_id = $type; 
 						$location->advert_specific = 0; 
+						$location->nb_locations = $number[$key]; 
 
 						$location->save();
 					}
@@ -271,6 +285,8 @@ class InscriptionController extends BaseController {
 		Cache::forget('building.location'.$building->id);
 
 		$building->location()->remember(Config::get('var.remember'), 'building.location'.$building->id )->get();
+
+		Session::put('inscription.current', 2);
 
 		if( count($typeLocation) > 1 || count($number) > 1 ){
 

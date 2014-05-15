@@ -49,7 +49,7 @@ class Building extends Eloquent {
 
 	public static function getCurrentStep(){
 
-		return Session::has('inscription_current') ? Session::get('inscription_current') : 0;
+		return Session::has('inscription.current') ? Session::get('inscription.current') : 0;
 
 	}
 }

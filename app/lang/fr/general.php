@@ -79,6 +79,7 @@ return array(
 	'carte'=>'Carte',
 	'list'=>'Liste',
 	'see'=>'Voir',
+	'back'=>'Retour',
 	'none'=>'Aucune',
 	'need_help_contact_us'=>'Besoin d\'aide ? Contactez-nous !',
 	'contact_us'=>'Contactez-nous',

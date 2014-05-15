@@ -26,6 +26,7 @@ class CreateLocationsTable extends Migration {
 			$table->boolean('advert_specific');
 			$table->boolean('comments_status');
 			$table->integer('nb_views');
+			$table->integer('nb_locations')->nullable();
 			$table->float('rating');
 			$table->integer('nb_rate');
 			$table->float('caution');	
