@@ -178,8 +178,7 @@ Route::group(array('prefix' => $lang), function() use($lang)
 		return View::make('contact');
 
 	}));
-	
-	
+
 		/**
 		*
 		* Reactive account
@@ -392,6 +391,8 @@ Route::group(array('before'=>'auth'),function(){
 
 			/* Building */
 			Route::get(trans('routes.account').'/{user_slug}/'.trans('routes.add_location').'/{building_id}/'.trans('routes.inscription_step3'), array('as'=>'index_inscription_building','uses'=>'InscriptionController@indexBuilding'));
+
+			Route::post(trans('routes.account').'/{user_slug}/'.trans('routes.add_location').'/{building_id}/'.trans('routes.inscription_step3'), array('as'=>'save_inscription_building','uses'=>'InscriptionController@saveBuilding'));
 		});
 		
 

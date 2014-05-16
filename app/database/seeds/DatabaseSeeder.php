@@ -28,6 +28,7 @@ class DatabaseSeeder extends Seeder {
 		$this->call('NoticesTableSeeder');
 		$this->call('PostsTableSeeder');
 		$this->call('UsersGroupsTableSeeder');
+		$this->call('OptionTableSeeder');
 
 		DB::statement('SET foreign_key_checks = 1');
 		DB::statement('SET UNIQUE_CHECKS= 1');

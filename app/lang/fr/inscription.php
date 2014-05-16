@@ -53,4 +53,6 @@ return array(
 		'3'=>'Description du batiment',
 		'4'=>'Informations générales',
 		),
+	'description_building'=>'Description du batiment',
+	'description_building_intro'=>'Décrivez au mieux votre batiment via le formulaire ci-dessous.',
 	);

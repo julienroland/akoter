@@ -311,6 +311,12 @@ class InscriptionController extends BaseController {
 		return View::make('inscription.owner.building_description', array('page'=>'inscription','widget'=>array('select','validator')));
 	}
 
+	public function saveBuilding(){
+
+		$input = Input::all();
+		dd($input);
+
+	}
 	/*-----  End of INSCRIPTION OWNER  ------*/
 
 	/**

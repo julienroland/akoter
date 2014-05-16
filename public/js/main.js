@@ -219,9 +219,8 @@ $toPopup.on('click',openPopup);
 	$('form').on('submit', function(){
 
 		$(this).prop('disabled',true);
-		if($(this).attr('data-disabled').length > 0){
-			$(this).val($(this).attr('data-disabled'));
-		}
+		$(this).val($(this).attr('data-disabled'));
+
 	});
 });	
 /*var fixSort = function(){
