@@ -142,6 +142,7 @@ return array(
         "password_ck"=>'Vérication du mot de passe',
         "email_co"=>'E-mail',
         "password_co"=>'Mot de passe',
+        "login"=>'Identifiant',
     ),
 
 );

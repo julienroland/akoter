@@ -173,14 +173,17 @@
 		});
 
 
-};
+	};
 
-var appendErrorsElements = function( $form, sData ){
+	var appendErrorsElements = function( $form, sData ){
 
-	$form.find('.errors').remove();
+		$form.find('.errors').remove();
 
-	$form.prepend('<div class="errors"><ul>'+ sData +'</ul></div>');
+		$form.prepend('<div class="errors"><ul>'+ sData +'</ul></div>');	
 
-};
+		$('html,body').animate({ 
+			scrollTop:$form.offset().top,
+		}, 300);
+	};
 
 }).call(this, jQuery);

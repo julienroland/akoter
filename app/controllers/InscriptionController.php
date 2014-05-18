@@ -306,9 +306,10 @@ class InscriptionController extends BaseController {
 	*
 	**/
 	
-	public function indexBuilding(){
+	public function indexBuilding($user_slug, $building){
 
-		return View::make('inscription.owner.building_description', array('page'=>'inscription','widget'=>array('select','validator')));
+		return View::make('inscription.owner.building_description', array('page'=>'inscription','widget'=>array('select','validator')))
+		->with(compact('building'));
 	}
 
 	public function saveBuilding(){

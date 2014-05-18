@@ -1,38 +1,39 @@
+  @foreach($location->translation as $translation)
 
-<div class="kot prenium" itemscope itemtype="http://schema.org/Residence" data-id="{{$location->id}}">
-  <div itemscope itemprop="geo" itemtype="GeoCoordinates"> 
-    <meta content="{{Helpers::extractLatLng($location->building->latLng , 'lat')}}" itemprop="latitude">
-    <meta content="{{Helpers::extractLatLng($location->building->latLng , 'lng')}}" itemprop="longitude">
+  @if( $translation->key === 'title' )
+  <?php $title = $translation; ?>
+  @endif
 
-  </div>
-  <div class="mainInfos">
-    <div class="photo">
+  @endforeach
+  <div class="kot prenium" itemscope itemtype="http://schema.org/Residence" data-id="{{$location->id}}">
+    <a href="" title="{{trans('locations.goTo',array('title'=>$title->value))}}">
+      <div itemscope itemprop="geo" itemtype="GeoCoordinates"> 
+        <meta content="{{Helpers::extractLatLng($location->building->latLng , 'lat')}}" itemprop="latitude">
+        <meta content="{{Helpers::extractLatLng($location->building->latLng , 'lng')}}" itemprop="longitude">
 
-      <a href="" title="Voir l'annonce {{$location->location_title}}">
-        @if(Helpers::isOk($location->photo))
-        <img itemprop="image" src="{{Config::get('var.img_locations_dir').$location->photo}}" alt="{{trans('locations.photoOf',array('title'=>$title))}}">
-        @else
-        <img itemprop="image" src="{{Config::get('var.img_dir').Config::get('var.no_photoLocation')}}" alt="{{Lang::get('errors.no_location_image_alt')}}">
-        @endif
-      </a>
-    </div>
+      </div>
+      <div class="mainInfos">
+        <div class="photo">
 
-    <div class="content"> 
-      @foreach($location->translation as $translation)
+          @if(Helpers::isOk($location->photo))
+          <img itemprop="image" src="{{Config::get('var.img_locations_dir').$location->photo}}" alt="{{trans('locations.photoOf',array('title'=>$title))}}">
+          @else
+          <img itemprop="image" src="{{Config::get('var.img_dir').Config::get('var.no_photoLocation')}}" alt="{{Lang::get('errors.no_location_image_alt')}}">
+          @endif
 
-      @if( $translation->key === 'title' )
-      <h3 aria-level="3" itemprop="name" role="heading" class="titleKot"><a href="" title="{{trans('locations.goTo',array('title'=>$translation->value))}}">{{$translation->value}}</a>
-      </h3>
+        </div>  
 
-      @endif
+        <div class="content"> 
 
-      @endforeach
+          <h3 aria-level="3" itemprop="name" role="heading" class="titleKot">{{$title->value}}
+          </h3>
 
 
-      <span class="typeAndLocation"><a href="" title="{{trans('see_typeAndLocation',array('city'=>$location->building->locality->name,'type'=>$location->typeLocation->translation[0]->value))}}">{{$location->typeLocation->translation[0]->value}} | <span itemprop="address" itemscope itemtype="PostalAddress"><span class="city" itemprop="addressRegion">{{$location->building->locality->name}}</span></a><span class="section" itemprop="streetAddress">{{$location->building->street}}</span>
-      <meta content="{{$location->building->locality->postal}}" itemprop="postal">
-      <meta content="BE" itemprop="addressCountry">
-    </span></span>
+
+          <span class="typeAndLocation">{{$location->typeLocation->translation[0]->value}} | <span itemprop="address" itemscope itemtype="PostalAddress"><span class="city" itemprop="addressRegion">{{$location->building->locality->name}}</span><span class="section" itemprop="streetAddress">{{$location->building->street}}</span>
+          <meta content="{{$location->building->locality->postal}}" itemprop="postal">
+          <meta content="BE" itemprop="addressCountry">
+        </span></span>
         <!--   @foreach($location->translation as $translation)
 
           @if( $translation->key === 'description' )
@@ -103,5 +104,6 @@
      </div>
    </div>
  </div>
+</a>
 </div>
 <!-- endkot -->

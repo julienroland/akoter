@@ -1,9 +1,7 @@
 @extends('layout.layout')
 
 @section('container')
-@foreach()
 
-@endfor
 <div class="connection large formContainer">
 	<div class="hero">
 		<div class="wrapper">

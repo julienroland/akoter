@@ -19,6 +19,7 @@ class CreateSchoolsTable extends Migration {
 			$table->string('street');
 			$table->string('web');
 			$table->string('latlng');
+			$table->integer('status_type');
 			$table->integer('postal_id')->unsigned();
 			$table->foreign('postal_id')->references('id')->on('postal');
 			$table->integer('region_id')->unsigned();

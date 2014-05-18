@@ -28,7 +28,7 @@ return array(
 	'localisation'=>'Localisation',
 	'type_location'=>'Type(s) de logement(s)',
 	'localisation_intro'=>'Localisez précisement votre batiment via le formulaire et la carte.',
-	'type_location_intro'=>'Ajoutez tout les types de logement qu\'habrite votre logement, choissisez de créer une annonce global ou une annonce spécifique à chacune d\'entres elles',
+	'type_location_intro'=>'Ajoutez tout les types de logement qu\'abrite votre bien, choissisez de créer une annonce globale ou une annonce spécifique à chacune d\'entres elles',
 	'how_be_owner'=>array(
 		'first'=>'Completez votre profile à 100%',
 		'second'=>'Ajouter votre logement à notre site via le formulaire d\'inscription',

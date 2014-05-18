@@ -80,55 +80,20 @@ Route::filter('lang', function(){
 	}
 	else 
 	{
+		if(Auth::check()){
 
-		$langNav = Request::server('HTTP_ACCEPT_LANGUAGE');
+			if(Helpers::isOk(Auth::user()->language_id)){
 
-		if (helpers::isOk($langNav)) 
-		{
-			$language = explode(',',$langNav);
-			$language = strtolower(substr(chop($language[1]),0,2));
+				$language = Config::get('var.lang')[Auth::user()->language_id]  ;
 
-			if (in_array($language, Config::get('app.available_locales')))
-			{	
-				if($language !== Session::get('lang')){
+				if(Helpers::isOk($language)){
+
+					App::setLocale( $language );
 
 					Session::put('lang',$language );
-					Session::put('langId',Config::get('var.langId')[$language]);
+					Session::put('langId',Auth::user()->language_id);
 
 				}
-				
-				App::setLocale($language);
-				$lang = null;
-			}
-			else
-			{
-				$lang = null;
-			}
-
-		}
-		else
-		{
-			if(Auth::check()){
-
-				if(Helpers::isOk(Auth::user()->language_id)){
-
-					$language = Config::get('var.lang')[Auth::user()->language_id]  ;
-
-					if(Helpers::isOk($language)){
-
-						App::setLocale( $language );
-
-						Session::put('lang',$language );
-						Session::put('langId',Auth::user()->language_id);
-
-					}
-
-				}else{
-
-					$lang = null;
-
-				}
-
 
 			}else{
 
@@ -136,8 +101,45 @@ Route::filter('lang', function(){
 
 			}
 
+
+		}else{
+
+
+
+			$langNav = Request::server('HTTP_ACCEPT_LANGUAGE');
+
+			if (helpers::isOk($langNav)) 
+			{
+				$language = explode(',',$langNav);
+				$language = strtolower(substr(chop($language[1]),0,2));
+
+				if (in_array($language, Config::get('app.available_locales')))
+				{	
+					if($language !== Session::get('lang')){
+
+						Session::put('lang',$language );
+						Session::put('langId',Config::get('var.langId')[$language]);
+
+					}
+
+					App::setLocale($language);
+					$lang = null;
+				}
+				else
+				{
+					$lang = null;
+				}
+
+			}
+			else
+			{
+
+				$lang = null;
+
+			}
 		}
 	}
+	
 
 });
 

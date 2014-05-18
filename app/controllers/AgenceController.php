@@ -70,7 +70,6 @@ class AgenceController extends BaseController
 
 			
 			$fields = $validator->failed();
-			dd($fields);
 			return Redirect::route('index_add_agence',Auth::user()->slug)
 			->withInput()
 			->with(compact('fields'))

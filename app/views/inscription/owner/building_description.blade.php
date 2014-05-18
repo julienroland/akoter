@@ -13,7 +13,7 @@
 </div>
 <div class="formContainer">
 
-{{Form::open(array('route'=>array('save_inscription_building', Auth::user()->slug, $building->id ))}}
+{{Form::open(array('route'=>array('save_inscription_building', Auth::user()->slug, $building->id )))}}
 	
 	
 

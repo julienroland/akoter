@@ -330,17 +330,13 @@ strong{
 	line-height: 1.12;
 	font-weight: 400;
 	color:$tc;
-	a{
-		text-transform:uppercase;
-		@include a(0,0,none);
-		color:$greyD2;
-		overflow: hidden;
-		display: inline;
-		text-overflow: ellipsis;
-		&:hover,&:focus,&:active{
 
-		}  
-	}
+	text-transform:uppercase;
+	color:$greyD2;
+	overflow: hidden;
+	display: inline;
+	text-overflow: ellipsis;
+
 
 }
 a{
@@ -1437,6 +1433,8 @@ input[type="checkbox"]:checked + label{
     		margin-bottom: 5px;
     		margin-top: 3px;
     		line-height: 1;
+    		color:$blblue;
+    		text-transform:uppercase;
     		.city{
     			width: 40px;
     			overflow:hidden;
@@ -1445,14 +1443,6 @@ input[type="checkbox"]:checked + label{
     			text-transform:none;
     			font-size:12px;
     			font-weight: 400;
-    		}
-    		a{
-
-    			@include a(0,none);
-    			text-decoration: none;
-    			color:$blblue;
-    			text-transform:uppercase;
-
     		}
     	}
     	&:after{
