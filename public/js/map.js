@@ -20,20 +20,21 @@
         targetIcon = sImgDir+'map/markers/target.png',
         //MAP
         panorama,
+        oLang,
         jsStandardMapStyle = [{"featureType":"road","elementType":"labels","stylers":[{"visibility":"simplified"},{"lightness":20}]},{"featureType":"administrative.land_parcel","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"landscape.man_made","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"transit","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"road.local","elementType":"labels","stylers":[{"visibility":"simplified"}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"visibility":"simplified"}]},{"featureType":"road.highway","elementType":"labels","stylers":[{"visibility":"simplified"}]},{"featureType":"poi","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"road.arterial","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"water","elementType":"all","stylers":[{"hue":"#a1cdfc"},{"saturation":30},{"lightness":49}]},{"featureType":"road.highway","elementType":"geometry","stylers":[{"hue":"#f49935"}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"hue":"#fad959"}]}],
         jsColorBlindMapStyle = [ {"featureType": "administrative.country","elementType": "geometry.stroke","stylers": [{ "color": "#00006f" },{ "lightness": -5 },{ "visibility": "on" },{ "weight": 3 },{ "hue": "#ff0091" }]},{"featureType":"all","elementType":"all","stylers":[{"invert_lightness":true},{"saturation":0},{"lightness":25},{"gamma":0.6},{"hue":"#435158"}]}],
         gMarkerArrayKot = [],
-        gMarkerArrayEcole = [],
+        gMarkerArraySchool = [],
         gMarkerKot,
         gMarkerEcole,
         gCenter = new google.maps.LatLng(50.5,4.6),
         oKots,
         nDistanceValueOk,
         oEcoles,
-        bEcoleClick =false,
+        bSchoolClick =false,
         aKots = [],
-        oEcole = [],
-        gEcole = new google.maps.LatLng(),
+        oSchool = [],
+        gSchool = new google.maps.LatLng(),
         sNom = [],
         sCachet,
         cityCircle = new google.maps.Circle(),
@@ -74,7 +75,7 @@
   $mapItem = $('.mapItem'),
   $mapItemTab = $('.mapItem .tab'),
   mc,
-
+  mcSchool,
     //ERRORS
     $errorsNotifications = $('.errorsNotifications'),
     $errorsNotificationsAppend = $('.errorsNotifications .list'),
@@ -86,22 +87,42 @@
     //ANIMATIONS
     sAnimationEvent = 'animated',
     //CLUSTER
-    clusterStyle = [
+    clusterStyleKot = [
     {
     	opt_textColor: 'white',
-    	url: sImgDir+'map/clusters/small.png',
+    	url: sImgDir+'map/clusters/kot/small.png',
     	height: 30,
     	width: 30
     },
     {
     	opt_textColor: 'white',
-    	url: sImgDir+'map/clusters/medium.png',
+    	url: sImgDir+'map/clusters/kot/medium.png',
     	height: 45,
     	width: 45
     },
     {
     	opt_textColor: 'white',
-    	url: sImgDir+'map/clusters/big.png',
+    	url: sImgDir+'map/clusters/kot/big.png',
+    	height: 60,
+    	width: 60
+    }
+    ],
+    clusterStyleSchool = [
+    {
+    	opt_textColor: 'white',
+    	url: sImgDir+'map/clusters/school/small.png',
+    	height: 30,
+    	width: 30
+    },
+    {
+    	opt_textColor: 'white',
+    	url: sImgDir+'map/clusters/school/medium.png',
+    	height: 45,
+    	width: 45
+    },
+    {
+    	opt_textColor: 'white',
+    	url: sImgDir+'map/clusters/school/big.png',
     	height: 60,
     	width: 60
     }
@@ -175,7 +196,12 @@
     **/
     
     var initialize = function(){
-
+    	/**
+    	*
+    	* Get traductions
+    	*
+    	**/
+    	getTraductions();
       /**
       *
       * Display map
@@ -213,7 +239,7 @@
       *
       **/
 
-      // ajaxAllEcole();
+      ajaxAllSchool();
 
       ajaxAllKot();
 
@@ -317,7 +343,7 @@
     {
 
     	var id = 5;
-    	var sMessage = 'Distance: chiffres requis';
+    	var sMessage = oLang.map.range_required;
     	var sIcon = sImgDir+"reseaux/fb.jpg";
 
     	e_errorNotification(id, sMessage, sIcon );
@@ -335,7 +361,7 @@
    	$city.val(place.address_components[0].long_name);
    }, 10);
    
-   if(bEcoleClick)
+   if(bSchoolClick)
    {
    	actionEcoleClick( nDistanceValueOk );
    }
@@ -375,7 +401,7 @@
 
         	}else{
 
-        		$range.after('<span class="range messageTuto">Vous pouvez régler la distance</span>');
+        		$range.after('<span class="range messageTuto">'+oLang.map.you_can_change_range+'</span>');
         	}
         }
 
@@ -924,7 +950,7 @@ var eventInput = function()
   	if(!$.isNumeric(nDistanceValueOk))
   	{
   		var id = 5;
-  		var sMessage = 'Distance: chiffres requis';
+  		var sMessage = oLang.map.range_required;
   		var sIcon = sImgDir+"reseaux/fb.jpg";
 
   		e_errorNotification(id, sMessage, sIcon );
@@ -932,7 +958,9 @@ var eventInput = function()
 
   	sCenterCity = sCity.value;
 
-  	if(bEcoleClick)
+  	bSchoolClick = false;
+
+  	if(bSchoolClick)
   	{
   		actionEcoleClick( nDistanceValueOk );
   	}
@@ -966,7 +994,7 @@ var eventInput = function()
   	if(!$.isNumeric(nDistanceValueOk))
   	{
   		var id = 5;
-  		var sMessage = 'Distance: chiffres requis';
+  		var sMessage = oLang.map.range_required;
   		var sIcon = sImgDir+"reseaux/fb.jpg";
 
   		e_errorNotification(id, sMessage, sIcon );
@@ -974,13 +1002,13 @@ var eventInput = function()
 
   	sCenterCity = sCity.value;
 
-  	bEcoleClick = false;
+  	bSchoolClick = false;
 
   	removeFormTuto($range, 'messageTuto');
 
   	removeFormError( $city );
 
-  	if(bEcoleClick)
+  	if(bSchoolClick)
   	{
   		actionEcoleClick( nDistanceValueOk );
   	}
@@ -1000,7 +1028,7 @@ var eventInput = function()
   					if($range.next().hasClass('messageTuto')){
 
   					}else{
-  						$range.after('<span class="range messageTuto">Vous pouvez régler la distance</span>');
+  						$range.after('<span class="range messageTuto">'+oLang.map.you_can_change_range+'</span>');
   					}
   				}
 
@@ -1023,7 +1051,7 @@ var eventInput = function()
   	if(!$.isNumeric(nDistanceValueOk))
   	{
   		var id = 5;
-  		var sMessage = 'Distance: chiffres requis';
+  		var sMessage = oLang.map.range_required;
   		var sIcon = sImgDir+"reseaux/fb.jpg";
 
   		e_errorNotification(id, sMessage, sIcon );
@@ -1037,17 +1065,15 @@ var eventInput = function()
 
   	}*/
 
-  	formError(sCenterCity === "", $('.localite.messageError'), $city ,'localite', $('.mainType') ,'Selectionnez une location', $city);
 
-  	bEcoleClick = false;
+  	if(bSchoolClick) {
 
-  	if(bEcoleClick) {
-
-  		actionEcoleClick( nDistanceValueOk );
+  		actionSchoolClick( nDistanceValueOk );
 
   	}
   	else
   	{
+  		formError(sCenterCity === "", $('.localite.messageError'), $city ,'localite', $('.mainType') ,oLang.map.select_location, $city);
 
   		if(gCenterCity){
 
@@ -1063,6 +1089,12 @@ var eventInput = function()
   });
 
 };
+var actionSchoolClick = function( nDistance ){
+  //filtrer les kots en fonction d'un rayon
+   //afficher le cercle
+   
+   drawCircle( 'ecole', gCurrentPlace , nDistance );
+}
 $.fn.extend({
 	a_animate: function( animation){
 		if(typeof animation === 'undefined'){
@@ -1107,7 +1139,7 @@ var removeFormError = function( form ){
 var formError = function( condition, exist, form , name, parent, content, giveFocus){
 	if(condition){
 		if(exist.length <= 0){  
-			form.after('<span class="'+name+' messageError">Entrez une localité en premier</span>').html(content);
+			form.after('<span class="'+name+' messageError">'+oLang.map.enter_locality_or_school+'</span>').html(content);
 		}
 		form.addClass('form-error');
 		if(giveFocus){
@@ -1118,12 +1150,27 @@ var formError = function( condition, exist, form , name, parent, content, giveFo
   //thereIsError(parent.find('.errors'));
   
 };
+var getTraductions = function(  ) {
+
+	$.ajax({
+
+		type: "get", 
+		async:   true,
+		url: '/getAllLang',
+		dataType: "json",
+		success:function( oData ){
+			oLang = oData;
+			console.log(oData);
+			return true;
+		}
+	});
+}
 var thereIsError = function( element ){
 	if(element.length > 0){
 		if(element.hasClass('none')){
 			element.removeClass('none');
 			if(element.find('span').length <= 0){
-				element.append('<span>erreur(s) détectée(s)</span>');
+				element.append('<span>'+oLang.map.errors_detects+'</span>');
 			}
 		}
 	}
@@ -1132,13 +1179,13 @@ var processSubmit = function(that, nType){
 
 	if(nType === 1){
 
-		that.prop('disabled', true).val('Recherche...');
+		that.prop('disabled', true).val(oLang.map.research);
 
 	}else if(nType === 0){
 
 		that.delay(600)
 		.queue(function(next){
-			$(this).prop('disabled', false).val('Filtrer');
+			$(this).prop('disabled', false).val(oLang.map.filter);
 			next();
 		});
 	}
@@ -1158,14 +1205,14 @@ var ajaxAllKot = function(){
 	})
 }
 
-var ajaxAllEcole = function(){
+var ajaxAllSchool = function(){
 	$.ajax({
 		dataType: "json",
-		url:"dataEcole",
+		url:"getSchools",
 		type:"get",
 		success: function ( oResponse ){
-			oEcoles= oResponse.data;
-			createMarkerEcole(oEcoles);
+			oSchools = oResponse;
+			createMarkerSchool(oSchools);
 		}
 	})
 }
@@ -1197,23 +1244,28 @@ $streetView.css('display','block');
 mc = new MarkerClusterer(gMap, gMarkerArrayKot, {
 	gridSize: 50,
 	maxZoom: 15,
-	styles: clusterStyle,
+	styles: clusterStyleKot,
 }); 
 //mc.clusters[i].markers[i].getVisible() <== si false alors mc.clusters[i].setMap(null)
 } 
 
-var createMarkerEcole = function(oData){
-	var blueIcon = new google.maps.MarkerImage('http://www.google.com/intl/en_us/mapfiles/ms/micons/blue-dot.png');
+var createMarkerSchool = function(oData){
+	for(var i=0;i < oData.length;i++){
+		var lat = getLatLng(oData[i].latlng, 'lat');
+		var lng = getLatLng(oData[i].latlng, 'lng');
+		/*listEcole.push(LatLng);*/
 
-	for(var i=0;i<=oData.length-1;i++)
-	{
-		var lat = oData[i].lat;
-		var lng = oData[i].lng;
-		var LatLng = [lat,lng];
-		listEcole.push(LatLng);
-		drawMarkerEcole( Number(listEcole[i][0]) , Number(listEcole[i][1]), oData[i].nom, blueIcon);
+
+		drawMarkerSchool( new google.maps.LatLng(lat,lng), oData[i].id, i);
+
 	}
-}
+
+	mcSchool = new MarkerClusterer(gMap, gMarkerArraySchool, {
+		gridSize: 100,
+		maxZoom: 15,
+		styles: clusterStyleSchool,
+	}); 
+};
 
 var drawMarkerKot = function ( mPosition, sId, i)
 {
@@ -1242,66 +1294,33 @@ var drawMarkerKot = function ( mPosition, sId, i)
 
 }
 
-var drawMarkerEcole = function ( nLat , nLng, sAdresse , icon)
+var drawMarkerSchool = function ( mPosition, sId , i)
 {
-	var position = new google.maps.LatLng(nLat,nLng);
 
-	gMarkerEcole = new google.maps.Marker({
-		position:position,
+	gMarkerSchool = new google.maps.Marker({
+		position:mPosition,
 		map : gMap,
-		animation: google.maps.Animation.DROP,
-		title : sAdresse,
-		icon : icon
+		id : sId,
+		order : i,
+		icon : schoolIcon
 	});
 
-	gMarkerArrayEcole.push(gMarkerEcole);
+	gMarkerArraySchool.push(gMarkerSchool);
 
  // actionEcoleClick();
- google.maps.event.addListener(gMarkerEcole,'click',function( e ){
+ google.maps.event.addListener(gMarkerSchool,'click',function(){
 
- 	bEcoleClick = true;
- 	console.log(bEcoleClick);
- 	sNom = [];
-    //centrer sur l'école
-    /*gMap.setZoom(12);*/
-    smoothZoom( gMap, 17, gMap.getZoom());
-    gMap.panTo(gMarkerEcole.getPosition());
+ 	bSchoolClick = true;
 
-    gCurrentPlace = gMarkerEcole.getPosition();
-  //recuperer la lat/lng 
-  //récuperer les valeurs dans array
-  for(var i=0;i<=oEcoles.length-1;i++)
-  {
-  	sNom = {latlng : new google.maps.LatLng( oEcoles[i].lat , oEcoles[i].lng ),nom:oEcoles[i].nom};
-  	oEcole.push(sNom); 
+ 	smoothZoom( gMap, 17, gMap.getZoom());
 
-  }
-  
-  for (var i =0; i<=oEcole.length-1;i++){ 
-  //tester si un kot BDD === au kot clické
+ 	gMap.panTo(this.getPosition());
 
-  if( e.latLng.lat() === oEcole[i].latlng.lat() && e.latLng.lng() === oEcole[i].latlng.lng())
-  {
-      //afficher le nom dans l'input
+ 	gCurrentPlace = this.getPosition();
 
-      $('#map').attr('value',oEcole[i].nom);
+ });
 
-      //enregistrer la valeur
-
-      gEcole = new google.maps.LatLng( oEcole[i].latlng.lat() , oEcole[i].latlng.lng());
-
-  }
-}
-});
-
-}
-
-var actionEcoleClick = function( nDistance ){
-  //filtrer les kots en fonction d'un rayon
-   //afficher le cercle
-   
-   drawCircle( 'ecole', gEcole , nDistanceValueOk );
-}
+};
 var defineCircle = function(center, radius, sColor){
 	return {
 		fillColor: '#fff',
@@ -1315,20 +1334,23 @@ var defineCircle = function(center, radius, sColor){
 		radius: radius
 	};
 }
-var inRange = function ( oCenter, nDistance ) //obj Google / numeric
+var inRange = function ( oCenter, nDistance, sType ) //obj Google / numeric
 {
+	console.log(oCenter);
 
 	aKots = [];
 	var options = defineCircle(oCenter, nDistance);
 	cityCircle.setOptions( options );
-	cityCircle.bindTo('center', gMarker, 'position');
+	if(sType==='ville'){
+		cityCircle.bindTo('center', gMarker, 'position');
+	}
 	gMarker._cityCircle = cityCircle;
 
 	var boundd = cityCircle.getBounds();
 	for(var i=0;i<oKots.length;i++)
 	{
 		/*console.log(oKots[i].id+!boundd.contains(new google.maps.LatLng(getLatLng(oKots[i].latlng, 'lat'), getLatLng(oKots[i].latlng, 'lng'))));*/
-	if(!boundd.contains(new google.maps.LatLng(getLatLng(oKots[i].latlng, 'lat'), getLatLng(oKots[i].latlng, 'lng')))){
+		if(!boundd.contains(new google.maps.LatLng(getLatLng(oKots[i].latlng, 'lat'), getLatLng(oKots[i].latlng, 'lng')))){
 
 			if(typeof bShowAllKot === 'undefined'){
 
@@ -1450,7 +1472,7 @@ var toggleStreetView = function( e ) {
 	}else{
 
 		var id  = 6
-		var sMessage = "Aucun endroit ciblé";
+		var sMessage = oLang.map.no_stop_targeted;
 		e_errorNotification(id, sMessage, sIcon );
 
 	}
@@ -1475,6 +1497,7 @@ var displayStreetView = function( center ){
 	gMap.setStreetView(panorama);
 };
 var drawCircle = function(sType , oCenter, sDistance){
+
 	if( cityCircle )
 	{
 		cityCircle.setMap( null );
@@ -1511,7 +1534,7 @@ var drawCircle = function(sType , oCenter, sDistance){
   }
   gMap.fitBounds(bounds) ;
 
-  inRange(oCenter, nDistance);
+  inRange(oCenter, nDistance, sType);
 
 
 };
@@ -1686,7 +1709,7 @@ var e_errorNotification = function( id, sMessage, sIcon, animate ){
                     else if(sStatus ===google.maps.GeocoderStatus.ZERO_RESULTS)//1
                     {
                     	var id = 1;
-                    	var sMessage = 'Nous avons trouvé aucun résultat pour votre recherche';
+                    	var sMessage = oLang.map.no_result_search;
                     	var sIcon = sImgDir+"reseaux/fb.jpg";
 
                     	e_errorNotification(id, sMessage, sIcon, 'shake' );
@@ -1697,7 +1720,7 @@ var e_errorNotification = function( id, sMessage, sIcon, animate ){
                     {
 
                     	var id = 2;
-                    	var sMessage = 'Requête refusée, changez vos termes et réessayé';
+                    	var sMessage = oLang.map.request_reject;
                     	var sIcon = sImgDir+"reseaux/fb.jpg";
 
                     	e_errorNotification(id, sMessage, sIcon );
@@ -1707,7 +1730,7 @@ var e_errorNotification = function( id, sMessage, sIcon, animate ){
                     {
 
                     	var id = 3;
-                    	var sMessage = 'Entrez une adresse (rue, localité)';
+                    	var sMessage = oLang.map.enter_address;
                     	var sIcon = sImgDir+"reseaux/fb.jpg";
 
                     	e_errorNotification(id, sMessage, sIcon );
@@ -1717,7 +1740,7 @@ var e_errorNotification = function( id, sMessage, sIcon, animate ){
                     {
 
                     	var id =4;
-                    	var sMessage = 'Erreur interne, relancez votre recherche';
+                    	var sMessage = oLang.map.intern_error;
                     	var sIcon = sImgDir+"reseaux/fb.jpg";
 
                     	e_errorNotification(id, sMessage, sIcon );

@@ -8,7 +8,6 @@ class BuildingController extends BaseController
 	public function gmGetBuilding()
 	{
 
-		/*$cData = Building::where('status_type', 1)->get();*/
 		$locations = Building::
 		whereHas('location',function($query){
 			$query
@@ -26,27 +25,6 @@ class BuildingController extends BaseController
 		->remember(Config::get('var.remember'), 'map_buildings')
 		->get( );
 
-	/*	if(!$cData)
-		{	
-			return Response::json(array('data'=>NULL,'error'=>'Error with the database, try again or contact us.'), 400);	
-
-		}else{*/
-		/*	$oData = array();
-
-			foreach ($cData as $oOneData)
-			{
-		
-				$constructObject = array(
-					'id'=>$oOneData->id,
-					'street'=>$oOneData->street,
-					'number'=>$oOneData->number,
-					'lat'=>Helpers::sGetLatLng($oOneData->latlng,'lat'),
-					'lng'=>Helpers::sGetLatLng($oOneData->latlng,'lng')
-					);
-				array_push($oData, $constructObject );
-			}*/
-
-			return Response::json($locations, 200);
-			/*}*/
-		}
+		return Response::json($locations, 200);
 	}
+}

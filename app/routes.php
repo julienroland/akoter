@@ -74,6 +74,14 @@ Route::get('getKots',array('as'=>'getKots','uses'=>'BuildingController@gmGetBuil
 
 /**
 *
+* Schools
+*
+**/
+
+Route::get('getSchools',array('uses'=>'SchoolController@gmGet'));
+
+/**
+*
 * locality autocomplete
 *
 **/
@@ -435,17 +443,7 @@ Route::group(array('before'=>'guest'), function(){
 *
 */
 
-/*
-*
-*	AJAX
-*
-*/
 
-Route::any('dataEcole',array(
-	'as'=>'listEcole',
-	'uses'=>'AjaxController@listEcole'
-	));
-/*END AJAX*/
 
 
 });

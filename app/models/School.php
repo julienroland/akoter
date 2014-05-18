@@ -3,9 +3,6 @@
 class School extends Eloquent {
 
 	protected $guarded = array();
-
-	public static $sluggable = array(
-		);
 	
 	public static $rules = array(
 		);

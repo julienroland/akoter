@@ -13,7 +13,7 @@ class DatabaseSeeder extends Seeder {
 		DB::statement('SET foreign_key_checks = 0');
 		DB::statement('SET UNIQUE_CHECKS=0');
 
-		/*$this->call('RegionsTableSeeder');
+		$this->call('RegionsTableSeeder');
 		$this->call('PostalTableSeeder');
 		$this->call('LocalitiesTableSeeder');
 		$this->call('SubscriptionsTableSeeder');
@@ -28,7 +28,7 @@ class DatabaseSeeder extends Seeder {
 		$this->call('NoticesTableSeeder');
 		$this->call('PostsTableSeeder');
 		$this->call('UsersGroupsTableSeeder');
-		$this->call('OptionTableSeeder');*/
+		$this->call('OptionTableSeeder');
 		$this->call('SchoolsTableSeeder');
 
 		DB::statement('SET foreign_key_checks = 1');

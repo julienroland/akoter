@@ -125,9 +125,10 @@ class SchoolsTableSeeder extends Seeder {
 			'Rue de Virton',
 			);
 
-for($i=1;$i<3;$i++){
+for($i=1;$i<50;$i++){
 
 	$name = '';
+	$short = '';
 
 	for($o=1;$o<rand(5,13);$o++){
 		$name = $name . $alpha[rand(1, 25)];
@@ -138,7 +139,7 @@ for($i=1;$i<3;$i++){
 	}
 	array_push($schools,
 		array(
-			'address'=>$street[rand(1,30)],
+			'street'=>$street[rand(1,30)],
 			'latlng'=>(rand(50000,51000)/1000).','.(rand(3800,5500)/1000),
 			'region_id'=>rand(1,13),
 			'locality_id'=>rand(1,2000),
