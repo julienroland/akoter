@@ -14,7 +14,8 @@
 <div class="formContainer">
 
 {{Form::open(array('route'=>array('save_inscription_building', Auth::user()->slug, $building->id )))}}
-	
+	@include('includes.errors')
+	@include('includes.success')
 	
 
 {{Form::close()}}

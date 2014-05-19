@@ -54,7 +54,7 @@
 
 		<div class="field">
 			{{Form::label('phone',trans('form.phone'))}}
-			{{Form::input('tel','phone',isset($user->phone) && !empty($user->phone) ? $user->phone :(Session::has('account_personnal') ? Session::get('account_personnal')['phone'] :''),array('placeholder'=>'000 00 00 00','required', 'class'=>isset(Session::get('field')['phone']) ? 'form-error':''))}}
+			{{Form::input('tel','phone',isset($user->phone) && !empty($user->phone) ? $user->phone :(Session::has('account_personnal') ? Session::get('account_personnal')['phone'] :''),array('placeholder'=>'000000000','required', 'class'=>isset(Session::get('field')['phone']) ? 'form-error':''))}}
 			<i class="icon-required" aria-hidden="true"></i>
 		</div>
 

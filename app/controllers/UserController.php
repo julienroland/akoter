@@ -15,6 +15,8 @@ class UserController extends BaseController
 			->subject(trans('general.check_email'));
 		});
 
+		return Redirect::back()
+		->withSuccess(trans('account.mailSend'));
 	}
 	
 }

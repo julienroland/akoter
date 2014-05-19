@@ -31,9 +31,10 @@ return array(
 	'type_location_intro'=>'Ajoutez tout les types de logement qu\'abrite votre bien, choissisez de créer une annonce globale ou une annonce spécifique à chacune d\'entres elles',
 	'how_be_owner'=>array(
 		'first'=>'Completez votre profile à 100%',
-		'second'=>'Ajouter votre logement à notre site via le formulaire d\'inscription',
-		'third'=>'Nous validerons votre inscription',
-		'fourth'=>'Votre annonce est bien ajouté sur notre site et est visible par tout le monde',
+		'second'=>'Vous devez faire vérifier votre email pour des raisons de sécurités.',
+		'third'=>'Ajouter votre logement à notre site via le formulaire d\'inscription',
+		'fourth'=>'Nous validerons votre inscription',
+		'five'=>'Votre annonce est bien ajouté sur notre site et est visible par tout le monde',
 		),
 	'locate_map_btn'=>'Localiser sur la carte',
 	'locate_map_infos'=>array(

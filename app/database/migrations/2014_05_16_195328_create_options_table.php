@@ -15,8 +15,10 @@ class CreateOptionsTable extends Migration {
 		Schema::create('options', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->integer('typeOption_id')->unsigned();
-			$table->foreign('typeOption_id')->on('id')->references('typesOptions');
+			$table->string('key');
+			$table->string('default');
+			$table->integer('type_option_id')->unsigned();
+			$table->foreign('type_option_id')->references('id')->on('types_options');
 			$table->timestamps();
 		});
 	}

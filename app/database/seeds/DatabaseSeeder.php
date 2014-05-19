@@ -22,14 +22,16 @@ class DatabaseSeeder extends Seeder {
 		$this->call('TypesLocationsTableSeeder');
 		$this->call('LanguagesTableSeeder');
 		$this->call('LocationsTableSeeder'); 
-		$this->call('TranslationsTableSeeder');
 		$this->call('ParticularitiesTableSeeder');
 		$this->call('ParticularityLocationTableSeeder');
 		$this->call('NoticesTableSeeder');
 		$this->call('PostsTableSeeder');
 		$this->call('UsersGroupsTableSeeder');
-		$this->call('OptionTableSeeder');
+		$this->call('TypesOptionsTableSeeder');
 		$this->call('SchoolsTableSeeder');
+		$this->call('OptionTableSeeder');
+		$this->call('TranslationsTableSeeder');
+
 
 		DB::statement('SET foreign_key_checks = 1');
 		DB::statement('SET UNIQUE_CHECKS= 1');

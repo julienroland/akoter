@@ -22,10 +22,10 @@ class User extends Eloquent implements UserInterface, RemindableInterface, Slugg
 		'password_co'=>'required|min:5',
 		);
 	public static $inscription_rules = array(
-		'first_name'=>'required|alpha ',
-		'name'=>'required |alpha',
+		'first_name'=>'required',
+		'name'=>'required',
 		'email'=>'required | email|unique:users,email',
-		'civility'=>'required ',
+		'civility'=>'required',
 		'day'=>'required |numeric',
 		'month'=>'required |numeric',
 		'year'=>'required |numeric|digits:4',

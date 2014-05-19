@@ -849,6 +849,92 @@ $regions = array(
 		),
 	);
 
+$options = array(
+	'fr'=>array(
+		'Salle de bain',
+		'Cuisine',
+		'Salon',
+		'Jardin',
+		'Terrasse',
+		'Balcon',
+		'Parking privé',
+		'Parking public à proximité',
+		'Parking payant à proximité',
+		'Animaux accepté',
+		'Animaux réfusé',
+		'Petit animaux accepté',
+		'Internet inclus',
+		'Internet non inclus',
+		'TV',
+		'Prise TV',
+		'Machine à laver',
+		'Sèche linge',
+		'Four',
+		'Four micro-onde',
+		'Lave vaisselle',
+		'Bouloir',
+		'Ustensil de cuisine disponible',
+		'Frigo',
+		'Congélateur',
+
+		),
+	'en'=>array(
+		'Salle de bain',
+		'Cuisine',
+		'Salon',
+		'Jardin',
+		'Terrasse',
+		'Balcon',
+		'Parking privé',
+		'Parking public à proximité',
+		'Parking payant à proximité',
+		'Animaux accepté',
+		'Animaux réfusé',
+		'Petit animaux accepté',
+		'Internet inclus',
+		'Internet non inclus',
+		'TV',
+		'Prise TV',
+		'Machine à laver',
+		'Sèche linge',
+		'Four',
+		'Four micro-onde',
+		'Lave vaisselle',
+		'Bouloir',
+		'Ustensil de cuisine disponible',
+		'Frigo',
+		'Congélateur',
+
+		),
+	'nl'=>array(
+		'Salle de bain',
+		'Cuisine',
+		'Salon',
+		'Jardin',
+		'Terrasse',
+		'Balcon',
+		'Parking privé',
+		'Parking public à proximité',
+		'Parking payant à proximité',
+		'Animaux accepté',
+		'Animaux réfusé',
+		'Petit animaux accepté',
+		'Internet inclus',
+		'Internet non inclus',
+		'TV',
+		'Prise TV',
+		'Machine à laver',
+		'Sèche linge',
+		'Four',
+		'Four micro-onde',
+		'Lave vaisselle',
+		'Bouloir',
+		'Ustensil de cuisine disponible',
+		'Frigo',
+		'Congélateur',
+		),
+	);
+
 $translations = array();
 
 
@@ -869,18 +955,30 @@ foreach($postTitleHome as $key => $post){
 	}
 }
 for($m=1;$m <= count($lang); $m++){
+	for($i=1; $i<count($options['fr']); $i++){
 
+		array_push($translations,
+			array(
+				"content_type"=>"Option",
+				"content_id"=>$i,
+				"key"=>"name",
+				"value"=>$options[$lang[$m-1]][$i-1],
+				"language_id"=>$m,
+				)
+			);
+
+	}
 	for($i=1 ; $i < 7 ; $i++){
-	array_push($translations,
-		array(
-			"content_type"=>"TypeLocation",
-			"content_id"=>$i,
-			"key"=>"name",
-			"value"=>$types_locations[$lang[$m-1]][$i],
-			"language_id"=>$m,
-			)
-		);
-}
+		array_push($translations,
+			array(
+				"content_type"=>"TypeLocation",
+				"content_id"=>$i,
+				"key"=>"name",
+				"value"=>$types_locations[$lang[$m-1]][$i],
+				"language_id"=>$m,
+				)
+			);
+	}
 	for($l=1 ;$l <= 3; $l++){
 		array_push($translations,
 			array(
@@ -950,29 +1048,29 @@ for($m=1;$m <= count($lang); $m++){
 				"value"=>$lang[$m-1]."Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
 				"language_id"=>$m,
 				)
-			);*/
+);*/
 
-		array_push($translations,
-			array(
-				"content_type"=>"Location",
-				"content_id"=>$i,
-				"key"=>"title",
-				"value"=>$lang[$m-1]."title long ou court",
-				"language_id"=>$m,
-				)
-			);
+array_push($translations,
+	array(
+		"content_type"=>"Location",
+		"content_id"=>$i,
+		"key"=>"title",
+		"value"=>$lang[$m-1]."title long ou court",
+		"language_id"=>$m,
+		)
+	);
 
-		array_push($translations,
-			array(
-				"content_type"=>"Location",
-				"content_id"=>$i,
-				"key"=>"slug",
-				"value"=>Helpers::toSlug($lang[$m-1].sha1(rand(1, 1000))."title long ou court"),
-				"language_id"=>$m,
-				)
-			);
-		
-	}
+array_push($translations,
+	array(
+		"content_type"=>"Location",
+		"content_id"=>$i,
+		"key"=>"slug",
+		"value"=>Helpers::toSlug($lang[$m-1].sha1(rand(1, 1000))."title long ou court"),
+		"language_id"=>$m,
+		)
+	);
+
+}
 }
 		// Uncomment the below to run the seeder
 DB::table('translations')->insert($translations);

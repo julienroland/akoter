@@ -12,12 +12,12 @@ class CreateTypesOptionsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('typesOptions', function(Blueprint $table)
+		Schema::create('types_options', function(Blueprint $table)
 		{
 			$table->increments('id');
 			$table->string('name');
-			$table->integer('parent_id')->unsigned();
-			$table->foreign('parent_id')->on('id')->references('typesOptions');
+			$table->integer('parent_id')->unsigned()->nullable();
+			$table->foreign('parent_id')->references('id')->on('types_options');
 			$table->timestamps();
 		});
 	}
@@ -30,7 +30,7 @@ class CreateTypesOptionsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('typesOptions');
+		Schema::drop('types_options');
 	}
 
 }

@@ -32,13 +32,13 @@ class InscriptionController extends BaseController {
 			$user->first_name = ucfirst($input['first_name']);
 			$user->name = ucfirst($input['name']);
 			$user->civility = $input['civility'];
-			if(isset($input['locality']) && Helpers::isOk($input['locality'])){
+			if(isset($input['locality']) && Helpers::isOk($input['locality']) && $input['locality'] != 0){
 				$user->locality_id = $locality_id;
 			}
 			if(isset($input['address']) && Helpers::isOk($input['address'])){
 				$user->address = $input['address'];
 			}
-			if(isset($input['region']) && Helpers::isOk($input['region'])){
+			if(isset($input['region']) && Helpers::isOk($input['region']) && $input['region'] != 0){
 				$user->region_id = $region_id;
 			}
 			if(isset($input['postal']) && Helpers::isOk($input['postal'])){

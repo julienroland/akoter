@@ -3520,6 +3520,18 @@ $country-h:100px;
 
 			}
 		}
+		&.notdone{
+			border:1px solid $error;
+			&:after{
+				background-color:$error;
+			}
+		}
+		&.done{
+			border:1px solid $success;
+			&:after{
+				background-color: $success;
+			}
+		}
 	}
 	.btn-inscription{
 		max-width: 200px;

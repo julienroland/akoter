@@ -19,6 +19,7 @@ class CreateBuildingsTable extends Migration {
 			$table->string('latlng');
 			$table->integer('postal');
 			$table->boolean('status_type');
+			$table->integer('register_step');
 			$table->integer('locality_id')->unsigned();
 			$table->foreign('locality_id')->references('id')->on('localities');
 			$table->integer('region_id')->unsigned();

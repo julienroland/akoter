@@ -42,6 +42,8 @@ array(
 	'edit_photo'=>'Modifier la photo',
 	'back_home'=>'Retour à l\'accueil de votre compte',
 	'back_previous_step'=>'Retour à l\'étape précédente',
+	'validateEmail'=>'Valider mon email',
+	'mailSend'=>'Nous vous avons envoyé un email, veuillez vérifiez votre boite mail',
 
 
 	);

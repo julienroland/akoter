@@ -14,7 +14,10 @@
 </div>
 
 {{Form::open(array('route'=>'save_params','method'=>'put','class'=>'inlineType rules','data-rules'=>json_encode(User::$params_rules_password)))}}
+
 @include('includes.errors')
+@include('includes.success')
+
 <a href="{{route('checkEmail',Auth::user()->slug)}}" class="checkEmail">{{trans('form.checkEmail')}}</a>
 <div class="field">
 	{{Form::label('email',trans('form.login'))}}

@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateUsersLocationsTable extends Migration {
+class CreateLocationOptionTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,15 +12,13 @@ class CreateUsersLocationsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('user_location', function(Blueprint $table) {
+		Schema::create('location_option', function(Blueprint $table)
+		{
 			$table->increments('id');
-			$table->integer('user_id')->unsigned();
-			$table->foreign('user_id')->references('id')->on('users');
 			$table->integer('location_id')->unsigned();
 			$table->foreign('location_id')->references('id')->on('locations');
-			$table->boolean('status');
-			$table->timestamp('begin');
-			$table->timestamp('end');
+			$table->integer('option_id')->unsigned();
+			$table->foreign('option_id')->references('id')->on('options');
 			$table->timestamps();
 		});
 	}
@@ -33,7 +31,7 @@ class CreateUsersLocationsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('users_locations');
+		Schema::drop('location_option');
 	}
 
 }
