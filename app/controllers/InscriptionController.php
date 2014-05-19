@@ -379,50 +379,149 @@ class InscriptionController extends BaseController {
 	*
 	**/
 
- 
+
 	public function indexInfosGeneral( $user_slug, $building ){
 		
- 
 
- $optionId = TypeOption::name('infos')->remember(Config::get('var.remember'), 'typeOption.infos.id')->pluck('id');
 
- $options = Option::whereTypeOptionId($optionId)->with('translation')->get();
+		$optionId = TypeOption::name('infos')->remember(Config::get('var.remember'), 'typeOption.infos.id')->pluck('id');
 
- return View::make('inscription.owner.infos_general', array('page'=>'inscription','widget'=>array('editor','validator','ui','tabs')))
- ->with(compact('building','options'));
+		$options = Option::whereTypeOptionId($optionId)->with('translation')->get();
 
-}
+		$situations = $building->translations()->whereKey('situations')->get();
 
-public function saveInfosGeneral( $user_slug, $building ){
+		$adverts = $building->translations()->whereKey('advert')->get();
 
-	$input = Input::all();
+		return View::make('inscription.owner.infos_general', array('page'=>'inscription','widget'=>array('validator','ui','tabs')))
+		->with(compact('building','options','situations','adverts'));
 
-	$validator = Validator::make($input, Building::$infos_general_rules);
-
-	if( $validator->passes()){
-		dd($input);
-/*		dd(Helpers::translate("bonjour c'est moi", 'fr', 'en'));*/
-		$building->garantee = $input['garantee'];
-		$building->register_step = 4;
-		$building->save();
-		Session::put('inscription.current', 4);
-
-		return Redirect::route('index_inscription_general', array(Auth::user()->slug, $building->id ))
-		->withSuccess(trans('validation.custom.inscription_description_batiment'));
-
-	}else{
-
-		return Redirect::back()
-		->withInput()
-		->withErrors($validator);
 	}
 
+	public function saveInfosGeneral( $user_slug, $building ){
+
+		$input = Input::all();
+
+		$validator = Validator::make($input, Building::$infos_general_rules);
+
+		Session::put('inscription.infos_general', $input );
+		
+		if( $validator->passes()){
+
+			$building->garantee = $input['garantee'];
+			$building->save();
+
+			$situations = array_filter($input['situations']);
+			$adverts = array_filter($input['advert']);
+
+			$situation = reset($situations);
+			$fromSituation = key($situations);	
+
+			$advert = reset($adverts);
+			$fromAdvert = key($adverts);
+
+			if(Helpers::isOk(array_filter($input['situations']))){
+
+				foreach($input['situations'] as $key => $text){
+
+					if(Helpers::isOk($text)){
+
+						if(Helpers::isNotOk(Translation::whereContentType('building')->whereKey('situations')->whereLanguageId(Config::get('var.langId')[$key])->first())){
+
+							$translation = new Translation;
+						}
+						else{
+
+							$translation = Translation::whereContentType('building')->whereKey('situations')->whereLanguageId(Config::get('var.langId')[$key])->first();
+						}
+
+						$translation->content_type = "Building";
+						$translation->content_id = $building->id;
+						$translation->key = 'situations';
+						$translation->value = ucfirst($text);
+						$translation->language_id = Config::get('var.langId')[$key];
+
+					}else{
+
+						if(Helpers::isNotOk(Translation::whereContentType('building')->whereKey('situations')->whereLanguageId(Config::get('var.langId')[$key])->first())){
+
+							$translation = new Translation;
+
+						}else{
+
+							$translation = Translation::whereContentType('building')->whereKey('situations')->whereLanguageId(Config::get('var.langId')[$key])->first();
+						}
+
+						$translation->content_type = "Building";
+						$translation->content_id = $building->id;
+						$translation->key = 'situations';
+						$translation->value = ucfirst(Helpers::translate($situation, $fromSituation, $key));
+						$translation->language_id = Config::get('var.langId')[$key];
+					}
+
+					$translation->save();
+				}
+
+				foreach($input['advert'] as $key => $text){
+
+					if(Helpers::isOk($text)){
+
+						if(Helpers::isNotOk(Translation::whereContentType('building')->whereKey('advert')->whereLanguageId(Config::get('var.langId')[$key])->first())){
+
+							$translation = new Translation;
+						}
+						else{
+
+							$translation = Translation::whereContentType('building')->whereKey('advert')->whereLanguageId(Config::get('var.langId')[$key])->first();
+						}
+
+						$translation->content_type = "Building";
+						$translation->content_id = $building->id;
+						$translation->key = 'advert';
+						$translation->value = ucfirst($text);
+						$translation->language_id = Config::get('var.langId')[$key];
+
+					}else{
+
+						if(Helpers::isNotOk(Translation::whereContentType('building')->whereKey('advert')->whereLanguageId(Config::get('var.langId')[$key])->first())){
+
+							$translation = new Translation;
+
+						}else{
+
+							$translation = Translation::whereContentType('building')->whereKey('advert')->whereLanguageId(Config::get('var.langId')[$key])->first();
+						}
+
+						$translation->content_type = "Building";
+						$translation->content_id = $building->id;
+						$translation->key = 'advert';
+						$translation->value = ucfirst(Helpers::translate($advert, $fromAdvert, $key));
+						$translation->language_id = Config::get('var.langId')[$key];
+					}
+
+					$translation->save();
+				}
+			}
+			$building->register_step = 4;
+			$building->save();
+
+			Session::put('inscription.current', 4);
+
+			return Redirect::route('index_inscription_general', array(Auth::user()->slug, $building->id ))
+			->withSuccess(trans('validation.custom.inscription_description_batiment'));
+
+		}else{
+
+			return Redirect::back()
+			->withInput()
+			->withErrors($validator);
+		}
 
 
 
-}
 
-/*-----  End of INSCRIPTION OWNER  ------*/
+	}
+
+	/*-----  End of INSCRIPTION OWNER  ------*/
 
 	/**
 	*

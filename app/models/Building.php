@@ -16,8 +16,15 @@ class Building extends Eloquent {
 
 	public static $infos_general_rules = array(
 		'garantee'=>'required | numeric',
-		'situations'=>'required | min:10',
-		'advert'=>'min:30',
+		'situations'=>'required|array',
+		'situations.en'=>'required_without_all:situations.fr,situations.nl',
+		'situations.en'=>'min:10 |max:2048',
+		'situations.fr'=>'min:10 |max:2048',
+		'situations.nl'=>'min:10 |max:2048',
+		'advert.en'=>'required_without_all:advert.fr,advert.nl',
+		'advert.en'=>'min:10 |max:2048',
+		'advert.fr'=>'min:10 |max:2048',
+		'advert.nl'=>'min:10 |max:2048',
 		);
 
 
@@ -60,7 +67,13 @@ class Building extends Eloquent {
 
 	public function translation()
 	{
-		return $this->morphMany('Translate','content');
+		return $this->morphMany('Translation','content')
+		->where(Config::get('var.t_langCol'), Session::get('langId')); ;
+	}
+
+	public function translations()
+	{
+		return $this->morphMany('Translation','content');
 	}
 
 	public static function getCurrentStep(){

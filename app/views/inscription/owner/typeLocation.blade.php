@@ -13,6 +13,7 @@
 <div class="formContainer large">
 
 	@include('includes.steps')
+	
 
 	{{Form::open(array('route'=>array('save_types_locations',Auth::user()->slug, $building->id),'class'=>'mainType'))}}
 

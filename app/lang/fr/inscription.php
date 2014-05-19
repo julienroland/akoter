@@ -29,6 +29,7 @@ return array(
 	'type_location'=>'Type(s) de logement(s)',
 	'localisation_intro'=>'Localisez précisement votre batiment via le formulaire et la carte.',
 	'type_location_intro'=>'Ajoutez tout les types de logement qu\'abrite votre bien, choissisez de créer une annonce globale ou une annonce spécifique à chacune d\'entres elles',
+	'infos_general_intro'=>'Indiquez les éléments relatif au logement globale, les textes doivent être au minimun completer dans une langue.',
 	'how_be_owner'=>array(
 		'first'=>'Completez votre profile à 100%',
 		'second'=>'Vous devez faire vérifier votre email pour des raisons de sécurités.',
@@ -56,12 +57,13 @@ return array(
 		),
 	'description_building'=>'Description du batiment',
 	'description_building_intro'=>'Décrivez au mieux votre batiment via le formulaire ci-dessous.',
-	'write_advert'=>'Ecrivez votre annonce',
+	'write_advert'=>'Ecrivez votre annonce en :lang',
 	'write_advert_tuto'=>'Mettez des informations qui pourraient convaincre l\'utilisateur de choisir votre bien, ne parlez pas des détails (prix,...). Allez à l\'essentiel.',
-	'situations'=>'Situation',
+	'situations'=>'Situation en :lang',
 	'situations_tuto'=>'Donnez des informations par rapport à la situation qu\'offre votre bien (magasins, transports en commun, centre ville,..)',
 	'situations_placeholder'=>'A quelques mètres des magasins, lignes de bus à deux pas. Train à 15 minutes. Le centre ville est à 5 minutes en bus',
 	'garantee'=>'Caution',
 	'garantee_placeholder'=>'Entrez le montant de la caution, laissez vide si il n\'y en a pas.',
 	'blank_charge_price'=>'Vous pouvez laisser le montant vide si celles-ci sont comprise',
+	'infos_general'=>'Informations générales',
 	);

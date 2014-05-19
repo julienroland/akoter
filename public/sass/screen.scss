@@ -34,6 +34,10 @@
   //background-color: $greyL2;
   text-rendering: optimizeLegibility;
 }
+.mce-tinymce{
+	margin-top: 3px!important;
+	margin-bottom: $gutter / 2!important; 
+}
 p{
 	line-height: 1.3;
 }
