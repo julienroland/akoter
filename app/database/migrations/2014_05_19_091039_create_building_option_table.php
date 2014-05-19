@@ -15,6 +15,7 @@ class CreateBuildingOptionTable extends Migration {
 		Schema::create('building_option', function(Blueprint $table)
 		{
 			$table->increments('id');
+			$table->string('value');
 			$table->integer('building_id')->unsigned();
 			$table->foreign('building_id')->references('id')->on('buildings');
 			$table->integer('option_id')->unsigned();

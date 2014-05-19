@@ -14,6 +14,12 @@ class Building extends Eloquent {
 		'number'=>'required|integer',
 		);
 
+	public static $infos_general_rules = array(
+		'garantee'=>'required | numeric',
+		'situations'=>'required | min:10',
+		'advert'=>'min:30',
+		);
+
 
 	public function user()
 	{
@@ -45,6 +51,16 @@ class Building extends Eloquent {
 	public function region()
 	{
 		return $this->belongsTo('Region');
+	}
+
+	public function option()
+	{
+		return $this->belongsToMany('Option');
+	}
+
+	public function translation()
+	{
+		return $this->morphMany('Translate','content');
 	}
 
 	public static function getCurrentStep(){

@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreatePhotosLocationsTable extends Migration {
+class CreateBuildingsPhotosTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,16 +12,16 @@ class CreatePhotosLocationsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('photos_locations', function(Blueprint $table) {
+		Schema::create('buildings_photos', function(Blueprint $table)
+		{
 			$table->increments('id');
 			$table->string('url');
 			$table->string('alt');
 			$table->string('legend');
+			$table->integer('building_id')->unsigned();
+			$table->foreign('building_id')->references('id')->on('buildings');
 			$table->integer('order');
 			$table->integer('view');
-			$table->integer('location_id')->unsigned();
-			$table->foreign('location_id')->references('id')->on('locations');
-			
 			$table->timestamps();
 		});
 	}
@@ -34,7 +34,7 @@ class CreatePhotosLocationsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('photos_locations');
+		Schema::drop('buildings_photos');
 	}
 
 }

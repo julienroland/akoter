@@ -180,7 +180,6 @@ class InscriptionController extends BaseController {
 				$building->postal = $input['postal'];
 				$building->postal_id = $postal_id;
 				$building->number = $input['number'];
-				$building->register_step = 1;
 
 				$building->save();
 
@@ -278,6 +277,11 @@ class InscriptionController extends BaseController {
 
 						$location->save();
 					}
+
+					$building->register_step = 2;
+					$building->save();
+
+					Session::put('inscription.current', 2);
 				}
 			}
 		}
@@ -308,21 +312,117 @@ class InscriptionController extends BaseController {
 	
 	public function indexBuilding($user_slug, $building){
 
-		$buildingOptionId = TypeOption::name('building')->remember(Config::get('var.remember'), 'typeOption.building.id')->pluck('id');
+		$optionId = TypeOption::name('building')->remember(Config::get('var.remember'), 'typeOption.building.id')->pluck('id');
+
+		$options = Option::whereTypeOptionId($optionId)->with('translation')->get();
+
+		$currentOptions = $building->option()->lists('value','option_id');
+
+		if(count($currentOptions) > 0){
+
+			return View::make('inscription.owner.building_description', array('page'=>'inscription'))
+			->with(compact('building','options','currentOptions'));
+
+		}else{
+
+			return View::make('inscription.owner.building_description', array('page'=>'inscription'))
+			->with(compact('building','options'));
+		}
+	}
+
+	public function saveBuilding($user_slug, $building){
+
+		$input = Input::get('building');
+
+		if(Helpers::isOk($input)){
+
+			foreach( $input as $key => $value ){
+
+				$building->option()->attach($key);
+
+			}
+
+		}
+
+		$building->register_step = 3;
+		$building->save();
+		Session::put('inscription.current', 3);
+
+		return Redirect::route('index_inscription_general', array(Auth::user()->slug, $building->id ))
+		->withSuccess(trans('validation.custom.inscription_description_batiment'));
+
+	}
+
+	public function updateBuilding($user_slug, $building){
+
+		$input = Input::get('building');
+
+		if(Helpers::isOk($input)){
+
+			$building->option()->detach( );
+
+			foreach( $input as $key => $value ){
+
+				$building->option()->attach($key);
+
+			}
+		}
+
+		return Redirect::route('index_inscription_general', array(Auth::user()->slug, $building->id ))
+		->withSuccess(trans('validation.custom.inscription_description_batiment'));
+
+	}
+
+	/**
+	*
+	* Informations général
+	*
+	**/
+
+ 
+	public function indexInfosGeneral( $user_slug, $building ){
 		
-		$options = Option::whereTypeOptionId($buildingOptionId)->with('translation')->get();
+ 
 
-		return View::make('inscription.owner.building_description', array('page'=>'inscription','widget'=>array('select','validator')))
-		->with(compact('building','options'));
-	}
+ $optionId = TypeOption::name('infos')->remember(Config::get('var.remember'), 'typeOption.infos.id')->pluck('id');
 
-	public function saveBuilding(){
+ $options = Option::whereTypeOptionId($optionId)->with('translation')->get();
 
-		$input = Input::all();
+ return View::make('inscription.owner.infos_general', array('page'=>'inscription','widget'=>array('editor','validator','ui','tabs')))
+ ->with(compact('building','options'));
+
+}
+
+public function saveInfosGeneral( $user_slug, $building ){
+
+	$input = Input::all();
+
+	$validator = Validator::make($input, Building::$infos_general_rules);
+
+	if( $validator->passes()){
 		dd($input);
+/*		dd(Helpers::translate("bonjour c'est moi", 'fr', 'en'));*/
+		$building->garantee = $input['garantee'];
+		$building->register_step = 4;
+		$building->save();
+		Session::put('inscription.current', 4);
 
+		return Redirect::route('index_inscription_general', array(Auth::user()->slug, $building->id ))
+		->withSuccess(trans('validation.custom.inscription_description_batiment'));
+
+	}else{
+
+		return Redirect::back()
+		->withInput()
+		->withErrors($validator);
 	}
-	/*-----  End of INSCRIPTION OWNER  ------*/
+
+
+
+
+}
+
+/*-----  End of INSCRIPTION OWNER  ------*/
 
 	/**
 	*

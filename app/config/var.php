@@ -94,6 +94,8 @@ return array(
 	'steps_routes'=>array(
 		1=>'index_localisation_building',
 		2=>'index_types_locations',
+		3=>'index_inscription_building',
+		4=>'index_inscription_general',
 		),
 
 

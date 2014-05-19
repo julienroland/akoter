@@ -54,7 +54,7 @@
 
   var $container = $('#container');
 
-   $container.masonry({
+  $container.masonry({
     itemSelector: '.kot',
     "isOriginLeft": true,
     isFitWidth: false,
@@ -79,19 +79,23 @@
 {{HTML::script('js/min/responsiveSlides.js')}}
 <script>
   $("#slider").responsiveSlides({
-        manualControls: '#slider-pager',
-        nav: true,
-        auto: false,
-        pager: true,
-        namespace: "transparent-btns",
-        maxwidth: 540,
-      });
+    manualControls: '#slider-pager',
+    nav: true,
+    auto: false,
+    pager: true,
+    namespace: "transparent-btns",
+    maxwidth: 540,
+  });
 
 </script>
 @endif
 
 @if(isset($widget) && in_array('ui', $widget))
 {{HTML::script('js/min/ui.js')}}
+
+@if(isset($widget) && in_array('tabs', $widget))
+<script> $( ".tabs" ).tabs();</script>
+@endif
 
 @if(isset($widget) && in_array('date', $widget))
 
@@ -213,6 +217,28 @@
 {{HTML::script('js/city_autocomplete.js')}}
 @endif
 
+@if(isset($widget) && in_array('editor', $widget))
+
+{{HTML::script('//tinymce.cachefly.net/4.0/tinymce.min.js')}}
+<script type="text/javascript">
+  tinymce.init({
+    selector: ".editor",
+    toolbar: "bold italic | bullist numlist outdent indent",
+    language_url : '/js/editor/fr.js',
+    menubar: "tools edit",
+    plugins: [
+         "lists charmap",
+         "wordcount",
+   ],
+    style_formats: [
+    {
+      title: 'Bold text', 
+      inline: 'b',
+    },
+    ]
+  });
+</script>
+@endif
 
 @if(isset($page) && $page ==='inscription_localisation')
 

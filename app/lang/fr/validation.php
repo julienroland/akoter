@@ -87,8 +87,9 @@ return array(
         'key_invalid'=> 'Format de la clé invalide',
         'invalid_account'=> 'Cette combinaison est incorrecte',
         'inscription_localisation'=> 'La localisation de votre batîment à bien été enregistré !',
+        'inscription_description_batiment'=> 'La description de votre bâtiment à bien été enregistré',
         'inscription_update_localisation'=> 'La localisation de votre batîment à bien été mis à jour !',
-        'inscription_types_locations_multiple'=> 'Vos logements pour ce batîment ont bien été crée !',
+        'inscription_types_locations_multiple'=> 'Vos logements pour ce batîment ont bien été enregistrés !',
         'inscription_types_locations_single'=> 'Votre logement pour ce batîment à bien été crée !',
         ),
 
@@ -143,6 +144,9 @@ return array(
         "email_co"=>'E-mail',
         "password_co"=>'Mot de passe',
         "login"=>'Identifiant',
+        "advert"=>'Annonce',
+        "garantee"=>'Caution',
+        "situations"=>'Situations',
     ),
 
 );

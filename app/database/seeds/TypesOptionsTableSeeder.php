@@ -12,6 +12,9 @@ class TypesOptionsTableSeeder extends Seeder {
 		$types_options = array(
 			array(
 				'name'=>'building',
+				),
+			array(
+				'name'=>'infos',
 				)
 			);
 		

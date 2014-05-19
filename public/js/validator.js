@@ -2,7 +2,7 @@
 
 	var
 	$form = $('form.rules'),
-	$input = $('form.rules input:not([data-validator="false"],[autocomplete="off"],[type="submit"],[type="reset"])'),
+	$input = $('form.rules input:not([data-validator="false"],[autocomplete="off"],[type="submit"],[type="reset"]):visible, textarea:not([data-validator="false"],[autocomplete="off"],[type="submit"],[type="reset"]),textarea:visible'),
 	$showPassword = $('.showPassword'),
 	sBasePath = '/',
 	sOneRule,

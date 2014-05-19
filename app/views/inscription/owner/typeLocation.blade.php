@@ -17,6 +17,7 @@
 	{{Form::open(array('route'=>array('save_types_locations',Auth::user()->slug, $building->id),'class'=>'mainType'))}}
 
 	@include('includes.errors')
+	
 	@include('includes.success')
 
 	<div class="informations">

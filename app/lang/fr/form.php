@@ -18,6 +18,8 @@ return array(
 	'rate'=>'Les mieux noté',
 	'charge'=>'Charge',
 	'charges'=>'Charges',
+	'price_charge'=>'Montant des charges',
+	'charge_included'=>'Charges comprises',
 	'order'=>'Trier',
 	'continue'=>'Continuer',
 	'add'=>'Ajouter',

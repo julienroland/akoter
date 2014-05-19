@@ -78,11 +78,6 @@ class OptionTableSeeder extends Seeder {
 				'type_option_id'=>1
 				),
 			array(
-				'key'=>'internet',
-				'default'=>'not-included',
-				'type_option_id'=>1
-				),
-			array(
 				'key'=>'tv',
 				'default'=>'tv',
 				'type_option_id'=>1
@@ -136,6 +131,11 @@ class OptionTableSeeder extends Seeder {
 				'key'=>'appliances',
 				'default'=>'freezer',
 				'type_option_id'=>1
+				),
+			array(
+				'key'=>'caution',
+				'default'=>'garantee',
+				'type_option_id'=>2
 				),
 
 			);

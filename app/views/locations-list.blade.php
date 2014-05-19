@@ -5,6 +5,7 @@
   @endif
 
   @endforeach
+
   <div class="kot prenium" itemscope itemtype="http://schema.org/Residence" data-id="{{$location->id}}">
     <a href="" title="{{trans('locations.goTo',array('title'=>$title->value))}}">
       <div itemscope itemprop="geo" itemtype="GeoCoordinates"> 
@@ -28,12 +29,11 @@
           <h3 aria-level="3" itemprop="name" role="heading" class="titleKot">{{$title->value}}
           </h3>
 
-
-
           <span class="typeAndLocation">{{$location->typeLocation->translation[0]->value}} | <span itemprop="address" itemscope itemtype="PostalAddress"><span class="city" itemprop="addressRegion">{{$location->building->locality->name}}</span><span class="section" itemprop="streetAddress">{{$location->building->street}}</span>
           <meta content="{{$location->building->locality->postal}}" itemprop="postal">
           <meta content="BE" itemprop="addressCountry">
         </span></span>
+
         <!--   @foreach($location->translation as $translation)
 
           @if( $translation->key === 'description' )
@@ -105,5 +105,7 @@
    </div>
  </div>
 </a>
+
 </div>
+
 <!-- endkot -->

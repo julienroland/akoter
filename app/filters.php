@@ -169,7 +169,7 @@ Route::filter('allow_advance', function(){
 	$email_comfirm = Auth::user()->email_comfirm;
 
 	
-	if(Helpers::isOK($personnalNotComplete) && $personnalNotComplete->count < $personnalNotComplete->total || $email_comfirm == 0){
+	if(Helpers::isOK($personnalNotComplete) && $personnalNotComplete->count < $personnalNotComplete->total ){ //|| $email_comfirm == 0
 		
 		return Redirect::route('how_be_owner', Auth::user()->slug );
 	}

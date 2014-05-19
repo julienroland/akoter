@@ -16,11 +16,13 @@
 					<h2 aria-level="2" role="heading" class="mainTitle">{{trans('general.last_adverts')}}</h2>
 					<div id="container" class="wrapper">
 						<div class="row">
+
 							@foreach($locations as  $location)
 
 							@include('locations-list')
 							
 							@endforeach
+							
 						</div>
 					</div>
 				</section>

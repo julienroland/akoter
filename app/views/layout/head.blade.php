@@ -30,6 +30,10 @@
   {{HTML::style('css/latoja.datepicker.css')}}
   {{HTML::style('css/melon.datepicker.css')}}
   @endif
+
+  @if(isset($widget) && in_array('tabs', $widget))
+  {{HTML::style('css/tabs.css')}}
+  @endif
   
   <!-- <link rel="stylesheet" href="css/range-slider.css"> -->
   {{HTML::script('js/vendor/modernizr-2.6.2.min.js')}}

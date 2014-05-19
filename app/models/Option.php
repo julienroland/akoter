@@ -28,6 +28,5 @@ class Option extends Eloquent {
 		->where(Config::get('var.t_langCol'), Session::get('langId')); 
 	}
 	
-
 	
 }

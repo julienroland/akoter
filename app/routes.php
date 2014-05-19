@@ -401,10 +401,17 @@ Route::group(array('before'=>'auth'),function(){
 			Route::get(trans('routes.account').'/{user_slug}/'.trans('routes.add_location').'/{building_id}/'.trans('routes.inscription_step3'), array('as'=>'index_inscription_building','uses'=>'InscriptionController@indexBuilding'));
 
 			Route::post(trans('routes.account').'/{user_slug}/'.trans('routes.add_location').'/{building_id}/'.trans('routes.inscription_step3'), array('as'=>'save_inscription_building','uses'=>'InscriptionController@saveBuilding'));
+
+			Route::put(trans('routes.account').'/{user_slug}/'.trans('routes.add_location').'/{building_id}/'.trans('routes.inscription_step3'), array('as'=>'update_inscription_building','uses'=>'InscriptionController@updateBuilding'));
+
+			/* Description */
+			Route::get(trans('routes.account').'/{user_slug}/'.trans('routes.add_location').'/{building_id}/'.trans('routes.inscription_step4'), array('as'=>'index_inscription_general','uses'=>'InscriptionController@indexInfosGeneral'));
+
+			Route::post(trans('routes.account').'/{user_slug}/'.trans('routes.add_location').'/{building_id}/'.trans('routes.inscription_step4'), array('as'=>'save_inscription_general','uses'=>'InscriptionController@saveInfosGeneral'));
 		});
 		
 
-	});
+	});/* AUTH */
 
 Route::group(array('before'=>'guest'), function(){
 

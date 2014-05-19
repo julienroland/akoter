@@ -864,7 +864,6 @@ $options = array(
 		'Animaux réfusé',
 		'Petit animaux accepté',
 		'Internet inclus',
-		'Internet non inclus',
 		'TV',
 		'Prise TV',
 		'Machine à laver',
@@ -876,11 +875,13 @@ $options = array(
 		'Ustensil de cuisine disponible',
 		'Frigo',
 		'Congélateur',
+		'Caution',
+		
 
 		),
 	'en'=>array(
-		'Salle de bain',
-		'Cuisine',
+		'Bathroom',
+		'Kitchen',
 		'Salon',
 		'Jardin',
 		'Terrasse',
@@ -892,7 +893,6 @@ $options = array(
 		'Animaux réfusé',
 		'Petit animaux accepté',
 		'Internet inclus',
-		'Internet non inclus',
 		'TV',
 		'Prise TV',
 		'Machine à laver',
@@ -904,6 +904,9 @@ $options = array(
 		'Ustensil de cuisine disponible',
 		'Frigo',
 		'Congélateur',
+		'Caution',
+		
+
 
 		),
 	'nl'=>array(
@@ -920,7 +923,6 @@ $options = array(
 		'Animaux réfusé',
 		'Petit animaux accepté',
 		'Internet inclus',
-		'Internet non inclus',
 		'TV',
 		'Prise TV',
 		'Machine à laver',
@@ -932,6 +934,8 @@ $options = array(
 		'Ustensil de cuisine disponible',
 		'Frigo',
 		'Congélateur',
+		'Caution',
+		
 		),
 	);
 

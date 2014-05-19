@@ -2987,6 +2987,18 @@ $country-h:100px;
 
 	}
 }
+.charge-form{
+	label{
+		float: left;
+		max-width: 150px;	
+		margin-top: $gutter / 2; 
+	}
+	input{
+		float: left;
+		width: auto;
+		margin-left: $gutter / 2;
+	}
+}
 .inscription{
 	padding-bottom: 3em;
 	.mainTitle{

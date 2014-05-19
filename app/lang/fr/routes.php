@@ -35,6 +35,7 @@ return array(
     'inscription_step1' => 'situation-du-batiment',
     'inscription_step2' => 'types-de-locations',
     'inscription_step3' => 'description-du-bien',
+    'inscription_step4' => 'informations-general-du-bien',
     'how_be_owner' => 'comment-devenir-proprietaire',
     'edit_photo' => 'changer-la-photo-de-profil',
 

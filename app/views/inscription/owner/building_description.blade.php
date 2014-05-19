@@ -11,31 +11,42 @@
 		</div>
 	</div>
 </div>
-<div class="formContainer">
+<div class="formContainer large">
+
+	@include('includes.steps')
+	
+	@if(isset($currentOptions))
+	
+	{{Form::open(array('method'=>'put','route'=>array('update_inscription_building', Auth::user()->slug, $building->id ),'class'=>'mainType'))}}	
+
+	@else
 
 	{{Form::open(array('route'=>array('save_inscription_building', Auth::user()->slug, $building->id ),'class'=>'mainType'))}}
-	@include('includes.errors')
-	@include('includes.success')
-	
-	@foreach($options as $option)
-	
-	<div class="field">
 
+	@endif
+	@include('includes.errors')
+
+	@include('includes.success')
+
+
+	@foreach($options as $option)
+	<div class="field listCheckbox">
+		<input type="checkbox" {{isset($currentOptions) && isset($currentOptions[$option->id]) ? 'checked':''}} name="building[{{$option->id}}]" id="building[{{$option->id}}]">
 		@if(isset($option->translation[0]))
 
 		<label for="building[{{$option->id}}]">{{$option->translation[0]->value}}</label>
 
 		@endif
 
-		<input type="checkbox" name="building[{{$option->id}}]" id="building[{{$option->id}}]">
+		
 
 	</div>
 
 	@endforeach
-
+	<div class="clear"></div>
 	<div class="field previous">
 
-	<a href="{{route(Config::get('var.steps_routes.2'), array(Auth::user()->slug, $building->id))}}" title="{{trans('account.back_previous_step')}}">{{trans('general.back')}}</a>
+		<a href="{{route(Config::get('var.steps_routes.2'), array(Auth::user()->slug, $building->id))}}" title="{{trans('account.back_previous_step')}}">{{trans('general.back')}}</a>
 
 	</div>
 	<div class="field next">
