@@ -308,8 +308,12 @@ class InscriptionController extends BaseController {
 	
 	public function indexBuilding($user_slug, $building){
 
+		$buildingOptionId = TypeOption::name('building')->remember(Config::get('var.remember'), 'typeOption.building.id')->pluck('id');
+		
+		$options = Option::whereTypeOptionId($buildingOptionId)->with('translation')->get();
+
 		return View::make('inscription.owner.building_description', array('page'=>'inscription','widget'=>array('select','validator')))
-		->with(compact('building'));
+		->with(compact('building','options'));
 	}
 
 	public function saveBuilding(){

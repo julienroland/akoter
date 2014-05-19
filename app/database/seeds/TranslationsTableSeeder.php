@@ -955,7 +955,7 @@ foreach($postTitleHome as $key => $post){
 	}
 }
 for($m=1;$m <= count($lang); $m++){
-	for($i=1; $i<count($options['fr']); $i++){
+	for($i=1; $i<=count($options['fr']); $i++){
 
 		array_push($translations,
 			array(

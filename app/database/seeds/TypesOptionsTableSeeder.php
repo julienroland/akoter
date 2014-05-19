@@ -10,12 +10,10 @@ class TypesOptionsTableSeeder extends Seeder {
 		// DB::table('notices')->truncate();
 		// 8 options on building description
 		$types_options = array(
-		);
-		for($i = 1; $i <=8; $i++){
-			array_push($types_options,array(
+			array(
 				'name'=>'building',
-				));
-		}
+				)
+			);
 		
 
 		// Uncomment the below to run the seeder
