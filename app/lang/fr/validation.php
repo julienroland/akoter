@@ -85,12 +85,14 @@ return array(
         'invalid'=> 'La clé ne correspond pas',
         'account_already_active'=> 'Compte déjà activé',
         'key_invalid'=> 'Format de la clé invalide',
+        'tooMuchImage'=> 'Vous avez déjà attein le nombre limite d\'image (25)',
         'invalid_account'=> 'Cette combinaison est incorrecte',
         'inscription_localisation'=> 'La localisation de votre batîment à bien été enregistré !',
         'inscription_description_batiment'=> 'La description de votre bâtiment à bien été enregistré',
         'inscription_update_localisation'=> 'La localisation de votre batîment à bien été mis à jour !',
         'inscription_types_locations_multiple'=> 'Vos logements pour ce batîment ont bien été enregistrés !',
         'inscription_types_locations_single'=> 'Votre logement pour ce batîment à bien été crée !',
+        'inscription_infos_general'=> 'Les informations concernant votre batîment ont bien été enregistrés',
         ),
 
     /*

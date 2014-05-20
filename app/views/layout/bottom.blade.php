@@ -4,8 +4,6 @@
 
 @if(isset($widget) && in_array('select', $widget))
 {{HTML::script('js/min/chosen.jquery.js')}}
-
-
 <script>
 
   var config = {
@@ -21,6 +19,13 @@
 </script>
 
 <!-- {{HTML::script('js/polyfiller.js')}} -->
+@endif
+
+@if(isset($widget) && in_array('upload', $widget))
+<script>/*$('.baseFile').remove();*/</script>
+{{HTML::script('js/jquery.uploadfile.min.js')}}
+{{HTML::script('js/jquery.validationEngine.js')}}
+{{HTML::script('js/jquery.validationEngine-fr.js')}}
 @endif
 
 @if(isset($widget) && in_array('map', $widget))
@@ -47,6 +52,7 @@
 {{HTML::script('js/min/moreListing.js')}}
 @endif
 
+
 @if(isset($widget) && in_array('grid', $widget))
 {{HTML::script('js/min/grid.js')}}
 
@@ -72,7 +78,7 @@
 @endif
 
 @if(isset($widget) && !in_array('nojs', $widget) || !isset($widget))
-{{HTML::script('js/min/main.js')}}
+{{HTML::script('js/main.js')}}
 @endif
 
 @if(isset($widget) && in_array('slideshow', $widget))
@@ -93,8 +99,55 @@
 @if(isset($widget) && in_array('ui', $widget))
 {{HTML::script('js/min/ui.js')}}
 
+
 @if(isset($widget) && in_array('tabs', $widget))
 <script> $( ".tabs" ).tabs();</script>
+@endif
+
+@if(isset($widget) && Helpers::isOk($widget) && in_array('sort', $widget))
+<script>
+  $(function(){
+    $("#sortable").sortable({
+      stop: function(event, ui) {
+        var data = {};
+
+        $("#sortable li").each(function(i, el){
+          var p = $(el).find('a').attr('data-id');
+          data[p]=$(el).index()+1;
+        });
+
+        $("form > [name='image_order']").val(JSON.stringify(data));
+
+      },
+      create: function(event, ui) {
+        var data = {};
+
+        $("#sortable li").each(function(i, el){
+          var p = $(el).find('a').attr('data-id');
+          data[p]=$(el).index()+1;
+        });
+
+        $("form > [name='image_order']").val(JSON.stringify(data));
+
+      },
+      update: function(event, ui) {
+        console.log('ok');
+        var data = {};
+
+        $("#sortable li").each(function(i, el){
+          var p = $(el).find('a').attr('data-id');
+          data[p]=$(el).index()+1;
+        });
+
+        $("form > [name='image_order']").val(JSON.stringify(data));
+
+      }
+
+    }).disableSelection();
+
+
+  });
+</script>
 @endif
 
 @if(isset($widget) && in_array('date', $widget))
@@ -227,9 +280,9 @@
     language_url : '/js/editor/fr.js',
     menubar: "tools edit",
     plugins: [
-         "lists charmap",
-         "wordcount",
-   ],
+    "lists charmap",
+    "wordcount",
+    ],
     style_formats: [
     {
       title: 'Bold text', 

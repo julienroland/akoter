@@ -33,6 +33,11 @@ class Building extends Eloquent {
 		return $this->belongsTo('User');
 	}
 
+	public function photo()
+	{
+		return $this->hasMany('BuildingPhoto');
+	}
+
 	public function location()
 	{
 		return $this->hasMany('Location');

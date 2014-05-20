@@ -27,7 +27,7 @@ class ImageController extends BaseController {
 
       $image = Image::cache(function( $image ) use($photo, $filename, $destinationPath ){
 
-        return $image->make( $photo )->resize( null , Config::get('var.user_photo_height'), true )->crop( Config::get('var.user_photo_width'), Config::get('var.user_photo_height'))->save($destinationPath.$filename, 100);
+        return $image->make( $photo )->grab( Config::get('var.user_photo_width') , Config::get('var.user_photo_height') )->save($destinationPath.$filename, 100);
 
       }, 5, true);
 
@@ -52,13 +52,149 @@ public function logoAgence( $agence_id ){
 
     $filename = sha1($timestamp).'.jpg';
 
-    $image = Image::make( $logo )->resize( Config::get('var.agence_logo_width') , null , true )->crop( Config::get('var.agence_logo_width'), Config::get('var.agence_logo_height'))->save($destinationPath.$filename)->encode('jpg', 75);
+    $image = Image::make( $logo )->grab( Config::get('var.agence_logo_width') , Config::get('var.agence_logo_height') )->save($destinationPath.$filename)->encode('jpg', 75);
 
     return $filename;
 
   }
 
 }
+
+public function postBuildingImage( $type='more', $id=null )
+{ 
+
+  if(Helpers::isOk( $id ) && Helpers::isOk( $type )){
+
+    $nb_photos = Building::find($id)->photo()->count();
+
+    if( $nb_photos >= Config::get('var.buildingMaxImage') ){
+
+      return Response::json(trans('validation.custom.tooMuchImage'),500);
+    }
+
+    $destinationPath = Config::get('var.images_dir').Config::get('var.users_dir').Auth::user()->id.'/'.Config::get('var.buildings_dir').'/'.$id.'/'.$type.'/';
+
+    $timestamp = Carbon::now()->timestamp;
+  }
+  else{
+
+    return Response::json('error', 400);
+  } 
+  
+
+  File::exists( $destinationPath ) or File::makeDirectory( $destinationPath , 0777, true);
+
+  if(Input::hasFile('file')){
+
+    $file = Input::file('file'); 
+
+                // Declare the rules for the form validation.
+    $rules = array('file'  => 'image|max:2000,mimes:jpg,jpeg,gif,png,bmp');
+
+    $data = array('file' => Input::file('file'));
+
+                // Validate the inputs.
+    $validator = Validator::make($data, $rules);
+
+    if ($validator->fails())
+    { 
+
+     return Response::json($validator->messages(), 400);
+   }
+
+   if(is_array($file))
+   {  
+
+     foreach($file as $part) {
+
+      $imageType = ImageType::orderBy('width','desc')->get();
+
+      $extension = 'jpg';
+
+      $image = Image::make( Input::file('file')->getRealPath() );
+
+      $filename = Helpers::toSlug(Helpers::addTimestamp( $part->getClientOriginalName(), null, $extension,  $timestamp ));
+
+      $nb_order = Building::find($id)->photo()->max('order') + 1;
+
+      $photo = new BuildingPhoto;
+
+      $photo->url = $filename;
+
+      $photo->order = $nb_order;
+
+      $photo->type = $type;
+
+      $photo =  Building::find( $id )->photo()->save($photo);
+
+      $image->resize( 2500, 1600, true )->save( $destinationPath.$filename )->encode('jpg', 75);
+
+      foreach( $imageType as $type){
+
+        $filename = Helpers::toSlug(Helpers::addTimestamp( $part->getClientOriginalName(),'-'.$type->name ,$type->extension , $timestamp));
+
+        $image->resize( $type->width, $type->height, true )->save( $destinationPath.$filename )->encode('jpg', 75);
+
+      }
+    }
+  }
+else //single file
+{   
+
+  $imageType = ImageType::orderBy('width','desc')->get();
+
+  $extension = 'jpg';
+
+  $image = Image::make( Input::file('file')->getRealPath() );
+
+  $filename = Helpers::toSlug(Helpers::addTimestamp( $file->getClientOriginalName(), null, $extension,  $timestamp ));
+
+  $nb_order = Building::find($id)->photo()->max('order') + 1;
+  
+  $photo = new BuildingPhoto;
+
+  $photo->url = $filename;
+
+  $photo->order = $nb_order;
+
+  $photo->type = $type;
+
+  $photo = Building::find( $id )->photo()->save($photo);
+
+  $image->grab( 2500, 1600 )->save( $destinationPath.$filename )->encode('jpg', 75);
+
+  foreach( $imageType as $type){
+
+    $filename = Helpers::toSlug(Helpers::addTimestamp( $file->getClientOriginalName(),'-'.$type->name ,$type->extension , $timestamp));
+
+    $image->grab( $type->width, $type->height )->save( $destinationPath.$filename )->encode('jpg', 75);
+
+}
+
+}
+
+if( Helpers::isOk($image) ) {
+
+  $building = Building::find($id);
+
+  if($building->register_step < 5){
+
+    $building->register_step = 5;  
+    $building->save();
+  }
+
+  return Response::json('success', 200);
+
+} else {
+
+  return Response::json('error', 400);
+}
+
+}else{
+  return Response::json('error', 400);
+}
+}
+
 public function postImage( $id )
 {
 

@@ -392,7 +392,7 @@ class InscriptionController extends BaseController {
 
 		$adverts = $building->translations()->whereKey('advert')->get();
 
-		return View::make('inscription.owner.infos_general', array('page'=>'inscription','widget'=>array('validator','ui','tabs')))
+		return View::make('inscription.owner.infos_general', array('page'=>'inscription','widget'=>array('validator','ui','tabs','editor')))
 		->with(compact('building','options','situations','adverts'));
 
 	}
@@ -506,8 +506,8 @@ class InscriptionController extends BaseController {
 
 			Session::put('inscription.current', 4);
 
-			return Redirect::route('index_inscription_general', array(Auth::user()->slug, $building->id ))
-			->withSuccess(trans('validation.custom.inscription_description_batiment'));
+			return Redirect::route('index_photo_building', array(Auth::user()->slug, $building->id ))
+			->withSuccess(trans('validation.custom.inscription_infos_general'));
 
 		}else{
 
@@ -516,9 +516,13 @@ class InscriptionController extends BaseController {
 			->withErrors($validator);
 		}
 
+	}
 
+	public function indexPhotoBuilding($user_slug, $building){
 
-
+		$photos = $building->photo()->get()->groupBy('type');
+		return View::make('inscription.owner.photo_building', array('page'=>'inscription','widget'=>array('upload','sort')))
+		->with(compact('building','photos'));
 	}
 
 	/*-----  End of INSCRIPTION OWNER  ------*/

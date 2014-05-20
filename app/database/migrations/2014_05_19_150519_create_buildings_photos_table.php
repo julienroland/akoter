@@ -18,6 +18,7 @@ class CreateBuildingsPhotosTable extends Migration {
 			$table->string('url');
 			$table->string('alt');
 			$table->string('legend');
+			$table->string('type');
 			$table->integer('building_id')->unsigned();
 			$table->foreign('building_id')->references('id')->on('buildings');
 			$table->integer('order');

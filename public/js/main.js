@@ -9,6 +9,9 @@
 	nMapMinHeight = 500,	
 	nMapPercent = 80,
 	nMapControlSize = 240,
+	sBasePath = '/',
+	imgs_dir = '/images/',
+	upload_dir = sBasePath+'uploads/',
 	$winHeight = $(window).height(),
 	$winWidth = $(window).width(),
 	$htmlBody = $('html,body'),
@@ -222,6 +225,8 @@ $toPopup.on('click',openPopup);
 		$(this).val($(this).attr('data-disabled'));
 
 	});
+
+	 uploadFile(  );
 });	
 /*var fixSort = function(){
 	var $sort = $('.short');
@@ -245,6 +250,129 @@ $toPopup.on('click',openPopup);
 		});
 	}
 };*/
+var sortable = function(){
+
+	$('#sortable').sortable({
+		create: function(event, ui) {
+			var data = {};
+
+			$("#sortable li").each(function(i, el){
+				var p = $(el).find('a').attr('data-id');
+				data[p]=$(el).index()+1;
+			});
+
+			$("form > [name='image_order']").val(JSON.stringify(data));
+
+		}
+	});
+
+}
+ var deleteImage = function( $that ){
+
+      $.ajax({
+        type: "get", 
+        async:   false,
+        url: sBasePath + 'deleteImage/'+ $that.attr('data-id')+'/'+$that.attr('data-proprieteId'),
+        dataType: "json",
+        success:function( oData ){
+
+          if( oData ==='success'){
+            $that.parent().fadeOut( 'fast', function(){
+              $(this).remove();   
+            });
+          }
+        }
+      });
+    }
+var getProprietePhoto = function( userId, proprieteId, sType ){
+
+	if( userId && proprieteId ){
+
+		$.ajax({
+			type: "get", 
+			url: sBasePath+'ajax/getBuildingPhoto/'+sType+'/'+ proprieteId,
+			dataType: "json",
+			success:function( oData ){
+
+				oData = oData.data;
+				if( oData ){
+
+					if($('#images').length == 0){
+
+						$('#baseForm').after('<div id="images"><ul id="sortable" class="ui-sortable"></ul></div>');
+
+					}
+					$('#images').find('li').remove();
+
+				}
+				for( var i in oData ){
+
+                $('#images ul').append('<li><div class="image"><img src="'+ imgs_dir +'users/'+ userId + '/buildings/' + proprieteId + '/ '+ sType +'/' + oData[i].url +'"></div><a href="" class="supprimerImage" data-id="'+oData[i].id+'" data-proprieteId="'+proprieteId+'" title="'+oLang.form.delete+'">'+oLang.form.delete_image+'</a></li>'); //userId/ProprieteId/
+
+                $('.supprimerImage').on('click', function( e ){
+                	e.preventDefault();
+                	deleteImage( $(this) );
+
+                });
+
+            }
+            sortable();
+        }
+
+    });
+
+	}
+
+}
+var uploadFile = function(){
+
+	var nProprieteId = $('form').attr('data-proprieteId');
+	var sType = $('form').attr('data-type');
+
+	settingsUpload = $("#mulitplefileuploader").uploadFile({
+		url: sBasePath + "ajax/uploadBuildingImage/"+sType+"/"+nProprieteId,
+		method: "post",
+		allowedTypes:"jpg,gif,bmp,png",
+		fileName: "file",
+		autoSubmit:true,
+		multiple:true,
+		showStatusAfterSuccess:true,
+		dragDropStr: "<span><b>"+oLang.upload.dragDrop+"</b></span>",
+		abortStr:oLang.upload.giveup,
+		cancelStr:oLang.upload.stop,
+		doneStr:oLang.upload.ok,
+		multiDragErrorStr:oLang.upload.multiDrag,
+		extErrorStr:oLang.upload.ext_error,
+		sizeErrorStr:oLang.upload.size_error,
+		uploadErrorStr:oLang.upload.not_allow,
+		onSubmit:function(files)
+		{
+			$('<input>').attr({
+				type: 'text',
+				name: 'file[]',
+				value: files
+			}).appendTo('#myform');
+
+		},
+
+		onSuccess:function(files,data,xhr)
+		{
+
+			$('#myform').submit();
+
+			getProprietePhoto( $('form').attr('data-userId'), $('form').attr('data-proprieteId'),$('form').attr('data-type') );
+		},
+
+		onError: function(files,status,errMsg)
+		{
+			/*console.log(files+'.'+status+'.'+errMsg);*/
+			$("#status").html("<font color='green'>Something Wrong</font>");
+		}
+
+	});
+
+}
+
 var createCookie = function(e){
 	e.preventDefault();
 

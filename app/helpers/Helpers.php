@@ -3,6 +3,21 @@
 use Carbon\Carbon;
 
 class Helpers {
+	
+	public static function addBeforeExtension( $stringWithExt, $string ){
+
+		$stringEx = explode( '.', $stringWithExt );
+
+		return Helpers::toSlug( $stringEx[0].' '.$string.'.'.$stringEx[1] );
+
+	}
+
+	public static function replaceExtension( $string, $extension ){
+
+		$stringEx = explode( '.', $string );
+
+		return $stringEx[0].'.'.$extension;
+	}
 
 	public static function translate($text, $from, $to){
 		$text = urlencode($text);
@@ -48,6 +63,57 @@ class Helpers {
 		$output = curl_exec ($ch);
 		return $output;
 	}
+
+	/**
+	*
+	* Add timestamp to img name
+	*
+	**/
+
+	public static function addTimestamp( $image , $type = null , $ext = null, $timestamp = null ){
+
+		if(Helpers::isOk( $image )  &&  explode( '.', $image )){
+
+			$imageEx = explode( '.', $image );
+
+			if( Helpers::isNotOk( $timestamp )){
+
+				$name = $imageEx[0].date('dmYhis'); 
+			}
+			else{
+				
+				$name = $imageEx[0].$timestamp; 
+			}
+
+			if( Helpers::isOk( $ext )){
+
+				$extension = $ext;
+			}
+			else
+			{
+				$extension = $imageEx[1]; 
+
+			}
+			if( Helpers::isOk( $type )){
+
+				return sha1($name).$type. '.' .$extension;
+			}
+			else
+			{
+				return sha1($name). '.' .$extension;	
+			}
+			
+		}
+		else
+		{
+
+			return false;
+
+		}
+	}
+
+	
+
 	public static function createEmailKey( $email ){
 
 		return sha1(mt_rand(10000,99999).date('dmyhms').$email);

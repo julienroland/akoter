@@ -27,4 +27,14 @@ class BuildingController extends BaseController
 
 		return Response::json($locations, 200);
 	}
+
+	public function getPhotos($type=null, $id=null){
+
+		if(Helpers::isOk($id) && Helpers::isOk($type)){
+			if(Request::ajax()){
+				return Building::find($id)->photo()->whereType($type)->get();
+			}
+		}
+
+	}
 }

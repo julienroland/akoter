@@ -112,7 +112,7 @@
 		<div id="fr-advert">
 			<div class="field">
 				<label for="advert[fr]">{{trans('inscription.write_advert',array('lang'=>trans('general.lang.fr')))}}</label>
-				<textarea name="advert[fr]" data-validator="false" id="advert[fr]">{{Helpers::isOk($advert_fr) ? $advert_fr :''}}</textarea>
+				<textarea name="advert[fr]" data-validator="false" class="{{Helpers::isOk($advert_fr) ? 'editor': ''}}" id="advert[fr]">{{Helpers::isOk($advert_fr) ? $advert_fr :''}}</textarea>
 				<div class="informations">
 					{{trans('inscription.write_advert_tuto')}}
 				</div>
@@ -121,7 +121,7 @@
 		<div id="nl-advert">
 			<div class="field">
 				<label for="advert[nl]">{{trans('inscription.write_advert',array('lang'=>trans('general.lang.nl')))}}</label>
-				<textarea name="advert[nl]" data-validator="false" id="advert[nl]">{{Helpers::isOk($advert_nl) ? $advert_nl :''}}</textarea>
+				<textarea name="advert[nl]" data-validator="false" class="{{Helpers::isOk($advert_fr) ? 'editor': ''}}" id="advert[nl]">{{Helpers::isOk($advert_nl) ? $advert_nl :''}}</textarea>
 				<div class="informations">
 					{{trans('inscription.write_advert_tuto')}}
 				</div>
@@ -130,7 +130,7 @@
 		<div id="en-advert">
 			<div class="field">
 				<label for="advert[en]">{{trans('inscription.write_advert',array('lang'=>trans('general.lang.en')))}}</label>
-				<textarea name="advert[en]" data-validator="false" id="advert[en]">{{Helpers::isOk($advert_en) ? $advert_en :''}}</textarea>
+				<textarea name="advert[en]" data-validator="false" class="{{Helpers::isOk($advert_fr) ? 'editor': ''}}" id="advert[en]">{{Helpers::isOk($advert_en) ? $advert_en :''}}</textarea>
 				<div class="informations">
 					{{trans('inscription.write_advert_tuto')}}
 				</div>

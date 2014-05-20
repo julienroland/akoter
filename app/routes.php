@@ -104,6 +104,14 @@ Route::get('ajax/getMoreLocations/{take}/{skip}/{orderBy}/{orderWay}/{json}', ar
 
 Route::get('ajax/getLocationsFilter', array('uses'=>'LocationController@getLocationsFilter'));
 
+/**
+*
+* Upload image
+*
+**/
+Route::any( 'ajax/uploadBuildingImage/{type}/{id}', array('as'=>'ajax_upload_image', 'uses'=>'ImageController@postBuildingImage'));
+
+Route::any( 'ajax/getBuildingPhoto/{type}/{id}', array('uses'=>'BuildingController@getPhotos'));
 /* 404 */
 /*App::missing(function($exception){
  if (Request::is('admin/*'))
@@ -408,6 +416,9 @@ Route::group(array('before'=>'auth'),function(){
 			Route::get(trans('routes.account').'/{user_slug}/'.trans('routes.add_location').'/{building_id}/'.trans('routes.inscription_step4'), array('as'=>'index_inscription_general','uses'=>'InscriptionController@indexInfosGeneral'));
 
 			Route::post(trans('routes.account').'/{user_slug}/'.trans('routes.add_location').'/{building_id}/'.trans('routes.inscription_step4'), array('as'=>'save_inscription_general','uses'=>'InscriptionController@saveInfosGeneral'));
+
+			/* Photo building */
+			Route::get(trans('routes.account').'/{user_slug}/'.trans('routes.add_location').'/{building_id}/'.trans('routes.inscription_step5'),array('as'=>'index_photo_building','uses'=>'InscriptionController@indexPhotoBuilding'));
 		});
 		
 

@@ -10,6 +10,9 @@ return array(
 	'images_dir'=>'images/',
 	'users_dir'=>'users/',
 	'agences_dir'=>'agences/',
+	'buildings_dir'=>'buildings/',
+	'commons_dir'=>'commons_rooms/',
+	'moreBuildingPhotos'=>'more',
 	'logoAgence_dir'=>'logo/',
 	'profile_dir'=>'profile/',
 
@@ -29,6 +32,7 @@ return array(
 
 //buildings
 	'b_validateCol'=>'status_type',
+	'buildingMaxImage'=>25,
 
 //empty item
 	'no_photoLocation'=>'noPhotoLocation.jpg',
@@ -42,6 +46,8 @@ return array(
 //others
 	'logo'=>'/img/logo/logo.png',
 	'remember'=>60 * 24,
+	//img
+	'img_small'=>'small',
 //user photo 
 	'user_photo_width'=>64,
 	'user_photo_height'=>64,
@@ -84,18 +90,20 @@ return array(
 			'created_at:asc'=>trans('form.created_date'),
 			),
 		),
-	'steps'=>4,
+	'steps'=>5,
 	'steps_names'=>array(
 		1=>trans('inscription.steps.1'),
 		2=>trans('inscription.steps.2'),
 		3=>trans('inscription.steps.3'),
 		4=>trans('inscription.steps.4'),
+		5=>trans('inscription.steps.5'),
 		),
 	'steps_routes'=>array(
 		1=>'index_localisation_building',
 		2=>'index_types_locations',
 		3=>'index_inscription_building',
 		4=>'index_inscription_general',
+		5=>'index_photo_building',
 		),
 
 

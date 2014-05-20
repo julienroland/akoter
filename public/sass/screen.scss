@@ -698,6 +698,7 @@ a{
 	}
 	.research{
 		display: block;
+		background-color: transparent;
 	}
 	.switchView{
 		height: 50px;
@@ -3569,7 +3570,7 @@ $country-h:100px;
 	margin-bottom:  $gutter;
 	margin-top: $gutter / 2;
 	.step{
-		@include cl(3);
+		@include cl(2.4);
 		height: 100%;
 		&:first-child{
 			.cnt{
@@ -3623,6 +3624,18 @@ $country-h:100px;
 			}
 		}
 	}
+}
+.images_category{
+	.image_cat_title{
+		font-size: 1em;
+		font-weight: 500;
+		margin-bottom: 1em;
+		text-transform: uppercase;
+	}
+	@include c(12);
+	background-color: $greyL;
+	padding: 1em;
+	padding-bottom: 2em;
 }
     /* END LOADING MAP */
     /* ANIMATION CSS3 */

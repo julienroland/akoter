@@ -111,7 +111,7 @@ Route::filter('lang', function(){
 			if (helpers::isOk($langNav)) 
 			{
 				$language = explode(',',$langNav);
-				$language = strtolower(substr(chop($language[1]),0,2));
+				$language = strtolower(substr(chop($language[0]),0,2));
 
 				if (in_array($language, Config::get('app.available_locales')))
 				{	
