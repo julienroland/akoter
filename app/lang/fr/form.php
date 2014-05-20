@@ -77,7 +77,7 @@ return array(
 	'delete_image'=>'Supprimer l\'image',
 	'delete'=>'Supprimer',
 	'send'=>'Envoyer',
-	'upload'=>'Télécharger',
+	'upload'=>'Envoyer',
 	'back_home'=>'Revenir à l\'accueil',
 	'number'=>'Numero',
 	'next'=>'Suivant',
@@ -85,5 +85,6 @@ return array(
 	'street'=>'Rue',
 	'success_message'=>'<span class="b">Message bien envoyé !</span> Nous reviendrons vers vous par mail le plus rapidement possible.',
 	'search_location_keywords'=>'Recherche par mots clefs, référence d\'annonce',
+	'required_field'=>'Champs obligatoire',
 
 );		

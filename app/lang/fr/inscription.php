@@ -57,6 +57,7 @@ return array(
 		'3'=>'Description du batiment',
 		'4'=>'Informations générales',
 		'5'=>'Photos du bien',
+		'6'=>'creation-des-annonces',
 		),
 	'description_building'=>'Description du batiment',
 	'description_building_intro'=>'Décrivez au mieux votre batiment via le formulaire ci-dessous.',
@@ -71,5 +72,7 @@ return array(
 	'infos_general'=>'Informations générales',
 	'about_image_sort'=>'Vous pouvez choisir <b>l\'ordre d\'affichage </b> de vos image en cliquant sur le <b>bouton rouge</b> disposé sur les images puis en le déplacent. Vous pouvez également <b>supprimer</b> une image en cliquant dessus.',
 	'photoBuilding'=>'Photos du batiment',
+	'photoBuildingCommon'=>'Photos des pièces communes',
 	'buildingPhoto_intro'=>'Ajoutez des photos de l\'extérieur du batiment, vous pouvez également ajouter des photos intérieur (pas les pièces communes et pas les logements.)',
+	'buildingPhotoCommon_intro'=>'Ajoutez uniquement des photos concernant les pièces communes de votre logements.',
 	);

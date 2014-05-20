@@ -311,16 +311,16 @@ var getProprietePhoto = function( userId, proprieteId, sType ){
 				console.log(oData);
 				if( oData ){
 
-					if($('#images').length == 0){
+					if($('#images[data-type="'+sType+'"]').length == 0){
 
-						$('#baseForm').after('<div id="images"><ul id="sortable" class="ui-sortable"></ul></div>');
+						$('#baseForm').after('<div id="images" data-type='+sType+'><ul id="sortable" class="ui-sortable"></ul></div>');
 
 					}
-					$('#images').find('li').remove();
+					$('#images[data-type="'+sType+'"]').find('li').remove();
 
 				}
 				for( var i in oData ){
-                $('#images ul').append('<li><span class="handle icon icon-move6"></span><a href="" class="deleteImage icon icon-remove11" data-id='+oData[i].id+' data-proprieteId='+oData[i].building_id+' data-type='+oData[i].type+' title='+oLang.form.delete_image+'><div class="image"><img class="thumbnail" src="'+ imgs_dir +'users/'+ userId + '/buildings/' + proprieteId + '/'+ sType +'/' + addBeforeExtension(oData[i].url, 'small') +'"></div></a></li>'); //userId/ProprieteId/
+                $('#images[data-type="'+sType+'"] ul').append('<li><span class="handle icon icon-move6"></span><a href="" class="deleteImage icon icon-remove11" data-id='+oData[i].id+' data-proprieteId='+oData[i].building_id+' data-type='+oData[i].type+' title='+oLang.form.delete_image+'><div class="image"><img class="thumbnail" src="'+ imgs_dir +'users/'+ userId + '/buildings/' + proprieteId + '/'+ sType +'/' + addBeforeExtension(oData[i].url, 'small') +'"></div></a></li>'); //userId/ProprieteId/
 
                 $('.deleteImage').on('click', function( e ){
                 	e.preventDefault();
@@ -339,50 +339,54 @@ var getProprietePhoto = function( userId, proprieteId, sType ){
 }
 var uploadFile = function(){
 
-	var nProprieteId = $('form').attr('data-proprieteId');
-	var sType = $('form').attr('data-type');
+	
 
-	settingsUpload = $("#mulitplefileuploader").uploadFile({
-		url: sBasePath + "ajax/uploadBuildingImage/"+sType+"/"+nProprieteId,
-		method: "post",
-		allowedTypes:"jpg,gif,bmp,png",
-		fileName: "file",
-		autoSubmit:true,
-		multiple:true,
-		showStatusAfterSuccess:false,
-		dragDropStr: "<span><b>"+oLang.upload.dragDrop+"</b></span>",
-		abortStr:oLang.upload.giveup,
-		cancelStr:oLang.upload.stop,
-		doneStr:oLang.upload.ok,
-		multiDragErrorStr:oLang.upload.multiDrag,
-		extErrorStr:oLang.upload.ext_error,
-		sizeErrorStr:oLang.upload.size_error,
-		uploadErrorStr:oLang.upload.not_allow,
-		onSubmit:function(files)
-		{
-			$('<input>').attr({
-				type: 'text',
-				name: 'file[]',
-				value: files
-			}).appendTo('#myform');
+	settingsUpload = $(".mulitplefileuploader").each(function(){
+		var nProprieteId = $(this).parent().attr('data-proprieteId');
+		var sType = $(this).parent().attr('data-type');
+		var $that = $(this);
+		$(this).uploadFile({
+			url: sBasePath + "ajax/uploadBuildingImage/"+sType+"/"+nProprieteId,
+			method: "post",
+			allowedTypes:"jpg,gif,bmp,png",
+			fileName: "file",
+			autoSubmit:true,
+			multiple:true,
+			showStatusAfterSuccess:false,
+			dragDropStr: "<span><b>"+oLang.upload.dragDrop+"</b></span>",
+			abortStr:oLang.upload.giveup,
+			cancelStr:oLang.upload.stop,
+			doneStr:oLang.upload.ok,
+			multiDragErrorStr:oLang.upload.multiDrag,
+			extErrorStr:oLang.upload.ext_error,
+			sizeErrorStr:oLang.upload.size_error,
+			uploadErrorStr:oLang.upload.not_allow,
+			onSubmit:function(files)
+			{
+				$('<input>').attr({
+					type: 'text',
+					name: 'file[]',
+					value: files
+				}).appendTo('#myform');
 
-		},
+			},
 
-		onSuccess:function(files,data,xhr)
-		{
+			onSuccess:function(files,data,xhr)
+			{
 
-			$('#myform').submit();
+				$('#myform').submit();
+				console.log($(this));
+				getProprietePhoto( $that.parent().attr('data-userId'), $that.parent().attr('data-proprieteId'),$that.parent().attr('data-type') );
+			},
 
-			getProprietePhoto( $('form').attr('data-userId'), $('form').attr('data-proprieteId'),$('form').attr('data-type') );
-		},
+			onError: function(files,status,errMsg)
+			{
+				/*console.log(files+'.'+status+'.'+errMsg);*/
+				$("#status").html("<font color='green'>Something Wrong</font>");
+			}
 
-		onError: function(files,status,errMsg)
-		{
-			/*console.log(files+'.'+status+'.'+errMsg);*/
-			$("#status").html("<font color='green'>Something Wrong</font>");
-		}
-
-	});
+		});
+});
 
 }
 

@@ -1,7 +1,7 @@
 <?php return 
 array(
 
-'dragDrop'=>'Glisser et déposer des images <span class="b">ici</span>',
+'dragDrop'=>'ou  <span class="b">déposer</span> des images ici',
 'giveup'=>'Annuler',
 'stop'=>'Arrêter',
 'ok'=>'Enregistré !',

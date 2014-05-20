@@ -32,7 +32,7 @@
 
 	@endif
 
-	<div class="requiredField"><span class="icon-required" aria-hidden="true"></span> Champs obligatoire</div>
+	<div class="requiredField"><span class="icon-required" aria-hidden="true"></span>{{trans('form.required_field')}}</div>
 
 	@include('includes.errors')
 

@@ -35,9 +35,6 @@
   {{HTML::style('css/tabs.css')}}
   @endif
   
-  @if(isset($widget) && in_array('upload', $widget))
-  {{HTML::style('css/uploadfile.css')}}
-  @endif
   <!-- <link rel="stylesheet" href="css/range-slider.css"> -->
   {{HTML::script('js/vendor/modernizr-2.6.2.min.js')}}
 </head>

@@ -37,6 +37,7 @@ return array(
     'inscription_step3' => 'description-du-bien',
     'inscription_step4' => 'informations-general-du-bien',
     'inscription_step5' => 'photos-du-bien',
+    'inscription_step6' => 'creation-des-annonces',
     'how_be_owner' => 'comment-devenir-proprietaire',
     'edit_photo' => 'changer-la-photo-de-profil',
 

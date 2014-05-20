@@ -115,7 +115,7 @@ public function postBuildingImage( $type='more', $id=null )
 
       $filename = Helpers::toSlug(Helpers::addTimestamp( $part->getClientOriginalName(), null, $extension,  $timestamp ));
 
-      $nb_order = Building::find($id)->photo()->max('order') + 1;
+      $nb_order = Building::find($id)->photo()->whereType($type)->max('order') + 1;
 
       $photo = new BuildingPhoto;
 
@@ -149,7 +149,7 @@ else //single file
 
   $filename = Helpers::toSlug(Helpers::addTimestamp( $file->getClientOriginalName(), null, $extension,  $timestamp ));
 
-  $nb_order = Building::find($id)->photo()->max('order') + 1;
+  $nb_order = Building::find($id)->photo()->whereType($type)->max('order') + 1;
   
   $photo = new BuildingPhoto;
 

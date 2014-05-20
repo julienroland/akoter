@@ -90,13 +90,14 @@ return array(
 			'created_at:asc'=>trans('form.created_date'),
 			),
 		),
-	'steps'=>5,
+	'steps'=>6,
 	'steps_names'=>array(
 		1=>trans('inscription.steps.1'),
 		2=>trans('inscription.steps.2'),
 		3=>trans('inscription.steps.3'),
 		4=>trans('inscription.steps.4'),
 		5=>trans('inscription.steps.5'),
+		6=>trans('inscription.steps.6'),
 		),
 	'steps_routes'=>array(
 		1=>'index_localisation_building',
@@ -104,6 +105,7 @@ return array(
 		3=>'index_inscription_building',
 		4=>'index_inscription_general',
 		5=>'index_photo_building',
+		6=>'index_inscription_adverts',
 		),
 
 
