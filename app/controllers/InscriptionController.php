@@ -520,8 +520,8 @@ class InscriptionController extends BaseController {
 
 	public function indexPhotoBuilding($user_slug, $building){
 
-		$photos = $building->photo()->get()->groupBy('type');
-		return View::make('inscription.owner.photo_building', array('page'=>'inscription','widget'=>array('upload','sort')))
+		$photos = $building->photo()->orderBy('order')->get()->groupBy('type');
+		return View::make('inscription.owner.photo_building', array('page'=>'inscription','widget'=>array('upload','ui','sort')))
 		->with(compact('building','photos'));
 	}
 

@@ -127,13 +127,13 @@ public function postBuildingImage( $type='more', $id=null )
 
       $photo =  Building::find( $id )->photo()->save($photo);
 
-      $image->resize( 2500, 1600, true )->save( $destinationPath.$filename )->encode('jpg', 75);
+      $image->grab( 2500, 1600 )->save( $destinationPath.$filename )->encode('jpg', 75);
 
       foreach( $imageType as $type){
 
         $filename = Helpers::toSlug(Helpers::addTimestamp( $part->getClientOriginalName(),'-'.$type->name ,$type->extension , $timestamp));
 
-        $image->resize( $type->width, $type->height, true )->save( $destinationPath.$filename )->encode('jpg', 75);
+        $image->grab( $type->width, $type->height )->save( $destinationPath.$filename )->encode('jpg', 75);
 
       }
     }
@@ -317,9 +317,9 @@ if( Helpers::isOk($image) ) {
 }
 }
 
-public function deletePhoto( $imageId, $proprieteId ){
+public function deletePhoto( $imageId, $proprieteId , $type){
 
-  $photo = PhotoPropriete::find($imageId);
+  $photo = BuildingPhoto::find($imageId);
   
 /**
 *
@@ -335,7 +335,7 @@ if( $photo ){
 *
 **/
 
-$destinationPath = public_path(). '/'.Config::get('var.upload_folder').'/'.Auth::user()->id.'/'.Config::get('var.propriete_folder').'/'.$proprieteId.'/';
+$destinationPath = public_path(). '/'.Config::get('var.images_dir').Config::get('var.users_dir').Auth::user()->id.'/'.Config::get('var.buildings_dir').'/'.$proprieteId.'/'.$type.'/';
 
 /**
 *
@@ -343,7 +343,7 @@ $destinationPath = public_path(). '/'.Config::get('var.upload_folder').'/'.Auth:
 *
 **/
 
-$types = ImageType::all();
+$imgTypes = ImageType::all();
 
 /**
 *
@@ -369,11 +369,11 @@ if(File::exists( $destinationPath.$photo->url )){
 *
 **/
 
-foreach( $types as $type ){
+foreach( $imgTypes as $types ){
 
-  if(File::exists( $destinationPath.Helpers::addBeforeExtension($photo->url, $type->nom) )){
+  if(File::exists( $destinationPath.Helpers::addBeforeExtension($photo->url, $types->name) )){
 
-    File::delete( $destinationPath.Helpers::addBeforeExtension($photo->url, $type->nom) );
+    File::delete( $destinationPath.Helpers::addBeforeExtension($photo->url, $types->name) );
 
   }
 }

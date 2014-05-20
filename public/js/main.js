@@ -76,6 +76,8 @@
 	aDataToAppend = [],
 	//ajax
 	$agenceAjax = $('.agenceAjax'),
+	//img
+	$deleteImage = $('.deleteImage'),
 	//path
 	sLocations_dir = '../img/locations/',
 	sImages_dir = '../img/',
@@ -226,7 +228,13 @@ $toPopup.on('click',openPopup);
 
 	});
 
-	 uploadFile(  );
+	uploadFile(  );
+
+	$deleteImage.on('click', function( e ){
+		e.preventDefault();
+		deleteImage( $(this) );
+
+	});
 });	
 /*var fixSort = function(){
 	var $sort = $('.short');
@@ -267,23 +275,30 @@ var sortable = function(){
 	});
 
 }
- var deleteImage = function( $that ){
+var deleteImage = function( $that ){
 
-      $.ajax({
-        type: "get", 
-        async:   false,
-        url: sBasePath + 'deleteImage/'+ $that.attr('data-id')+'/'+$that.attr('data-proprieteId'),
-        dataType: "json",
-        success:function( oData ){
+	$.ajax({
+		type: "get", 
+		async:   false,
+		url: sBasePath + 'ajax/deleteImage/'+ $that.attr('data-id')+'/'+$that.attr('data-proprieteId')+'/'+$that.attr('data-type'),
+		dataType: "json",
+		success:function( oData ){
 
-          if( oData ==='success'){
-            $that.parent().fadeOut( 'fast', function(){
-              $(this).remove();   
-            });
-          }
-        }
-      });
-    }
+			if( oData ==='success'){
+				$that.parent().fadeOut( 'fast', function(){
+					$(this).remove();   
+				});
+			}
+		}
+	});
+}
+var addBeforeExtension  = function( stringWithExt, string ){
+
+	var stringEx = stringWithExt.split( '.' );
+
+	return  stringEx[0]+'-'+string+'.'+stringEx[1] ;
+
+}
 var getProprietePhoto = function( userId, proprieteId, sType ){
 
 	if( userId && proprieteId ){
@@ -293,8 +308,7 @@ var getProprietePhoto = function( userId, proprieteId, sType ){
 			url: sBasePath+'ajax/getBuildingPhoto/'+sType+'/'+ proprieteId,
 			dataType: "json",
 			success:function( oData ){
-
-				oData = oData.data;
+				console.log(oData);
 				if( oData ){
 
 					if($('#images').length == 0){
@@ -306,10 +320,9 @@ var getProprietePhoto = function( userId, proprieteId, sType ){
 
 				}
 				for( var i in oData ){
+                $('#images ul').append('<li><span class="handle icon icon-move6"></span><a href="" class="deleteImage icon icon-remove11" data-id='+oData[i].id+' data-proprieteId='+oData[i].building_id+' data-type='+oData[i].type+' title='+oLang.form.delete_image+'><div class="image"><img class="thumbnail" src="'+ imgs_dir +'users/'+ userId + '/buildings/' + proprieteId + '/'+ sType +'/' + addBeforeExtension(oData[i].url, 'small') +'"></div></a></li>'); //userId/ProprieteId/
 
-                $('#images ul').append('<li><div class="image"><img src="'+ imgs_dir +'users/'+ userId + '/buildings/' + proprieteId + '/ '+ sType +'/' + oData[i].url +'"></div><a href="" class="supprimerImage" data-id="'+oData[i].id+'" data-proprieteId="'+proprieteId+'" title="'+oLang.form.delete+'">'+oLang.form.delete_image+'</a></li>'); //userId/ProprieteId/
-
-                $('.supprimerImage').on('click', function( e ){
+                $('.deleteImage').on('click', function( e ){
                 	e.preventDefault();
                 	deleteImage( $(this) );
 
@@ -321,7 +334,7 @@ var getProprietePhoto = function( userId, proprieteId, sType ){
 
     });
 
-	}
+}
 
 }
 var uploadFile = function(){
@@ -336,7 +349,7 @@ var uploadFile = function(){
 		fileName: "file",
 		autoSubmit:true,
 		multiple:true,
-		showStatusAfterSuccess:true,
+		showStatusAfterSuccess:false,
 		dragDropStr: "<span><b>"+oLang.upload.dragDrop+"</b></span>",
 		abortStr:oLang.upload.giveup,
 		cancelStr:oLang.upload.stop,

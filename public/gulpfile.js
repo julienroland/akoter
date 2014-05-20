@@ -48,6 +48,7 @@ gulp.task('default' , function() {
 	});
 	
 	gulp.run('css');
+	gulp.run('js');
 
 	gulp.watch('sass/**/*.scss', function() {
 		gulp.run('css');

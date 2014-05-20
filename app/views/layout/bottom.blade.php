@@ -22,7 +22,7 @@
 @endif
 
 @if(isset($widget) && in_array('upload', $widget))
-<script>/*$('.baseFile').remove();*/</script>
+<script>$('.baseFile').remove();</script>
 {{HTML::script('js/jquery.uploadfile.min.js')}}
 {{HTML::script('js/jquery.validationEngine.js')}}
 {{HTML::script('js/jquery.validationEngine-fr.js')}}
@@ -131,7 +131,7 @@
 
       },
       update: function(event, ui) {
-        console.log('ok');
+
         var data = {};
 
         $("#sortable li").each(function(i, el){
@@ -139,14 +139,20 @@
           data[p]=$(el).index()+1;
         });
 
-        $("form > [name='image_order']").val(JSON.stringify(data));
+        $.ajax({
+          type: "get", 
+          url: '/ajax/updateBuildingPhotoPosition',
+          data: JSON.stringify(data),
+          dataType: "json",
+        });
+        
 
       }
 
     }).disableSelection();
 
 
-  });
+});
 </script>
 @endif
 

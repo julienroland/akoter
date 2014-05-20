@@ -3625,17 +3625,71 @@ $country-h:100px;
 		}
 	}
 }
+
+.thumbnail {
+	padding: 4px;
+	line-height: 1.42857143;
+	background-color: #fff;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	@include transition(all .2s ease-in-out);
+	display: inline-block;
+	max-width: 100%;
+
+}
 .images_category{
+	@include c(12);
+	background-color: $greyL;
+	padding: 1em;
+	padding-bottom: 2em;
 	.image_cat_title{
 		font-size: 1em;
 		font-weight: 500;
 		margin-bottom: 1em;
 		text-transform: uppercase;
 	}
-	@include c(12);
-	background-color: $greyL;
-	padding: 1em;
-	padding-bottom: 2em;
+	#images{
+		@include c(12);
+		margin:$gutter / 2 0;
+		li{
+			float: left;
+			margin:gutter( )  / 2;
+			position: relative;
+			.handle{
+				width: 25px;
+				height: 25px;
+				pointer-events:auto;
+				&:before{
+					font-size: 1em;
+					line-height: 25px;
+				}
+			}
+			a{
+				@include c(12);
+				position: relative;
+				&:before{
+					@include abs();	
+					font-size: 40px;
+					text-align: center;
+					color:$error;
+					line-height: 63px;
+					background-color: $greyL;
+					background-color: rgba($greyL,0.6);
+					visibility: hidden;
+					opacity:0;
+					@include transition(all 0.2s ease-in-out);
+				}
+				&:hover,&:focus,&:active{
+					&:before{
+						visibility: visible;
+						opacity:1;
+						@include transition(all 0.2s ease-in-out);
+					}
+
+				}
+			}
+		}
+	}
 }
     /* END LOADING MAP */
     /* ANIMATION CSS3 */

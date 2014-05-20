@@ -31,10 +31,24 @@ class BuildingController extends BaseController
 	public function getPhotos($type=null, $id=null){
 
 		if(Helpers::isOk($id) && Helpers::isOk($type)){
-			if(Request::ajax()){
-				return Building::find($id)->photo()->whereType($type)->get();
-			}
+
+			return Building::find($id)->photo()->whereType($type)->orderBy('order')->get();
+
 		}
 
+	}
+
+	public function upatePosition(){
+
+		$input = (array)json_decode(key(Input::all()));
+
+		foreach($input as $id => $order){
+
+			$photo = BuildingPhoto::find($id);
+			$photo->order = $order;	
+			$photo->save();
+		}
+
+		
 	}
 }

@@ -69,4 +69,7 @@ return array(
 	'garantee_placeholder'=>'Entrez le montant de la caution, laissez vide si il n\'y en a pas.',
 	'blank_charge_price'=>'Vous pouvez laisser le montant vide si celles-ci sont comprise',
 	'infos_general'=>'Informations générales',
+	'about_image_sort'=>'Vous pouvez choisir <b>l\'ordre d\'affichage </b> de vos image en cliquant sur le <b>bouton rouge</b> disposé sur les images puis en le déplacent. Vous pouvez également <b>supprimer</b> une image en cliquant dessus.',
+	'photoBuilding'=>'Photos du batiment',
+	'buildingPhoto_intro'=>'Ajoutez des photos de l\'extérieur du batiment, vous pouvez également ajouter des photos intérieur (pas les pièces communes et pas les logements.)',
 	);
