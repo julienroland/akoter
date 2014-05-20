@@ -252,11 +252,7 @@ class Location extends Eloquent implements SluggableInterface{
 				},
 				'building.user',
 				'building.locality',
-				'typeLocation.translation'=>function($query){
-
-					$query->remember(Config::get('var.remember'), 'typeLocation.translation');
-
-				},
+				'typeLocation.translation',
 				'particularity.translation' => function( $query ) use ( $lang_id ){
 					$query->where(Config::get('var.t_langCol'), $lang_id);
 				},
@@ -307,11 +303,7 @@ class Location extends Eloquent implements SluggableInterface{
 				},
 				'building.user',
 				'building.locality',
-				'typeLocation.translation'=>function($query){
-
-					$query->remember(Config::get('var.remember'), 'typeLocation.translation');
-
-				},
+				'typeLocation.translation',
 				'particularity.translation' => function( $query ) use ( $lang_id ){
 					$query->where(Config::get('var.t_langCol'), $lang_id);
 				},
@@ -361,11 +353,7 @@ class Location extends Eloquent implements SluggableInterface{
 				'building.region.translation',
 				'building.user',
 				'building.locality',
-				'typeLocation.translation'=>function($query){
-
-					$query->remember(Config::get('var.remember'), 'typeLocation.translation');
-
-				},
+				'typeLocation.translation',
 				'particularity.translation',
 				))
 		->where( Config::get( 'var.l_validateCol' ) , 1 )

@@ -75,17 +75,17 @@ class OptionTableSeeder extends Seeder {
 			array(
 				'key'=>'internet',
 				'default'=>'included',
-				'type_option_id'=>1
+				'type_option_id'=>3
 				),
 			array(
 				'key'=>'tv',
 				'default'=>'tv',
-				'type_option_id'=>1
+				'type_option_id'=>3
 				),
 			array(
 				'key'=>'tv',
 				'default'=>'tv-socket',
-				'type_option_id'=>1
+				'type_option_id'=>3
 				),
 			array(
 				'key'=>'appliances',

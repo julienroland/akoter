@@ -527,11 +527,11 @@ class InscriptionController extends BaseController {
 	}
 	
 	public function indexAdverts($user_slug, $building){
-dd('ok');
-		
-		
-		return View::make('inscription.owner.adverts', array('page'=>'inscription','widget'=>array()))
-		->with(compact('building'));
+
+		$locations = $building->location()->with(array('typeLocation.translation'))->get();
+
+		return View::make('inscription.owner.adverts', array('page'=>'inscription','widget'=>array('ui','tabs','editor')))
+		->with(compact('building','locations'));
 	}
 
 	/*-----  End of INSCRIPTION OWNER  ------*/

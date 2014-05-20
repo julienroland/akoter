@@ -70,6 +70,7 @@ p{
 	height:30px;
 	&:before{
 		font-size: 1.618em;
+		color:$tc;
 	}
 }
 .nb_result{
@@ -2757,6 +2758,9 @@ $country-h:100px;
 			&:checked + label{
 				color:$mc;
 				@include transition(color 0.1s ease-in);
+				&:before{
+					color:$mc;
+				}
 			}
 		}
 	}
@@ -3621,6 +3625,9 @@ $country-h:100px;
 				&:after{
 					border-left-color:$bgreen;
 				}
+			}
+			&.current{
+				cursor:pointer;
 			}
 		}
 	}

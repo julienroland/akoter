@@ -44,98 +44,68 @@
 	@foreach($situations as $situation)
 
 	@if($situation->language_id == 1)
-	<?php $situation_fr = $situation->value; ?>
+	<?php $situation_lang['fr'] = $situation->value; ?>
 	@endif
 	@if($situation->language_id == 2)
-	<?php $situation_en = $situation->value; ?>
+	<?php $situation_lang['en'] = $situation->value; ?>
 	@endif
 	@if($situation->language_id == 3)
-	<?php $situation_nl = $situation->value; ?>
+	<?php $situation_lang['nl'] = $situation->value; ?>
 	@endif
 	@endforeach
 
 	@foreach($adverts as $advert)
 
 	@if($advert->language_id == 1)
-	<?php $advert_fr = $advert->value; ?>
+	<?php $advert_lang['fr'] = $advert->value; ?>
 	@endif
 	@if($advert->language_id == 2)
-	<?php $advert_en = $advert->value; ?>
+	<?php $advert_lang['en'] = $advert->value; ?>
 	@endif
 	@if($advert->language_id == 3)
-	<?php $advert_nl = $advert->value; ?>
+	<?php $advert_lang['nl'] = $advert->value; ?>
 	@endif
 	@endforeach
 
 	<div class="tabs">
 		<ul>
-			<li><a href="#fr-situation">{{trans('general.lang.fr')}}</a></li>
-			<li><a href="#nl-situation">{{trans('general.lang.nl')}}</a></li>
-			<li><a href="#en-situation">{{trans('general.lang.en')}}</a></li>
+			@foreach(Config::get('var.langId') as $lang => $langId)
+			<li><a href="#{{$lang}}-situation">{{trans('general.lang')[$lang]}}</a></li>
+			@endforeach
 		</ul>
-		<div id="fr-situation">
+		@foreach(Config::get('var.langId') as $lang => $langId)
+		<div id="{{$lang}}-situation">
 			<div class="field">
-				<label for="situations[fr]">{{trans('inscription.situations',array('lang'=>trans('general.lang.fr')))}}</label>
-				<textarea name="situations[fr]"  placeholder="{{trans('inscription.situations_placeholder')}}" id="situations[fr]">{{Helpers::isOk($situation_fr) ? $situation_fr :''}}</textarea>
+				<label for="situations[{{$lang}}]">{{trans('inscription.situations',array('lang'=>trans('general.lang')[$lang]))}}</label>
+				<textarea name="situations[{{$lang}}]"  placeholder="{{trans('inscription.situations_placeholder')}}" id="situations[{{$lang}}]">{{Helpers::isOk($situation_lang[$lang]) ? $situation_lang[$lang] :''}}</textarea>
 				<div class="informations">
 					{{trans('inscription.situations_tuto')}}
 				</div>
 			</div>
 		</div>
-		<div id="nl-situation">
-			<div class="field">
-				<label for="situations[nl]">{{trans('inscription.situations',array('lang'=>trans('general.lang.nl')))}}</label>
-				<textarea name="situations[nl]" placeholder="{{trans('inscription.situations_placeholder')}}" id="situations[nl]">{{Helpers::isOk($situation_nl) ? $situation_nl :''}}</textarea>
-				<div class="informations">
-					{{trans('inscription.situations_tuto')}}
-				</div>
-			</div>
-		</div>
-		<div id="en-situation">
-			<div class="field">
-				<label for="situations[en]">{{trans('inscription.situations',array('lang'=>trans('general.lang.en')))}}</label>
-				<textarea name="situations[en]"  placeholder="{{trans('inscription.situations_placeholder')}}" id="situations[en]">{{Helpers::isOk($situation_en) ? $situation_en :''}}</textarea>
-				<div class="informations">
-					{{trans('inscription.situations_tuto')}}
-				</div>
-			</div>
-		</div>
+		@endforeach
 	</div>		
 	
 	
 	<div class="tabs">
 		<ul>
-			<li><a href="#fr-advert">{{trans('general.lang.fr')}}</a></li>
-			<li><a href="#nl-advert">{{trans('general.lang.nl')}}</a></li>
-			<li><a href="#en-advert">{{trans('general.lang.en')}}</a></li>
+			@foreach(Config::get('var.langId') as $lang => $langId)
+			<li><a href="#{{$lang}}-advert">{{trans('general.lang')[$lang]}}</a></li>
+			@endforeach
+
 		</ul>
-		<div id="fr-advert">
+		@foreach(Config::get('var.langId') as $lang => $langId)
+		<div id="{{$lang}}-advert">
 			<div class="field">
-				<label for="advert[fr]">{{trans('inscription.write_advert',array('lang'=>trans('general.lang.fr')))}}</label>
-				<textarea name="advert[fr]" data-validator="false" class="{{Helpers::isOk($advert_fr) ? 'editor': ''}}" id="advert[fr]">{{Helpers::isOk($advert_fr) ? $advert_fr :''}}</textarea>
+				<label for="advert[{{$lang}}]">{{trans('inscription.write_advert',array('lang'=>trans('general.lang')[$lang]))}}</label>
+				<textarea name="advert[{{$lang}}]" data-validator="false" class="{{Helpers::isOk($advert_lang[$lang]) ? 'editor': ''}}" id="advert[{{$lang}}]">{{Helpers::isOk($advert_lang[$lang]) ? $advert_lang[$lang] :''}}</textarea>
 				<div class="informations">
 					{{trans('inscription.write_advert_tuto')}}
 				</div>
 			</div>
 		</div>
-		<div id="nl-advert">
-			<div class="field">
-				<label for="advert[nl]">{{trans('inscription.write_advert',array('lang'=>trans('general.lang.nl')))}}</label>
-				<textarea name="advert[nl]" data-validator="false" class="{{Helpers::isOk($advert_fr) ? 'editor': ''}}" id="advert[nl]">{{Helpers::isOk($advert_nl) ? $advert_nl :''}}</textarea>
-				<div class="informations">
-					{{trans('inscription.write_advert_tuto')}}
-				</div>
-			</div>
-		</div>
-		<div id="en-advert">
-			<div class="field">
-				<label for="advert[en]">{{trans('inscription.write_advert',array('lang'=>trans('general.lang.en')))}}</label>
-				<textarea name="advert[en]" data-validator="false" class="{{Helpers::isOk($advert_fr) ? 'editor': ''}}" id="advert[en]">{{Helpers::isOk($advert_en) ? $advert_en :''}}</textarea>
-				<div class="informations">
-					{{trans('inscription.write_advert_tuto')}}
-				</div>
-			</div>
-		</div>
+		@endforeach
+		
 	</div>
 
 	<div class="field previous">

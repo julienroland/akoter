@@ -15,6 +15,9 @@ class TypesOptionsTableSeeder extends Seeder {
 				),
 			array(
 				'name'=>'infos',
+				),
+			array(
+				'name'=>'advert',
 				)
 			);
 		

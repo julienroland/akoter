@@ -53,13 +53,14 @@ return array(
 	'user_photo_height'=>64,
 	'lang'=>array(
 		'1'=>'fr',
-		'2'=>'en',
 		'3'=>'nl',
+		'2'=>'en',
 		),
 	'langId'=>array(
 		'fr'=>'1',
-		'en'=>'2',
 		'nl'=>'3',
+		'en'=>'2',
+		
 		),
 	//agence logo
 	'agence_logo_width'=>200,
