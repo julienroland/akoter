@@ -20,19 +20,6 @@
 	@include('includes.errors')
 
 	@include('includes.success')
-	
-<!-- 	<div class="field charge-form checkbox">
-	<input type="checkbox" name="charge" id="charge">
-		<label for="charge">
-			{{trans('form.charge_included')}}
-		</label>
-
-		<label for="chargePrice" style="display:none;">{{trans('form.price_charge')}}</label>
-		<input type="number" name="chargePrice" placeholder="{{trans('form.price_charge')}}" id="chargePrice">
-		<div class="informations">
-			{{trans('inscription.blank_charge_price')}}
-		</div>
-	</div> -->
 
 	@foreach($options as $option)
 	<div class="field">

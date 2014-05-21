@@ -57,13 +57,13 @@
 								<div class="group date">
 									<div class="field">
 										{{Form::label('start_date', trans('form.start_date'),array('aria-hidden'=>'false'))}}
-										<div class="input-date">
+										<div class="input-date icon-calendar68">
 											{{Form::text('start_date',isset($input['start_date']) ? $input['start_date'] :(isset(Session::get('filter')['start_date']) ? Session::get('filter')['start_date'] : '') ,array('class'=>'datepicker','title'=>trans('form.start_date'),'placeholder'=>trans('form.start_date2')))}}
 										</div>
 									</div>
 									<div class="field">
 										{{Form::label('end_date', trans('form.end_date'),array('aria-hidden'=>'false'))}}
-										<div class="input-date">
+										<div class="input-date icon-calendar68">
 											{{Form::text('end_date',isset($input['end_date']) ? $input['end_date'] : (isset(Session::get('filter')['end_date']) ? Session::get('filter')['end_date'] : '') ,array('class'=>'datepicker','title'=>trans('form.end_date'),'placeholder'=>trans('form.end_date2')))}}
 										</div>
 									</div>

@@ -73,6 +73,7 @@
     @include abs-right();
     right:3px;
     pointer-events:none;
+    z-index: 1;
   }
 }
 .input-email{
@@ -98,7 +99,7 @@
   @extend .input-city;
   &:before{
     right: 12px;
-    content:"&euro;";
+    content:"€";
   }
 }
 .input-size{

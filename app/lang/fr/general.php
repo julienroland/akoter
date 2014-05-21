@@ -86,6 +86,7 @@ return array(
 	'contact_us_intro'=>'Contactez-nous pour diverse raisons, nous vous répondrons rapidement par e-mail.',
 	'dont_have_account'=>'Pas encore de compte?',
 	'register_you'=>'Inscrivez-vous !',
+	'perMonth'=>'par mois',
 
 
 

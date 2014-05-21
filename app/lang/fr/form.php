@@ -15,6 +15,7 @@ return array(
 	'price_min'=>'Prix minimun',
 	'price_max'=>'Prix maximun',
 	'available'=>'Les disponibles',
+	'isAvailable'=>'Disponible ?',
 	'rate'=>'Les mieux noté',
 	'charge'=>'Charge',
 	'charges'=>'Charges',
@@ -86,5 +87,10 @@ return array(
 	'success_message'=>'<span class="b">Message bien envoyé !</span> Nous reviendrons vers vous par mail le plus rapidement possible.',
 	'search_location_keywords'=>'Recherche par mots clefs, référence d\'annonce',
 	'required_field'=>'Champs obligatoire',
+	'titleAdvert'=>'Titre de l\'annonce',
+	'price'=>'Prix',
+	'size'=>'Dimensions',
+	'floor'=>'Etage',
+	'allowingComments'=>'Autoriser les commentaires ?',
 
 );		

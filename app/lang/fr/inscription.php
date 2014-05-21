@@ -60,6 +60,8 @@ return array(
 		'6'=>'creation-des-annonces',
 		),
 	'description_building'=>'Description du batiment',
+	'advert'=>'Annonces',
+	'advert_intro'=>'Créez l\'annonce de vos logements, si vous avez des annonces groupé vous ne devriez créer qu\'une seule fois l\'annonce.',
 	'description_building_intro'=>'Décrivez au mieux votre batiment via le formulaire ci-dessous.',
 	'write_advert'=>'Ecrivez votre annonce en :lang',
 	'write_advert_tuto'=>'Mettez des informations qui pourraient convaincre l\'utilisateur de choisir votre bien, ne parlez pas des détails (prix,...). Allez à l\'essentiel.',
@@ -75,4 +77,5 @@ return array(
 	'photoBuildingCommon'=>'Photos des pièces communes',
 	'buildingPhoto_intro'=>'Ajoutez des photos de l\'extérieur du batiment, vous pouvez également ajouter des photos intérieur (pas les pièces communes et pas les logements.)',
 	'buildingPhotoCommon_intro'=>'Ajoutez uniquement des photos concernant les pièces communes de votre logements.',
+	'groupAdvert'=>'Annonce groupé, contenant un total de :number logements de type :type',
 	);
