@@ -87,10 +87,12 @@ return array(
 	'success_message'=>'<span class="b">Message bien envoyé !</span> Nous reviendrons vers vous par mail le plus rapidement possible.',
 	'search_location_keywords'=>'Recherche par mots clefs, référence d\'annonce',
 	'required_field'=>'Champs obligatoire',
-	'titleAdvert'=>'Titre de l\'annonce',
+	'titleAdvert'=>'Titre de l\'annonce en :lang',
 	'price'=>'Prix',
 	'size'=>'Dimensions',
 	'floor'=>'Etage',
 	'allowingComments'=>'Autoriser les commentaires ?',
+	'options'=>'Options',
+	'particularities'=>'Particularitée(s)',
 
 );		

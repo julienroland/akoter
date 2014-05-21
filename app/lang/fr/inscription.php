@@ -61,6 +61,7 @@ return array(
 		),
 	'description_building'=>'Description du batiment',
 	'advert'=>'Annonces',
+	'advert_in'=>'Annonces en :lang',
 	'advert_intro'=>'Créez l\'annonce de vos logements, si vous avez des annonces groupé vous ne devriez créer qu\'une seule fois l\'annonce.',
 	'description_building_intro'=>'Décrivez au mieux votre batiment via le formulaire ci-dessous.',
 	'write_advert'=>'Ecrivez votre annonce en :lang',
@@ -78,4 +79,7 @@ return array(
 	'buildingPhoto_intro'=>'Ajoutez des photos de l\'extérieur du batiment, vous pouvez également ajouter des photos intérieur (pas les pièces communes et pas les logements.)',
 	'buildingPhotoCommon_intro'=>'Ajoutez uniquement des photos concernant les pièces communes de votre logements.',
 	'groupAdvert'=>'Annonce groupé, contenant un total de :number logements de type :type',
+	'floor_help'=>'Le rez-de-chaussée équivaut le 0',
+	'room_available_help'=>'Places disponible dans le logement, si c\'est une annonce groupé indiquez le nombre de place par logement',
+	'allow_comments_infos'=>'Autorisez-vous les commentaires sur votre annonce, ceux-ci pourraient être bénéfique.',
 	);

@@ -37,9 +37,21 @@
 			@if($location->nb_locations > 1)
 			<div class="informations">{{trans('inscription.groupAdvert',array('number'=>$location->nb_locations,'type'=>strtolower($location->typeLocation->translation[0]->value)))}} </div>
 			@endif
-			<div class="field">
-				<label for="{{$location->id}}[title]">{{trans('form.titleAdvert')}}</label>
-				<input type="text" name="{{$location->id}}[title]" id="{{$location->id}}[title]" placeholder="{{trans('form.titleAdvert')}}">
+			<div class="tabs">
+				<ul>
+					@foreach(Config::get('var.langId') as $lang => $langId)
+
+					<li><a class="{{$lang}}" href="#{{$lang}}-title">{{trans('general.lang')[$lang]}}</a></li>
+					@endforeach
+				</ul>
+				@foreach(Config::get('var.langId') as $lang => $langId)
+				<div id="{{$lang}}-title">
+					<div class="field">
+						<label for="{{$location->id}}[title[{{$lang}}]]">{{trans('form.titleAdvert',array('lang'=>trans('general.lang')[$lang]))}}</label>
+						<input type="text" name="{{$location->id}}[title[{{$lang}}]]" id="{{$location->id}}[title[{{$lang}}]]" placeholder="{{trans('form.titleAdvert',array('lang'=>trans('general.lang')[$lang]))}}">
+					</div>
+				</div>
+				@endforeach
 			</div>
 
 			<div class="field">
@@ -59,11 +71,15 @@
 			<div class="field">
 				<label for="{{$location->id}}[floor]">{{trans('form.floor')}} </label>
 				<input type="number" name="{{$location->id}}[floor]" id="{{$location->id}}[floor]" placeholder="{{trans('form.floor')}}">
+				<div class="informations">{{trans('inscription.floor_help')}}</div>
 			</div>
 
 			<div class="field">
 				<label for="{{$location->id}}[room]">{{trans('form.room')}} </label>
 				<input type="number" name="{{$location->id}}[room]" id="{{$location->id}}[room]" value="{{$location->type_location_id == 1 ? '1' :''}}" placeholder="{{trans('form.room')}}">
+				<div class="informations">
+					{{trans('inscription.room_available_help')}}
+				</div>
 			</div>
 
 			<div class="field charge-form checkbox">
@@ -73,7 +89,7 @@
 				</label>
 
 				<label for="{{$location->id}}[chargePrice]" style="display:none;">{{trans('form.price_charge')}}</label>
-				<input type="number" name="{{$location->id}}[chargePrice]" placeholder="{{trans('form.price_charge')}}" id="{{$location->id}}[chargePrice]">
+				<input type="number" name="{{$location->id}}[chargePrice]" title="{{trans('form.price_charge')}} / {{trans('general.perMonth')}}" placeholder="{{trans('form.price_charge')}} / {{trans('general.perMonth')}}" id="{{$location->id}}[chargePrice]">
 				<div class="informations">
 					{{trans('inscription.blank_charge_price')}}
 				</div>
@@ -83,7 +99,7 @@
 			<div class="field checkbox">
 				<input type="checkbox" name="{{$location->id}}[available]" id="{{$location->id}}[available]">
 				<label for="{{$location->id}}[available]">{{trans('form.isAvailable')}}</label>
-				
+
 			</div>
 			<div class="group date">
 				<div class="field">
@@ -103,24 +119,77 @@
 			<div class="field checkbox">
 				<input type="checkbox" name="{{$location->id}}[comments]" id="{{$location->id}}[comments]">
 				<label for="{{$location->id}}[comments]">{{trans('form.allowingComments')}}</label>
-				
-			</div>
+				<div class="informations">
+					{{trans('inscription.allow_comments_infos')}}
+				</div>
 
-			<div class="field">
-			<label for="{{$location->id}}[advert]">{{trans('inscription.advert')}}</label>
-				<textarea name="{{$location->id}}[advert]" id="{{$location->id}}[advert]" class="editor"></textarea>
 			</div>
+			@if($options->count())
+			<div class="group">
+				<div class="label">{{trans('form.options')}}:</div>
+				<div class="row">
+
+					@foreach($options as $option)
+					<div class="field listCheckbox">
+						<input type="checkbox" name="{{$location->id}}[option[{{$option->id}}]]" id="{{$location->id}}[option[{{$option->id}}]]">
+						@if(isset($option->translation[0]))
+
+						<label for="{{$location->id}}[option[{{$option->id}}]]">{{$option->translation[0]->value}}</label>
+
+						@endif
+
+					</div>
+
+					@endforeach
+				</div>
+			</div>
+			@endif
+			@if($particularities->count())
+			<div class="group">
+				<div class="label">{{trans('form.particularities')}}:</div>
+				<div class="row">
+
+					@foreach($particularities as $particularity)
+					<div class="field listCheckbox">
+						<input type="checkbox" name="{{$location->id}}[option[{{$particularity->id}}]]" id="{{$location->id}}[particularity[{{$particularity->id}}]]">
+						@if(isset($particularity->translation[0]))
+
+						<label for="{{$location->id}}[particularity[{{$particularity->id}}]]">{{$particularity->translation[0]->value}}</label>
+
+						@endif
+
+					</div>
+
+					@endforeach
+				</div>
+			</div>
+			@endif
+			<div class="tabs">
+				<ul>
+					@foreach(Config::get('var.langId') as $lang => $langId)
+
+					<li><a class="{{$lang}}" href="#{{$lang}}-advert">{{trans('general.lang')[$lang]}}</a></li>
+					@endforeach
+				</ul>
+				@foreach(Config::get('var.langId') as $lang => $langId)
+				<div id="{{$lang}}-advert">
+					<div class="field">
+						<label for="{{$location->id}}[advert[{{$lang}}]]">{{trans('inscription.advert_in',array('lang'=>trans('general.lang')[$lang]))}}</label>
+						<textarea name="{{$location->id}}[advert[{{$lang}}]]" id="{{$location->id}}[advert[{{$lang}}]]" class="editor"></textarea>
+					</div>
+				</div>
+				@endforeach
+			</div>
+			@endforeach
 		</div>
-		@endforeach
-	</div>
 
-	<div class="field previous">
-		<a href="{{route('account_home', Auth::user()->slug)}}" title="{{trans('account.back_home')}}">{{trans('general.back')}}</a>
+		<div class="field previous">
+			<a href="{{route('account_home', Auth::user()->slug)}}" title="{{trans('account.back_home')}}">{{trans('general.back')}}</a>
+		</div>
+		<div class="field next">
+			{{Form::submit(trans('form.next'))}}
+		</div>
+		{{Form::hidden('latlng', isset($building->latlng) ? $building->latlng : (Session::has('inscription.localisation_input') ? Session::get('inscription.localisation_input')['latlng'] : ''), array('id'=>'latlng'))}}
+		{{Form::close()}}
 	</div>
-	<div class="field next">
-		{{Form::submit(trans('form.next'))}}
-	</div>
-	{{Form::hidden('latlng', isset($building->latlng) ? $building->latlng : (Session::has('inscription.localisation_input') ? Session::get('inscription.localisation_input')['latlng'] : ''), array('id'=>'latlng'))}}
-	{{Form::close()}}
-</div>
-@stop
+	@stop

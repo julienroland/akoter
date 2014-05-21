@@ -282,6 +282,7 @@
 <script type="text/javascript">
   tinymce.init({
     selector: ".editor",
+    mode : "textareas",
     toolbar: "bold italic | bullist numlist outdent indent",
     language_url : '/js/editor/fr.js',
     menubar: "tools edit",

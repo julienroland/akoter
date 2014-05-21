@@ -4973,7 +4973,7 @@ button.ui-button::-moz-focus-inner { border: 0; padding: 0; } /* reset extra pad
   text-decoration: none;
   cursor: text;
   padding: 0 15px;
-  margin-right: 2px;
+  margin-right: 0px;
   line-height: 34px;
   border: 1px solid transparent;
   -webkit-border-radius: 4px 4px 0 0;
@@ -4982,7 +4982,24 @@ button.ui-button::-moz-focus-inner { border: 0; padding: 0; } /* reset extra pad
 
 
  }
+.ui-tabs .ui-tabs-nav li a{
+/* &.fr{
+	background-image: image-url('fr-lang.jpg');
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+&.nl{
+	background-image: image-url('nl-lang.jpg');
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+&.en{
+	background-image: image-url('en-lang.jpg');
+	background-size: cover;
+	background-repeat: no-repeat;
+} */
 
+}
 .ui-tabs .ui-tabs-nav li.ui-tabs-active { margin-bottom: 0; padding-bottom: 0px; outline:none;}
 .ui-tabs .ui-tabs-nav li.ui-tabs-active , .ui-tabs .ui-tabs-nav li.ui-state-disabled a, .ui-tabs .ui-tabs-nav li.ui-state-processing a {
   background-color: #ffffff;

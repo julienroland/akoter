@@ -783,21 +783,21 @@ $types_locations = array(
 $particularity = array(
 	'fr'=>array(
 		'Wifi',
-		'Salle de bain',
-		'Lavabo',
-		'Cuisine',
+		'Salle de bain privée',
+		'Lavabo privé',
+		'Cuisine privée',
 		),
 	'en'=>array(
 		'Wifi',
-		'Bathroom',
-		'washbasin',
-		'Kitchen',
+		'Bathroom private',
+		'washbasin private',
+		'Kitchen private',
 		),
 	'nl'=>array(
-		'Wifi',
-		'Badkamer',
-		'fonteintje',
-		'keuken',
+		'Wifi prive',
+		'Badkamer prive',
+		'fonteintje prive',
+		'keuken prive',
 		),
 	);
 
@@ -821,7 +821,7 @@ $regions = array(
 		'Brussels', 
 		'Brabant', 
 		'Flemish Brabant',
-		'Antwerp ',
+		'Antwerp',
 		'Flemish Brabant', 
 		'Limburg',
 		'Liege', 

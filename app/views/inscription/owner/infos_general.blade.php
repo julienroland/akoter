@@ -57,7 +57,7 @@
 	<div class="tabs">
 		<ul>
 			@foreach(Config::get('var.langId') as $lang => $langId)
-			<li><a href="#{{$lang}}-situation">{{trans('general.lang')[$lang]}}</a></li>
+			<li><a class="{{$lang}}" href="#{{$lang}}-situation">{{trans('general.lang')[$lang]}}</a></li>
 			@endforeach
 		</ul>
 		@foreach(Config::get('var.langId') as $lang => $langId)

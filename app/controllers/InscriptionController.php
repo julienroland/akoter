@@ -530,8 +530,12 @@ class InscriptionController extends BaseController {
 
 		$locations = $building->location()->with(array('typeLocation.translation'))->get();
 
+		$options = Option::whereTypeOptionId(3)->with('translation')->get();
+
+		$particularities = particularity::with('translation')->get();
+
 		return View::make('inscription.owner.adverts', array('page'=>'inscription','widget'=>array('ui','tabs','editor')))
-		->with(compact('building','locations'));
+		->with(compact('building','locations','options','particularities'));
 	}
 
 	/*-----  End of INSCRIPTION OWNER  ------*/

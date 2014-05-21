@@ -371,6 +371,15 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#35a0c6', end
 			margin-left: $gutter / 2;
 		}
 	}
+		.label{
+			color:$greyD2;
+			margin-bottom: 3px;
+		}
+
+	.group{
+		@include c(12);
+		margin-bottom: $gutter / 2;
+	}
 	.formContainer{
 		@include c(12);
 		max-width: 400px;
@@ -705,6 +714,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#35a0c6', end
 	&:last-child{
 		margin-bottom: 0;
 	}
+
 	.informations{
 		float: left;
 	}
