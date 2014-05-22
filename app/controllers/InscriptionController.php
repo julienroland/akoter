@@ -530,14 +530,16 @@ class InscriptionController extends BaseController {
 
 		$locations = $building->location()->with(array('typeLocation.translation'))->get();
 
-		$locationsData = $building->location()->with(array('option','translations'
-			,'particularity'))->get()->groupBy('id');
+		$locationsData = $building->location()->with(array('option','translations'=>function($query){
+			$query->whereIn('key', array('title','advert'));
+		}
+		,'particularity'))->get()->groupBy('id');
 		
 		$options = Option::whereTypeOptionId(3)->with('translation')->get();
 
 		$particularities = particularity::with('translation')->get();
 
-		return View::make('inscription.owner.adverts', array('page'=>'inscription','widget'=>array('ui','tabs','editor','datepicker','validator')))
+		return View::make('inscription.owner.adverts', array('page'=>'inscription','widget'=>array('ui','tabs','editor','datepicker')))
 		->with(compact('building','locations','options','particularities','locationsData'));
 	}
 
@@ -721,7 +723,7 @@ class InscriptionController extends BaseController {
 
 				Session::put('inscription.current', 6);
 
-				return Redirect::route('index_inscription_contact', array(Auth::user()->slug, $building->id ))
+				return Redirect::route('index_photo_advert', array(Auth::user()->slug, $building->id ))
 				->withSuccess(trans('validation.custom.inscription_adverts'));
 
 			}else{
@@ -734,6 +736,15 @@ class InscriptionController extends BaseController {
 				->withErrors($validator);
 			}
 		}
+	}
+
+	public function indexPhotoAdvert($user_slug, $building){
+
+		$locations = $building->location()->with(array('typeLocation.translation'))->get();
+
+		return View::make('inscription.owner.photo_advert', array('page'=>'inscription','widget'=>array('upload','ui','sort','tabs')))
+		->with(compact('building','locations'));
+
 	}
 
 	public function indexContact( $user_slug, $building){

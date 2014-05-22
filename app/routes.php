@@ -428,7 +428,10 @@ Route::group(array('before'=>'auth'),function(){
 
 			Route::post(trans('routes.account').'/{user_slug}/'.trans('routes.add_location').'/{building_id}/'.trans('routes.inscription_step6'),array('as'=>'save_inscription_adverts','uses'=>'InscriptionController@saveAdverts'));
 
-			Route::get(trans('routes.account').'/{user_slug}/'.trans('routes.add_location').'/{building_id}/'.trans('routes.inscription_step7'), array('as'=>'index_inscription_contact','uses'=>'InscriptionController@indexContact'));
+			Route::get(trans('routes.account').'/{user_slug}/'.trans('routes.add_location').'/{building_id}/'.trans('routes.inscription_step7'), array('as'=>'index_photo_advert','uses'=>'InscriptionController@indexPhotoAdvert'));
+
+			/* contact*/
+			Route::get(trans('routes.account').'/{user_slug}/'.trans('routes.add_location').'/{building_id}/'.trans('routes.inscription_step8'), array('as'=>'index_inscription_contact','uses'=>'InscriptionController@indexContact'));
 		});
 		
 

@@ -196,7 +196,7 @@
 				<div id="{{$lang}}-advert">
 					<div class="field">
 						<label for="location_{{$location->id}}[advert][{{$lang}}]">{{trans('inscription.advert_in',array('lang'=>trans('general.lang')[$lang]))}}</label>
-						<textarea name="location_{{$location->id}}[advert][{{$lang}}]" id="location_{{$location->id}}[advert][{{$lang}}]" class="editor">{{isset($advertData[$langId]) ? $advertData[$langId] :( isset(Session::get('adverts')['location_'.$location->id]['advert']) ? Session::get('adverts')['location_'.$location->id]['advert'][$lang]:'')}}</textarea>
+						<textarea name="location_{{$location->id}}[advert][{{$lang}}]" id="location_{{$location->id}}[advert][{{$lang}}]" class="{{Helpers::isOk($advertData[$langId]) ? 'editor': ''}}">{{isset($advertData[$langId]) ? $advertData[$langId] :( isset(Session::get('adverts')['location_'.$location->id]['advert']) ? Session::get('adverts')['location_'.$location->id]['advert'][$lang]:'')}}</textarea>
 					</div>
 				</div>
 				@endforeach
