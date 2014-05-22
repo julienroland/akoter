@@ -49,7 +49,7 @@
 
 <div class="field">
 	{{Form::label('language',trans('form.language'))}}
-	{{Form::select('language',trans('general.lang'),isset($user->language_id) && !empty($user->language_id) ? $user->language_id :(Session::has('account_params')['language'] ? Session::get('account_params')['language']: ''),array('placeholder'=>trans('form.language'),'required', 'class'=>isset(Session::get('field')['language']) ? 'form-error':''))}}
+	{{Form::select('language',trans('general.lang'),isset($user->language_id) && !empty($user->language_id) ? Config::get('var.lang')[$user->language_id] :(Session::has('account_params')['language'] ? Session::get('account_params')['language']: ''),array('placeholder'=>trans('form.language'),'required', 'class'=>isset(Session::get('field')['language']) ? 'form-error':''))}}
 </div>
 
 <ul>

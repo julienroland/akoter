@@ -80,6 +80,7 @@ Route::filter('lang', function(){
 	}
 	else 
 	{
+
 		if(Auth::check()){
 
 			if(Helpers::isOk(Auth::user()->language_id)){

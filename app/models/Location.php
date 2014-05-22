@@ -203,8 +203,7 @@ class Location extends Eloquent implements SluggableInterface{
 	}
 	public function translations(){
 
-		return $this->morphMany('Translation','content')
-		->where(Config::get('var.t_langCol'), Session::get('langId'));
+		return $this->morphMany('Translation','content');
 	}
 
 	public function particularity(){

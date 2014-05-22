@@ -82,4 +82,5 @@ return array(
 	'floor_help'=>'Le rez-de-chaussée équivaut le 0',
 	'room_available_help'=>'Places disponible dans le logement, si c\'est une annonce groupé indiquez le nombre de place par logement',
 	'allow_comments_infos'=>'Autorisez-vous les commentaires sur votre annonce, ceux-ci pourraient être bénéfique.',
+	'inscription_title'=>'Inscription avec :name',
 	);

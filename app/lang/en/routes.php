@@ -12,13 +12,13 @@ return array(
     */
 
     'home' => '/',
-    'connection' => 'connexion',
-    'disconnect' => 'deconnexion',
+    'connection' => 'login',
+    'disconnect' => 'logout',
     'profil' => 'profile',
     'contact' => 'contact',
     'listing' => 'recherche-de-location-etudiant',
     'posts' => 'articles',
-    'account' => 'compte',
+    'account' => 'account',
     'account-personnal' => 'informations-personnelles',
     'account-params' => 'parametres-du-compte',
     'checkEmail' => 'verifier-mon-email',

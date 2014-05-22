@@ -159,7 +159,7 @@ class ConnectionController extends BaseController
 
 		$user->save();
 
-		return Redirect::route('account_home', Auth::user()->slug)->with('message', 'Logged in with Facebook');
+		return Redirect::route('account_home', Auth::user()->slug);
 	}
 
 

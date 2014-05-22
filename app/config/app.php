@@ -54,7 +54,7 @@ return array(
 
 	'available_locales' => array('fr','en','nl'),
 
-	'setLocale' => array('fr'=>'fr_FR','en_EN','nl_NL'),
+	'setLocale' => array('fr'=>'fr_FR','en'=>'en_EN','nl'=>'nl_NL'),
 	
 	'locale' => 'fr',
 

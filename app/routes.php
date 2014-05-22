@@ -154,14 +154,15 @@ Route::get('getAllLang',array('uses'=>'LangController@getAll'));
 ==============================*/
 Route::group(array('prefix' => $lang), function() use($lang)
 {
+
 	if(Helpers::isOk($lang)) {
 
-		App::setLocale(Session::get('lang'));
+		App::setLocale($lang);
 
 	}
 
 	Route::group(array('before' => 'lang'), function(){
-
+		App::setLocale(Session::get('lang'));
 	/**
 	*
 	* IF Session doesn't exist, put value in it
@@ -288,8 +289,6 @@ Route::group(array('before'=>'auth'),function(){
 		* Home
 		*
 		**/
-		
-		Route::get(trans('routes.account').'/{user_slug}', array('as'=>'account_home', 'uses'=>'AccountController@index'));
 		
 		Route::get(trans('routes.account').'/{user_slug}/', array('as'=>'account_home', 'uses'=>'AccountController@index'));
 		
