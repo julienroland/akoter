@@ -137,11 +137,14 @@
         $("#sortable li").each(function(i, el){
           var p = $(el).find('a').attr('data-id');
           data[p]=$(el).index()+1;
+          
         });
+
+        var sType = $(this).attr('data-type');
 
         $.ajax({
           type: "get", 
-          url: '/ajax/updateBuildingPhotoPosition',
+          url: '/ajax/updatePhotoPosition/'+sType,
           data: JSON.stringify(data),
           dataType: "json",
         });

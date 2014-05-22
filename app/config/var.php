@@ -11,6 +11,7 @@ return array(
 	'users_dir'=>'users/',
 	'agences_dir'=>'agences/',
 	'buildings_dir'=>'buildings/',
+	'locations_dir'=>'locations/',
 	'commons_dir'=>'commons_rooms/',
 	'moreBuildingPhotos'=>'more',
 	'logoAgence_dir'=>'logo/',

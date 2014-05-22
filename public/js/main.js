@@ -78,6 +78,7 @@
 	$agenceAjax = $('.agenceAjax'),
 	//img
 	$deleteImage = $('.deleteImage'),
+	$deleteAdvertImage = $('.deleteAdvertImage'),
 	//path
 	sLocations_dir = '../img/locations/',
 	sImages_dir = '../img/',
@@ -235,6 +236,12 @@ $toPopup.on('click',openPopup);
 		deleteImage( $(this) );
 
 	});
+
+	$deleteAdvertImage.on('click', function( e ){
+		e.preventDefault();
+		deleteAdvertImage( $(this) );
+
+	});
 });	
 /*var fixSort = function(){
 	var $sort = $('.short');
@@ -292,6 +299,23 @@ var deleteImage = function( $that ){
 		}
 	});
 }
+var deleteAdvertImage = function( $that ){
+
+	$.ajax({
+		type: "get", 
+		async:   false,
+		url: sBasePath + 'ajax/deleteAdvertImage/'+ $that.attr('data-id')+'/'+$that.attr('data-locationId'),
+		dataType: "json",
+		success:function( oData ){
+
+			if( oData ==='success'){
+				$that.parent().fadeOut( 'fast', function(){
+					$(this).remove();   
+				});
+			}
+		}
+	});
+}
 var addBeforeExtension  = function( stringWithExt, string ){
 
 	var stringEx = stringWithExt.split( '.' );
@@ -313,7 +337,7 @@ var getProprietePhoto = function( userId, proprieteId, sType ){
 
 					if($('#images[data-type="'+sType+'"]').length == 0){
 
-						$('#baseForm').after('<div id="images" data-type='+sType+'><ul id="sortable" class="ui-sortable"></ul></div>');
+						$('#baseForm').after('<div id="images" data-type='+sType+'><ul id="sortable" class="ui-sortable" data-type="building"></ul></div>');
 
 					}
 					$('#images[data-type="'+sType+'"]').find('li').remove();
@@ -325,6 +349,45 @@ var getProprietePhoto = function( userId, proprieteId, sType ){
                 $('.deleteImage').on('click', function( e ){
                 	e.preventDefault();
                 	deleteImage( $(this) );
+
+                });
+
+            }
+            sortable();
+        }
+
+    });
+
+}
+
+}
+var getLocationPhoto = function( userId, locationId, sType ){
+
+	if( userId && locationId ){
+
+		$.ajax({
+			type: "get", 
+			url: sBasePath+'ajax/getLocationPhoto/'+sType+'/'+ locationId,
+			dataType: "json",
+			success:function( oData ){
+				console.log(oData);
+				if( oData ){
+
+					if($('#images[data-type="'+sType+'"]').length == 0){
+
+						$('#baseForm').after('<div id="images" data-type='+sType+'><ul id="sortable" class="ui-sortable" data-type="location"></ul></div>');
+
+					}
+					$('#images[data-type="'+sType+'"]').find('li').remove();
+
+				}
+				for( var i in oData ){
+
+                $('#images[data-type="'+sType+'"] ul').append('<li><span class="handle icon icon-move6"></span><a href="" class="deleteAdvertImage icon icon-remove11" data-id='+oData[i].id+' data-locationId='+oData[i].building_id+'  title='+oLang.form.delete_image+'><div class="image"><img class="thumbnail" src="'+ imgs_dir +'users/'+ userId + '/locations/' + locationId + '/' + addBeforeExtension(oData[i].url, 'small') +'"></div></a></li>'); //userId/ProprieteId/
+
+                $('.deleteAdvertImage').on('click', function( e ){
+                	e.preventDefault();
+                	deleteAdvertImage( $(this) );
 
                 });
 
@@ -377,6 +440,53 @@ var uploadFile = function(){
 				$('#myform').submit();
 				console.log($(this));
 				getProprietePhoto( $that.parent().attr('data-userId'), $that.parent().attr('data-proprieteId'),$that.parent().attr('data-type') );
+			},
+
+			onError: function(files,status,errMsg)
+			{
+				/*console.log(files+'.'+status+'.'+errMsg);*/
+				$("#status").html("<font color='green'>Something Wrong</font>");
+			}
+
+		});
+});
+
+	settingsAdvertUpload = $(".mulitpleLocationfileuploader").each(function(){
+		var nLocationId = $(this).parent().attr('data-locationId');
+		var sType = $(this).parent().attr('data-type');
+		var $that = $(this);
+		$(this).uploadFile({
+			url: sBasePath + "ajax/uploadLocationImage/"+sType+"/"+nLocationId,
+			method: "post",
+			allowedTypes:"jpg,gif,bmp,png",
+			fileName: "file",
+			autoSubmit:true,
+			multiple:true,
+			showStatusAfterSuccess:false,
+			dragDropStr: "<span><b>"+oLang.upload.dragDrop+"</b></span>",
+			abortStr:oLang.upload.giveup,
+			cancelStr:oLang.upload.stop,
+			doneStr:oLang.upload.ok,
+			multiDragErrorStr:oLang.upload.multiDrag,
+			extErrorStr:oLang.upload.ext_error,
+			sizeErrorStr:oLang.upload.size_error,
+			uploadErrorStr:oLang.upload.not_allow,
+			onSubmit:function(files)
+			{
+				$('<input>').attr({
+					type: 'text',
+					name: 'file[]',
+					value: files
+				}).appendTo('#myform');
+
+			},
+
+			onSuccess:function(files,data,xhr)
+			{
+
+				$('#myform').submit();
+				console.log($(this));
+				getLocationPhoto( $that.parent().attr('data-userId'), $that.parent().attr('data-locationId'),$that.parent().attr('data-type') );
 			},
 
 			onError: function(files,status,errMsg)

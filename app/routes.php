@@ -111,11 +111,17 @@ Route::get('ajax/getLocationsFilter', array('uses'=>'LocationController@getLocat
 **/
 Route::any( 'ajax/uploadBuildingImage/{type}/{id}', array('as'=>'ajax_upload_image', 'uses'=>'ImageController@postBuildingImage'));
 
-Route::any( 'ajax/updateBuildingPhotoPosition', array('uses'=>'BuildingController@upatePosition'));
+Route::any( 'ajax/uploadLocationImage/{type}/{id}', array('uses'=>'ImageController@postLocationImage'));
+
+Route::any( 'ajax/updatePhotoPosition/{type}', array('uses'=>'ImageController@upatePosition'));
 
 Route::get( 'ajax/getBuildingPhoto/{type}/{id}', array('uses'=>'BuildingController@getPhotos'));
 
+Route::get( 'ajax/getLocationPhoto/{type}/{id}', array('uses'=>'LocationController@getPhotos'));
+
 Route::get( 'ajax/deleteImage/{photoId}/{proprieteId}/{type}', array('uses'=>'ImageController@deletePhoto' ));
+
+Route::get( 'ajax/deleteAdvertImage/{photoId}/{proprieteId}', array('uses'=>'ImageController@deleteAdvertPhoto' ) );
 /* 404 */
 /*App::missing(function($exception){
  if (Request::is('admin/*'))

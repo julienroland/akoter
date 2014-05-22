@@ -86,4 +86,7 @@ return array(
 	'allow_comments_infos'=>'Autorisez-vous les commentaires sur votre annonce, ceux-ci pourraient être bénéfique.',
 	'inscription_title'=>'Inscription avec :name',
 	'accessible_infos'=>'Votre logement est-il adapté pour accueilir des handicapés ?',
+	'photoSomeAdverts'=>'Photos des locations',
+	'photoOneAdvert'=>'Photos de la location',
+	'buildingAdvert_intro'=>'Ajoutez des photos de chaque partie du logement, surtout si il y a des pièces privé. Plus il y aura de photos, mieux ca serra pour trouver un locataire.',
 	);

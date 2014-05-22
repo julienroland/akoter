@@ -27,42 +27,47 @@
 		</ul>
 
 		@foreach($locations as $location)
-		
+
 		@if($location->nb_locations > 1)
 		<div class="informations">{{trans('inscription.groupAdvert',array('number'=>$location->nb_locations,'type'=>strtolower($location->typeLocation->translation[0]->value)))}} </div>
 		@endif
 
 		<div id="{{$location->id}}-advert">
 			<div class="images_category">
-				<h3 aria-level="3" role="heading" class="image_cat_title">{{trans('inscription.photoBuilding')}}</h3>
-				<div class="informations">{{trans('inscription.buildingPhoto_intro')}}</div>
-				{{Form::open(array('url'=>array('ajax/uploadBuildingImage','building',$building->id),'files'=>true,'data-type'=>'building','data-proprieteId'=> $building->id,'data-userId'=>Auth::user()->id))}}
-				<div class="mulitplefileuploader">{{trans('form.upload')}}</div>
+				@if($location->nb_locations > 1)
+				<h3 aria-level="3" role="heading" class="image_cat_title">{{trans('inscription.photoSomeAdverts')}}</h3>
+				@else
+				<h3 aria-level="3" role="heading" class="image_cat_title">{{trans('inscription.photoOneAdvert')}}</h3>
+				@endif
+				<div class="informations">{{trans('inscription.buildingAdvert_intro')}}</div>
+				{{Form::open(array('url'=>array('ajax/uploadLocationImage','location',$location->id),'files'=>true,'data-type'=>'location','data-locationId'=> $location->id,'data-userId'=>Auth::user()->id))}}
+				<div class="mulitpleLocationfileuploader">{{trans('form.upload')}}</div>
 
 				{{Form::hidden('preview_image','',array('id'=>'preview_image'))}}
 
 				{{Form::close()}}
 
-				{{Form::open(array('url'=>array('ajax/uploadBuildingImage', 'building', $building->id),'files'=>true,'data-type'=>'building','data-proprieteId'=>$building->id,'data-userId'=>Auth::user()->id,'id'=>'baseForm'))}}
+				{{Form::open(array('url'=>array('ajax/uploadLocationImage', 'location', $location->id),'files'=>true,'data-type'=>'location','data-locationId'=>$location->id,'data-userId'=>Auth::user()->id,'id'=>'baseForm'))}}
 				{{Form::file('file', array('class'=>'baseFile'))}}
 				{{Form::submit('envoyer', array('class'=>'baseFile'))}}
 				{{Form::close()}}
 
 
-				@if(isset($photos['building']) && Helpers::isOk( $photos['building']))
+				@if(isset($photos) && Helpers::isOk( $photos))
 				<div class="informations">
 					{{trans('inscription.about_image_sort')}}
 				</div>
-				<div id="images" data-type="building" >
-					<ul id="sortable">
-						@foreach( $photos['building'] as $photo)
+				<div id="images"  data-type="location">
+					<ul id="sortable" data-type="location">
 
-						<li >
+						@foreach( $photos[$location->id][0]->photo as $photo)
+
+						<li data-type="location">
 							<span class="handle icon icon-move6"></span>		
-							<a href="" class="deleteImage icon icon-remove11" data-id="{{$photo->id}}" data-proprieteId="{{$photo->building_id}}" data-type="{{$photo->type}}" title="{{trans('form.delete_image')}}">
+							<a href="" class="deleteAdvertImage icon icon-remove11" data-id="{{$photo->id}}" data-locationId="{{$photo->location_id}}"  title="{{trans('form.delete_image')}}">
 								<div class="image">
 
-									<img class="thumbnail" src="{{'/'.Config::get('var.images_dir').Config::get('var.users_dir').Auth::user()->id.'/'.Config::get('var.buildings_dir').$photo->building_id.'/building/'.Helpers::addBeforeExtension($photo->url, Config::get('var.img_small'))}}" alt="{{$photo->alt}}">
+									<img class="thumbnail" src="{{'/'.Config::get('var.images_dir').Config::get('var.users_dir').Auth::user()->id.'/'.Config::get('var.locations_dir').$photo->location_id.'/'.Helpers::addBeforeExtension($photo->url, Config::get('var.img_small'))}}" alt="{{$photo->alt}}">
 
 								</div>
 							</a>

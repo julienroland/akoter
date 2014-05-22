@@ -742,8 +742,12 @@ class InscriptionController extends BaseController {
 
 		$locations = $building->location()->with(array('typeLocation.translation'))->get();
 
+		$photos = $building->location()->with(array('photo'=>function($query){
+			$query->orderBy('order');
+		}))->get()->groupBy('id');
+
 		return View::make('inscription.owner.photo_advert', array('page'=>'inscription','widget'=>array('upload','ui','sort','tabs')))
-		->with(compact('building','locations'));
+		->with(compact('building','locations','photos'));
 
 	}
 

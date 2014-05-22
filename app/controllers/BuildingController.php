@@ -38,17 +38,5 @@ class BuildingController extends BaseController
 
 	}
 
-	public function upatePosition(){
 
-		$input = (array)json_decode(key(Input::all()));
-
-		foreach($input as $id => $order){
-
-			$photo = BuildingPhoto::find($id);
-			$photo->order = $order;	
-			$photo->save();
-		}
-
-		
-	}
 }

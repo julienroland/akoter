@@ -4,7 +4,17 @@
 */
 class LocationController extends BaseController
 {
-	
+
+	public function getPhotos($type=null, $id=null){
+
+		if(Helpers::isOk($id) && Helpers::isOk($type)){
+
+			return Location::find($id)->photo()->orderBy('order')->get();
+
+		}
+
+	}
+
 	public function getList( $orderBy = Null, $orderWay = null )
 	{
 

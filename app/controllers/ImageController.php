@@ -169,7 +169,7 @@ else //single file
 
     $image->grab( $type->width, $type->height )->save( $destinationPath.$filename )->encode('jpg', 75);
 
-}
+  }
 
 }
 
@@ -193,6 +193,168 @@ if( Helpers::isOk($image) ) {
 }else{
   return Response::json('error', 400);
 }
+}
+
+public function postLocationImage( $type='location', $id=null )
+{ 
+
+  if(Helpers::isOk( $id ) && Helpers::isOk( $type )){
+
+    $location = Location::find($id);
+
+    $nb_photos = $location->photo()->count();
+
+    if( $nb_photos >= Config::get('var.buildingMaxImage') ){
+
+      return Response::json(trans('validation.custom.tooMuchImage'),500);
+    }
+
+    $destinationPath = Config::get('var.images_dir').Config::get('var.users_dir').Auth::user()->id.'/'.Config::get('var.locations_dir').'/'.$id.'/';
+
+    $timestamp = Carbon::now()->timestamp;
+  }
+  else{
+
+    return Response::json('error', 400);
+  } 
+  
+
+  File::exists( $destinationPath ) or File::makeDirectory( $destinationPath , 0777, true);
+
+  if(Input::hasFile('file')){
+
+    $file = Input::file('file'); 
+
+                // Declare the rules for the form validation.
+    $rules = array('file'  => 'image|max:2000,mimes:jpg,jpeg,gif,png,bmp');
+
+    $data = array('file' => Input::file('file'));
+
+                // Validate the inputs.
+    $validator = Validator::make($data, $rules);
+
+    if ($validator->fails())
+    { 
+
+     return Response::json($validator->messages(), 400);
+   }
+
+   if(is_array($file))
+   {  
+
+     foreach($file as $part) {
+
+      $imageType = ImageType::orderBy('width','desc')->get();
+
+      $extension = 'jpg';
+
+      $image = Image::make( Input::file('file')->getRealPath() );
+
+      $filename = Helpers::toSlug(Helpers::addTimestamp( $part->getClientOriginalName(), null, $extension,  $timestamp ));
+
+      $nb_order = $location->photo()->max('order') + 1;
+
+      $photo = new PhotoLocation;
+
+      $photo->url = $filename;
+
+      $photo->order = $nb_order;
+
+      $photo =  $location->photo()->save($photo);
+
+      $image->grab( 2500, 1600 )->save( $destinationPath.$filename )->encode('jpg', 75);
+
+      foreach( $imageType as $type){
+
+        $filename = Helpers::toSlug(Helpers::addTimestamp( $part->getClientOriginalName(),'-'.$type->name ,$type->extension , $timestamp));
+
+        $image->grab( $type->width, $type->height )->save( $destinationPath.$filename )->encode('jpg', 75);
+
+      }
+    }
+  }
+else //single file
+{   
+
+  $imageType = ImageType::orderBy('width','desc')->get();
+
+  $extension = 'jpg';
+
+  $image = Image::make( Input::file('file')->getRealPath() );
+
+  $filename = Helpers::toSlug(Helpers::addTimestamp( $file->getClientOriginalName(), null, $extension,  $timestamp ));
+
+  $nb_order = $location->photo()->max('order') + 1;
+  
+  $photo = new PhotoLocation;
+
+  $photo->url = $filename;
+
+  $photo->order = $nb_order;
+
+  $photo = $location->photo()->save($photo);
+
+  $image->grab( 2500, 1600 )->save( $destinationPath.$filename )->encode('jpg', 75);
+
+  foreach( $imageType as $type){
+
+    $filename = Helpers::toSlug(Helpers::addTimestamp( $file->getClientOriginalName(),'-'.$type->name ,$type->extension , $timestamp));
+
+    $image->grab( $type->width, $type->height )->save( $destinationPath.$filename )->encode('jpg', 75);
+
+  }
+
+}
+
+if( Helpers::isOk($image) ) {
+
+  $building = $location->building()->first();
+
+  if($building->register_step < 7){
+
+    $building->register_step = 7;  
+    $building->save();
+  }
+
+  return Response::json('success', 200);
+
+} else {
+
+  return Response::json('error', 400);
+}
+
+}else{
+  return Response::json('error', 400);
+}
+}
+
+public function upatePosition($type){
+
+  if($type === 'location'){
+
+    $class = 'PhotoLocation';
+
+  }elseif($type === 'building'){
+
+    $class = 'BuildingPhoto';
+
+  }
+  else{
+
+    $class = 'BuildingPhoto';
+
+  }
+
+  $input = (array)json_decode(key(Input::all()));
+
+  foreach($input as $id => $order){
+
+    $photo = $class::find($id);
+    $photo->order = $order; 
+    $photo->save();
+  }
+
+
 }
 
 public function postImage( $id )
@@ -336,6 +498,77 @@ if( $photo ){
 **/
 
 $destinationPath = public_path(). '/'.Config::get('var.images_dir').Config::get('var.users_dir').Auth::user()->id.'/'.Config::get('var.buildings_dir').'/'.$proprieteId.'/'.$type.'/';
+
+/**
+*
+* Choper tous les types d'images
+*
+**/
+
+$imgTypes = ImageType::all();
+
+/**
+*
+* Si le fichier de base existe
+*
+**/
+
+if(File::exists( $destinationPath.$photo->url )){
+
+  /**
+  *
+  * On le supprime
+  *
+  **/
+  
+  File::delete( $destinationPath.$photo->url );
+
+}
+
+/**
+*
+* La même pour les différents types d'image
+*
+**/
+
+foreach( $imgTypes as $types ){
+
+  if(File::exists( $destinationPath.Helpers::addBeforeExtension($photo->url, $types->name) )){
+
+    File::delete( $destinationPath.Helpers::addBeforeExtension($photo->url, $types->name) );
+
+  }
+}
+
+$photo->delete();
+
+if( $photo ){
+
+  return Response::json('success', 200 );
+
+}
+}
+
+}
+public function deleteAdvertPhoto( $imageId, $locationId){
+
+  $photo = PhotoLocation::find($imageId);
+  
+/**
+*
+* Si la photo existe bien en bdd
+*
+**/
+
+if( $photo ){
+
+/**
+*
+* défini le chemin 
+*
+**/
+
+$destinationPath = public_path(). '/'.Config::get('var.images_dir').Config::get('var.users_dir').Auth::user()->id.'/'.Config::get('var.locations_dir').'/'.$locationId.'/';
 
 /**
 *

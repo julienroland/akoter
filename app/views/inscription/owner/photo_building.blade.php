@@ -40,7 +40,7 @@
 			{{trans('inscription.about_image_sort')}}
 		</div>
 		<div id="images" data-type="building" >
-			<ul id="sortable">
+			<ul id="sortable" data-type="building">
 				@foreach( $photos['building'] as $photo)
 
 				<li >
@@ -81,7 +81,7 @@
 			{{trans('inscription.about_image_sort')}}
 		</div>
 		<div id="images" data-type="common" >
-			<ul id="sortable">
+			<ul id="sortable" data-type="building">
 				@foreach( $photos['common'] as $photo)
 
 				<li >
@@ -122,7 +122,7 @@
 			{{trans('inscription.about_image_sort')}}
 		</div>
 		<div id="images" >
-			<ul id="sortable">
+			<ul id="sortable" data-type="building">
 				@foreach( $photos['more'] as $photo)
 
 				<li >
