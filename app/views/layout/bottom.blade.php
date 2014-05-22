@@ -156,11 +156,11 @@
 </script>
 @endif
 
-@if(isset($widget) && in_array('date', $widget))
+@if(isset($widget) && (in_array('date', $widget) || in_array('datepicker', $widget)))
 
 <script>
   $('.datepicker').datepicker({ 
-    format: "yy-mm-dd",
+    format: "dd-mm-yy",
     inline: true,
     changeMonth: true,
     changeYear: true,
@@ -195,7 +195,7 @@
     dayNamesShort: ['dim.', 'lun.', 'mar.', 'mer.', 'jeu.', 'ven.', 'sam.'],
     dayNamesMin: ['D','L','M','M','J','V','S'],
     weekHeader: 'Sem.',
-    dateFormat: 'dd/mm/yy',
+    dateFormat: 'dd-mm-yy',
     firstDay: 1,
     isRTL: false,
     showMonthAfterYear: false,

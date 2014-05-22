@@ -533,6 +533,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#35a0c6', end
 		font-weight: 400;
 		text-align: left;
 		margin:0 auto;
+		margin-top: 3px;
 		margin-bottom: $gutter / 2;
 		&.none{
 			display:none;

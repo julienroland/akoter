@@ -24,12 +24,14 @@ class CreateLocationsTable extends Migration {
 			$table->float('charge_price');
 			$table->boolean('validate');
 			$table->boolean('advert_specific');
+			$table->boolean('accessible');
 			$table->boolean('comments_status');
 			$table->integer('nb_views');
+			$table->integer('floor');
 			$table->integer('nb_locations')->nullable();
 			$table->float('rating');
 			$table->integer('nb_rate');
-			$table->float('caution');	
+			$table->float('garantee');	
 			$table->boolean('charge_type');
 			$table->integer('type_location_id')->unsigned();
 			$table->foreign('type_location_id')->references('id')->on('types_locations');

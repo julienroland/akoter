@@ -425,6 +425,10 @@ Route::group(array('before'=>'auth'),function(){
 
 			/* Adverts for each locations */
 			Route::get(trans('routes.account').'/{user_slug}/'.trans('routes.add_location').'/{building_id}/'.trans('routes.inscription_step6'),array('as'=>'index_inscription_adverts','uses'=>'InscriptionController@indexAdverts'));
+
+			Route::post(trans('routes.account').'/{user_slug}/'.trans('routes.add_location').'/{building_id}/'.trans('routes.inscription_step6'),array('as'=>'save_inscription_adverts','uses'=>'InscriptionController@saveAdverts'));
+
+			Route::get(trans('routes.account').'/{user_slug}/'.trans('routes.add_location').'/{building_id}/'.trans('routes.inscription_step7'), array('as'=>'index_inscription_contact','uses'=>'InscriptionController@indexContact'));
 		});
 		
 

@@ -78,9 +78,10 @@ return array(
 	'photoBuildingCommon'=>'Photos des pièces communes',
 	'buildingPhoto_intro'=>'Ajoutez des photos de l\'extérieur du batiment, vous pouvez également ajouter des photos intérieur (pas les pièces communes et pas les logements.)',
 	'buildingPhotoCommon_intro'=>'Ajoutez uniquement des photos concernant les pièces communes de votre logements.',
-	'groupAdvert'=>'Annonce groupé, contenant un total de :number logements de type :type',
+	'groupAdvert'=>'Annonces groupées, contenant un total de :number logements de type :type',
 	'floor_help'=>'Le rez-de-chaussée équivaut le 0',
 	'room_available_help'=>'Places disponible dans le logement, si c\'est une annonce groupé indiquez le nombre de place par logement',
 	'allow_comments_infos'=>'Autorisez-vous les commentaires sur votre annonce, ceux-ci pourraient être bénéfique.',
 	'inscription_title'=>'Inscription avec :name',
+	'accessible_infos'=>'Votre logement est-il adapté pour accueilir des handicapés ?',
 	);

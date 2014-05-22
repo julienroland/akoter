@@ -3,7 +3,9 @@
 use Carbon\Carbon;
 
 class Helpers {
-	
+
+
+
 	public static function addBeforeExtension( $stringWithExt, $string ){
 
 		$stringEx = explode( '.', $stringWithExt );

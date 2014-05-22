@@ -87,6 +87,12 @@ class OptionTableSeeder extends Seeder {
 				'default'=>'tv-socket',
 				'type_option_id'=>3
 				),
+			
+			array(
+				'key'=>'furnished',
+				'default'=>'furnished',
+				'type_option_id'=>3
+				),
 			array(
 				'key'=>'appliances',
 				'default'=>'washing-machine',

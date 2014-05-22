@@ -1,7 +1,7 @@
 
 <div class="helper">
 	<a href="javascript:void(0)" class="closeTuto icon icon-prohibited1">Fermer l'aide</a>
-			<h2 aria-level="2" role="heading">Comment utiliser la carte</h2>
+			<h2 aria-level="2" role="heading" class="mainTitle">Comment utiliser la carte</h2>
 			
 	<div class="showIt">
 		<div class="tutoItem toolbar left-top-position">

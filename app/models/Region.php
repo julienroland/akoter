@@ -31,6 +31,11 @@ class Region extends Eloquent {
 		return $this->hasMany('Agence');
 	}
 	
+	public function translations(){
+
+		return $this->morphMany('Translation','content');
+	}
+	
 	public function translation()
 	{
 		return $this->morphMany('Translation','content')

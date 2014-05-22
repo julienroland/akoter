@@ -1,133 +1,38 @@
 <?php
 
 use Carbon\Carbon;
-use Cviebrock\EloquentSluggable\SluggableInterface;
-use Cviebrock\EloquentSluggable\SluggableTrait;
-class Location extends Eloquent implements SluggableInterface{
 
-	use SluggableTrait;
+class Location extends Eloquent{
 
 	protected $guarded = array();
-
-
-
-	protected $sluggable = array(
-		'build_from' => 'locationSlug',
-		'save_to'    => 'value',
-		);
 	
 	public static $rules = array(
+		'price'=>'required | numeric',
+		'title.en'=>'required_without_all:title.fr,title.nl',
+		'size'=>'required | numeric',
+		'floor'=>'required | numeric',
+		'room'=>'required | numeric',
+		'chargePrice'=>'required_with:charge | numeric',
+		'start_date'=>'required_with:available | date',
+		'end_date'=>'required_with:available,start_date | date',
+		'advert.en'=>'required_without_all:title.fr,title.nl',
 		);
 
-	public function getLocationSlugAttribute(){
+	public function getTitleAttribute(){
 
-		if(Session::has('inscription.building_id')){
+		if(Helpers::isOk($this)){
+			foreach(Config::get('var.langId') as $lang => $langId){
+				$title = $this->translation()->whereLanguageId($langId)->whereKey('title')->pluck('value');
+				$price = round($this->price.' euros');
+				$typeLocation = $this->typeLocation->translation()->whereLanguageId($langId)->pluck('value');
+				$region = $this->building->region->translation()->whereLanguageId($langId)->pluck('value');
+				$locality = $this->building->locality->pluck('name');
 
-			$building = Building::with(array('locality'))->whereId(Session::get('inscription.building_id'))->first();
-			
-			$typeLocation = TypeLocation::find( $this->type_location_id )->with('translation')->first();
-			
-			if(isset($this->id) && Helpers::isOk($this->id)){
-
-				$location = Location::with(array('translation'=>function($query){
-					$query->title();
-				}))->whereId($this->id)->first();
-
-				dd($location);
-
-				return $typeLocation->translation[0]->value.' '.$building->locality->name.' '. $location->translation[0]->value;
-
-			}else{
-
-				return $typeLocation->translation[0]->value.' '.$building->locality->name;
+				return $typeLocation.' '.$region.' '.$locality.' '.$price.' '.$title.' '.$this->id;
 			}
 		}
-		
 	}
-	protected function makeSlugUnique($slug){
-
-		
-		if (!$this->sluggable['unique']) return $slug;
-
-		$separator  = $this->sluggable['separator'];
-		$use_cache  = $this->sluggable['use_cache'];
-		$save_to    = $this->sluggable['save_to'];
-
-		// if using the cache, check if we have an entry already instead
-		// of querying the database
-		if ( $use_cache )
-		{
-			$increment = \Cache::tags('sluggable')->get($slug);
-			if ( $increment === null )
-			{
-				\Cache::tags('sluggable')->put($slug, 0, $use_cache);
-			}
-			else
-			{
-				\Cache::tags('sluggable')->put($slug, ++$increment, $use_cache);
-				$slug .= $separator . $increment;
-			}
-			return $slug;
-		}
-
-
-		// no cache, so we need to check the database directly
-		// find all models where the slug is like the current one
-
-		$instance = new static;
-		/*$query = $instance->where( $this->sluggable['save_to'], 'LIKE', $slug.'%' );*/
-		$query = Translation::ofSlug('Location','title', $this->sluggable['save_to'], $slug);
-
-
-
-		// include trashed models if required
-		if ( $this->sluggable['include_trashed'] )
-		{
-			$query = $query->withTrashed();
-		}
-
-		// get a list of all matching slugs
-		/*$list = $query->lists($save_to, $this->getKeyName());*/
-		$list = $query->lists('value','content_id');
-
-		// if ...
-		// 	a) the list is empty
-		// 	b) our slug isn't in the list
-		// 	c) our slug is in the list and it's for our model
-		// ... we are okay
-		if (
-			count($list)===0 ||
-			!in_array($slug, $list) ||
-			( array_key_exists($this->getKey(), $list) && $list[$this->getKey()]===$slug )
-			)
-		{
-			return $slug;
-		}
-
-
-		// map our list to keep only the increments
-		$len = strlen($slug.$separator);
-		array_walk($list, function(&$value, $key) use ($len)
-		{
-			$value = intval(substr($value, $len));
-		});
-
-		// find the highest increment
-		rsort($list);
-		$increment = reset($list) + 1;
-
-		return $slug . $separator . $increment;
-	}
-
-	protected function setSlug($slug)
-	{	
-
-		$save_to = $this->sluggable['save_to'];
-		if(isset($this->id)){
-
-		}
-		/*$this->setAttribute('','' );*/
-	}
+	
 	public static function getLocationByType( $building ){
 
 		$kots = $building->location()->whereTypeLocationId(1)->get();
@@ -168,204 +73,209 @@ class Location extends Eloquent implements SluggableInterface{
 				'number'=>$internat->count() == 0 || $internat->count() > 1 ? $internat->count(): $internat[0]->nb_locations,
 				'advert'=>isset($internat[0]) ? $internat[0]->advert_specific:''),
 			);
+}
+public function user(){
+
+	return $this->belongsToMany('User','user_location'); 
+}
+
+public function option(){
+
+	return $this->belongsToMany('Option'); 
+}
+
+public function currentUser(){
+
+	return $this->belongsToMany('User','user_location')
+	->where('status', 1)->withPivot('status','end','begin'); 
+}
+
+public function typeLocation(){
+
+	return $this->belongsTo('TypeLocation'); 
+}
+
+public function building(){
+
+	return $this->belongsTo('Building'); 
+}
+
+
+public function photo(){
+
+	return $this->hasMany('PhotoLocation'); 
+}
+
+public function translation(){
+
+	return $this->morphMany('Translation','content')
+	->where(Config::get('var.t_langCol'), Session::get('langId')); 
+}
+public function translations(){
+
+	return $this->morphMany('Translation','content');
+}
+
+public function particularity(){
+
+	return $this->belongsToMany('Particularity'); 
+}
+
+
+public static function getLocationsPaginateList( $nb_obj = null, $paginate = null, $orderBy = 'created_at'  , $orderWay = 'asc' , $lang_id = null ){
+
+	if(Helpers::isNotOk($nb_obj)){
+
+		$nb_obj = Config::get('var.take_default');
 	}
-	public function user(){
 
-		return $this->belongsToMany('User','user_location'); 
+	if(Helpers::isNotOk($paginate)){
+
+		$paginate = Config::get('var.take_default');
 	}
 
-	public function currentUser(){
+	if($orderBy === 'date' || $orderBy === 'create' || $orderBy === 'created' || $orderBy === 'created_at')
+	{
 
-		return $this->belongsToMany('User','user_location')
-		->where('status', 1)->withPivot('status','end','begin'); 
+		$orderBy = 'created_at';
+
 	}
 
-	public function typeLocation(){
+	if(Helpers::isNotOk( $lang_id )){
 
-		return $this->belongsTo('TypeLocation'); 
+		$lang_id = Session::get('langId');
 	}
-
-	public function building(){
-
-		return $this->belongsTo('Building'); 
-	}
-
-
-	public function photo(){
-
-		return $this->hasMany('PhotoLocation'); 
-	}
-	
-	public function translation(){
-
-		return $this->morphMany('Translation','content')
-		->where(Config::get('var.t_langCol'), Session::get('langId')); 
-	}
-	public function translations(){
-
-		return $this->morphMany('Translation','content');
-	}
-
-	public function particularity(){
-
-		return $this->belongsToMany('Particularity'); 
-	}
-
-
-	public static function getLocationsPaginateList( $nb_obj = null, $paginate = null, $orderBy = 'created_at'  , $orderWay = 'asc' , $lang_id = null ){
-
-		if(Helpers::isNotOk($nb_obj)){
-
-			$nb_obj = Config::get('var.take_default');
-		}
-
-		if(Helpers::isNotOk($paginate)){
-
-			$paginate = Config::get('var.take_default');
-		}
-
-		if($orderBy === 'date' || $orderBy === 'create' || $orderBy === 'created' || $orderBy === 'created_at')
-		{
-
-			$orderBy = 'created_at';
-
-		}
-
-		if(Helpers::isNotOk( $lang_id )){
-
-			$lang_id = Session::get('langId');
-		}
 
 		//[img, title, type_location, city, short-description, rating, room_remaining, owner, charge[price,type]]
 
-		$locations = Location::with(
+	$locations = Location::with(
 
-			array(
-				'translation' => function( $query) use ( $lang_id ){ 
-					$query
-					->where(Config::get('var.t_langCol'), $lang_id);
-				},
-				'photo',
-				'building.region.translation' => function( $query ) use ( $lang_id ){
-					$query->where(Config::get('var.t_langCol'), $lang_id);
-				},
-				'building.user',
-				'building.locality',
-				'typeLocation.translation',
-				'particularity.translation' => function( $query ) use ( $lang_id ){
-					$query->where(Config::get('var.t_langCol'), $lang_id);
-				},
-				))
-		->where( Config::get( 'var.l_validateCol' ) , 1 )
-		->where( Config::get( 'var.l_placesCol' ) ,'>', 0 )
-		->orderBy( $orderBy , $orderWay )
-		->distinct('building')
-		->take( $nb_obj )
-		->paginate( $paginate );
-		
+		array(
+			'translation' => function( $query) use ( $lang_id ){ 
+				$query
+				->where(Config::get('var.t_langCol'), $lang_id);
+			},
+			'photo',
+			'building.region.translation' => function( $query ) use ( $lang_id ){
+				$query->where(Config::get('var.t_langCol'), $lang_id);
+			},
+			'building.user',
+			'building.locality',
+			'typeLocation.translation',
+			'particularity.translation' => function( $query ) use ( $lang_id ){
+				$query->where(Config::get('var.t_langCol'), $lang_id);
+			},
+			))
+	->where( Config::get( 'var.l_validateCol' ) , 1 )
+	->where( Config::get( 'var.l_placesCol' ) ,'>', 0 )
+	->orderBy( $orderBy , $orderWay )
+	->distinct('building')
+	->take( $nb_obj )
+	->paginate( $paginate );
 
-		return $locations;
+
+	return $locations;
+}
+
+public static function getLocationsMapList( $ids , $paginate,  $orderBy = 'created_at'  , $orderWay = 'asc' , $lang_id = null ){
+
+
+	if(Helpers::isNotOk($paginate)){
+
+		$paginate = Config::get('var.take_default');
 	}
 
-	public static function getLocationsMapList( $ids , $paginate,  $orderBy = 'created_at'  , $orderWay = 'asc' , $lang_id = null ){
+	if($orderBy === 'date' || $orderBy === 'create' || $orderBy === 'created' || $orderBy === 'created_at')
+	{
 
+		$orderBy = 'created_at';
 
-		if(Helpers::isNotOk($paginate)){
+	}
 
-			$paginate = Config::get('var.take_default');
-		}
+	if(Helpers::isNotOk( $lang_id )){
 
-		if($orderBy === 'date' || $orderBy === 'create' || $orderBy === 'created' || $orderBy === 'created_at')
-		{
-
-			$orderBy = 'created_at';
-
-		}
-
-		if(Helpers::isNotOk( $lang_id )){
-
-			$lang_id = Session::get('langId');
-		}
+		$lang_id = Session::get('langId');
+	}
 
 		//[img, title, type_location, city, short-description, rating, room_remaining, owner, charge[price,type]]
 
-		$locations = Location::with(
+	$locations = Location::with(
 
-			array(
-				'translation' => function( $query) use ( $lang_id ){ 
-					$query
-					->where(Config::get('var.t_langCol'), $lang_id);
-				},
-				'photo',
-				'building.region.translation' => function( $query ) use ( $lang_id ){
-					$query->where(Config::get('var.t_langCol'), $lang_id);
-				},
-				'building.user',
-				'building.locality',
-				'typeLocation.translation',
-				'particularity.translation' => function( $query ) use ( $lang_id ){
-					$query->where(Config::get('var.t_langCol'), $lang_id);
-				},
-				))
-		->where( Config::get( 'var.l_validateCol' ) , 1 )
-		->where( Config::get( 'var.l_placesCol' ) ,'>', 0 )
-		->orderBy( $orderBy , $orderWay )
-		->take( $nb_obj )
-		->paginate( $paginate );
-		
+		array(
+			'translation' => function( $query) use ( $lang_id ){ 
+				$query
+				->where(Config::get('var.t_langCol'), $lang_id);
+			},
+			'photo',
+			'building.region.translation' => function( $query ) use ( $lang_id ){
+				$query->where(Config::get('var.t_langCol'), $lang_id);
+			},
+			'building.user',
+			'building.locality',
+			'typeLocation.translation',
+			'particularity.translation' => function( $query ) use ( $lang_id ){
+				$query->where(Config::get('var.t_langCol'), $lang_id);
+			},
+			))
+	->where( Config::get( 'var.l_validateCol' ) , 1 )
+	->where( Config::get( 'var.l_placesCol' ) ,'>', 0 )
+	->orderBy( $orderBy , $orderWay )
+	->take( $nb_obj )
+	->paginate( $paginate );
 
-		return $locations;
+
+	return $locations;
+}
+
+public static function getLocationsList( $nb_obj = null, $paginate = null, $orderBy = 'created_at'  , $orderWay = 'asc' , $lang_id = null ){
+
+	if(Helpers::isNotOk($nb_obj)){
+
+		$nb_obj = Config::get('var.take_default');
 	}
 
-	public static function getLocationsList( $nb_obj = null, $paginate = null, $orderBy = 'created_at'  , $orderWay = 'asc' , $lang_id = null ){
+	if(Helpers::isNotOk($paginate)){
 
-		if(Helpers::isNotOk($nb_obj)){
+		$paginate = Config::get('var.take_default');
+	}
 
-			$nb_obj = Config::get('var.take_default');
-		}
+	if($orderBy === 'date' || $orderBy === 'create' || $orderBy === 'created' || $orderBy === 'created_at')
+	{
 
-		if(Helpers::isNotOk($paginate)){
+		$orderBy = 'created_at';
 
-			$paginate = Config::get('var.take_default');
-		}
+	}
 
-		if($orderBy === 'date' || $orderBy === 'create' || $orderBy === 'created' || $orderBy === 'created_at')
-		{
+	if(Helpers::isNotOk( $lang_id )){
 
-			$orderBy = 'created_at';
-
-		}
-
-		if(Helpers::isNotOk( $lang_id )){
-
-			$lang_id = Session::get('langId');
-		}
+		$lang_id = Session::get('langId');
+	}
 
 
 		//[img, title, type_location, city, short-description, rating, room_remaining, owner, charge[price,type]]
 
-		$locations = Location::with(
+	$locations = Location::with(
 
-			array(
-				'translation',
-				'photo',
-				'building.region.translation',
-				'building.user',
-				'building.locality',
-				'typeLocation.translation',
-				'particularity.translation',
-				))
-		->where( Config::get( 'var.l_validateCol' ) , 1 )
-		->where( Config::get( 'var.l_placesCol' ) ,'>', 0 )
-		->distinct('building')
-		->orderBy( $orderBy , $orderWay )
-		->take( $nb_obj )
-		->get( );
+		array(
+			'translation',
+			'photo',
+			'building.region.translation',
+			'building.user',
+			'building.locality',
+			'typeLocation.translation',
+			'particularity.translation',
+			))
+	->where( Config::get( 'var.l_validateCol' ) , 1 )
+	->where( Config::get( 'var.l_placesCol' ) ,'>', 0 )
+	->distinct('building')
+	->orderBy( $orderBy , $orderWay )
+	->take( $nb_obj )
+	->get( );
 
-		return $locations;
-	}
+	return $locations;
+}
 
-	public static function getLocationsFilter( $input = null, $nb_obj = null, $paginate = null, $orderBy = 'created_at', $orderWay = 'asc', $lang_id = null ){
+public static function getLocationsFilter( $input = null, $nb_obj = null, $paginate = null, $orderBy = 'created_at', $orderWay = 'asc', $lang_id = null ){
 
 		/**
 		*
@@ -594,8 +504,8 @@ class Location extends Eloquent implements SluggableInterface{
 
 	/*	$locations = $locations->take(30)->get();
 
-		dd($locations);*/
-		$locations = $locations->paginate( $paginate );
-		return $locations;
-	}
+	dd($locations);*/
+	$locations = $locations->paginate( $paginate );
+	return $locations;
+}
 }

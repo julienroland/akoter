@@ -58,7 +58,9 @@ return array(
     "required"         => "Le champ :attribute est obligatoire.",
     "required_if"      => "Le champ :attribute est obligatoire quand la valeur de :other est :value.",
     "required_with"    => "Le champ :attribute est obligatoire quand :values est présent.",
+    "required_with_all"=> "Le champ :attribute est obligatoire quand :values est présent.",
     "required_without" => "Le champ :attribute est obligatoire quand :values n'est pas présent.",
+    "required_without_all" => "Le champ :attribute est obligatoire quand aucune de :values est présent.",
     "same"             => "Les champs :other doivent être identiques.",
     "size"             => array(
         "numeric" => "La taille de la valeur de :attribute doit être :size.",
@@ -93,6 +95,7 @@ return array(
         'inscription_types_locations_multiple'=> 'Vos logements pour ce batîment ont bien été enregistrés !',
         'inscription_types_locations_single'=> 'Votre logement pour ce batîment à bien été crée !',
         'inscription_infos_general'=> 'Les informations concernant votre batîment ont bien été enregistrés',
+        'inscription_adverts'=> 'Vos annonces ont été correctement enregistrés',
         ),
 
     /*
@@ -149,6 +152,9 @@ return array(
         "advert"=>'Annonce',
         "garantee"=>'Caution',
         "situations"=>'Situations',
+        "chargePrice"=>'Prix des charges',
+        "start_date"=>'Date de début',
+        "end_date"=>'Date de fin',
     ),
 
 );

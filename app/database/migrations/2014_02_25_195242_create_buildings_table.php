@@ -20,7 +20,6 @@ class CreateBuildingsTable extends Migration {
 			$table->integer('postal');
 			$table->boolean('status_type');
 			$table->integer('register_step');
-			$table->integer('garantee');
 			$table->integer('locality_id')->unsigned();
 			$table->foreign('locality_id')->references('id')->on('localities');
 			$table->integer('region_id')->unsigned();

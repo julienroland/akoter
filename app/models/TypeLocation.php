@@ -21,6 +21,11 @@ class TypeLocation extends Eloquent {
 		return $this->hasMany('Location'); 
 	}
 
+	public function translations(){
+
+		return $this->morphMany('Translation','content');
+	}
+
 	public static function getList( $value = null ,$orderBy = 'id' , $orderWay  = 'asc'){
 
 		if(Helpers::isNotOk($value)){

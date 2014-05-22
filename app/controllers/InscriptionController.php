@@ -530,12 +530,217 @@ class InscriptionController extends BaseController {
 
 		$locations = $building->location()->with(array('typeLocation.translation'))->get();
 
+		$locationsData = $building->location()->with(array('option','translations'
+			,'particularity'))->get()->groupBy('id');
+		
 		$options = Option::whereTypeOptionId(3)->with('translation')->get();
 
 		$particularities = particularity::with('translation')->get();
 
-		return View::make('inscription.owner.adverts', array('page'=>'inscription','widget'=>array('ui','tabs','editor')))
-		->with(compact('building','locations','options','particularities'));
+		return View::make('inscription.owner.adverts', array('page'=>'inscription','widget'=>array('ui','tabs','editor','datepicker','validator')))
+		->with(compact('building','locations','options','particularities','locationsData'));
+	}
+
+	public function saveAdverts( $user_slug, $building ){
+
+		$inputs = Input::except('_token');
+
+		Session::put('adverts', $inputs);
+
+		foreach($inputs as $key => $input){
+
+			$validator = Validator::make($input, Location::$rules);
+
+			if( $validator->passes() ){
+
+				$location_id = (int)explode('_',$key)[1];
+
+				$location = Location::find($location_id);
+
+				$location->price = $input['price'];
+				$location->size = $input['size'];
+				$location->floor = $input['floor'];
+				$location->nb_room = $input['room'];
+				$location->garantee = $input['garantee'];
+				$location->remaining_room = $input['room'];
+				$location->available = isset($input['available']) ? 1 : 0;
+				$location->charge_price = $input['chargePrice'];
+				$location->start_date = Helpers::dateNaForm($input['start_date']);
+				$location->end_date = Helpers::dateNaForm($input['end_date']);
+				$location->comments_status = isset($input['comments']) ? 1 : 0;
+				$location->charge_type = isset($input['charge']) ? 0 : 1;
+				$location->accessible = isset($input['accessible']) ? 1 : 0;
+				/*$location->slug = $input['chargePrice'];*/
+
+				if(Helpers::isOk($input['option'])){
+
+					$location->option()->detach();
+				}
+
+				foreach($input['option'] as $key => $option){
+
+					$location->option()->attach($key);
+				}
+
+				if(Helpers::isOk($input['particularity'])){
+
+					$location->particularity()->detach();
+				}
+
+				foreach($input['particularity'] as $key => $particularity){
+
+					$location->particularity()->attach($key);
+				}
+
+				$titles = array_filter($input['title']);
+
+
+				$title = reset($titles);
+				$fromTitle = key($titles);
+
+				foreach($input['title'] as $key => $text){
+
+					if(Helpers::isOk($text)){
+
+						if(Helpers::isNotOk(Translation::whereContentId($location_id)->whereContentType('Location')->whereKey('title')->whereLanguageId(Config::get('var.langId')[$key])->first())){
+
+							$translation = new Translation;
+						}
+						else{
+
+							$translation = Translation::whereContentId($location_id)->whereContentType('Location')->whereKey('title')->whereLanguageId(Config::get('var.langId')[$key])->first();
+						}
+
+						$translation->content_type = "Location";
+						$translation->content_id = $location_id;
+						$translation->key = 'title';
+						$translation->value = ucfirst($text);
+						$translation->language_id = Config::get('var.langId')[$key];
+
+					}else{
+						
+						if(Helpers::isNotOk(Translation::whereContentId($location_id)->whereContentType('Location')->whereKey('title')->whereLanguageId(Config::get('var.langId')[$key])->first())){
+
+							$translation = new Translation;
+						}
+						else{
+
+							$translation = Translation::whereContentId($location_id)->whereContentType('Location')->whereKey('title')->whereLanguageId(Config::get('var.langId')[$key])->first();
+						}
+
+						$translation->content_type = "Location";
+						$translation->content_id = $location_id;
+						$translation->key = 'title';
+						$translation->value = ucfirst(Helpers::translate($title, $fromTitle, $key));
+						$translation->language_id = Config::get('var.langId')[$key];
+					}
+
+					$translation->save();
+				}
+
+				$adverts = array_filter($input['advert']);
+
+
+				$advert = reset($adverts);
+				$fromAdvert = key($adverts);
+
+				foreach($input['advert'] as $key => $text){
+
+					if(Helpers::isOk($text)){
+
+						if(Helpers::isNotOk(Translation::whereContentId($location_id)->whereContentType('Location')->whereKey('advert')->whereLanguageId(Config::get('var.langId')[$key])->first())){
+
+							$translation = new Translation;
+						}
+						else{
+
+							$translation = Translation::whereContentId($location_id)->whereContentType('Location')->whereKey('advert')->whereLanguageId(Config::get('var.langId')[$key])->first();
+						}
+
+						$translation->content_type = "Location";
+						$translation->content_id = $location_id;
+						$translation->key = 'advert';
+						$translation->value = ucfirst($text);
+						$translation->language_id = Config::get('var.langId')[$key];
+
+					}else{
+
+						if(Helpers::isNotOk(Translation::whereContentId($location_id)->whereContentType('Location')->whereKey('advert')->whereLanguageId(Config::get('var.langId')[$key])->first())){
+
+							$translation = new Translation;
+						}
+						else{
+
+							$translation = Translation::whereContentId($location_id)->whereContentType('Location')->whereKey('advert')->whereLanguageId(Config::get('var.langId')[$key])->first();
+						}
+
+						$translation->content_type = "Location";
+						$translation->content_id = $location_id;
+						$translation->key = 'advert';
+						$translation->value = ucfirst(Helpers::translate($advert, $fromAdvert, $key));
+						$translation->language_id = Config::get('var.langId')[$key];
+					}
+
+					$translation->save();
+				}
+
+				$location->save();
+
+				foreach(Config::get('var.langId') as $lang => $langId){
+
+					$title = $location->translations()->whereLanguageId($langId)->whereKey('title')->pluck('value');
+					$price = round($location->price).'-euros';
+					$typeLocation = $location->typeLocation->translations()->whereLanguageId($langId)->pluck('value');
+					$region = $location->building->region->translations()->whereLanguageId($langId)->pluck('value');
+					$locality = $location->building->locality->pluck('name');
+
+					$slug = Str::slug($typeLocation.' '.$region.' '.$locality.' '.$price.' '.$title.' '.$location->id);
+
+					$slug_translation  = Translation::whereContentId($location_id)->whereContentType('Location')->whereKey('slug')->whereLanguageId($langId)->first();
+
+					if(Helpers::isOk($slug_translation)){
+
+						$slug_translation->value = $slug;
+
+					}else{
+						$slug_translation = new Translation;
+						$slug_translation->value = $slug;
+						$slug_translation->key = 'slug';
+						$slug_translation->content_id = $location->id;
+						$slug_translation->content_type = 'Location';
+						$slug_translation->language_id = $langId;
+					}
+
+					$slug_translation->save(); 
+				}
+
+				
+
+				$building->register_step = 6;
+				$building->save();
+
+				Session::put('inscription.current', 6);
+
+				return Redirect::route('index_inscription_contact', array(Auth::user()->slug, $building->id ))
+				->withSuccess(trans('validation.custom.inscription_adverts'));
+
+			}else{
+
+				$fields = $validator->failed();
+
+				return Redirect::back()
+				->withInput()
+				->withFields($fields)
+				->withErrors($validator);
+			}
+		}
+	}
+
+	public function indexContact( $user_slug, $building){
+
+		return View::make('inscription.owner.contact',array('page'=>'inscription','widget'=>array('select')));
+
+
 	}
 
 	/*-----  End of INSCRIPTION OWNER  ------*/
