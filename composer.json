@@ -9,7 +9,8 @@
 		"way/generators": "dev-master",
 		"facebook/php-sdk": "dev-master",
 		"intervention/image": "dev-master",
-		"intervention/imagecache": "dev-master"
+		"intervention/imagecache": "dev-master",
+		"bogardo/mailgun": "dev-master"
 		},
 		"autoload": {
 			"classmap": [

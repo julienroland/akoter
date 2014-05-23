@@ -202,12 +202,9 @@ public function postLocationImage( $type='location', $id=null )
 
     $location = Location::find($id);
 
-    $nb_photos = $location->photo()->count();
+    
 
-    if( $nb_photos >= Config::get('var.buildingMaxImage') ){
 
-      return Response::json(trans('validation.custom.tooMuchImage'),500);
-    }
 
     $destinationPath = Config::get('var.images_dir').Config::get('var.users_dir').Auth::user()->id.'/'.Config::get('var.locations_dir').'/'.$id.'/';
 
@@ -243,6 +240,11 @@ public function postLocationImage( $type='location', $id=null )
    {  
 
      foreach($file as $part) {
+$nb_photos = $location->photo()->count();
+       if( $nb_photos >= Config::get('var.buildingMaxImage') ){
+
+        return Response::json(array('error'=>trans('validation.custom.tooMuchImage')), 200);
+      }
 
       $imageType = ImageType::orderBy('width','desc')->get();
 
@@ -275,6 +277,11 @@ public function postLocationImage( $type='location', $id=null )
   }
 else //single file
 {   
+  $nb_photos = $location->photo()->count();
+   if( $nb_photos >= Config::get('var.buildingMaxImage') ){
+
+      return Response::json(array('error'=>trans('validation.custom.tooMuchImage')), 200);
+    }
 
   $imageType = ImageType::orderBy('width','desc')->get();
 

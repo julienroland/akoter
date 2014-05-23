@@ -370,7 +370,7 @@ var getLocationPhoto = function( userId, locationId, sType ){
 			url: sBasePath+'ajax/getLocationPhoto/'+sType+'/'+ locationId,
 			dataType: "json",
 			success:function( oData ){
-				console.log(oData);
+
 				if( oData ){
 
 					if($('#images[data-type="'+sType+'"]').length == 0){
@@ -451,51 +451,53 @@ var uploadFile = function(){
 		});
 });
 
-	settingsAdvertUpload = $(".mulitpleLocationfileuploader").each(function(){
-		var nLocationId = $(this).parent().attr('data-locationId');
-		var sType = $(this).parent().attr('data-type');
-		var $that = $(this);
-		$(this).uploadFile({
-			url: sBasePath + "ajax/uploadLocationImage/"+sType+"/"+nLocationId,
-			method: "post",
-			allowedTypes:"jpg,gif,bmp,png",
-			fileName: "file",
-			autoSubmit:true,
-			multiple:true,
-			showStatusAfterSuccess:false,
-			dragDropStr: "<span><b>"+oLang.upload.dragDrop+"</b></span>",
-			abortStr:oLang.upload.giveup,
-			cancelStr:oLang.upload.stop,
-			doneStr:oLang.upload.ok,
-			multiDragErrorStr:oLang.upload.multiDrag,
-			extErrorStr:oLang.upload.ext_error,
-			sizeErrorStr:oLang.upload.size_error,
-			uploadErrorStr:oLang.upload.not_allow,
-			onSubmit:function(files)
-			{
-				$('<input>').attr({
-					type: 'text',
-					name: 'file[]',
-					value: files
-				}).appendTo('#myform');
+settingsAdvertUpload = $(".mulitpleLocationfileuploader").each(function(){
+	var nLocationId = $(this).parent().attr('data-locationId');
+	var sType = $(this).parent().attr('data-type');
+	var $that = $(this);
+	$(this).uploadFile({
+		url: sBasePath + "ajax/uploadLocationImage/"+sType+"/"+nLocationId,
+		method: "post",
+		allowedTypes:"jpg,gif,bmp,png",
+		fileName: "file",
+		autoSubmit:true,
+		multiple:true,
+		showStatusAfterSuccess:false,
+		dragDropStr: "<span><b>"+oLang.upload.dragDrop+"</b></span>",
+		abortStr:oLang.upload.giveup,
+		cancelStr:oLang.upload.stop,
+		doneStr:oLang.upload.ok,
+		multiDragErrorStr:oLang.upload.multiDrag,
+		extErrorStr:oLang.upload.ext_error,
+		sizeErrorStr:oLang.upload.size_error,
+		uploadErrorStr:oLang.upload.not_allow,
+		onSubmit:function(files)
+		{
+			$('<input>').attr({
+				type: 'text',
+				name: 'file[]',
+				value: files
+			}).appendTo('#myform');
 
-			},
+		},
 
-			onSuccess:function(files,data,xhr)
-			{
-
-				$('#myform').submit();
-				console.log($(this));
-				getLocationPhoto( $that.parent().attr('data-userId'), $that.parent().attr('data-locationId'),$that.parent().attr('data-type') );
-			},
-
-			onError: function(files,status,errMsg)
-			{
-				/*console.log(files+'.'+status+'.'+errMsg);*/
-				$("#status").html("<font color='green'>Something Wrong</font>");
+		onSuccess:function(files,data,xhr)
+		{
+			if(typeof data === "object"){
+				alert(data.error);
 			}
+			$('#myform').submit();
+			console.log($(this));
+			getLocationPhoto( $that.parent().attr('data-userId'), $that.parent().attr('data-locationId'),$that.parent().attr('data-type') );
+		},
 
-		});
+		onError: function(files,status,errMsg)
+		{
+			console.log(files+'.'+status+'.'+errMsg);
+			$("#status").html("<font color='green'>Something Wrong</font>");
+		}
+
+	});
 });
 
 }
