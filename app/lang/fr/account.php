@@ -44,6 +44,11 @@ array(
 	'back_previous_step'=>'Retour à l\'étape précédente',
 	'validateEmail'=>'Valider mon email',
 	'mailSend'=>'Nous vous avons envoyé un email, veuillez vérifiez votre boite mail',
+	'building_id'=>'Batiment avec la référence n° :number',
+	'location_id'=>'Location avec la référence n° :number',
+	'go_dashboard_location'=>'Accéder à la location',
+	'location_waiting_validation'=>'Location en attente de validation',
+	'location_notcomplete'=>'Votre annonce sur cette location n\'est complète qu\'à :percent',
 
 
 	);

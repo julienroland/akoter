@@ -44,7 +44,7 @@
 					<li><a class="{{$lang}}" href="#{{$lang}}-title">{{trans('general.lang')[$lang]}}</a></li>
 					@endforeach
 				</ul>
-					<?php $titleData = $locationsData[$location->id][0]->translations->reverse()->lists('value','language_id'); ?>
+				<?php $titleData = $locationsData[$location->id][0]->translations->reverse()->lists('value','language_id'); ?>
 
 				@foreach(Config::get('var.langId') as $lang => $langId)
 

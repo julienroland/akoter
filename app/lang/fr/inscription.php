@@ -89,4 +89,7 @@ return array(
 	'photoSomeAdverts'=>'Photos des locations',
 	'photoOneAdvert'=>'Photos de la location',
 	'buildingAdvert_intro'=>'Ajoutez des photos de chaque partie du logement, surtout si il y a des pièces privé. Plus il y aura de photos, mieux ca serra pour trouver un locataire.',
+	'inscription_finish'=>'Inscription terminée !',
+	'inscription_finish_intro'=>'L\'inscription de votre bien et de ses logements est belle et bien fini ! Dirigez vous vers votre <b>Compte</b>',
+	'inscription_done_go_account'=>'Aller sur son compte !',
 	);

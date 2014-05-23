@@ -13,6 +13,9 @@ return array(
 	'goContent' => 'Passer directement au contenu',
 	'yes' => 'Oui',
 	'no' => 'Non',
+	'edit' => 'Modifier',
+	'tenants' => 'Locataires',
+	'home' => 'Accueil',
 	//lang
 	'lang'=>array(
 		'fr'=>'Français',

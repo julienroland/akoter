@@ -10,13 +10,12 @@ return array(
 	'images_dir'=>'images/',
 	'users_dir'=>'users/',
 	'agences_dir'=>'agences/',
-	'buildings_dir'=>'buildings/',
+ 	'buildings_dir'=>'buildings/',
 	'locations_dir'=>'locations/',
 	'commons_dir'=>'commons_rooms/',
 	'moreBuildingPhotos'=>'more',
 	'logoAgence_dir'=>'logo/',
 	'profile_dir'=>'profile/',
-
 //translations
 	't_langCol'=>'language_id',
 
@@ -45,10 +44,13 @@ return array(
 	'p_location'=>'location_',
 	'p_particularity'=>'particularity_',
 //others
-	'logo'=>'/img/logo/logo.png',
+    	'logo'=>'/img/logo/logo.png',
 	'remember'=>60 * 24,
 	//img
 	'img_small'=>'small',
+	'img_medium'=>'medium',
+	'img_gallery'=>'gallery',
+	'img_lightbox'=>'lightbox',
 //user photo 
 	'user_photo_width'=>64,
 	'user_photo_height'=>64,

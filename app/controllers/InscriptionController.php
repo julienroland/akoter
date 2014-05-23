@@ -135,6 +135,10 @@ class InscriptionController extends BaseController {
 
 			$building->save();
 
+			$user = Auth::user();
+			$user->isOwner = 1;
+			$user->save();
+			
 			Session::put('inscription.building_id', $building->id);
 
 			Session::put('inscription.current', 1);
@@ -753,9 +757,60 @@ class InscriptionController extends BaseController {
 
 	public function indexContact( $user_slug, $building){
 
-		return View::make('inscription.owner.contact',array('page'=>'inscription','widget'=>array('select')));
+		$regions = Region::getList();
+		$localities = Locality::getList();
+
+		return View::make('inscription.owner.contact',array('page'=>'inscription','widget'=>array('select','validator')))
+		->with(compact('building','localities','regions'));
 
 
+	}
+
+	public function saveContact($user_slug, $building){
+
+		$input = Input::all();
+
+		User::$contact_rules['email'] = 'unique:users,email,'. Auth::user()->id .'| required | email ';
+
+		$validator = Validator::make($input,User::$contact_rules);
+
+		if($validator->passes()){
+
+			$user = Auth::user();
+
+			$user->name = $input['name'];
+			$user->first_name = $input['first_name'];
+			$user->email = $input['email'];
+			$user->region_id = $input['region'];
+			$user->locality_id = $input['locality'];
+			$user->address = $input['address'];
+			$user->postal = $input['postal'];
+			$user->phone = $input['phone'];
+
+			$user->save();
+
+			$building->register_step = 8;
+			$building->save();
+
+			return Redirect::route('index_validate_inscription_owner', array(Auth::user()->slug , $building->id))
+			->withSuccess(trans('validation.custom.success_inscription_steps'));
+
+		}else{
+
+			$fields = $validator->failed();
+
+			return Redirect::back()
+			->withInput()
+			->withErrors($validator)
+			->withFields($fields);
+		}
+
+	}
+
+	public function indexComfirm( $user_slug, $building){
+
+		return View::make('inscription.owner.comfirm', array('page'=>'inscription'))
+		->with(compact('building'));
 	}
 
 	/*-----  End of INSCRIPTION OWNER  ------*/

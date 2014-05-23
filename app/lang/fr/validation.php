@@ -96,6 +96,7 @@ return array(
         'inscription_types_locations_single'=> 'Votre logement pour ce batîment à bien été crée !',
         'inscription_infos_general'=> 'Les informations concernant votre batîment ont bien été enregistrés',
         'inscription_adverts'=> 'Vos annonces ont été correctement enregistrés',
+        'success_inscription_steps'=> 'Félicitation, votre bien à bien été enregistré avec toutes vos locations !',
         ),
 
     /*

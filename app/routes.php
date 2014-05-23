@@ -343,9 +343,11 @@ Route::group(array('before'=>'auth'),function(){
 		Route::get(trans('routes.account').'/{user_slug}/'.trans('routes.account-delete'), array('as'=>'delete_account','uses'=>'AccountController@delete'));
 
 
-		Route::bind('location_slug', function($value, $route){
+		Route::bind('location_id', function($value, $route){
 
-			return Translation::whereContentType('Location')->whereKey('slug')->whereValue( $value )->first();
+			return Location::whereId($value)->with(array('translation','building'=>function($query){
+				$query->whereUserId(Auth::user()->id);
+			}))->first();
 
 		});
 
@@ -355,7 +357,7 @@ Route::group(array('before'=>'auth'),function(){
 		*
 		**/
 
-		Route::get(trans('routes.account').'/{user_slug}/'.trans('routes.location').'/{location_slug}', array('as'=>'dashboard_location','uses'=>'LocationDashboardController@index'));
+		Route::get(trans('routes.account').'/{user_slug}/'.trans('routes.location').'/{location_id}', array('as'=>'dashboard_location','uses'=>'LocationDashboardController@index'));
 		
 		/**
 		*
@@ -438,6 +440,10 @@ Route::group(array('before'=>'auth'),function(){
 
 			/* contact*/
 			Route::get(trans('routes.account').'/{user_slug}/'.trans('routes.add_location').'/{building_id}/'.trans('routes.inscription_step8'), array('as'=>'index_inscription_contact','uses'=>'InscriptionController@indexContact'));
+
+			Route::post(trans('routes.account').'/{user_slug}/'.trans('routes.add_location').'/{building_id}/'.trans('routes.inscription_step8'), array('as'=>'save_inscription_contact','uses'=>'InscriptionController@saveContact'));
+
+			Route::get(trans('routes.account').'/{user_slug}/'.trans('routes.add_location').'/{building_id}/'.trans('routes.inscription_comfirm'), array('as'=>'index_validate_inscription_owner','uses'=>'InscriptionController@indexComfirm'));
 		});
 		
 

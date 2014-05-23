@@ -51,7 +51,7 @@ $invalidLocations = User::getInvalidLocations( $user );
 $personnalNotComplete = User::personnalsRequiredNotComplete( $personnal );
 
 return View::make('account.index', array('page'=>'account'))
-->with(compact(array('personnalNotComplete','user','activeLocations','waitingLocations','invalidLocations')));
+->with(compact(array('personnalNotComplete','user','activeLocations','waitingLocations','invalidLocations','inactiveBuilding')));
 
 }
 

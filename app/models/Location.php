@@ -106,6 +106,12 @@ public function photo(){
 	return $this->hasMany('PhotoLocation'); 
 }
 
+public function accroche(){
+
+	return $this->hasMany('PhotoLocation')
+	->whereOrder(1); 
+}
+
 public function translation(){
 
 	return $this->morphMany('Translation','content')

@@ -1,5 +1,5 @@
 <div class="introOwner">
-	<div class="wrapper">
+
 		<!-- reassure client -->
 		<div class="mainPart">
 			<div class="hero">
@@ -53,7 +53,6 @@
 				<p><a class="btn-inscription" href="{{route('index_localisation_building', Auth::user()->slug)}}">{{trans('inscription.add_advert')}}</a></p>
 			</div>
 		</sidebar>
-	</div>
 	<!-- Notice from owner -->
 	<div class="wrapper">
 		<div class="mainPart">

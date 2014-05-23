@@ -41,6 +41,22 @@
 p{
 	line-height: 1.3;
 }
+.small-img{
+	width: $small-img-width;
+	height: $small-img-height;
+}
+.medium-img{
+	width: $medium-img-width;
+	height: $medium-img-height;
+}
+.gallery-img{
+	width: $gallery-img-width;
+	height: $gallery-img-height;
+}
+.lighbox-img{
+	width: $lightbox-img-width;
+	height: $lightbox-img-height;
+}
 .info{
 	color: white;
 }
@@ -5482,7 +5498,7 @@ div.wijmo-wijmenu .wijmo-wijmenu-child .wijmo-wijmenu-text
   color:#BFBFBF;
   filter: none;
 }
-
+/***/
     /* END LOADING MAP */
     /* ANIMATION CSS3 */
     @import "animate";

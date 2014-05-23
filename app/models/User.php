@@ -21,6 +21,16 @@ class User extends Eloquent implements UserInterface, RemindableInterface, Slugg
 		'email_co' => 'required|email',
 		'password_co'=>'required|min:5',
 		);
+	public static $contact_rules = array(
+		'first_name'=>'required |alpha ',
+		'name'=>'required |alpha ',
+		'email'=>' required | email ',
+		'address'=>'required  ',
+		'region'=>'required ',
+		'locality'=>'required ',
+		'postal'=>'required  |integer |digits:4',
+		'phone'=>'required |numeric',
+		);
 	public static $inscription_rules = array(
 		'first_name'=>'required',
 		'name'=>'required',
@@ -42,7 +52,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface, Slugg
 		'address'=>'required | not_in:null ',
 		'region'=>'required | not_in:null',
 		'locality'=>'required | not_in:null',
-		'postal'=>'required | not_in:null |integer',
+		'postal'=>'required | not_in:null |integer |digits:4',
 		'phone'=>'required | not_in:null|numeric',
 		);
 
@@ -54,7 +64,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface, Slugg
 		'address'=>'required | not_in:null',
 		'region'=>'required | not_in:null',
 		'locality'=>'required | not_in:null',
-		'postal'=>'required | not_in:null',
+		'postal'=>'required | not_in:null |digits:4',
 		'phone'=>'required | not_in:null',
 		);
 
@@ -209,38 +219,38 @@ class User extends Eloquent implements UserInterface, RemindableInterface, Slugg
 	public static function getActiveLocations( $user ){
 
 		return User::with(array(
-			'activeBuilding'=>function($query) use($user){
-
-				$query->remember(Config::get('var.remember'), 'activeBuilding'.$user->id);
-
-			},
+			'activeBuilding',
 			'activeBuilding.location'=>function( $query ) use($user){
 
-				$query->has('currentUser')->remember(Config::get('var.remember'), 'activeBuilding.location'.$user->id);
+				$query->has('currentUser');
 
 			},'activeBuilding.location.photo'=>function($query) use($user){
 
-				$query->where('order', 1 )->remember(Config::get('var.activeBuilding.location.photo'.$user->id));
+				$query->where('order', 1 );
 
 			},'activeBuilding.location.translation'=>function($query) use($user){
 
-				$query->whereKey('slug')->remember(Config::get('var.remember'),'activeBuilding.location.translation'.$user->id);
+				$query->whereKey('slug');
 
-			}))->whereId($user->id)->remember(Config::get('var.remember'), 'user->id'.$user->id)->first();
+			}))->whereId($user->id)->first();
 	}
+
+	
 
 	public static function getWaitingLocations( $user ){
 
-		return User::with(array('activeBuilding'=>function($query) use($user){
+		return User::with(array('building',
+		'building.location'=>function( $query ) use($user){
 
-			$query->remember(Config::get('var.remember'), 'activeBuilding'.$user->id);
+			$query->whereValidate(0);
 
 		},
-		'activeBuilding.location'=>function( $query ) use($user){
-
-			$query->has('currentUser','<',1)->remember(Config::get('var.remember'), 'activeBuilding.location'.$user->id);
-
-		}))->whereId($user->id)->remember(Config::get('var.remember'), 'user->id'.$user->id)->first();
+		'building.location.translation'=>function($query){
+			$query->whereKey('title');
+		},
+		'building.location.accroche'
+		))
+		->whereId($user->id)->first();
 	}
 
 	public static function getInvalidLocations( $user ){

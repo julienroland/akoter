@@ -1,14 +1,15 @@
 @import "functions";
 @mixin wrapper() {
 	.wrapper {
-		max-width: $mw - $gutter;
+		@include c(12);
+		width: $mw - $gutter;
 		/* overflow: hidden; */
 		margin: auto;
 		height: auto;
 		/* margin-left: - gutter() / 2;
 		margin-right: - gutter() / 2; */
 		box-sizing: border-box;
-		@include c(12);
+		
     //margin-bottom: 1em;
     &:after {
     	@include clear();
@@ -177,6 +178,16 @@
 		@include border-radius(3px);
 		&:hover,&:focus,&:active{
 			background-image: linear-gradient(to bottom,#f4f4f4,#fff);
+		}
+		&.large{
+			display: block;
+			margin: auto;
+			max-width: 200px;
+			height: 4em;
+			line-height: 4em;
+			font-size: 1.1em;
+			margin-top: $gutter / 2 ;
+			margin-bottom: $gutter  ;
 		}
 	}
 
