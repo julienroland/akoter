@@ -1,5 +1,6 @@
 <?php
 
+
 class ContactController extends BaseController {
 
 	public function contactUs(){
@@ -17,7 +18,8 @@ class ContactController extends BaseController {
 
 		if( $validator->passes() ){
 
-			Mail::send('emails.contact_us', array('input'=>$input), function($message) use($input)
+
+			Mailgun::send('emails.contact_us', array('input'=>$input), function($message) use($input)
 			{
 
 				$message->to($input['email'], $input['name']);

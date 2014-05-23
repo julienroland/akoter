@@ -15,7 +15,7 @@ return array(
 	|
 	*/
 
-	'driver' => 'mail',
+	'driver' => 'smtp',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -28,7 +28,8 @@ return array(
 	|
 	*/
 
-	'host' => 'ns0.ovh.net',
+	'host' => 'smtp.mailgun.org',
+	/*'host' => 'ns0.ovh.net',*/
 
 	/*
 	|--------------------------------------------------------------------------
@@ -54,7 +55,7 @@ return array(
 	|
 	*/
 
-	'from' => array('address' => 'roland.julien.perso@gmail.com', 'name' => 'Julien Roland'),
+	'from' => array('address' => 'postmaster@akoter.julien-roland.be', 'name' => 'Akoter'),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -80,7 +81,8 @@ return array(
 	| rj124646-ovh
 	*/
 
-	'username' => 'akoter@julien-roland.be',
+	/*'username' => 'akoter@julien-roland.be',*/
+	'username'=>'postmaster@akoter.julien-roland.be',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -93,7 +95,8 @@ return array(
 	|
 	*/
 
-	'password' => 'pokemon2',
+	/*'password' => 'pokemon2',*/
+	'password'=>'65pik6o94s12',
 
 	/*
 	|--------------------------------------------------------------------------

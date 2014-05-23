@@ -125,7 +125,8 @@ return array(
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 		'Cviebrock\EloquentSluggable\SluggableServiceProvider',
 		'Way\Generators\GeneratorsServiceProvider',
-		'Intervention\Image\ImageServiceProvider'
+		'Intervention\Image\ImageServiceProvider',
+		'Bogardo\Mailgun\MailgunServiceProvider'
 
 		),
 
@@ -195,6 +196,7 @@ return array(
 
 		'Sluggable' 	  => 'Cviebrock\EloquentSluggable\Facades\Sluggable',
 		'Image' 		  => 'Intervention\Image\Facades\Image',
+		'Mailgun' 		  => 'Bogardo\Mailgun\Facades\Mailgun',
 
 		),
 

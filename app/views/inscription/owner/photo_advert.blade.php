@@ -83,11 +83,11 @@
 
 
 
-		{{Form::open(array('method'=>'get','route'=>array('index_inscription_adverts', Auth::user()->slug, $building->id),'class'=>'mainType '))}}
+		{{Form::open(array('method'=>'get','route'=>array('index_inscription_contact', Auth::user()->slug, $building->id),'class'=>'mainType '))}}
 
 		<div class="field previous">
 
-			<a href="{{route(Config::get('var.steps_routes.4'), array(Auth::user()->slug, $building->id))}}" title="{{trans('account.back_previous_step')}}">{{trans('general.back')}}</a>
+			<a href="{{route(Config::get('var.steps_routes.6'), array(Auth::user()->slug, $building->id))}}" title="{{trans('account.back_previous_step')}}">{{trans('general.back')}}</a>
 
 		</div>
 		<div class="field next">
