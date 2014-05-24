@@ -33,6 +33,9 @@ class Building extends Eloquent {
 		return $this->belongsTo('User');
 	}
 
+	public function scopeInvalid($query){
+		$query->whereStatusType( 0 );
+	}
 	public function photo()
 	{
 		return $this->hasMany('BuildingPhoto');

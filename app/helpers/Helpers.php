@@ -4,7 +4,12 @@ use Carbon\Carbon;
 
 class Helpers {
 
-
+	public static function transDecode($str) {
+    return preg_replace_callback("/\\\u([0-9a-f]{4})/i",
+        create_function('$matches',
+            'return html_entity_decode(\'&#x\'.$matches[1].\';\', ENT_QUOTES, \'UTF-8\');'
+        ), $str);
+}
 
 	public static function addBeforeExtension( $stringWithExt, $string ){
 
@@ -22,6 +27,7 @@ class Helpers {
 	}
 
 	public static function translate($text, $from, $to){
+
 		$text = urlencode($text);
 
 		$url = "http://translate.google.com/translate_a/t?client=t&text=".$text."&hl=".$to."&sl=".$from."&tl=".$to."&ie=UTF-8&oe=UTF-8&multires=1&otf=1&pc=1&trs=1&ssel=3&tsel=6&sc=1";
@@ -30,7 +36,7 @@ class Helpers {
 
 		$translation = explode('"',$translation);
 
-		return $translation[1];
+		return Helpers::transDecode($translation[1]);
 	}
 	public static function curl($url,$params = array(),$is_coockie_set = false)
 	{

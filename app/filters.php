@@ -43,6 +43,27 @@ App::error(function(ModelNotFoundException $e)
 });
 
 /**
+ * Filter admin
+ */
+
+Route::filter('admin', function()
+{
+
+    if(Auth::check()){
+
+        if(Auth::user()->role_id > 2){
+
+            return Redirect::back('/');
+        }
+
+    }else{
+
+        return View::make('admin.login',array('page'=>'admin'));
+
+    }
+
+});
+/**
 *
 * Filtre de langue
 *

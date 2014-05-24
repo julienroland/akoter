@@ -17,8 +17,9 @@
 
 @include('includes.errors')
 @include('includes.success')
-
+@if(Auth::user()->email_comfirm == 0  )
 <a href="{{route('checkEmail',Auth::user()->slug)}}" class="checkEmail">{{trans('form.checkEmail')}}</a>
+@endif
 <div class="field">
 	{{Form::label('email',trans('form.login'))}}
 	{{Form::text('email',isset($user->email) && !empty($user->email) ? $user->email :(Session::has('account_params') ? Session::get('account_params')['email']: ''),array('placeholder'=>trans('form.login'),'required', 'class'=>isset(Session::get('field')['email']) ? 'form-error':''))}}

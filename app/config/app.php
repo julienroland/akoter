@@ -126,7 +126,8 @@ return array(
 		'Cviebrock\EloquentSluggable\SluggableServiceProvider',
 		'Way\Generators\GeneratorsServiceProvider',
 		'Intervention\Image\ImageServiceProvider',
-		'Bogardo\Mailgun\MailgunServiceProvider'
+		'Bogardo\Mailgun\MailgunServiceProvider',
+        'Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider',
 
 		),
 

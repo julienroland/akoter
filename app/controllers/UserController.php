@@ -9,7 +9,7 @@ class UserController extends BaseController
 
 		$user = Auth::user();
 
-		Mail::send('emails.auth.check', array('key'=>$key), function($message) use($user)
+		Mailgun::send('emails.auth.check', array('key'=>$key,'user'=>$user), function($message) use($user)
 		{
 			$message->to($user->email, $user->first_name . ' ' . $user->name)
 			->subject(trans('general.check_email'));

@@ -2,7 +2,7 @@
 @mixin wrapper() {
 	.wrapper {
 		@include c(12);
-		width: $mw - $gutter;
+		max-width: $mw - $gutter;
 		/* overflow: hidden; */
 		margin: auto;
 		height: auto;

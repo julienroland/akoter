@@ -16,7 +16,7 @@
 /*============================
 =            TEST            =
 ============================*/
-Route::get('test',function(){
+Route::get('test', function () {
 
 });
 
@@ -29,99 +29,98 @@ Route::get('test',function(){
 
 $lang = Request::segment(1);
 
-if (in_array($lang, Config::get('app.available_locales')))
-{
+if (in_array($lang, Config::get('app.available_locales'))) {
 
 	App::setLocale($lang);
 
 
-}else{
+} else {
 
 	$lang = null;
 
 }
 /**
-*
-* VALIDATOR
-*
-**/
+ *
+ * VALIDATOR
+ *
+ **/
 
-Route::any('getValidation/{rules}', array('uses'=>'ValidatorController@validate'));
+Route::any('getValidation/{rules}', array('uses' => 'ValidatorController@validate'));
 
-Route::post('getOneValidation/{name}/{rules}/{value?}', array('uses'=>'ValidatorController@validateOne'));
-
-/**
-*
-* Checking email 
-*
-**/
-
-Route::get('activation/{key}', array('uses'=>'InscriptionController@activation'));
+Route::post('getOneValidation/{name}/{rules}/{value?}', array('uses' => 'ValidatorController@validateOne'));
 
 /**
-*
-* Ajax
-*
-**/
+ *
+ * Checking email
+ *
+ **/
+
+Route::get('activation/{key}', array('uses' => 'InscriptionController@activation'));
 
 /**
-*
-* Kots
-*
-**/
-
-Route::get('getKots',array('as'=>'getKots','uses'=>'BuildingController@gmGetBuilding'));
+ *
+ * Ajax
+ *
+ **/
 
 /**
-*
-* Schools
-*
-**/
+ *
+ * Kots
+ *
+ **/
 
-Route::get('getSchools',array('uses'=>'SchoolController@gmGet'));
-
-/**
-*
-* locality autocomplete
-*
-**/
-
-Route::get('getLocalityAutocomplete',array('as'=>'getLocalityAutocomplete','uses'=>'FormController@getLocalityAutocomplete'));
+Route::get('getKots', array('as' => 'getKots', 'uses' => 'BuildingController@gmGetBuilding'));
 
 /**
-*
-* More Locations on scroll
-*
-**/
+ *
+ * Schools
+ *
+ **/
 
-Route::get('ajax/getMoreLocations/{take}/{skip}/{orderBy}/{orderWay}/{json}', array('uses'=>'LocationController@getMoreLocation'));
-
-/**
-*
-* Locations after filter
-*
-**/
-
-Route::get('ajax/getLocationsFilter', array('uses'=>'LocationController@getLocationsFilter'));
+Route::get('getSchools', array('uses' => 'SchoolController@gmGet'));
 
 /**
-*
-* Upload image
-*
-**/
-Route::any( 'ajax/uploadBuildingImage/{type}/{id}', array('as'=>'ajax_upload_image', 'uses'=>'ImageController@postBuildingImage'));
+ *
+ * locality autocomplete
+ *
+ **/
 
-Route::any( 'ajax/uploadLocationImage/{type}/{id}', array('uses'=>'ImageController@postLocationImage'));
+Route::get('getLocalityAutocomplete', array('as' => 'getLocalityAutocomplete', 'uses' => 'FormController@getLocalityAutocomplete'));
 
-Route::any( 'ajax/updatePhotoPosition/{type}', array('uses'=>'ImageController@upatePosition'));
+/**
+ *
+ * More Locations on scroll
+ *
+ **/
 
-Route::get( 'ajax/getBuildingPhoto/{type}/{id}', array('uses'=>'BuildingController@getPhotos'));
+Route::get('ajax/getMoreLocations/{take}/{skip}/{orderBy}/{orderWay}/{json}', array('uses' => 'LocationController@getMoreLocation'));
 
-Route::get( 'ajax/getLocationPhoto/{type}/{id}', array('uses'=>'LocationController@getPhotos'));
+/**
+ *
+ * Locations after filter
+ *
+ **/
 
-Route::get( 'ajax/deleteImage/{photoId}/{proprieteId}/{type}', array('uses'=>'ImageController@deletePhoto' ));
+Route::get('ajax/getLocationsFilter', array('uses' => 'LocationController@getLocationsFilter'));
 
-Route::get( 'ajax/deleteAdvertImage/{photoId}/{proprieteId}', array('uses'=>'ImageController@deleteAdvertPhoto' ) );
+/**
+ *
+ * Upload image
+ *
+ **/
+Route::any('ajax/uploadBuildingImage/{type}/{id}', array('as' => 'ajax_upload_image', 'uses' => 'ImageController@postBuildingImage'));
+
+Route::any('ajax/uploadLocationImage/{type}/{id}', array('uses' => 'ImageController@postLocationImage'));
+
+Route::any('ajax/updatePhotoPosition/{type}', array('uses' => 'ImageController@upatePosition'));
+
+Route::get('ajax/getBuildingPhoto/{type}/{id}', array('uses' => 'BuildingController@getPhotos'));
+
+Route::get('ajax/getLocationPhoto/{type}/{id}', array('uses' => 'LocationController@getPhotos'));
+
+Route::get('ajax/deleteImage/{photoId}/{proprieteId}/{type}', array('uses' => 'ImageController@deletePhoto'));
+
+Route::get('ajax/deleteAdvertImage/{photoId}/{proprieteId}', array('uses' => 'ImageController@deleteAdvertPhoto'));
 /* 404 */
 /*App::missing(function($exception){
  if (Request::is('admin/*'))
@@ -135,360 +134,402 @@ Route::get( 'ajax/deleteAdvertImage/{photoId}/{proprieteId}', array('uses'=>'Ima
 /* END 404 */
 
 /**
-*
-* Facebook connection
-*
-**/
-Route::get('login/fb', array('as'=>'fbConnect', 'uses'=>'ConnectionController@facebookCall'));
+ *
+ * Facebook connection
+ *
+ **/
+Route::get('login/fb', array('as' => 'fbConnect', 'uses' => 'ConnectionController@facebookCall'));
 
-Route::get('login/fb/callback', array('uses'=>'ConnectionController@facebookCallback'));
+Route::get('login/fb/callback', array('uses' => 'ConnectionController@facebookCallback'));
 
-Route::get('register/fb/callback', array('uses'=>'InscriptionController@facebook'));
+Route::get('register/fb/callback', array('uses' => 'InscriptionController@facebook'));
 
 /**
-*
-* Ajax languages
-*
-**/
+ *
+ * Ajax languages
+ *
+ **/
 
-Route::get('getAllLang',array('uses'=>'LangController@getAll'));
+Route::get('getAllLang', array('uses' => 'LangController@getAll'));
 
 /*-----  End of GLOBAL  ------*/
 
 /*==============================
 =          LANGUAGE            =
 ==============================*/
-Route::group(array('prefix' => $lang), function() use($lang)
-{
+Route::group(array('prefix' => $lang), function () use ($lang) {
 
-	if(Helpers::isOk($lang)) {
+	if (Helpers::isOk($lang)) {
 
 		App::setLocale($lang);
 
 	}
 
-	Route::group(array('before' => 'lang'), function(){
+	Route::group(array('before' => 'lang'), function () {
 		App::setLocale(Session::get('lang'));
-	/**
-	*
-	* IF Session doesn't exist, put value in it
-	*
-	**/
+        /**
+         *
+         * IF Session doesn't exist, put value in it
+         *
+         **/
 
-	/*if(Helpers::isNotOk(Session::get('langId')))
-	{
+        /*if(Helpers::isNotOk(Session::get('langId')))
+        {
 
-		Session::put('langId', Language::whereShort(App::getLocale())->first(['id'])->id);
+            Session::put('langId', Language::whereShort(App::getLocale())->first(['id'])->id);
 
-	}*/
+        }*/
 
 
-	/**
-	*
-	* HOME
-	*
-	**/	
+        /**
+         *
+         * HOME
+         *
+         **/
 
-	Route::get(Lang::get('routes.home') , array('as'=>'home','uses'=>'HomeController@index'));
+        Route::get(Lang::get('routes.home'), array('as' => 'home', 'uses' => 'HomeController@index'));
 
-	/**
-	*
-	* Listing
-	*
-	**/
+        /**
+         *
+         * Listing
+         *
+         **/
 
-	Route::any(Lang::get('routes.listing') , array('as'=>'listLocation','uses'=>'LocationController@getList'));
-
-	Route::get(Lang::get('routes.contact') , array('as' => 'contact', function()
-	{
-
-		return View::make('contact');
-
-	}));
-
-		/**
-		*
-		* Reactive account
-		*
-		**/
-
-		Route::get(trans('routes.account').'/{user_slug}/'.trans('routes.account-reactive'), array('as'=>'account_reactive','uses'=>'AccountController@indexReactive'));
-
-		Route::get(trans('routes.account').'/{user_slug}/'.trans('routes.account-reactive').'/{id}', array('as'=>'account_reactive_query','uses'=>'AccountController@reactive'));
-
-		/**
-		*
-		* Undelete account
-		*
-		**/
-
-		Route::get(trans('routes.account').'/{user_slug}/'.trans('routes.account-undelete'), array('as'=>'deleted_account','uses'=>'AccountController@indexUndelete'));
-
-		Route::get(trans('routes.account').'/{user_slug}/'.trans('routes.account-undelete').'/{id}', array('as'=>'account_undelete_query','uses'=>'AccountController@undelete'));
-
-	/**
-	*
-	* Contact
-	*
-	**/
-
-	Route::get(trans('routes.contact_us'), array('as'=>'contact_us','uses'=>'ContactController@contactUs'));
-
-	Route::post(trans('routes.contact_us'), array('as'=>'contact_us','uses'=>'ContactController@sendMessage'));
-	
-	/**
-	*
-	* Create cookie for tuto
-	*
-	**/
-
-	Route::get('createCookie/{name}', array('uses'=>'AjaxController@createCookie'));
-	
-/*
-*
-*	IF LOGIN
-*
-*/
-
-Route::group(array('before'=>'auth'),function(){
-
-	
-
-	/**
-	*
-	* Profil
-	*
-	**/
-
-	/**
-	*
-	* Photo
-	*
-	**/
-
-	Route::get(trans('routes.account').'/{user_slug}/'.trans('routes.edit_photo'),array('as'=>'edit_photo','uses'=>'AccountController@editPhoto'));
-	
-/*	Route::bind('user_slug', function($value, $route)
-	{	
-		if($value === Auth::user()->slug){
-
-			return $value;
-
-		}else{
-			dd(str_replace('{user_slug}',Auth::user()->slug, Route::current()->getUri()));
-			return Redirect::to(str_replace('{user_slug}',Auth::user()->slug, Route::current()->getUri()));
-		}
-		return User::where('initial_2', $value)->firstOrFail();
-
-	});*/
-
-	/**
-	*
-	* Disconnect
-	*
-	**/
-
-		Route::get(trans('routes.account').'/{user_slug}/'.trans('routes.disconnect'), array('as'=>'disconnect','uses'=>'ConnectionController@disconnect'));
-
-		/**
-		*
-		* Home
-		*
-		**/
-		
-		Route::get(trans('routes.account').'/{user_slug}/', array('as'=>'account_home', 'uses'=>'AccountController@index'));
-		
-		/**
-		*
-		* Personnal infos
-		*
-		**/
-		
-		Route::get(trans('routes.account').'/{user_slug}/'.trans('routes.account-personnal'), array('as'=>'account_personnal', 'uses'=>'AccountController@personnalData'));
-
-		Route::put(trans('routes.account').'/{user_slug}/'.trans('routes.account-personnal'), array('as'=>'save_personnal', 'uses'=>'AccountController@savePersonnalData'));
-
-		/**
-		*
-		* Params account
-		*
-		**/
-		
-		Route::get(trans('routes.account').'/{user_slug}/'.trans('routes.account-params'), array('as'=>'account_params', 'uses'=>'AccountController@params'));
-
-		Route::put(trans('routes.account').'/{user_slug}/'.trans('routes.account-params'), array('as'=>'save_params', 'uses'=>'AccountController@saveParams'));
-
-		/**
-		*
-		* Check user email
-		*
-		**/
-
-		Route::get(trans('routes.account').'/{user_slug}/'.trans('routes.checkEmail'), array('as'=>'checkEmail','uses'=>'UserController@sendEmailComfirm'));
-
-		/**
-		*
-		* Suspend account
-		*
-		**/
-		
-		Route::get(trans('routes.account').'/{user_slug}/'.trans('routes.account-suspend'), array('as'=>'suspend_account','uses'=>'AccountController@suspend'));
+        Route::any(Lang::get('routes.listing'), array('as' => 'listLocation', 'uses' => 'LocationController@getList'));
 
-		/**
-		*
-		* Delete account
-		*
-		**/
-		
-		Route::get(trans('routes.account').'/{user_slug}/'.trans('routes.account-delete'), array('as'=>'delete_account','uses'=>'AccountController@delete'));
+        Route::get(Lang::get('routes.contact'), array('as' => 'contact', function () {
 
+        	return View::make('contact');
 
-		Route::bind('location_id', function($value, $route){
+        }));
 
-			return Location::whereId($value)->with(array('translation','building'=>function($query){
-				$query->whereUserId(Auth::user()->id);
-			}))->first();
+        /**
+         *
+         * Reactive account
+         *
+         **/
 
-		});
+        Route::get(trans('routes.account') . '/{user_slug}/' . trans('routes.account-reactive'), array('as' => 'account_reactive', 'uses' => 'AccountController@indexReactive'));
 
-		/**
-		*
-		* Dashboard one location
-		*
-		**/
+        Route::get(trans('routes.account') . '/{user_slug}/' . trans('routes.account-reactive') . '/{id}', array('as' => 'account_reactive_query', 'uses' => 'AccountController@reactive'));
 
-		Route::get(trans('routes.account').'/{user_slug}/'.trans('routes.location').'/{location_id}', array('as'=>'dashboard_location','uses'=>'LocationDashboardController@index'));
-		
-		/**
-		*
-		* Agence
-		*
-		**/
+        /**
+         *
+         * Undelete account
+         *
+         **/
 
-		Route::get(trans('routes.account').'/{user_slug}/'.trans('routes.agences'),array('as'=>'index_agence','uses'=>'AgenceController@index'));
+        Route::get(trans('routes.account') . '/{user_slug}/' . trans('routes.account-undelete'), array('as' => 'deleted_account', 'uses' => 'AccountController@indexUndelete'));
 
-		Route::get(trans('routes.account').'/{user_slug}/'.trans('routes.add_agence'),array('as'=>'add_agence','uses'=>'AgenceController@add'));
+        Route::get(trans('routes.account') . '/{user_slug}/' . trans('routes.account-undelete') . '/{id}', array('as' => 'account_undelete_query', 'uses' => 'AccountController@undelete'));
 
-		Route::post(trans('routes.account').'/{user_slug}/'.trans('routes.add_agence'),array('as'=>'store_agence','uses'=>'AgenceController@store'));
+        /**
+         *
+         * Contact
+         *
+         **/
 
-		/*Route::get(trans('routes.account').'/{user_slug}/'.trans('routes.add_agence'),array('as'=>'save_agence','uses'=>'AgenceController@add'));*/
-		
-		/**
-		*
-		* How be an owner
-		*
-		**/
-		
-		Route::get( trans('routes.account').'/{user_slug}/'.trans('routes.how_be_owner') , array('as'=>'how_be_owner','uses'=>'AccountController@how_be_owner') );
+        Route::get(trans('routes.contact_us'), array('as' => 'contact_us', 'uses' => 'ContactController@contactUs'));
 
-		Route::get(trans('routes.account').'/{user_slug}/'.trans('routes.add_location'), array('uses'=>'AccountController@how_be_owner'));
-		/**
-		*
-		* OWNER OR TENANT FILTER
-		*
-		**/
+        Route::post(trans('routes.contact_us'), array('as' => 'contact_us', 'uses' => 'ContactController@sendMessage'));
 
-		Route::group(array('before'=>'allow_advance'), function(){
+        /**
+         *
+         * Create cookie for tuto
+         *
+         **/
 
+        Route::get('createCookie/{name}', array('uses' => 'AjaxController@createCookie'));
 
-			/**
-			*
-			* INSCRIPTION OWNER
-			*
-			**/
-			Route::bind('building_id', function($value, $route)
-			{	
+        /*
+        *
+        *	IF LOGIN
+        *
+        */
 
-				$building = Building::whereId($value)->whereUserId(Auth::user()->id)->firstOrFail();
+        Route::group(array('before' => 'auth'), function () {
 
-				return $building;
+            /*
+             * Admin
+             *
+             */
+            Route::group(array('prefix' => 'admin'), function () {
 
-			});
-			/* Localisation */
-			Route::get(trans('routes.account').'/{user_slug}/'.trans('routes.add_location').'/'.trans('routes.inscription_step1').'/{building_id?}/', array('as'=>'index_localisation_building','uses'=>'InscriptionController@indexLocalisation'));
+            	Route::group(array('before' => 'admin'), function () {
 
-			Route::post(trans('routes.account').'/{user_slug}/'.trans('routes.add_location').'/'.trans('routes.inscription_step1').'/{building_id?}/', array('as'=>'save_localisation_building','uses'=>'InscriptionController@saveLocalisation'));
+            		Route::bind('building_id', function ($value, $route) {
 
-			Route::put(trans('routes.account').'/{user_slug}/'.trans('routes.add_location').'/'.trans('routes.inscription_step1').'/{building_id?}/', array('as'=>'update_localisation_building','uses'=>'InscriptionController@updateLocalisation'));
+            			return Building::findOrFail($value);
 
-			/* Type of location*/
-			Route::get(trans('routes.account').'/{user_slug}/'.trans('routes.add_location').'/{building_id}/'.trans('routes.inscription_step2'), array('as'=>'index_types_locations','uses'=>'InscriptionController@indexTypesLocations'));
+            		});
+            		
+            		Route::bind('user_id', function ($value, $route) {
 
-			Route::post(trans('routes.account').'/{user_slug}/'.trans('routes.add_location').'/{building_id}/'.trans('routes.inscription_step2'), array('as'=>'save_types_locations','uses'=>'InscriptionController@saveTypesLocations'));
+            			return User::findOrFail($value);
 
-			/* Building */
-			Route::get(trans('routes.account').'/{user_slug}/'.trans('routes.add_location').'/{building_id}/'.trans('routes.inscription_step3'), array('as'=>'index_inscription_building','uses'=>'InscriptionController@indexBuilding'));
+            		});
 
-			Route::post(trans('routes.account').'/{user_slug}/'.trans('routes.add_location').'/{building_id}/'.trans('routes.inscription_step3'), array('as'=>'save_inscription_building','uses'=>'InscriptionController@saveBuilding'));
 
-			Route::put(trans('routes.account').'/{user_slug}/'.trans('routes.add_location').'/{building_id}/'.trans('routes.inscription_step3'), array('as'=>'update_inscription_building','uses'=>'InscriptionController@updateBuilding'));
+            		Route::get('/', array('as'=>'getIndexAdmin','uses'=>'Admin_AdminController@index'));
 
-			/* Description */
-			Route::get(trans('routes.account').'/{user_slug}/'.trans('routes.add_location').'/{building_id}/'.trans('routes.inscription_step4'), array('as'=>'index_inscription_general','uses'=>'InscriptionController@indexInfosGeneral'));
+            		Route::get('login', array('as' => 'login_admin', 'uses' => 'Admin_UserController@connect'));
 
-			Route::post(trans('routes.account').'/{user_slug}/'.trans('routes.add_location').'/{building_id}/'.trans('routes.inscription_step4'), array('as'=>'save_inscription_general','uses'=>'InscriptionController@saveInfosGeneral'));
+            		Route::get('disconnect', array('uses'=>'Admin_UserController@disconnect'));
 
-			/* Photo building */
-			Route::get(trans('routes.account').'/{user_slug}/'.trans('routes.add_location').'/{building_id}/'.trans('routes.inscription_step5'),array('as'=>'index_photo_building','uses'=>'InscriptionController@indexPhotoBuilding'));
+            		Route::get('leave', array('uses'=>'Admin_UserController@leave'));
 
-			/* Adverts for each locations */
-			Route::get(trans('routes.account').'/{user_slug}/'.trans('routes.add_location').'/{building_id}/'.trans('routes.inscription_step6'),array('as'=>'index_inscription_adverts','uses'=>'InscriptionController@indexAdverts'));
+            		Route::get('buildings', array('uses'=>'Admin_BuildingController@index'));
 
-			Route::post(trans('routes.account').'/{user_slug}/'.trans('routes.add_location').'/{building_id}/'.trans('routes.inscription_step6'),array('as'=>'save_inscription_adverts','uses'=>'InscriptionController@saveAdverts'));
+            		Route::get('building/delete/{building_id}', array('uses'=>'Admin_BuildingController@delete'));
 
-			Route::get(trans('routes.account').'/{user_slug}/'.trans('routes.add_location').'/{building_id}/'.trans('routes.inscription_step7'), array('as'=>'index_photo_advert','uses'=>'InscriptionController@indexPhotoAdvert'));
+            		Route::get('building/validate/{building_id}', array('uses'=>'Admin_BuildingController@validate'));
 
-			/* contact*/
-			Route::get(trans('routes.account').'/{user_slug}/'.trans('routes.add_location').'/{building_id}/'.trans('routes.inscription_step8'), array('as'=>'index_inscription_contact','uses'=>'InscriptionController@indexContact'));
+            		Route::get('building/contact/{building_id}', array('uses'=>'Admin_BuildingController@contact'));
 
-			Route::post(trans('routes.account').'/{user_slug}/'.trans('routes.add_location').'/{building_id}/'.trans('routes.inscription_step8'), array('as'=>'save_inscription_contact','uses'=>'InscriptionController@saveContact'));
+            		Route::post('building/sendMessage/{building_id}/{user_id}', array('uses'=>'Admin_BuildingController@sendMessage'));
+            		
+            	});
 
-			Route::get(trans('routes.account').'/{user_slug}/'.trans('routes.add_location').'/{building_id}/'.trans('routes.inscription_comfirm'), array('as'=>'index_validate_inscription_owner','uses'=>'InscriptionController@indexComfirm'));
-		});
-		
+            });
+            /**
+             *
+             * Profil
+             *
+             **/
 
-	});/* AUTH */
+            /**
+             *
+             * Photo
+             *
+             **/
 
-Route::group(array('before'=>'guest'), function(){
+            Route::get(trans('routes.account') . '/{user_slug}/' . trans('routes.edit_photo'), array('as' => 'edit_photo', 'uses' => 'AccountController@editPhoto'));
 
-	/**
-	*
-	* Connection
-	*
-	**/
+            /*	Route::bind('user_slug', function($value, $route)
+                {
+                    if($value === Auth::user()->slug){
 
-	Route::post(Lang::get('routes.connection'), array('as' =>'connection','uses'=>'ConnectionController@connection'));
+                        return $value;
 
-	Route::get(Lang::get('routes.connection'), array('as' =>'connection','uses'=>'ConnectionController@index'));
+                    }else{
+                        dd(str_replace('{user_slug}',Auth::user()->slug, Route::current()->getUri()));
+                        return Redirect::to(str_replace('{user_slug}',Auth::user()->slug, Route::current()->getUri()));
+                    }
+                    return User::where('initial_2', $value)->firstOrFail();
 
-	/**
-	*
-	* Inscription
-	*
-	**/
+                });*/
 
-	Route::get(trans('routes.inscription'), array('as'=>'inscription_index','uses'=>'InscriptionController@index'));
+            /**
+             *
+             * Disconnect
+             *
+             **/
 
-	Route::post(trans('routes.inscription'), array('as'=>'inscription_save','uses'=>'InscriptionController@save'));
+            Route::get(trans('routes.account') . '/{user_slug}/' . trans('routes.disconnect'), array('as' => 'disconnect', 'uses' => 'ConnectionController@disconnect'));
 
-});	
+            /**
+             *
+             * Home
+             *
+             **/
 
-/* END IF LOGIN */
-/*
-*
-*	BUILDING
-*
-*/
+            Route::get(trans('routes.account') . '/{user_slug}/', array('as' => 'account_home', 'uses' => 'AccountController@index'));
 
-/*
-*
-*	END BUILDING
-*
-*/
+            /**
+             *
+             * Personnal infos
+             *
+             **/
 
+            Route::get(trans('routes.account') . '/{user_slug}/' . trans('routes.account-personnal'), array('as' => 'account_personnal', 'uses' => 'AccountController@personnalData'));
 
+            Route::put(trans('routes.account') . '/{user_slug}/' . trans('routes.account-personnal'), array('as' => 'save_personnal', 'uses' => 'AccountController@savePersonnalData'));
+
+            /**
+             *
+             * Params account
+             *
+             **/
+
+            Route::get(trans('routes.account') . '/{user_slug}/' . trans('routes.account-params'), array('as' => 'account_params', 'uses' => 'AccountController@params'));
+
+            Route::put(trans('routes.account') . '/{user_slug}/' . trans('routes.account-params'), array('as' => 'save_params', 'uses' => 'AccountController@saveParams'));
+
+            /**
+             *
+             * Check user email
+             *
+             **/
+
+            Route::get(trans('routes.account') . '/{user_slug}/' . trans('routes.checkEmail'), array('as' => 'checkEmail', 'uses' => 'UserController@sendEmailComfirm'));
+
+            /**
+             *
+             * Suspend account
+             *
+             **/
+
+            Route::get(trans('routes.account') . '/{user_slug}/' . trans('routes.account-suspend'), array('as' => 'suspend_account', 'uses' => 'AccountController@suspend'));
+
+            /**
+             *
+             * Delete account
+             *
+             **/
+
+            Route::get(trans('routes.account') . '/{user_slug}/' . trans('routes.account-delete'), array('as' => 'delete_account', 'uses' => 'AccountController@delete'));
+
+
+            Route::bind('location_id', function ($value, $route) {
+
+            	return Location::whereId($value)->with(array('translation', 'building' => function ($query) {
+            		$query->whereUserId(Auth::user()->id);
+            	}))->first();
+
+            });
+
+            /**
+             *
+             * Dashboard one location
+             *
+             **/
+
+            Route::get(trans('routes.account') . '/{user_slug}/' . trans('routes.location') . '/{location_id}', array('as' => 'dashboard_location', 'uses' => 'LocationDashboardController@index'));
+
+            /**
+             *
+             * Edit location
+             */
+            /* Localisation */
+
+            /**
+             *
+             * Agence
+             *
+             **/
+
+            Route::get(trans('routes.account') . '/{user_slug}/' . trans('routes.agences'), array('as' => 'index_agence', 'uses' => 'AgenceController@index'));
+
+            Route::get(trans('routes.account') . '/{user_slug}/' . trans('routes.add_agence'), array('as' => 'add_agence', 'uses' => 'AgenceController@add'));
+
+            Route::post(trans('routes.account') . '/{user_slug}/' . trans('routes.add_agence'), array('as' => 'store_agence', 'uses' => 'AgenceController@store'));
+
+            /*Route::get(trans('routes.account').'/{user_slug}/'.trans('routes.add_agence'),array('as'=>'save_agence','uses'=>'AgenceController@add'));*/
+
+            /**
+             *
+             * How be an owner
+             *
+             **/
+
+            Route::get(trans('routes.account') . '/{user_slug}/' . trans('routes.how_be_owner'), array('as' => 'how_be_owner', 'uses' => 'AccountController@how_be_owner'));
+
+            Route::get(trans('routes.account') . '/{user_slug}/' . trans('routes.add_location'), array('uses' => 'AccountController@how_be_owner'));
+            /**
+             *
+             * OWNER OR TENANT FILTER
+             *
+             **/
+
+            Route::group(array('before' => 'allow_advance'), function () {
+
+
+                /**
+                 *
+                 * INSCRIPTION OWNER
+                 *
+                 **/
+                Route::bind('building_id', function ($value, $route) {
+
+                	$building = Building::whereId($value)->whereUserId(Auth::user()->id)->firstOrFail();
+
+                	return $building;
+
+                });
+                /* Localisation */
+                Route::get(trans('routes.account') . '/{user_slug}/' . trans('routes.add_location') . '/' . trans('routes.inscription_step1') . '/{building_id?}/', array('as' => 'index_localisation_building', 'uses' => 'InscriptionController@indexLocalisation'));
+
+                Route::post(trans('routes.account') . '/{user_slug}/' . trans('routes.add_location') . '/' . trans('routes.inscription_step1') . '/{building_id?}/', array('as' => 'save_localisation_building', 'uses' => 'InscriptionController@saveLocalisation'));
+
+                Route::put(trans('routes.account') . '/{user_slug}/' . trans('routes.add_location') . '/' . trans('routes.inscription_step1') . '/{building_id?}/', array('as' => 'update_localisation_building', 'uses' => 'InscriptionController@updateLocalisation'));
+
+                /* Type of location*/
+                Route::get(trans('routes.account') . '/{user_slug}/' . trans('routes.add_location') . '/{building_id}/' . trans('routes.inscription_step2'), array('as' => 'index_types_locations', 'uses' => 'InscriptionController@indexTypesLocations'));
+
+                Route::post(trans('routes.account') . '/{user_slug}/' . trans('routes.add_location') . '/{building_id}/' . trans('routes.inscription_step2'), array('as' => 'save_types_locations', 'uses' => 'InscriptionController@saveTypesLocations'));
+
+                /* Building */
+                Route::get(trans('routes.account') . '/{user_slug}/' . trans('routes.add_location') . '/{building_id}/' . trans('routes.inscription_step3'), array('as' => 'index_inscription_building', 'uses' => 'InscriptionController@indexBuilding'));
+
+                Route::post(trans('routes.account') . '/{user_slug}/' . trans('routes.add_location') . '/{building_id}/' . trans('routes.inscription_step3'), array('as' => 'save_inscription_building', 'uses' => 'InscriptionController@saveBuilding'));
+
+                Route::put(trans('routes.account') . '/{user_slug}/' . trans('routes.add_location') . '/{building_id}/' . trans('routes.inscription_step3'), array('as' => 'update_inscription_building', 'uses' => 'InscriptionController@updateBuilding'));
+
+                /* Description */
+                Route::get(trans('routes.account') . '/{user_slug}/' . trans('routes.add_location') . '/{building_id}/' . trans('routes.inscription_step4'), array('as' => 'index_inscription_general', 'uses' => 'InscriptionController@indexInfosGeneral'));
+
+                Route::post(trans('routes.account') . '/{user_slug}/' . trans('routes.add_location') . '/{building_id}/' . trans('routes.inscription_step4'), array('as' => 'save_inscription_general', 'uses' => 'InscriptionController@saveInfosGeneral'));
+
+                /* Photo building */
+                Route::get(trans('routes.account') . '/{user_slug}/' . trans('routes.add_location') . '/{building_id}/' . trans('routes.inscription_step5'), array('as' => 'index_photo_building', 'uses' => 'InscriptionController@indexPhotoBuilding'));
+
+                /* Adverts for each locations */
+                Route::get(trans('routes.account') . '/{user_slug}/' . trans('routes.add_location') . '/{building_id}/' . trans('routes.inscription_step6'), array('as' => 'index_inscription_adverts', 'uses' => 'InscriptionController@indexAdverts'));
+
+                Route::post(trans('routes.account') . '/{user_slug}/' . trans('routes.add_location') . '/{building_id}/' . trans('routes.inscription_step6'), array('as' => 'save_inscription_adverts', 'uses' => 'InscriptionController@saveAdverts'));
+
+                Route::get(trans('routes.account') . '/{user_slug}/' . trans('routes.add_location') . '/{building_id}/' . trans('routes.inscription_step7'), array('as' => 'index_photo_advert', 'uses' => 'InscriptionController@indexPhotoAdvert'));
+
+                /* contact*/
+                Route::get(trans('routes.account') . '/{user_slug}/' . trans('routes.add_location') . '/{building_id}/' . trans('routes.inscription_step8'), array('as' => 'index_inscription_contact', 'uses' => 'InscriptionController@indexContact'));
+
+                Route::post(trans('routes.account') . '/{user_slug}/' . trans('routes.add_location') . '/{building_id}/' . trans('routes.inscription_step8'), array('as' => 'save_inscription_contact', 'uses' => 'InscriptionController@saveContact'));
+
+                Route::get(trans('routes.account') . '/{user_slug}/' . trans('routes.add_location') . '/{building_id}/' . trans('routes.inscription_comfirm'), array('as' => 'index_validate_inscription_owner', 'uses' => 'InscriptionController@indexComfirm'));
+            });
 
 
 });
+/* AUTH */
+
+Route::group(array('before' => 'guest'), function () {
+
+            /**
+             *
+             * Connection
+             *
+             **/
+
+            Route::post(Lang::get('routes.connection'), array('as' => 'connection', 'uses' => 'ConnectionController@connection'));
+
+            Route::get(Lang::get('routes.connection'), array('as' => 'connection', 'uses' => 'ConnectionController@index'));
+
+            /**
+             *
+             * Inscription
+             *
+             **/
+
+            Route::get(trans('routes.inscription'), array('as' => 'inscription_index', 'uses' => 'InscriptionController@index'));
+
+            Route::post(trans('routes.inscription'), array('as' => 'inscription_save', 'uses' => 'InscriptionController@save'));
+
+        });
+
+/* END IF LOGIN */
+        /*
+        *
+        *	BUILDING
+        *
+        */
+
+        /*
+        *
+        *	END BUILDING
+        *
+        */
+
+
+    });
 });
 /*-----  End of LANGUAGE  ------*/

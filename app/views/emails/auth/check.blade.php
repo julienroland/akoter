@@ -4,10 +4,9 @@
 		<meta charset="utf-8">
 	</head>
 	<body>
-		<h2>Email vérif</h2>
+		<h1>Akoter</h1>
+        <p>Bonjour {{$user->first_name}}</p>
+        <p>Validatez votre email en cliquant sur ce lien: <a href="{{url('activation/'.$key)}}">{{url('activation/'.$key)}}</a></p>
 
-		<div>
-			To reset your password, complete this form: {{ URL::to('activation', array($key)) }}.
-		</div>
 	</body>
 </html>

@@ -264,7 +264,7 @@ public static function getLocationsList( $nb_obj = null, $paginate = null, $orde
 
 		array(
 			'translation',
-			'photo',
+			'accroche',
 			'building.region.translation',
 			'building.user',
 			'building.locality',
