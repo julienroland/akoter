@@ -11,7 +11,8 @@
         "facebook/php-sdk": "dev-master",
         "intervention/image": "2.*",
         "intervention/imagecache": "2.*",
-        "barryvdh/laravel-ide-helper": "1.*"
+        "barryvdh/laravel-ide-helper": "1.*",
+        "barryvdh/laravel-translation-manager": "*"
 
     },
     "autoload": {

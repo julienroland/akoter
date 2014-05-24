@@ -219,20 +219,21 @@ class User extends Eloquent implements UserInterface, RemindableInterface, Slugg
 	public static function getActiveLocations( $user ){
 
 		return User::with(array(
-			'activeBuilding',
-			'activeBuilding.location'=>function( $query ) use($user){
-
-				$query->has('currentUser');
-
-			},'activeBuilding.location.photo'=>function($query) use($user){
+			'activeBuilding'=>function($query){
+				$query->has('activeLocation');
+			},
+			'activeBuilding.activeLocation',
+			'activeBuilding.activeLocation.photo'=>function($query) use($user){
 
 				$query->where('order', 1 );
 
-			},'activeBuilding.location.translation'=>function($query) use($user){
+			},'activeBuilding.activeLocation.translation'=>function($query) use($user){
 
 				$query->whereKey('slug');
 
-			}))->whereId($user->id)->first();
+			}))
+		
+		->whereId($user->id)->first();
 	}
 
 	

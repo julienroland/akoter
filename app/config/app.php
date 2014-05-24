@@ -128,6 +128,7 @@ return array(
 		'Intervention\Image\ImageServiceProvider',
 		'Bogardo\Mailgun\MailgunServiceProvider',
         'Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider',
+        'Barryvdh\TranslationManager\ManagerServiceProvider',
 
 		),
 

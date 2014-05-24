@@ -17,7 +17,7 @@
 <div class="activeLocations">
 
 	<ul>
-
+{{dd($activeLocations)}}
 		@foreach( $activeLocations->activeBuilding as $activeLocation)
 
 		<li>		
@@ -57,6 +57,7 @@
 
 		<li class="location-account">	
 			<div class="image">
+
 				@if(isset($location->accroche[0]))
 
 				<img class="thumbnail small-img" src="{{'/'.Config::get('var.images_dir').Config::get('var.users_dir').Auth::user()->id.'/'.Config::get('var.locations_dir').$location->id.'/'.Helpers::addBeforeExtension($location->accroche[0]->url, Config::get('var.img_small'))}}"  width="{{$location->accroche[0]->width}}" height="{{$location->accroche[0]->height}}">

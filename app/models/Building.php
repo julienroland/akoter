@@ -52,6 +52,11 @@ class Building extends Eloquent {
 		->whereValidate( 0 );
 	}
 
+	public function activeLocation()
+	{
+		return $this->hasMany('Location')
+		->whereValidate( 1 );
+	}
 
 	public function postal()
 	{
