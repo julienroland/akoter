@@ -262,12 +262,14 @@ Route::group(array('prefix' => $lang), function () use ($lang) {
             			return Building::findOrFail($value);
 
             		});
-            		
+
             		Route::bind('user_id', function ($value, $route) {
 
             			return User::findOrFail($value);
 
             		});
+
+            		Route::controller('translations', 'Barryvdh\TranslationManager\Controller');
 
 
             		Route::get('/', array('as'=>'getIndexAdmin','uses'=>'Admin_AdminController@index'));
@@ -290,7 +292,7 @@ Route::group(array('prefix' => $lang), function () use ($lang) {
             		
             	});
 
-            });
+});
             /**
              *
              * Profil
