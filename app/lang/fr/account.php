@@ -29,7 +29,9 @@ array(
 	'your_location'=>'Votre location',
 	'activeLocations'=>'Ceux en cours de location',
 	'activeLocation'=>'Celui en cours de location',
-	'invalidLocations'=>'Locations non validés ',
+	'validLocation'=>'Location validé',
+	'validsLocations'=>'Locations validés',
+	'invalidLocations'=>'Locations non validés',
 	'invalidLocation'=>'Location non validé ',
 	'waitingLocations'=>'Locations en attentes de validation',
 	'waitingLocation'=>'Location en attente de validation',
@@ -49,6 +51,7 @@ array(
 	'go_dashboard_location'=>'Accéder à la location',
 	'location_waiting_validation'=>'Location en attente de validation',
 	'location_notcomplete'=>'Votre annonce sur cette location n\'est complète qu\'à :percent',
+	'room_remaining_location'=>'Places occupés',
 
 
 	);

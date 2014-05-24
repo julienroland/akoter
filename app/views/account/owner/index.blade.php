@@ -4,38 +4,65 @@
 
 @if(isset($activeLocations) && $activeLocations->count())
 
-@if($activeLocations->count() > 1)
+@if($activeLocations->activeBuilding->count() > 1)
 
-<h3 aria-level="3" role="heading">{{trans('account.activeLocations')}}</h3>
+<h3 aria-level="3" role="heading">{{trans('account.validsLocations')}}</h3>
 
 @else
 
-<h3 aria-level="3" role="heading">{{trans('account.activeLocation')}}</h3>
+<h3 aria-level="3" role="heading">{{trans('account.validLocation')}}</h3>
 
 @endif
 
 <div class="activeLocations">
 
 	<ul>
-{{dd($activeLocations)}}
-		@foreach( $activeLocations->activeBuilding as $activeLocation)
 
-		<li>		
-			<a href="{{route('dashboard_location',array(Auth::user()->slug, $activeLocation->location[0]->translation[0]->value))}}">
+		@foreach( $activeLocations->activeBuilding as $building)
+		@foreach( $building->activeLocation as $location)
 
-				@if(Helpers::isOk($activeLocation->photo))
+		<li class="location-account">
+			<a href="{{route('dashboard_location', array(Auth::user()->slug,$location->id))}}">	
+				<div class="image">
 
-				<img src="{{Config::get('var.images_dir')}}{{$activeLocation->photo}}" alt="">
+					@if(isset($location->accroche[0]))
 
-				@else 
+					<img class="thumbnail small-img" src="{{'/'.Config::get('var.images_dir').Config::get('var.users_dir').Auth::user()->id.'/'.Config::get('var.locations_dir').$location->id.'/'.Helpers::addBeforeExtension($location->accroche[0]->url, Config::get('var.img_small'))}}"  width="{{$location->accroche[0]->width}}" height="{{$location->accroche[0]->height}}">
 
-				<img src="{{Config::get('var.img_dir')}}{{Config::get('var.no_photoLocation')}}" alt="{{Lang::get('errors.no_location_image_alt')}}">
+					@else 
 
-				@endif
+					<img class="thumbnail small-img" src="{{Config::get('var.img_dir')}}{{Config::get('var.no_photoLocation')}}" alt="{{Lang::get('errors.no_location_image_alt')}}">
+
+					@endif
+				</div>
+				<div class="infos">
+
+					@if(Helpers::isOk($building->address) && isset($location->translation[0]))
+					<span class="title-location-account">{{$location->translation[0]->value}}</span>
+					<span class="address-location-account">{{$building->address}}</span>
+					@else 
+					<span class="building">{{trans('account.building_id',array('number'=>$building->id))}}</span>
+					<span class="location">{{trans('account.location_id',array('number'=>$location->id))}}</span>
+					@endif
+
+					<div class="remainingPlace">
+						@if(Helpers::isOk($location->nb_room) && Helpers::isOk($location->remaining_room))
+						{{trans('account.room_remaining_location')}}: {{$location->nb_room - $location->remaining_room }} / {{$location->nb_room}}
+						@endif
+					</div>
+
+					<div class="applications_location">
+						Aucune demande
+					</div>
+				</div>
+				<div class="actions">
+					{{trans('account.go_dashboard_location')}}
+				</div>
 
 			</a>
 		</li>
 
+		@endforeach
 		@endforeach
 		
 	</ul>
@@ -44,7 +71,7 @@
 
 @endif
 
-@if($waitingLocations->count())
+@if($waitingLocations->building->count())
 
 
 <h3 aria-level="3" role="heading">{{trans('account.waitingLocations')}}</h3>
@@ -56,33 +83,34 @@
 		@foreach($building->location as $location)
 
 		<li class="location-account">	
-			<div class="image">
+			<a href="{{route('dashboard_location', array(Auth::user()->slug,$location->id))}}">
+				<div class="image">
 
-				@if(isset($location->accroche[0]))
+					@if(isset($location->accroche[0]))
 
-				<img class="thumbnail small-img" src="{{'/'.Config::get('var.images_dir').Config::get('var.users_dir').Auth::user()->id.'/'.Config::get('var.locations_dir').$location->id.'/'.Helpers::addBeforeExtension($location->accroche[0]->url, Config::get('var.img_small'))}}"  width="{{$location->accroche[0]->width}}" height="{{$location->accroche[0]->height}}">
+					<img class="thumbnail small-img" src="{{'/'.Config::get('var.images_dir').Config::get('var.users_dir').Auth::user()->id.'/'.Config::get('var.locations_dir').$location->id.'/'.Helpers::addBeforeExtension($location->accroche[0]->url, Config::get('var.img_small'))}}"  width="{{$location->accroche[0]->width}}" height="{{$location->accroche[0]->height}}">
 
-				@else 
+					@else 
 
-				<img class="thumbnail small-img" src="{{Config::get('var.img_dir')}}{{Config::get('var.no_photoLocation')}}" alt="{{Lang::get('errors.no_location_image_alt')}}">
+					<img class="thumbnail small-img" src="{{Config::get('var.img_dir')}}{{Config::get('var.no_photoLocation')}}" alt="{{Lang::get('errors.no_location_image_alt')}}">
 
-				@endif
-			</div>
-			<div class="infos">
+					@endif
+				</div>
+				<div class="infos">
 
-				@if(Helpers::isOk($building->address) && isset($location->translation[0]))
-				<span class="title-location-account">{{$location->translation[0]->value}}</span>
-				<span class="address-location-account">{{$building->address}}</span>
-				@else 
-				<span class="building">{{trans('account.building_id',array('number'=>$building->id))}}</span>
-				<span class="location">{{trans('account.location_id',array('number'=>$location->id))}}</span>
-				@endif
-			</div>
-			<div class="actions">
-			<a href="{{route('dashboard_location', array(Auth::user()->slug,$location->id))}}">{{trans('account.go_dashboard_location')}}</a>
-			</div>
+					@if(Helpers::isOk($building->address) && isset($location->translation[0]))
+					<span class="title-location-account">{{$location->translation[0]->value}}</span>
+					<span class="address-location-account">{{$building->address}}</span>
+					@else 
+					<span class="building">{{trans('account.building_id',array('number'=>$building->id))}}</span>
+					<span class="location">{{trans('account.location_id',array('number'=>$location->id))}}</span>
+					@endif
+				</div>
+				<div class="actions">
+					{{trans('account.go_dashboard_location')}}
+				</div>
 
-
+			</a>
 		</li>
 		@endforeach
 		@endforeach

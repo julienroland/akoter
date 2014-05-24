@@ -5,8 +5,8 @@ return array(
 'votes'=> 'votes',
 'charge'=> 'Charges',
 'superficy'=> 'Superficie',
-'seats'=> 'locations',
-'seat'=> 'location',
+'seats'=> 'places',
+'seat'=> 'place',
 'charge_of'=> 'Charge de',
 'charges_included'=> 'Charges comprises',
 'included'=> 'Comprises',
@@ -17,5 +17,7 @@ return array(
 'goTo'=> 'Aller sur la fiche de l\'annonce :title',
 'photoOf'=> 'Photo principal de l\'annonce :title',
 'nb_result'=> 'résultats',
+'nb_locations'=> 'Locations',
+'nb_location'=> 'Location',
 
 );

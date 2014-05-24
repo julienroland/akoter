@@ -14,10 +14,10 @@ class Translation extends Eloquent {
 		return $this->belongsTo('Language'); 
 	}
 	
-	public function translate(){
+    public function translate(){
 
-		return $this->morphTo(); 
-	}
+        return $this->morphTo(); 
+    }
 
 	 public function scopeOfName($query, $type, $value)
     {

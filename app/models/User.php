@@ -229,7 +229,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface, Slugg
 
 			},'activeBuilding.activeLocation.translation'=>function($query) use($user){
 
-				$query->whereKey('slug');
+				$query->whereKey('title');
 
 			}))
 		

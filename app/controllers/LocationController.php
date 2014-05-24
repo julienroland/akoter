@@ -4,7 +4,9 @@
 */
 class LocationController extends BaseController
 {
-
+	public function voir( $slug ){
+		dd($slug);
+	}
 	public function getPhotos($type=null, $id=null){
 
 		if(Helpers::isOk($id) && Helpers::isOk($type)){

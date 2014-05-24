@@ -1,13 +1,18 @@
   @foreach($location->translation as $translation)
 
   @if( $translation->key === 'title' )
-  <?php $title = $translation; ?>
+  <?php $title = $translation->value; ?>
+  @endif
+
+  @if( $translation->key === 'slug' )
+  <?php $slug = $translation->value; ?>
   @endif
 
   @endforeach
 
   <div class="kot prenium" itemscope itemtype="http://schema.org/Residence" data-id="{{$location->id}}">
-    <a href="" title="{{trans('locations.goTo',array('title'=>$title->value))}}">
+
+    <a href="{{route('showLocation', $slug)}}" title="{{trans('locations.goTo',array('title'=>$title))}}">
       <div itemscope itemprop="geo" itemtype="GeoCoordinates"> 
         <meta content="{{Helpers::extractLatLng($location->building->latLng , 'lat')}}" itemprop="latitude">
         <meta content="{{Helpers::extractLatLng($location->building->latLng , 'lng')}}" itemprop="longitude">
@@ -25,7 +30,7 @@
 
         <div class="content"> 
 
-          <h3 aria-level="3" itemprop="name" role="heading" class="titleKot">{{$title->value}}
+          <h3 aria-level="3" itemprop="name" role="heading" class="titleKot">{{$title}}
           </h3>
 
           <span class="typeAndLocation">{{$location->typeLocation->translation[0]->value}} | <span itemprop="address" itemscope itemtype="PostalAddress"><span class="city" itemprop="addressRegion">{{$location->building->locality->name}}</span><span class="section" itemprop="streetAddress">{{$location->building->street}}</span>
@@ -72,13 +77,38 @@
           </div>
           <span class="number"><b>{{$location->nb_rate}}</b> {{Lang::get('locations.votes')}}</span>
         </div>
-        <div class="howMuch">
-         <span class="icon icon-user3"></span>
-         <span class="peoples">
-           @if($location->remaining_room > 1)
-           <b>{{$location->remaining_room}}</b> {{Lang::get('locations.seats')}}
-           @else
-           <b>{{$location->remaining_room}}</b> {{Lang::get('locations.seat')}}
+        <div class="howMuch {{$location->advert_specific == 0 &&  Helpers::isOk($location->nb_locations) ? 'both' :''}}">
+          @if($location->advert_specific == 0)
+            <div class="seat">
+           <span class="icon icon-user3"></span>
+           <span class="peoples">
+            @if($location->remaining_room > 1)
+       
+            <b>{{$location->remaining_room}}</b> {{Lang::get('locations.seats')}}
+            @else
+            <b>{{$location->remaining_room}}</b> {{Lang::get('locations.seat')}}   
+            @endif
+          </span>
+          </div>
+        @if(Helpers::isOk($location->nb_locations))
+        <div class="nb_locations">
+            @if($location->nb_locations > 1)
+            <span title="{{Lang::get('locations.nb_locations')}}" class="icon icon-longa"></span><b>{{$location->nb_locations}}</b> <span class="section">{{Lang::get('locations.nb_locations')}}</span>
+            @else
+            <span title="{{Lang::get('locations.nb_location')}}" class="icon icon-longa"></span><b>{{$location->nb_locations}}</b> <span class="section">{{Lang::get('locations.nb_location')}}</span>
+            @endif
+            </div>
+          @endif
+          @else
+          <div class="seat">
+           <span class="icon icon-user3"></span>
+           <span class="peoples">
+             @if($location->remaining_room > 1)
+             <b>{{$location->remaining_room}}</b> {{Lang::get('locations.seats')}}
+             @else
+             <b>{{$location->remaining_room}}</b> {{Lang::get('locations.seat')}}
+             @endif
+
            @endif
          </span>
        </div>

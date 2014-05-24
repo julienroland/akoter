@@ -202,7 +202,20 @@ Route::group(array('prefix' => $lang), function () use ($lang) {
         	return View::make('contact');
 
         }));
+        Route::bind('location_slug', function ($value, $route) {
 
+        	$translation = Translation::whereKey('slug')->whereContentType('Location')->whereValue($value)->firstOrFail();
+
+        	return Location::findOrFail($translation->content_id);
+
+        });
+        /**
+        *
+        * Voir
+        *
+        **/
+        Route::get(trans('routes.locations').'/{location_slug}',array('as'=>'showLocation','uses'=>'LocationController@voir'));
+        
         /**
          *
          * Reactive account
