@@ -84,15 +84,17 @@
 @if(isset($widget) && in_array('slideshow', $widget))
 {{HTML::script('js/min/responsiveSlides.js')}}
 <script>
-  $("#slider").responsiveSlides({
-    manualControls: '#slider-pager',
-    nav: true,
-    auto: false,
-    pager: true,
-    namespace: "transparent-btns",
-    maxwidth: 540,
+  $(function () {
+    $("#slider").responsiveSlides({
+      manualControls: '#slider-pager',
+      nav: true,
+      pager: true,
+      auto: false,
+      prevText: "Previous",  
+      nextText: "Next",
+      namespace: "transparent-btns",
+    });
   });
-
 </script>
 @endif
 

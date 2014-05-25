@@ -19,5 +19,12 @@ return array(
 'nb_result'=> 'résultats',
 'nb_locations'=> 'Locations',
 'nb_location'=> 'Location',
+'equipment'=> 'Equipement',
+'description'=> 'Description',
+'localisation'=> 'Localisation',
+'pictures'=> 'Photos',
+'title_description'=> 'Description de la location (:type à :city)',
+'tenant_since'=> 'Ce propriétaire est inscrit sur Akoter.be <b>depuis :date</b>.',
+'profile_check'=> 'Son profile à également été vérifié par notre service.',
 
 );

@@ -116,6 +116,7 @@ return array(
 		8=>'index_inscription_contact',
 
 		),
+	'img_quality'=>90,
 
 
 

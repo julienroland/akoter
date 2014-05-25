@@ -22,7 +22,7 @@
 body {
 	background-color: white;
 	font-family: $ff;
-	font-size: $fs;
+	font-size: $medium;
 	font-weight: 400;
 	line-height: 1.3;
 	color: $tc;
@@ -86,6 +86,7 @@ p {
 .container {
 	@include c(12);
 	min-height: 400px;
+	min-height: 100%;
 }
 
 .spe {
@@ -349,7 +350,16 @@ strong {
 		color: white;
 	}
 }
-
+.advertTitle{
+	@extend .mainTitle;
+	text-align: left;
+	text-transform: uppercase;
+	font-size: $large;
+	overflow: hidden;
+	height: 1.3em;
+	white-space: nowrap;
+	text-overflow:ellipsis;
+}
 .sortTitle {
 	@extend .mainTitle;
 	margin-bottom: 0.5em;
@@ -3476,7 +3486,7 @@ $country-h: 100px;
   text-align: center;
 }
 
-.centered-btns_tabs li,
+/*.centered-btns_tabs li,
 .transparent-btns_tabs li,
 .large-btns_tabs li {
 	display: inline;
@@ -3504,7 +3514,7 @@ $country-h: 100px;
 	box-shadow: inset 0 0 2px 0 rgba(0, 0, 0, .3);
 	width: 9px;
 	height: 9px;
-}
+}*/
 
 .centered-btns_here a,
 .transparent-btns_here a,
@@ -6771,6 +6781,164 @@ div.wijmo-wijmenu .wijmo-wijmenu-child .wijmo-wijmenu-text {
 .dashboard {
 	padding: 1em;
 }
+
+/**
+*
+* Show location
+*
+**/
+#advert .container{
+	background-color: $greyL3;
+}
+.advert{
+	padding: 3em 1em;
+	background-color: white;
+	@include c(12);
+	.tabs{
+		@include cl(8);	
+	}
+}
+.advert-sidebar{
+	@include cl(4);
+	padding:3em 1em;
+	.infos-master{
+		.price{
+			font-weight: 500;
+			font-size: $xx-large;
+			text-transform: uppercase;
+			text-align: center;
+			display: inline-block;
+			width: 100%;
+
+		}
+		.perMonth{
+			text-align: center;
+			display: inline-block;
+			width: 100%;
+			margin-top: -0.5em;
+			color: $greyD;
+			margin-bottom: $gutter;
+
+		}
+
+		.date{
+			.dt{
+				font-weight: bold;
+				display: inline-block;
+				width: 100%;
+			}
+			.fdate{
+				display: inline-block;
+
+			}
+			.to{
+				font-weight: 300;
+				font-size: $small;
+				display: inline-block;
+			}
+		}
+	}
+}
+.ui-tabs{
+	.pannel{
+			@include c(12);
+		}
+	.ui-tabs-nav.advert-tabs{
+		margin-bottom: $gutter;
+		margin-left: - gutter() / 2;
+		margin-right: - gutter() / 2;
+
+		.ui-tabs-active{
+			
+			a{
+				color:white;
+				background-color: $mc;
+				border:1px solid darken($mc,10%);
+
+			}
+		}
+		li{
+			margin:0 $gutter / 5;
+			border:0px solid $greyL2;
+		}
+		a{
+			font-size: 1.1em;
+			color:$tc;
+			font-weight: 400;
+			background-color: $greyL;
+			border:1px solid $greyL2;
+		}
+	}
+	.description{
+		color:$greyD;
+		margin-top: 2em;
+		padding-bottom: 3em;
+	}
+	.title-description{
+		font-weight: 500;
+		font-size: $large;
+	}
+
+	.user{
+		.user-picture{
+			width: auto;
+			float: left;
+			margin-right: gutter();
+		}
+		.user-info{
+			.name{
+				text-transform: uppercase;
+				font-weight: 500;
+				font-size: $large;
+			}
+		}
+	}
+}
+.reserved{
+	@extend .btn;
+	background: linear-gradient(to bottom, lighten($borange,10%), $borange);
+	border:1px solid darken($borange,10%);
+	color: white;
+	display: block;
+	width: 150px;
+	line-height: 40px;
+	font-size: $medium;
+	font-weight: 500;
+	letter-spacing: 1px;
+	margin: $gutter / 2 auto;
+	text-transform: uppercase;
+	height: 40px;
+	&:hover,&:focus,&:active{
+		background: linear-gradient(to bottom, darken($borange,5%), lighten($borange,5%));
+	}
+}
+.slider{
+	@include c(12);
+	.slide{
+		position:relative;
+	}
+	
+	#slider-pager{
+		margin-left: - gutter() / 2;
+		margin-right: - gutter() / 2;
+		li{
+			@include cl(3);
+			width: 69px;
+			height: 53px;
+			margin: gutter() /  2 gutter() / 2;
+			border:2px solid transparent;
+			a{
+				display: block;
+				
+			}
+			&.transparent-btns_here{
+				border:2px solid $mc;
+			}
+		}
+	}
+	
+}
+
 
 /* END LOADING MAP */
 /* ANIMATION CSS3 */

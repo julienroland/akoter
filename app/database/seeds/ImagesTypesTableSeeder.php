@@ -10,7 +10,7 @@ class ImagesTypesTableSeeder extends Seeder {
 		$image_type = array(
 			array(
 				'name'=>'small',
-				'width'=>'70',
+				'width'=>'69',
 				'height'=>'53',
 				'extension'=>'jpg',
 				),

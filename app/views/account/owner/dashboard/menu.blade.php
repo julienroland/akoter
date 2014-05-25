@@ -5,7 +5,7 @@
             <a href="{{route('dashboard_location',array(Auth::user()->slug, $location->id))}}">{{trans('general.home')}}</a>
         </li>
         <li {{Helpers::isActive( 'dashboard_location' )}}>
-            <a href="{{route('dashboard_location',array(Auth::user()->slug, $location->id))}}">{{trans('general.edit')}}</a>
+            <a href="{{route('index_localisation_building',array(Auth::user()->slug, $location->id))}}">{{trans('general.edit')}}</a>
         </li>
         <li {{Helpers::isActive( 'dashboard_location' )}}>
             <a href="{{route('dashboard_location',array(Auth::user()->slug, $location->id))}}">{{trans('general.tenants')}}</a>

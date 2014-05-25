@@ -4,9 +4,43 @@
 */
 class LocationController extends BaseController
 {
-	public function voir( $slug ){
-		dd($slug);
+	public function voir( $location ){
+
+		$photosLocation = $location->photo()->orderBy('order')->get();
+
+		$lightbox = ImageType::name('lightbox')->first();
+
+		$small = ImageType::name('small')->first();
+
+		$typeLocation = $location->typeLocation->translation()->pluck('value');
+		$region = $location->building->region->translation()->pluck('value');
+		$locality = $location->building->locality->pluck('name');
+
+		$user = $location->building->user()->first();
+
+		$translations = $location->translation()->get()->lists('value','key');
+
+		return View::make('advert.show', array(
+			'page'=>'advert',
+			 'widget'=>array(
+			 	'tabs',
+			 	'ui',
+			 	'slideshow',
+			 	),
+			 ))
+		->with(compact(
+			'photos',
+			'photosLocation',
+			'lightbox',
+			'small',
+			'translations',
+			'typeLocation',
+			'region',
+			'locality',
+			'user'
+			));
 	}
+
 	public function getPhotos($type=null, $id=null){
 
 		if(Helpers::isOk($id) && Helpers::isOk($type)){

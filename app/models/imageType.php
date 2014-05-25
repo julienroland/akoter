@@ -15,4 +15,8 @@ class ImageType extends Eloquent {
 
 		return $this->hasMany('photoBuilding');
 	}
+
+	public function scopeName($query, $name){
+		$query->whereName($name);
+	}
 }

@@ -52,7 +52,7 @@ public function logoAgence( $agence_id ){
 
     $filename = sha1($timestamp).'.jpg';
 
-    $image = Image::make( $logo )->grab( Config::get('var.agence_logo_width') , Config::get('var.agence_logo_height') )->save($destinationPath.$filename)->encode('jpg', 75);
+    $image = Image::make( $logo )->grab( Config::get('var.agence_logo_width') , Config::get('var.agence_logo_height') )->save($destinationPath.$filename)->encode('jpg', Config::get('var.img_quality'));
 
     return $filename;
 
@@ -127,13 +127,13 @@ public function postBuildingImage( $type='more', $id=null )
 
       $photo =  Building::find( $id )->photo()->save($photo);
 
-      $image->grab( 2500, 1600 )->save( $destinationPath.$filename )->encode('jpg', 75);
+      $image->grab( 2500, 1600 )->save( $destinationPath.$filename )->encode('jpg', Config::get('var.img_quality'));
 
       foreach( $imageType as $type){
 
         $filename = Helpers::toSlug(Helpers::addTimestamp( $part->getClientOriginalName(),'-'.$type->name ,$type->extension , $timestamp));
 
-        $image->grab( $type->width, $type->height )->save( $destinationPath.$filename )->encode('jpg', 75);
+        $image->grab( $type->width, $type->height )->save( $destinationPath.$filename )->encode('jpg', Config::get('var.img_quality'));
 
       }
     }
@@ -161,13 +161,13 @@ else //single file
 
   $photo = Building::find( $id )->photo()->save($photo);
 
-  $image->grab( 2500, 1600 )->save( $destinationPath.$filename )->encode('jpg', 75);
+  $image->grab( 2500, 1600 )->save( $destinationPath.$filename )->encode('jpg', Config::get('var.img_quality'));
 
   foreach( $imageType as $type){
 
     $filename = Helpers::toSlug(Helpers::addTimestamp( $file->getClientOriginalName(),'-'.$type->name ,$type->extension , $timestamp));
 
-    $image->grab( $type->width, $type->height )->save( $destinationPath.$filename )->encode('jpg', 75);
+    $image->grab( $type->width, $type->height )->save( $destinationPath.$filename )->encode('jpg', Config::get('var.img_quality'));
 
   }
 
@@ -240,8 +240,8 @@ public function postLocationImage( $type='location', $id=null )
    {  
 
      foreach($file as $part) {
-$nb_photos = $location->photo()->count();
-       if( $nb_photos >= Config::get('var.buildingMaxImage') ){
+      $nb_photos = $location->photo()->count();
+      if( $nb_photos >= Config::get('var.buildingMaxImage') ){
 
         return Response::json(array('error'=>trans('validation.custom.tooMuchImage')), 200);
       }
@@ -264,13 +264,13 @@ $nb_photos = $location->photo()->count();
 
       $photo =  $location->photo()->save($photo);
 
-      $image->grab( 2500, 1600 )->save( $destinationPath.$filename )->encode('jpg', 75);
+      $image->grab( 2500, 1600 )->save( $destinationPath.$filename )->encode('jpg', Config::get('var.img_quality'));
 
       foreach( $imageType as $type){
 
         $filename = Helpers::toSlug(Helpers::addTimestamp( $part->getClientOriginalName(),'-'.$type->name ,$type->extension , $timestamp));
 
-        $image->grab( $type->width, $type->height )->save( $destinationPath.$filename )->encode('jpg', 75);
+        $image->grab( $type->width, $type->height )->save( $destinationPath.$filename )->encode('jpg', Config::get('var.img_quality'));
 
       }
     }
@@ -278,10 +278,10 @@ $nb_photos = $location->photo()->count();
 else //single file
 {   
   $nb_photos = $location->photo()->count();
-   if( $nb_photos >= Config::get('var.buildingMaxImage') ){
+  if( $nb_photos >= Config::get('var.buildingMaxImage') ){
 
-      return Response::json(array('error'=>trans('validation.custom.tooMuchImage')), 200);
-    }
+    return Response::json(array('error'=>trans('validation.custom.tooMuchImage')), 200);
+  }
 
   $imageType = ImageType::orderBy('width','desc')->get();
 
@@ -301,13 +301,13 @@ else //single file
 
   $photo = $location->photo()->save($photo);
 
-  $image->grab( 2500, 1600 )->save( $destinationPath.$filename )->encode('jpg', 75);
+  $image->grab( 2500, 1600 )->save( $destinationPath.$filename )->encode('jpg', Config::get('var.img_quality'));
 
   foreach( $imageType as $type){
 
     $filename = Helpers::toSlug(Helpers::addTimestamp( $file->getClientOriginalName(),'-'.$type->name ,$type->extension , $timestamp));
 
-    $image->grab( $type->width, $type->height )->save( $destinationPath.$filename )->encode('jpg', 75);
+    $image->grab( $type->width, $type->height )->save( $destinationPath.$filename )->encode('jpg', Config::get('var.img_quality'));
 
   }
 
