@@ -67,13 +67,13 @@
      <div class="addInfos">
       <div class="muchRate">
         <div class="star" title="{{Helpers::getRating($location->rating)}} {{Lang::get('locations.stars')}}">
-          <div class="icons" aria-hidden="true">
+          <div class="icons" >
             <span class="section">{{Helpers::getRating($location->rating)}} {{Lang::get('locations.stars')}}</span>
-            <span class="icon {{Helpers::isStar( 1, Helpers::getRating($location->rating) )}} "></span>
-            <span class="icon {{Helpers::isStar( 2, Helpers::getRating($location->rating) )}}"></span>
-            <span class="icon {{Helpers::isStar( 3, Helpers::getRating($location->rating) )}}"></span>
-            <span class="icon {{Helpers::isStar( 4, Helpers::getRating($location->rating) )}}"></span>
-            <span class="icon {{Helpers::isStar( 5, Helpers::getRating($location->rating) )}}"></span>
+            <span class="icon {{Helpers::isStar( 1, Helpers::getRating($location->rating) )}} " aria-hidden="true"></span>
+            <span class="icon {{Helpers::isStar( 2, Helpers::getRating($location->rating) )}}" aria-hidden="true"></span>
+            <span class="icon {{Helpers::isStar( 3, Helpers::getRating($location->rating) )}}" aria-hidden="true"></span>
+            <span class="icon {{Helpers::isStar( 4, Helpers::getRating($location->rating) )}}" aria-hidden="true"></span>
+            <span class="icon {{Helpers::isStar( 5, Helpers::getRating($location->rating) )}}" aria-hidden="true"></span>
           </div>
           <span class="number"><b>{{$location->nb_rate}}</b> {{Lang::get('locations.votes')}}</span>
         </div>

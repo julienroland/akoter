@@ -21,6 +21,12 @@
 <!-- {{HTML::script('js/polyfiller.js')}} -->
 @endif
 
+@if( isset($widget) && Helpers::isOk($widget) && in_array('showMap', $widget)  )
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCJSSKlpz3C7EwQd2kvgn1JRBd7Ojrl9dM&sensor=false"></script>
+{{HTML::script('js/showMap.js')}}
+
+@endif
+
 @if(isset($widget) && in_array('upload', $widget))
 <script>/*$('.baseFile').remove();*/</script>
 {{HTML::script('js/jquery.uploadfile.min.js')}}
@@ -47,6 +53,8 @@
 
 {{HTML::script('js/map.js')}}
 @endif
+
+
 
 @if(isset($widget) && in_array('listing', $widget))
 {{HTML::script('js/min/moreListing.js')}}
@@ -81,6 +89,10 @@
 {{HTML::script('js/main.js')}}
 @endif
 
+@if(isset($widget) && !in_array('nojs', $widget) || !isset($widget))
+{{HTML::script('js/lightbox.js')}}
+@endif
+
 @if(isset($widget) && in_array('slideshow', $widget))
 {{HTML::script('js/min/responsiveSlides.js')}}
 <script>
@@ -97,7 +109,28 @@
   });
 </script>
 @endif
+@if(isset($widget) && in_array('gallery', $widget))
 
+{{HTML::script('js/min/grid.js')}}
+
+{{HTML::script('js/min/imageLoaded.js')}}
+
+<script>
+
+  var $container = $('#pictures-tab');
+
+
+    $container.masonry({
+      itemSelector: '.picture-gallery',
+      "isOriginLeft": true,
+      gutter: 12,
+      isFitWidth: true,
+    });
+
+  
+
+</script>
+@endif
 @if(isset($widget) && in_array('ui', $widget))
 {{HTML::script('js/min/ui.js')}}
 
@@ -280,6 +313,9 @@
 <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCJSSKlpz3C7EwQd2kvgn1JRBd7Ojrl9dM&amp;libraries=places&amp;sensor=false&amp;language=language&amp;components=country:be"></script>
 {{HTML::script('js/city_autocomplete.js')}}
 @endif
+
+
+
 
 @if(isset($widget) && in_array('editor', $widget))
 

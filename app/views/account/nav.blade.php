@@ -28,6 +28,7 @@
 		<li><a href="{{route('account_home',Auth::user()->slug)}}" ><span class="icon icon-home63"></span><span>{{trans('account.home')}}</span></a></li>
 		<li class="opGroup">{{trans('account.manage')}}</li>
 
+		<li><a href="{{route('index_localisation_building', Auth::user()->slug)}}"><span class="icon icon-new16"></span><span>{{trans('inscription.add_location')}}</span></a></li>
 		<li><a href=""><span class="icon icon-send5"></span><span>{{trans('account.mail')}}</span></a></li>
 
 		@if(Auth::user()->pro == 1)

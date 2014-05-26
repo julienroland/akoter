@@ -24,7 +24,7 @@
 	@foreach($options as $option)
 	<div class="field">
 		<label for="garantee">{{trans('inscription.garantee')}}</label>
-		<input type="number" value="{{Helpers::isOk($building->garantee) ? $building->garantee: ( Session::has('inscription.localisation_input') ? Session::get('inscription.localisation_input') :'') }}"name="garantee" id="garantee" placeholder="{{trans('inscription.garantee_placeholder')}}">
+		<input type="number" value="{{Helpers::isOk($building->garantee) ? $building->garantee: '' }}"name="garantee" id="garantee" placeholder="{{trans('inscription.garantee_placeholder')}}">
 	</div>
 	@endforeach
 
@@ -64,7 +64,7 @@
 		<div id="{{$lang}}-situation">
 			<div class="field">
 				<label for="situations[{{$lang}}]">{{trans('inscription.situations',array('lang'=>trans('general.lang')[$lang]))}}</label>
-				<textarea name="situations[{{$lang}}]"  placeholder="{{trans('inscription.situations_placeholder')}}" id="situations[{{$lang}}]">{{Helpers::isOk($situation_lang[$lang]) ? $situation_lang[$lang] :''}}</textarea>
+				<textarea name="situations[{{$lang}}]"  placeholder="{{trans('inscription.situations_placeholder')}}" id="situations[{{$lang}}]">{{isset($situation_lang[$lang]) ? $situation_lang[$lang] :''}}</textarea>
 				<div class="informations">
 					{{trans('inscription.situations_tuto')}}
 				</div>
@@ -85,7 +85,7 @@
 		<div id="{{$lang}}-advert">
 			<div class="field">
 				<label for="advert[{{$lang}}]">{{trans('inscription.write_advert',array('lang'=>trans('general.lang')[$lang]))}}</label>
-				<textarea name="advert[{{$lang}}]" data-validator="false" class="{{Helpers::isOk($advert_lang[$lang]) ? 'editor': ''}}" id="advert[{{$lang}}]">{{Helpers::isOk($advert_lang[$lang]) ? $advert_lang[$lang] :''}}</textarea>
+				<textarea name="advert[{{$lang}}]" data-validator="false" class="{{isset($advert_lang[$lang]) ? 'editor': ''}}" id="advert[{{$lang}}]">{{isset($advert_lang[$lang]) ? $advert_lang[$lang] :''}}</textarea>
 				<div class="informations">
 					{{trans('inscription.write_advert_tuto')}}
 				</div>

@@ -7,14 +7,20 @@ class LocationController extends BaseController
 	public function voir( $location ){
 
 		$photosLocation = $location->photo()->orderBy('order')->get();
+		$photosBuilding = $location->building->photo()->orderBy('order')->get();
 
 		$lightbox = ImageType::name('lightbox')->first();
 
 		$small = ImageType::name('small')->first();
 
+		$gallery = ImageType::name('gallery')->first();
+
 		$typeLocation = $location->typeLocation->translation()->pluck('value');
 		$region = $location->building->region->translation()->pluck('value');
 		$locality = $location->building->locality->pluck('name');
+
+		$building = $location->building->first();
+		$building_translations = $location->building->translation()->get()->lists('value','key');
 
 		$user = $location->building->user()->first();
 
@@ -26,18 +32,25 @@ class LocationController extends BaseController
 			 	'tabs',
 			 	'ui',
 			 	'slideshow',
+			 	'showMap',
+			 	'gallery'
 			 	),
 			 ))
 		->with(compact(
 			'photos',
+			'location',
 			'photosLocation',
+			'photosBuilding',
 			'lightbox',
 			'small',
+			'gallery',
 			'translations',
 			'typeLocation',
 			'region',
 			'locality',
-			'user'
+			'user',
+			'building',
+			'building_translations'
 			));
 	}
 

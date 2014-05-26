@@ -10,7 +10,7 @@ class ImagesTypesTableSeeder extends Seeder {
 		$image_type = array(
 			array(
 				'name'=>'small',
-				'width'=>'69',
+				'width'=>'67',
 				'height'=>'53',
 				'extension'=>'jpg',
 				),
@@ -22,7 +22,7 @@ class ImagesTypesTableSeeder extends Seeder {
 				),
 			array(
 				'name'=>'gallery',
-				'width'=>'468',
+				'width'=>'260',
 				'height'=>null,
 				'extension'=>'jpg',
 				),

@@ -133,6 +133,7 @@
     @include abs-right();
   }
 }
+
 [class^="icon-"]:before, [class*=" icon-"]:before,
 [class^="icon-"]:after, [class*=" icon-"]:after {   
   font-family: Flaticon;
@@ -481,4 +482,7 @@
     width: 16px;
     background-image: url('../img/framework/icon/account.png');
   }
+}
+.icon-new16:before{
+  font-size: 18px;
 }

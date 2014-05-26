@@ -29,6 +29,7 @@ class CreateLocationsTable extends Migration {
 			$table->integer('nb_views');
 			$table->integer('floor');
 			$table->integer('nb_locations')->nullable();
+			$table->integer('remaining_location')->nullable();
 			$table->float('rating');
 			$table->integer('nb_rate');
 			$table->float('garantee');	

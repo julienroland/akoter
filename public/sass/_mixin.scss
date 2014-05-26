@@ -176,8 +176,11 @@
 		background-image: linear-gradient(to bottom,#fff,#f4f4f4);
 		border: 1px solid $greyL2;
 		@include border-radius(3px);
+		@include transition(all 0.3s ease-in-out);
 		&:hover,&:focus,&:active{
 			background-image: linear-gradient(to bottom,#f4f4f4,#fff);
+			text-decoration:underline;
+			@include transition(all 0.3s ease-in-out);
 		}
 		&.large{
 			display: block;
@@ -591,6 +594,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#35a0c6', end
 		text-align: left;
 		margin:0 auto;
 		margin-bottom: $gutter / 2;
+		margin-top: 6px;
 	}
 	.messageError{
 		color:$error;
