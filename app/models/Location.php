@@ -128,6 +128,20 @@ public function particularity(){
 	return $this->belongsToMany('Particularity'); 
 }
 
+public static function getOptions($location){
+
+		$dump = $location->option()->with('translation')->get();
+
+		$data = array();
+
+		foreach($dump as $option){
+
+			$data[$option->id]  = $option->translation[0]->value;
+
+		}
+
+		return Collection::make($data);
+	}
 
 public static function getLocationsPaginateList( $nb_obj = null, $paginate = null, $orderBy = 'created_at'  , $orderWay = 'asc' , $lang_id = null ){
 

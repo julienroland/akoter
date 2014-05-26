@@ -23,7 +23,9 @@ class LocationController extends BaseController
 		
 		$building_translations = $building->translation()->get()->lists('value','key');
 		
-		$optionBuiding = Building::getOptions( $building );
+		$optionBuilding = Building::getOptions( $building );
+
+		$optionLocation = Location::getOptions( $location );
 
 		$user = $building->user()->first();
 
@@ -55,7 +57,8 @@ class LocationController extends BaseController
 			'building',
 			'building_translations',
 			'typeLocation',
-			'optionBuiding'
+			'optionBuilding',
+			'optionLocation'
 			));
 	}
 

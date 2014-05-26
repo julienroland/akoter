@@ -76,7 +76,16 @@
 			<div id="equipment-tab" class="pannel">
 				<ul>
 					<?php $i=0; ?>
-					@foreach($optionBuiding as $id => $name)
+					@foreach($optionBuilding as $id => $name)
+
+					<li class="option {{$i !== 0 && $i%2 != 0 ? 'striped' : ''}} ">{{$name}}</li>
+
+					<?php $i++; ?>
+					@endforeach
+				</ul>
+				<ul>
+					<?php $i=0; ?>
+					@foreach($optionLocation as $id => $name)
 
 					<li class="option {{$i !== 0 && $i%2 != 0 ? 'striped' : ''}} ">{{$name}}</li>
 
