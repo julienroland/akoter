@@ -166,7 +166,9 @@ Route::group(array('prefix' => $lang), function () use ($lang) {
 	}
 
 	Route::group(array('before' => 'lang'), function () {
+
 		App::setLocale(Session::get('lang'));
+
         /**
          *
          * IF Session doesn't exist, put value in it
@@ -188,6 +190,15 @@ Route::group(array('prefix' => $lang), function () use ($lang) {
          **/
 
         Route::get(Lang::get('routes.home'), array('as' => 'home', 'uses' => 'HomeController@index'));
+        /**
+        *
+        * Contact tenant
+        *
+        **/
+
+        Route::get(trans('routes.contact-owner').'/{owner_slug}/'.trans('routes.on-location').'/{location_id}', array('as'=>'contact_owner','uses'=>'UserController@indexContactOwner'));
+
+        Route::post(trans('routes.contact-owner').'/{owner_slug}/'.trans('routes.on-location').'/{location_id}', array('as'=>'contact_owner','uses'=>'UserController@ContactOwner'));
 
         /**
          *
@@ -202,10 +213,16 @@ Route::group(array('prefix' => $lang), function () use ($lang) {
         	return View::make('contact');
 
         }));
-        
+
         Route::bind('location_slug', function ($value, $route) {
 
-        	$translation = Translation::whereKey('slug')->whereContentType('Location')->whereValue($value)->firstOrFail();
+        	$translation = Translation::whereKey('slug')->whereContentType('Location')->whereValue($value)->first();
+            if(Helpers::isNotOk($translation)){
+                $location = Location::findOrFail($value);
+                $translation = $location->translation()->whereKey('slug')->firstOrFail();
+                $route->forgetParameter('location_slug');
+                $route->setParameter('location_slug', $translation->value);
+            }
 
         	return Location::findOrFail($translation->content_id);
 
@@ -314,6 +331,16 @@ Route::group(array('prefix' => $lang), function () use ($lang) {
              **/
 
             /**
+            *
+            * Reserved
+            *
+            **/
+
+            Route::get(trans('routes.reserved').'/{location_slug}/', array('as'=>'reserved','uses'=>'UserController@reserved'));
+
+            Route::post(trans('routes.reserved').'/{location_slug}/', array('as'=>'reserved_location','uses'=>'UserController@reserved_location'));
+
+            /**
              *
              * Photo
              *
@@ -400,7 +427,7 @@ Route::group(array('prefix' => $lang), function () use ($lang) {
 
             	return Location::whereId($value)->with(array('translation', 'building' => function ($query) {
             		$query->whereUserId(Auth::user()->id);
-            	}))->first();
+            	}))->firstOrFail();
 
             });
 

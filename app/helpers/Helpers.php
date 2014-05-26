@@ -140,9 +140,9 @@ class Helpers {
 		return dd(DB::getQueryLog());
 	}
 
-	public static function displayHumanDate( $date , $format = '$d $nd $M $y $hh$m' ){
+	public static function displayHumanDate( $date , $format = '$d $nd $M $y $hh$m' , $year=null){
 
-		if(Carbon::now()->year == $date->year){
+		if(Carbon::now()->year == $date->year && Helpers::isNotOk($year)){
 
 			$year = "";
 
@@ -179,9 +179,9 @@ class Helpers {
 		return $date;
 
 	}
-	public static function beTime( $timestamp ,  $format = '$d $nd $M $y $hh$m'){
+	public static function beTime( $timestamp ,  $format = '$d $nd $M $y $hh$m', $year=null){
 
-		return Helpers::displayHumanDate($timestamp->setTimezone('Europe/Brussels'), $format );
+		return Helpers::displayHumanDate($timestamp->setTimezone('Europe/Brussels'), $format , $year);
 	}
 	public static function cacheEager( $key){
 

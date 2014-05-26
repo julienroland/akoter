@@ -20,6 +20,7 @@ class CreateUserLocationTable extends Migration {
 			$table->integer('location_id')->unsigned();
 			$table->foreign('location_id')->references('id')->on('locations');
 			$table->boolean('status');
+			$table->boolean('request');
 			$table->timestamp('begin');
 			$table->timestamp('end');
 			$table->timestamps();

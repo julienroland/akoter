@@ -33,5 +33,6 @@ return array(
 'reserved'=>'Reserver',
 'contacted'=>'Contacter',
 'remaining_location'=>'Ceci est une annonce groupé, il reste encore <strong>:number locations</strong> disponible',
+'waiting_reserved'=>'En attente',
 
 );

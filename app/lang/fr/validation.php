@@ -97,6 +97,8 @@ return array(
         'inscription_infos_general'=> 'Les informations concernant votre batîment ont bien été enregistrés',
         'inscription_adverts'=> 'Vos annonces ont été correctement enregistrés',
         'success_inscription_steps'=> 'Félicitation, votre bien à bien été enregistré avec toutes vos locations !',
+        'message_success'=> 'Message bien envoyé !',
+        'request_reservation_succes'=> 'Votre demande de réservation à bien été envoyé. Vous recevrez un retour du propriétaire par mail et via votre compte',
         ),
 
     /*
@@ -156,6 +158,9 @@ return array(
         "chargePrice"=>'Prix des charges',
         "start_date"=>'Date de début',
         "end_date"=>'Date de fin',
+        "seat"=>'Places',
+        "nb_locations"=>'Nombre de logements',
+        "text"=>'Message',
     ),
 
 );

@@ -27,6 +27,11 @@ class Option extends Eloquent {
 		return $this->morphMany('Translation','content')
 		->where(Config::get('var.t_langCol'), Session::get('langId')); 
 	}
+
+	public function translations(){
+
+		return $this->morphMany('Translation','content');
+	}
 	
 	
 }

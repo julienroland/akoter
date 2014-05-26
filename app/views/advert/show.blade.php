@@ -35,7 +35,7 @@
 				</div>
 
 				<div class="description">
-					<span class="title-description">{{trans('locations.title_description', array('type'=>$typeLocation,'city'=>$locality))}}</span>
+					<span class="title-description">{{trans('locations.title_description', array('type'=>$typeLocation,'city'=>$location->building->locality->name))}}</span>
 
 					{{$translations['advert']}}
 
@@ -45,6 +45,10 @@
 			</div>
 			<div id="localisation-tab" class="pannel">
 				<div id="showMap" data-location="{{$building->latlng}}"></div>
+				<address class="address">
+					<span class="street">{{$location->building->address}}</span> <span class="number">{{$location->building->number}}</span>
+					<span class="postal">{{$location->building->postal}}</span> <span class="region section">{{$region}}</span> <span class="locality">{{$location->building->locality->name}}</span>
+				</address>
 				<div class="informations-situation">
 					<span class="title-situation">
 						{{trans('locations.situation_title')}}
@@ -70,6 +74,15 @@
 			</div>
 
 			<div id="equipment-tab" class="pannel">
+				<ul>
+					<?php $i=0; ?>
+					@foreach($optionBuiding as $id => $name)
+
+					<li class="option {{$i !== 0 && $i%2 != 0 ? 'striped' : ''}} ">{{$name}}</li>
+
+					<?php $i++; ?>
+					@endforeach
+				</ul>
 			</div>
 
 			<div id="comment-tab" class="pannel">
@@ -80,6 +93,12 @@
 
 				<span class="price">{{round($location->price)}}€</span>
 				<span class="perMonth">{{trans('general.perMonth')}}</span>
+				<span class="charge">{{Config::get('var.charges')[$location->charge_type]}}</span>
+				@if($location->charge_type > 0)
+				<span class="chargePrice">{{$location->charge_price}}€</span>
+				@endif
+				<span class="typeLocation">{{$typeLocation}}</span>
+				<span class="nb_seat"><i class="icon icon-user3"></i>{{$location->remaining_room}}</span>
 				<div class="date">
 					<span class="dt">A parti du: </span>
 					<i class="icon icon-calendar68"></i>
@@ -87,12 +106,19 @@
 					<span class="to">{{trans('general.to')}}</span>
 					<span class="start fdate">{{Helpers::beTime(Helpers::createCarbonDate($location->end_date), '$d $nd $M $y')}}</span>
 				</div>
+				<span class="caution">{{$location->garantee}}</span>
 				@if($location->advert_specific == 0)
 				{{trans('locations.remaining_location',array('number'=>$location->remaining_location))}}
 				@endif
 				<span class="total-month">{{trans('locations.contrat_during',array('time'=>Helpers::createCarbonDate($location->start_date)->diffInMonths(Helpers::createCarbonDate($location->end_date))))}} <b></b></span>
-				<a href="" class="reserved">{{trans('locations.reserved')}}</a>
-				<a href="" class="contact btn">{{trans('locations.contacted')}}</a>
+
+				<a href="{{route('reserved', $translations['slug'])}}" class="reserved {{Auth::check() ?  $location->user()->whereUserId(Auth::user()->id)->whereRequest(1)->first()->count() ? 'waiting': '': ''}}">{{Auth::check() ? $location->user()->whereUserId(Auth::user()->id)->whereRequest(1)->first()->count() ? trans('locations.waiting_reserved'):trans('locations.reserved') : trans('locations.reserved')}}</a>
+				@if(Auth::guest())
+				<div class="informations">{{trans('general.required_connected')}}</div>
+				@endif
+				<a href="{{route('contact_owner', array($user->slug, $location->id))}}" class="contact-form btn lightbox">{{trans('locations.contacted')}}</a>
+				
+				
 			</div>
 			<div class="rating">
 				<div class="icons" >
@@ -106,6 +132,7 @@
 
 				<span class="number_rate">Nombre de votes : <strong>{{$location->nb_rate}}</strong></span>
 			</div>
+
 			<div class="user">
 				<div class="user-picture">
 					<img class="thumbnail" width="{{Config::get('var.user_photo_width')}}" height="{{Config::get('var.user_photo_height')}}" src="{{'/'.Config::get('var.images_dir').Config::get('var.users_dir').Auth::user()->id.'/'.Config::get('var.profile_dir').$user->photo}}" alt="">

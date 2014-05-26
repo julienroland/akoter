@@ -2,192 +2,63 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 @endif
 
-@if(isset($widget) && in_array('select', $widget))
-{{HTML::script('js/min/chosen.jquery.js')}}
-<script>
-
-  var config = {
-    '.select'                : {},
-    '.chosen-select-deselect'  : {allow_single_deselect:true},
-    '.nb-select' : {disable_search_threshold:100},
-    '.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
-    '.chosen-select-width'     : {width:"95%"}
-  }
-  for (var selector in config) {
-    $(selector).chosen({width: 'auto'});
-  }
-</script>
-
-<!-- {{HTML::script('js/polyfiller.js')}} -->
-@endif
-
-@if( isset($widget) && Helpers::isOk($widget) && in_array('showMap', $widget)  )
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCJSSKlpz3C7EwQd2kvgn1JRBd7Ojrl9dM&sensor=false"></script>
-{{HTML::script('js/showMap.js')}}
-
-@endif
-
-@if(isset($widget) && in_array('upload', $widget))
-<script>/*$('.baseFile').remove();*/</script>
-{{HTML::script('js/jquery.uploadfile.min.js')}}
-{{HTML::script('js/jquery.validationEngine.js')}}
-{{HTML::script('js/jquery.validationEngine-fr.js')}}
-@endif
-
-@if(isset($widget) && in_array('map', $widget))
-
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCJSSKlpz3C7EwQd2kvgn1JRBd7Ojrl9dM&amp;sensor=false&amp;libraries=places,geometry"></script>
-
-<script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/markerclusterer/src/markerclusterer.js">
-</script>
-<script type="text/javascript">
-
-  var script = '<script type="text/javascript" src="./js/min/markerClusterer';
-  if (document.location.search.indexOf('compiled') !== -1) {
-    script += '_compiled';
-  }
-  script += '.js"><' + '/script>';
-  document.write(script);
-
-</script>
-
-{{HTML::script('js/map.js')}}
-@endif
-
-
-
-@if(isset($widget) && in_array('listing', $widget))
-{{HTML::script('js/min/moreListing.js')}}
-@endif
-
-
-@if(isset($widget) && in_array('grid', $widget))
-{{HTML::script('js/min/grid.js')}}
-
-<script>
-
-  var $container = $('#container');
-
-  $container.masonry({
-    itemSelector: '.kot',
-    "isOriginLeft": true,
-    isFitWidth: false,
-  });
-
-</script>
-@endif
-
-@if(isset($widget) && in_array('slider', $widget))
-{{HTML::script('js/min/simple-slider.min.js')}}
-@endif
-
-@if(isset($widget) && in_array('mousewheel', $widget))
-{{HTML::script('js/min/jquery.mousewheel.min.js')}}
-@endif
-
-@if(isset($widget) && !in_array('nojs', $widget) || !isset($widget))
-{{HTML::script('js/main.js')}}
-@endif
-
-@if(isset($widget) && !in_array('nojs', $widget) || !isset($widget))
-{{HTML::script('js/lightbox.js')}}
-@endif
-
-@if(isset($widget) && in_array('slideshow', $widget))
-{{HTML::script('js/min/responsiveSlides.js')}}
-<script>
-  $(function () {
-    $("#slider").responsiveSlides({
-      manualControls: '#slider-pager',
-      nav: true,
-      pager: true,
-      auto: false,
-      prevText: "Previous",  
-      nextText: "Next",
-      namespace: "transparent-btns",
-    });
-  });
-</script>
-@endif
-@if(isset($widget) && in_array('gallery', $widget))
-
-{{HTML::script('js/min/grid.js')}}
-
-{{HTML::script('js/min/imageLoaded.js')}}
-
-<script>
-
-  var $container = $('#pictures-tab');
-
-
-    $container.masonry({
-      itemSelector: '.picture-gallery',
-      "isOriginLeft": true,
-      gutter: 12,
-      isFitWidth: true,
-    });
-
-  
-
-</script>
-@endif
 @if(isset($widget) && in_array('ui', $widget))
-{{HTML::script('js/min/ui.js')}}
+  {{HTML::script('js/min/ui.js')}}
 
 
-@if(isset($widget) && in_array('tabs', $widget))
-<script> $( ".tabs" ).tabs();</script>
-@endif
+  @if(isset($widget) && in_array('tabs', $widget))
+  <script> $( ".tabs" ).tabs();</script>
+  @endif
 
-@if(isset($widget) && Helpers::isOk($widget) && in_array('sort', $widget))
-<script>
-  $(function(){
-    $("#sortable").sortable({
-      stop: function(event, ui) {
-        var data = {};
+  @if(isset($widget) && Helpers::isOk($widget) && in_array('sort', $widget))
+  <script>
+    $(function(){
+      $("#sortable").sortable({
+        stop: function(event, ui) {
+          var data = {};
 
-        $("#sortable li").each(function(i, el){
-          var p = $(el).find('a').attr('data-id');
-          data[p]=$(el).index()+1;
-        });
+          $("#sortable li").each(function(i, el){
+            var p = $(el).find('a').attr('data-id');
+            data[p]=$(el).index()+1;
+          });
 
-        $("form > [name='image_order']").val(JSON.stringify(data));
+          $("form > [name='image_order']").val(JSON.stringify(data));
 
-      },
-      create: function(event, ui) {
-        var data = {};
+        },
+        create: function(event, ui) {
+          var data = {};
 
-        $("#sortable li").each(function(i, el){
-          var p = $(el).find('a').attr('data-id');
-          data[p]=$(el).index()+1;
-        });
+          $("#sortable li").each(function(i, el){
+            var p = $(el).find('a').attr('data-id');
+            data[p]=$(el).index()+1;
+          });
 
-        $("form > [name='image_order']").val(JSON.stringify(data));
+          $("form > [name='image_order']").val(JSON.stringify(data));
 
-      },
-      update: function(event, ui) {
+        },
+        update: function(event, ui) {
 
-        var data = {};
+          var data = {};
 
-        $("#sortable li").each(function(i, el){
-          var p = $(el).find('a').attr('data-id');
-          data[p]=$(el).index()+1;
-          
-        });
+          $("#sortable li").each(function(i, el){
+            var p = $(el).find('a').attr('data-id');
+            data[p]=$(el).index()+1;
 
-        var sType = $(this).attr('data-type');
+          });
 
-        $.ajax({
-          type: "get", 
-          url: '/ajax/updatePhotoPosition/'+sType,
-          data: JSON.stringify(data),
-          dataType: "json",
-        });
-        
+          var sType = $(this).attr('data-type');
 
-      }
+          $.ajax({
+            type: "get", 
+            url: '/ajax/updatePhotoPosition/'+sType,
+            data: JSON.stringify(data),
+            dataType: "json",
+          });
 
-    }).disableSelection();
+
+        }
+
+      }).disableSelection();
 
 
 });
@@ -294,6 +165,152 @@
 @endif
 
 @endif
+
+@if(isset($widget) && in_array('select', $widget))
+{{HTML::script('js/min/chosen.jquery.js')}}
+<script>
+
+  var config = {
+    '.select'                : {},
+    '.chosen-select-deselect'  : {allow_single_deselect:true},
+    '.nb-select' : {disable_search_threshold:100},
+    '.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
+    '.chosen-select-width'     : {width:"95%"}
+  }
+  for (var selector in config) {
+    $(selector).chosen({width: 'auto'});
+  }
+</script>
+
+<!-- {{HTML::script('js/polyfiller.js')}} -->
+@endif
+
+@if( isset($widget) && Helpers::isOk($widget) && in_array('showMap', $widget)  )
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCJSSKlpz3C7EwQd2kvgn1JRBd7Ojrl9dM&sensor=false"></script>
+{{HTML::script('js/showMap.js')}}
+
+@endif
+
+@if(isset($widget) && in_array('upload', $widget))
+<script>/*$('.baseFile').remove();*/</script>
+{{HTML::script('js/jquery.uploadfile.min.js')}}
+{{HTML::script('js/jquery.validationEngine.js')}}
+{{HTML::script('js/jquery.validationEngine-fr.js')}}
+@endif
+
+@if(isset($widget) && in_array('map', $widget))
+
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCJSSKlpz3C7EwQd2kvgn1JRBd7Ojrl9dM&amp;sensor=false&amp;libraries=places,geometry"></script>
+
+<script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/markerclusterer/src/markerclusterer.js">
+</script>
+<script type="text/javascript">
+
+  var script = '<script type="text/javascript" src="./js/min/markerClusterer';
+  if (document.location.search.indexOf('compiled') !== -1) {
+    script += '_compiled';
+  }
+  script += '.js"><' + '/script>';
+  document.write(script);
+
+</script>
+
+{{HTML::script('js/map.js')}}
+@endif
+
+
+
+@if(isset($widget) && in_array('listing', $widget))
+{{HTML::script('js/min/moreListing.js')}}
+@endif
+
+
+@if(isset($widget) && in_array('grid', $widget))
+{{HTML::script('js/min/grid.js')}}
+
+<script>
+
+  var $container = $('#container');
+
+  $container.masonry({
+    itemSelector: '.kot',
+    "isOriginLeft": true,
+    isFitWidth: false,
+  });
+
+</script>
+@endif
+
+@if(isset($widget) && in_array('slider', $widget))
+{{HTML::script('js/min/simple-slider.min.js')}}
+@endif
+
+@if(isset($widget) && in_array('mousewheel', $widget))
+{{HTML::script('js/min/jquery.mousewheel.min.js')}}
+@endif
+
+@if(isset($widget) && !in_array('nojs', $widget) || !isset($widget))
+{{HTML::script('js/main.js')}}
+@endif
+
+@if(isset($widget) && in_array('lightbox', $widget))
+{{HTML::script('js/lightbox.js')}}
+
+<script type="text/javascript">
+ 
+$(document).ready(function() {
+  $(".lightbox").fancybox({
+    maxWidth  : 800,
+    maxHeight : 600,
+    fitToView : false,
+    width   : '70%',
+    height    : '70%',
+    autoSize  : false,
+    closeClick  : false,
+    openEffect  : 'none',
+    closeEffect : 'none'
+  });
+});
+  </script>
+@endif
+@if(isset($widget) && in_array('slideshow', $widget))
+  {{HTML::script('js/min/responsiveSlides.js')}}
+  <script>
+    $(function () {
+      $("#slider").responsiveSlides({
+        manualControls: '#slider-pager',
+        nav: true,
+        pager: true,
+        auto: false,
+        prevText: "Previous",  
+        nextText: "Next",
+        namespace: "transparent-btns",
+      });
+    });
+  </script>
+  @endif
+  @if(isset($widget) && in_array('gallery', $widget))
+
+  {{HTML::script('js/min/grid.js')}}
+
+  {{HTML::script('js/min/imageLoaded.js')}}
+
+  <script>
+
+    var $container = $('#pictures-tab');
+
+
+    $container.masonry({
+      itemSelector: '.picture-gallery',
+      "isOriginLeft": true,
+      gutter: 12,
+      isFitWidth: true,
+    });
+
+
+
+  </script>
+  @endif
 
 @if(isset($widget) && in_array('validator', $widget))
 

@@ -9,7 +9,7 @@ return array(
 	 *
 	 */
 	'from' => array(
-		'address' => 'roland.julien.perso@gmail.com',
+		'address' => 'akoter@julien-roland.be',
 		'name' => 'Akoter',
 	),
 

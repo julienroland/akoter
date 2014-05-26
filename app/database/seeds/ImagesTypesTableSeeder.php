@@ -10,26 +10,26 @@ class ImagesTypesTableSeeder extends Seeder {
 		$image_type = array(
 			array(
 				'name'=>'small',
-				'width'=>'67',
-				'height'=>'53',
+				'width'=>63,
+				'height'=>32,
 				'extension'=>'jpg',
 				),
 			array(
 				'name'=>'medium',
-				'width'=>'185',
+				'width'=>185,
 				'height'=>null,
 				'extension'=>'jpg',
 				),
 			array(
 				'name'=>'gallery',
-				'width'=>'260',
+				'width'=>310,
 				'height'=>null,
 				'extension'=>'jpg',
 				),
 			array(
 				'name'=>'lightbox',
-				'width'=>'960',
-				'height'=>'480',
+				'width'=>649,
+				'height'=>325,
 				'extension'=>'jpg',
 				),
 			);

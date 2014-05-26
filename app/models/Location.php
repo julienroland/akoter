@@ -76,7 +76,8 @@ class Location extends Eloquent{
 }
 public function user(){
 
-	return $this->belongsToMany('User','user_location'); 
+	return $this->belongsToMany('User','user_location')
+	->withTimestamps(); 
 }
 
 public function option(){

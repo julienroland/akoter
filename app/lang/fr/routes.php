@@ -44,6 +44,9 @@ return array(
     'how_be_owner' => 'comment-devenir-proprietaire',
     'edit_photo' => 'changer-la-photo-de-profil',
     'locations' => 'location-etudiants',
+    'contact-owner'=>'contacter-le-proprietaire',
+    'on-location'=>'a-propos-de-sa-location-numero',
+    'reserved'=>'reservation-pour-ce-logement',
 
 );
 

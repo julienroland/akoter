@@ -94,4 +94,19 @@ class Building extends Eloquent {
 		return Session::has('inscription.current') ? Session::get('inscription.current') : 0;
 
 	}
+
+	public static function getOptions($building){
+
+		$dump = $building->option()->with('translation')->get();
+
+		$data = array();
+
+		foreach($dump as $option){
+
+			$data[$option->id]  = $option->translation[0]->value;
+
+		}
+
+		return Collection::make($data);
+	}
 }

@@ -5,9 +5,10 @@
 class LocationController extends BaseController
 {
 	public function voir( $location ){
+		$building = $location->building()->first();
 
 		$photosLocation = $location->photo()->orderBy('order')->get();
-		$photosBuilding = $location->building->photo()->orderBy('order')->get();
+		$photosBuilding = $building->photo()->orderBy('order')->get();
 
 		$lightbox = ImageType::name('lightbox')->first();
 
@@ -16,26 +17,28 @@ class LocationController extends BaseController
 		$gallery = ImageType::name('gallery')->first();
 
 		$typeLocation = $location->typeLocation->translation()->pluck('value');
-		$region = $location->building->region->translation()->pluck('value');
-		$locality = $location->building->locality->pluck('name');
+		$region = $building->region->translation()->pluck('value');
 
-		$building = $location->building->first();
-		$building_translations = $location->building->translation()->get()->lists('value','key');
+		$typeLocation = $location->typeLocation->translation()->pluck('value');
+		
+		$building_translations = $building->translation()->get()->lists('value','key');
+		
+		$optionBuiding = Building::getOptions( $building );
 
-		$user = $location->building->user()->first();
+		$user = $building->user()->first();
 
 		$translations = $location->translation()->get()->lists('value','key');
 
 		return View::make('advert.show', array(
 			'page'=>'advert',
-			 'widget'=>array(
-			 	'tabs',
-			 	'ui',
-			 	'slideshow',
-			 	'showMap',
-			 	'gallery'
-			 	),
-			 ))
+			'widget'=>array(
+				'tabs',
+				'ui',
+				'slideshow',
+				'showMap',
+				'gallery',
+				),
+			))
 		->with(compact(
 			'photos',
 			'location',
@@ -50,7 +53,9 @@ class LocationController extends BaseController
 			'locality',
 			'user',
 			'building',
-			'building_translations'
+			'building_translations',
+			'typeLocation',
+			'optionBuiding'
 			));
 	}
 
@@ -109,7 +114,7 @@ class LocationController extends BaseController
 
 					}else{
 
-					$locations = Location::getLocationsPaginateList();
+						$locations = Location::getLocationsPaginateList();
 
 					}
 

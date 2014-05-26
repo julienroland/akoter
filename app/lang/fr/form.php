@@ -96,5 +96,14 @@ return array(
 	'allowingComments'=>'Autoriser les commentaires ?',
 	'options'=>'Options',
 	'particularities'=>'Particularitée(s)',
+	'back'=>'retour',
+	'translate_language'=>'Traduire dans sa langue ?',
+	'nb_seat'=>'Nombre de places',
+	'nb_max'=>'Nombre maximun: :number',
+	'nb_locations'=>'Nombre logements',
+	'change_start_date'=>'Date d\'arrivé',
+	'info_nb_seat'=>'Le nombre de place ne concernent que les logements de type appartement, duplex, maison.',
+	'info_nb_location'=>'Ex: 2 kots, car vous avez deux enfants qui vont étudier dans la même région.',
+	'info_message_location'=>'Ajoutez un commentaire par rapport à votre demande.',
 
 );		

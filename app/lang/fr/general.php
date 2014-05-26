@@ -21,7 +21,7 @@ return array (
     'fr' => 'Français',
     'en' => 'Anglais',
     'nl' => 'Néerlandais',
-  ),
+    ),
   'days' => 
   array (
     0 => 'Dimanche',
@@ -31,11 +31,11 @@ return array (
     4 => 'Jeudi',
     5 => 'Vendredi',
     6 => 'Samedi',
-  ),
+    ),
   'month' => 
   array (
     1 => 'Janvier',
-    2 => 'Fevrier',
+    2 => 'Février',
     3 => 'Mars',
     4 => 'Avril',
     5 => 'Mai',
@@ -46,7 +46,7 @@ return array (
     10 => 'Octobre',
     11 => 'Novembre',
     12 => 'Décembre',
-  ),
+    ),
   'month_select' => 
   array (
     '' => '',
@@ -62,7 +62,7 @@ return array (
     10 => 'Octobre',
     11 => 'Novembre',
     12 => 'Décembre',
-  ),
+    ),
   'user_groups' => 
   array (
     1 => 'SuperAdmin',
@@ -70,7 +70,11 @@ return array (
     3 => 'Membre',
     4 => 'Prenium',
     5 => 'Beta',
-  ),
+    ),
+  'civility'=>array(
+    0=>'Homme',
+    1=>'Femme',
+    ),
   'user_group' => 'Groupe utilisateur',
   'created_at' => 'Crée le',
   'updated_at' => 'Mis à jour le',
@@ -91,4 +95,10 @@ return array (
   'dont_have_account' => 'Pas encore de compte?',
   'register_you' => 'Inscrivez-vous !',
   'perMonth' => 'par mois',
-);
+  'contact_owner'=>'Contactez :first_name :name',
+  'contact_owner_intro'=>'Demandez des informations au propriétaire, celui-ci recevra un email et un message sur son profile',
+  'required_connected'=>'Vous devez être connecté !',
+  'reservation_owner'=>'Demande de location',
+  'reservation_owner_intro'=>'Faite votre demande pour louer ce bien, le propriétaire recevera un mail et un message sur son compte.',
+  'to'=>'à',
+  );

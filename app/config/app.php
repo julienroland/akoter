@@ -199,6 +199,7 @@ return array(
 		'Sluggable' 	  => 'Cviebrock\EloquentSluggable\Facades\Sluggable',
 		'Image' 		  => 'Intervention\Image\Facades\Image',
 		'Mailgun' 		  => 'Bogardo\Mailgun\Facades\Mailgun',
+		'Collection'      => 'Illuminate\Database\Eloquent\Collection',
 
 		),
 

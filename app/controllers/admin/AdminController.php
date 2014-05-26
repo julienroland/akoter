@@ -2,8 +2,13 @@
 
 class Admin_AdminController extends \BaseController
 {
-    public function index()
-    {
-        return View::make('admin.index');
-    }
+	public function __construct()
+	{
+		$this->beforeFilter('auth');
+	}
+
+	public function index()
+	{
+		return View::make('admin.index');
+	}
 }

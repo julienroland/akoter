@@ -20,6 +20,13 @@ class User extends Eloquent implements UserInterface, RemindableInterface, Slugg
 	public static $rules = array(
 		'email_co' => 'required|email',
 		'password_co'=>'required|min:5',
+		);	
+
+	public static $reserved_rules = array(
+		'seat' => 'required| numeric',
+		'nb_locations' => 'required| numeric',
+		'start_date'=>'date|required',
+		'text'=>'required',
 		);
 	public static $contact_rules = array(
 		'first_name'=>'required |alpha ',
@@ -161,6 +168,10 @@ class User extends Eloquent implements UserInterface, RemindableInterface, Slugg
 		->where('status', 0);
 	}
 
+	public function location(){
+		return $this->belongsToMany('Location','user_location')
+		->withTimestamps(); 
+	}
 	public function allLocations()
 	{
 		return $this->belongsToMany('Location','user_location');
@@ -241,16 +252,16 @@ class User extends Eloquent implements UserInterface, RemindableInterface, Slugg
 	public static function getWaitingLocations( $user ){
 
 		return User::with(array('building',
-		'building.location'=>function( $query ) use($user){
+			'building.location'=>function( $query ) use($user){
 
-			$query->whereValidate(0);
+				$query->whereValidate(0);
 
-		},
-		'building.location.translation'=>function($query){
-			$query->whereKey('title');
-		},
-		'building.location.accroche'
-		))
+			},
+			'building.location.translation'=>function($query){
+				$query->whereKey('title');
+			},
+			'building.location.accroche'
+			))
 		->whereId($user->id)->first();
 	}
 
