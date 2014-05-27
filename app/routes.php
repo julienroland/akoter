@@ -145,6 +145,13 @@ Route::get('login/fb/callback', array('uses' => 'ConnectionController@facebookCa
 Route::get('register/fb/callback', array('uses' => 'InscriptionController@facebook'));
 
 /**
+*
+* Comments
+*
+**/
+
+Route::post('addComment/{location_id}',array('as'=>'addComments', 'uses'=>'LocationController@addComment'));
+/**
  *
  * Ajax languages
  *

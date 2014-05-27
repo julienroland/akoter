@@ -1745,7 +1745,7 @@ input[type="checkbox"]:checked + label {
 }
 
 .connection {
-	max-width: 350px;
+	max-width: 360px;
 
 	.twitter {
 		@extend .facebook;
@@ -4279,7 +4279,6 @@ $country-h: 100px;
 /* Component containers
 ----------------------------------*/
 .ui-widget {
-	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 	font-size: 15px;
 }
 
@@ -4288,18 +4287,17 @@ $country-h: 100px;
 }
 
 .ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button {
-	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 	font-size: 1em;
 }
 
 .ui-widget-content {
 	border: 1px solid #aaaaaa;
 	background: #ffffff url(images/ui-bg_glass_75_ffffff_1x400.png) 50% 50% repeat-x;
-	color: #404040;
+	color: $tc;
 }
 
 .ui-widget-content a {
-	color: #404040;
+	color: $mc;
 }
 
 .ui-widget-header {
@@ -7299,6 +7297,36 @@ only screen and (min-device-pixel-ratio: 1.5){
 	}
 }
 
+/** note_propriete **/
+
+.note_propriete .checked{
+	background-image: image-url('rating.png');
+}
+.note_propriete label input{
+		opacity:0;
+		-ms-filter:"alpha(opacity=0)";
+		width:24px;
+		height:23px;
+		margin-top: 0;
+	}
+.note_propriete label{
+	cursor:pointer;
+	background-image: image-url('rating-hv.png');
+	width:24px;
+	float:left;
+	display: block;
+	padding:0;
+	background-repeat:no-repeat;
+	height:23px;
+}
+.rating{
+	.icon{
+		&:before{
+			margin:0;
+		}
+	}
+}
+/** END note_propriete **/
 /* END LOADING MAP */
 /* ANIMATION CSS3 */
 @import "animate";

@@ -14,9 +14,11 @@ class CreateCommentsTable extends Migration {
 	{
 		Schema::create('locations_comments', function(Blueprint $table) {
 			$table->increments('id');
-			$table->string('title');
-			$table->string('content');
-			$table->date('date');
+			/*$table->string('title');*/
+			/*$table->string('content'); traduction*/
+			/*$table->date('date');*/
+			$table->integer('rating')->nullable();
+			$table->boolean('validate');
 			$table->integer('user_id')->unsigned();
 			$table->foreign('user_id')->references('id')->on('users');
 			$table->integer('location_id')->unsigned();

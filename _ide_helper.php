@@ -730,12 +730,12 @@ namespace {
 		 * @param string               $abstract
 		 * @param Closure|string|null  $concrete
 		 * @param bool                 $shared
-		 * @return bool
+		 * @return void
 		 * @static 
 		 */
 		 public static function bindIf($abstract, $concrete = null, $shared = false){
 			//Method inherited from \Illuminate\Container\Container
-			return \Illuminate\Foundation\Application::bindIf($abstract, $concrete, $shared);
+			 \Illuminate\Foundation\Application::bindIf($abstract, $concrete, $shared);
 		 }
 
 		/**
@@ -11052,6 +11052,18 @@ namespace {
 		 }
 
 		/**
+		 * Alias for the "currentRouteNamed" method.
+		 *
+		 * @param dynamic  string
+		 * @return bool
+		 * @static 
+		 */
+		 public static function is(){
+			//Method inherited from \Illuminate\Routing\Router
+			return \Illuminate\Routing\Router::is();
+		 }
+
+		/**
 		 * Determine if the current route matches a given name.
 		 *
 		 * @param string  $name
@@ -11072,6 +11084,18 @@ namespace {
 		 public static function currentRouteAction(){
 			//Method inherited from \Illuminate\Routing\Router
 			return \Illuminate\Routing\Router::currentRouteAction();
+		 }
+
+		/**
+		 * Alias for the "currentRouteUses" method.
+		 *
+		 * @param dynamic  string
+		 * @return bool
+		 * @static 
+		 */
+		 public static function isAction(){
+			//Method inherited from \Illuminate\Routing\Router
+			return \Illuminate\Routing\Router::isAction();
 		 }
 
 		/**
@@ -12861,6 +12885,8 @@ namespace {
 			return \Bogardo\Mailgun\Mailgun::later($time, $view, $data, $callback);
 		 }
 
+	}
+	class Collection extends \Illuminate\Database\Eloquent\Collection{
 	}
 }
 

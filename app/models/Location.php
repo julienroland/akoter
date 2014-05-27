@@ -21,6 +21,12 @@ class Location extends Eloquent{
 		'advert.nl'=>'min:100 |max:2048',
 		);
 
+	public static $comment_rules = array(
+		'title'=>'required|min:10',
+		'note'=>'required|numeric',
+		'text'=>'required|min:50',
+		);
+
 	public function getTitleAttribute(){
 
 		if(Helpers::isOk($this)){
@@ -108,6 +114,12 @@ public function building(){
 public function photo(){
 
 	return $this->hasMany('PhotoLocation'); 
+}
+
+
+public function comment(){
+
+	return $this->hasMany('LocationComment'); 
 }
 
 public function accroche(){

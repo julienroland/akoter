@@ -24,7 +24,6 @@ class ConnectionController extends BaseController
 		
 		if ($validator->passes()) {
 
-
 			if (Auth::attempt( array( 'email'=> $input['email_co'], 'password'=>$input['password_co'] ), isset($input['remember']) ? true : false )) {
 
 				$user = User::whereEmail($input['email_co'])->first();				
@@ -56,12 +55,13 @@ class ConnectionController extends BaseController
 				if(isset($input['remember']) && !Cookie::has('login')){
 
 					$login = Cookie::forever('login', $input);
-/**
-*
-* -> CECI provoque le bug sur le sessions
-*
-**/
-
+				/**
+				*
+				* -> CECI provoque le bug sur les sessions
+				*
+				**/
+				return Redirect::intended(route('account_home', Auth::user()->slug))
+				->withCookie($login);
 
 				}
 
@@ -185,7 +185,7 @@ public function disconnect(){
 
 		Session::flush();
 
-		Cookie::forget('login');
+		/*Cookie::forget('login');*/
 
 		return Redirect::to(trans('routes.home'));
 	}

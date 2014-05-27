@@ -33,8 +33,12 @@ class LocationController extends BaseController
 		$user = $building->user()->first();
 
 		$translations = $location->translation()->get()->lists('value','key');
-$location->nb_views = $location->nb_views + 1;
+			
+		$comments = LocationComment::whereLocationId($location->id)->with('translation','user')->get();
+
+		$location->nb_views = $location->nb_views + 1;
 		$location->save();
+
 		return View::make('advert.show', array(
 			'page'=>'advert',
 			'widget'=>array(
@@ -43,6 +47,7 @@ $location->nb_views = $location->nb_views + 1;
 				'slideshow',
 				'showMap',
 				'gallery',
+				'validator',
 				),
 			))
 		->with(compact(
@@ -63,10 +68,63 @@ $location->nb_views = $location->nb_views + 1;
 			'typeLocation',
 			'optionBuilding',
 			'optionLocation',
-			'particularities'
+			'particularities',
+			'comments'
 			));
 	}
+	public function addComment( $location ){
 
+		$input = Input::all();
+
+		$validator = Validator::make($input, Location::$comment_rules);
+
+		if($validator->passes()){
+
+			$comment =  new LocationComment;
+			$comment->rating = $input['note'];
+			$comment->location_id = $location->id;
+			$comment->user_id = Auth::user()->id;
+			$comment->save();
+
+			$location->nb_rate = $location->nb_rate + 1;
+			$location->rating = Helpers::isOk($location->rating) ? ($location->rating + $input['note'] ) / 2 : $input['note'] ;
+			$location->save();
+
+
+			foreach(Config::get('var.lang') as $id => $lang){
+
+				$title = Helpers::translate($input['title'], Config::get('var.lang')[Auth::user()->language_id], $lang );
+
+				$translation = new Translation;
+				$translation->content_type = 'LocationComment';
+				$translation->content_id = $comment->id;
+				$translation->key = 'title';
+				$translation->value = $title;
+				$translation->language_id = $id;
+				$translation->save();
+
+				$text = Helpers::translate($input['text'], Config::get('var.lang')[Auth::user()->language_id], $lang );
+
+				$translation = new Translation;
+				$translation->content_type = 'LocationComment';
+				$translation->content_id = $comment->id;
+				$translation->key = 'text';
+				$translation->value = $text;
+				$translation->language_id = $id;
+				$translation->save();	
+			}
+
+			return Redirect::back();
+
+		}
+		else{
+
+			return Redirect::back()
+			->withInput()
+			->withErrors($validator);
+		}
+
+	}
 	public function getPhotos($type=null, $id=null){
 
 		if(Helpers::isOk($id) && Helpers::isOk($type)){

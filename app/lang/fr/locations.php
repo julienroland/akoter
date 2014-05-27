@@ -44,5 +44,7 @@ return array(
 'ground_floor'=>'Rez-de-chaussée',
 'first_floor'=>'<sup>er</sup>',
 'th'=>'<sup>ème</sup>',
+'connect_comment'=>'Vous devez être connecté pour poster un commentaire,',
+'connection'=>'se connecter',
 
 );

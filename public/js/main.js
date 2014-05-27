@@ -265,6 +265,19 @@ $toPopup.on('click',openPopup);
 		});
 	}
 };*/
+
+$('.note_propriete input').on('change',function(){
+
+	$(this).parent().siblings().removeClass('checked');
+
+	if($(this).is(':checked')){
+
+		$(this).parent().addClass('checked');
+		$(this).parent().prevAll().addClass('checked');
+
+	}
+
+});
 var sortable = function(){
 
 	$('#sortable').sortable({

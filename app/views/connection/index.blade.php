@@ -47,14 +47,14 @@
 					<div class="field">
 						{{Form::label('email_co', trans('connections.your_field',array('name'=>'email')))}}
 						<div class="input-email icon-arroba">
-							<input autofocus value="{{Cookie::has('login') ? Cookie::get('login')['email']: ''}}" type="email" name="email_co" required placeholder="email@email.com" class="form-email form-icon {{isset(Session::get('fields')['email']) ? 'form-error':''}}" id="email_co">
+							<input autofocus value="{{Cookie::has('login') ? Cookie::get('login')['email_co']: ''}}" type="email" name="email_co" required placeholder="email@email.com" class="form-email form-icon {{isset(Session::get('fields')['email']) ? 'form-error':''}}" id="email_co">
 
 						</div>
 					</div>
 					<div class="field">
 						{{Form::label('password_co', trans('connections.your_password',array('name','password')))}}
 						<div class="input-password icon-lock24">
-							<input value="{{Cookie::has('login') ? Cookie::get('login')['password']: ''}}" type="password" name="password_co" required  placeholder="{{trans('form.password')}}" class="form-password {{isset(Session::get('fields')['password']) ? 'form-error':''}}" id="password_co">
+							<input value="{{Cookie::has('login') ? Cookie::get('login')['password_co']: ''}}" type="password" name="password_co" required  placeholder="{{trans('form.password')}}" class="form-password {{isset(Session::get('fields')['password']) ? 'form-error':''}}" id="password_co">
 
 						</div>
 					</div>

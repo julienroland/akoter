@@ -20,7 +20,7 @@
 					<div class="slide">
 						<div class="rslides" id="slider">
 							@foreach($photosLocation as $photo)
-							<li><a href="#"><img  src="{{'/'.Config::get('var.images_dir').Config::get('var.users_dir').Auth::user()->id.'/'.Config::get('var.locations_dir').$photo->location_id.'/'.Helpers::addBeforeExtension($photo->url, Config::get('var.img_lightbox'))}}" width="{{$lightbox->width}}" height="{{$lightbox->height}}"></a></li>
+							<li><a href="#"><img  src="{{'/'.Config::get('var.images_dir').Config::get('var.users_dir').$user->id.'/'.Config::get('var.locations_dir').$photo->location_id.'/'.Helpers::addBeforeExtension($photo->url, Config::get('var.img_lightbox'))}}" width="{{$lightbox['width']}}" height="{{$lightbox['height']}}"></a></li>
 							@endforeach
 
 						</div>
@@ -28,7 +28,7 @@
 					<!-- Slideshow 3 Pager -->
 					<ul id="slider-pager">
 						@foreach($photosLocation as $photo)
-						<li><a href="#"><img src="{{'/'.Config::get('var.images_dir').Config::get('var.users_dir').Auth::user()->id.'/'.Config::get('var.locations_dir').$photo->location_id.'/'.Helpers::addBeforeExtension($photo->url, Config::get('var.img_lightbox'))}}" width="{{$small->width}}" height="{{$small->height}}" ></a></li>
+						<li><a href="#"><img src="{{'/'.Config::get('var.images_dir').Config::get('var.users_dir').$user->id.'/'.Config::get('var.locations_dir').$photo->location_id.'/'.Helpers::addBeforeExtension($photo->url, Config::get('var.img_lightbox'))}}" width="{{$small['width']}}" height="{{$small['height']}}" ></a></li>
 						@endforeach
 
 					</ul>
@@ -38,14 +38,12 @@
 					<span class="title-description">{{trans('locations.title_description', array('type'=>$typeLocation,'city'=>$location->building->locality->name))}}</span>
 
 					{{$translations['advert']}}
-					
-					
+
 				</div>
 
-				
 			</div>
 			<div id="localisation-tab" class="pannel">
-			<div class="thumbnail showmap">
+				<div class="thumbnail showmap">
 					<div  id="showMap" data-location="{{$building->latlng}}"></div>
 				</div>
 				<address class="address">
@@ -72,7 +70,7 @@
 			<div id="pictures-tab" class="pannel">
 				@foreach($photosBuilding as $photo)
 				<div class="picture-gallery">
-					<img class="thumbnail" src="{{'/'.Config::get('var.images_dir').Config::get('var.users_dir').Auth::user()->id.'/'.Config::get('var.buildings_dir').$photo->building_id.'/'.$photo->type.'/'.Helpers::addBeforeExtension($photo->url, Config::get('var.img_gallery'))}}" width="{{$gallery->width}}">
+					<img class="thumbnail" src="{{'/'.Config::get('var.images_dir').Config::get('var.users_dir').$user->id.'/'.Config::get('var.buildings_dir').$photo->building_id.'/'.$photo->type.'/'.Helpers::addBeforeExtension($photo->url, Config::get('var.img_gallery'))}}" width="{{$gallery['width']}}">
 				</div>	
 				@endforeach
 			</div>
@@ -124,6 +122,98 @@
 			</div>
 
 			<div id="comment-tab" class="pannel">
+
+				@if(Auth::check())
+
+				{{Form::open(array('route'=>array('addComments', $location->id),'class'=>'mainType rules','data-rules'=>json_encode(Location::$comment_rules)))}}
+				<div class="user">
+					<div class="user-photo">
+						<img  class="thumbnail" width="{{Config::get('var.user_photo_width')}}" height="{{Config::get('var.user_photo_height')}}" src="{{'/'.Config::get('var.images_dir').Config::get('var.users_dir').Auth::user()->id.'/'.Config::get('var.profile_dir').Auth::user()->photo}}">
+					</div>
+					<span class="name">{{Auth::user()->first_name. ' ' . Auth::user()->name}}</span>
+				</div>
+
+				<div class="field">
+					<label for="title">{{trans('form.title')}}</label>
+					<input type="text" name="title" id="title" placeholder="{{trans('form.title')}}">
+				</div>
+
+				<div class="field">
+					{{Form::label('note',trans('form.rate'). ' ('.trans('form.click-rating').')')}}
+					<div class="note_propriete">
+
+						<label for="note1" >
+
+							{{Form::radio('note','1',array('id'=>'note1'))}}	
+
+						</label>
+
+						<label for="note2" >
+
+							{{Form::radio('note','2',array('id'=>'note2'))}}	
+
+						</label>	
+
+						<label for="note3">
+
+							{{Form::radio('note','3',array('id'=>'3note3'))}}	
+
+						</label>
+
+						<label for="note4">
+
+							{{Form::radio('note','4',array('id'=>'note4'))}}	
+
+						</label>
+
+						<label for="note5">
+
+							{{Form::radio('note','5',array('id'=>'note5'))}}	
+
+						</label>
+
+					</div>
+				</div>
+
+				<label for="text">{{trans('form.comment')}}</label>
+				<textarea name="text" id="text"></textarea>
+				
+				{{Form::submit(trans('form.commenting'))}}
+				{{Form::close()}}
+
+				@else
+
+				<p>{{trans('locations.connect_comment')}} <a href="{{route('connection')}}">{{trans('locations.connection')}}</a>.</p>
+
+				@endif
+				@if(Helpers::isOk($comments))
+				<div class="comments">
+					@foreach($comments as $comment)
+					<?php $translation = $comment->translation->lists('value','key'); ?>
+					<div class="comment">
+						<div class="user">
+							<div class="photo">
+								<img class="thumbnail" width="{{Config::get('var.user_photo_width')}}" height="{{Config::get('var.user_photo_height')}}" src="{{'/'.Config::get('var.images_dir').Config::get('var.users_dir').$comment->user->id.'/'.Config::get('var.profile_dir').$comment->user->photo}}" >
+							</div>
+							<span class="name">{{$comment->user->first_name.' '.$comment->user->name}}</span>
+							<span class="date">{{Helpers::beTime($comment->created_at)}}</span>
+						</div>
+						<div class="icons rating" >
+							<span class="section">{{Helpers::getRating($comment->rating)}} {{Lang::get('locations.stars')}}</span>
+							<span class="icon {{Helpers::isStar( 1, $comment->rating )}} " aria-hidden="true"></span>
+							<span class="icon {{Helpers::isStar( 2, $comment->rating )}}" aria-hidden="true"></span>
+							<span class="icon {{Helpers::isStar( 3, $comment->rating )}}" aria-hidden="true"></span>
+							<span class="icon {{Helpers::isStar( 4, $comment->rating )}}" aria-hidden="true"></span>
+							<span class="icon {{Helpers::isStar( 5, $comment->rating )}}" aria-hidden="true"></span>
+						</div>
+						<span class="title">{{$translation['title']}}</span>
+						<p>
+							{{$translation['text']}}
+						</p>
+					</div>
+					@endforeach
+				</div>
+				@endif
 			</div>
 		</div>
 		<sidebar class="advert-sidebar">
@@ -159,13 +249,13 @@
 				
 			</div>
 			<div class="rating">
-				<div class="icons" >
+				<div class="icons rating" >
 					<span class="section">{{Helpers::getRating($location->rating)}} {{Lang::get('locations.stars')}}</span>
-					<span class="icon {{Helpers::isStar( 1, Helpers::getRating($location->rating) )}} " aria-hidden="true"></span>
-					<span class="icon {{Helpers::isStar( 2, Helpers::getRating($location->rating) )}}" aria-hidden="true"></span>
-					<span class="icon {{Helpers::isStar( 3, Helpers::getRating($location->rating) )}}" aria-hidden="true"></span>
-					<span class="icon {{Helpers::isStar( 4, Helpers::getRating($location->rating) )}}" aria-hidden="true"></span>
-					<span class="icon {{Helpers::isStar( 5, Helpers::getRating($location->rating) )}}" aria-hidden="true"></span>
+					<span class="icon {{Helpers::isStar( 1, $location->rating )}} " aria-hidden="true"></span>
+					<span class="icon {{Helpers::isStar( 2, $location->rating )}}" aria-hidden="true"></span>
+					<span class="icon {{Helpers::isStar( 3, $location->rating )}}" aria-hidden="true"></span>
+					<span class="icon {{Helpers::isStar( 4, $location->rating )}}" aria-hidden="true"></span>
+					<span class="icon {{Helpers::isStar( 5, $location->rating )}}" aria-hidden="true"></span>
 				</div>
 
 				<span class="number_rate">Nombre de votes : <strong>{{$location->nb_rate}}</strong></span>
@@ -173,7 +263,7 @@
 
 			<div class="user">
 				<div class="user-picture">
-					<img class="thumbnail" width="{{Config::get('var.user_photo_width')}}" height="{{Config::get('var.user_photo_height')}}" src="{{'/'.Config::get('var.images_dir').Config::get('var.users_dir').Auth::user()->id.'/'.Config::get('var.profile_dir').$user->photo}}" alt="">
+					<img class="thumbnail" width="{{Config::get('var.user_photo_width')}}" height="{{Config::get('var.user_photo_height')}}" src="{{'/'.Config::get('var.images_dir').Config::get('var.users_dir').$user->id.'/'.Config::get('var.profile_dir').$user->photo}}" alt="">
 				</div>
 				<div class="user-info">
 					<span class="name">{{$user->first_name}} {{$user->name}}</span>

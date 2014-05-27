@@ -105,5 +105,10 @@ return array(
 	'info_nb_seat'=>'Le nombre de place ne concernent que les logements de type appartement, duplex, maison.',
 	'info_nb_location'=>'Ex: 2 kots, car vous avez deux enfants qui vont étudier dans la même région.',
 	'info_message_location'=>'Ajoutez un commentaire par rapport à votre demande.',
+	'rate'=>'Notez',
+	'title'=>'Titre',
+	'click-rating'=>'Cliquez pour noter',
+	'commenting'=>'Commenter',
+	'comment'=>'Commentaire',
 
 );		
