@@ -15,7 +15,7 @@
 
 
   {{HTML::style('css/screen.css')}}
-
+{{HTML::style('css/nprogress.css')}}
   @if(isset($widget) && Helpers::isOk($widget) && in_array('select', $widget))
   {{HTML::style('css/chosen-mk.css')}}
   @endif

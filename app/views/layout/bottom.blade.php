@@ -1,7 +1,14 @@
+
 @if(isset($widget) && !in_array('nojs', $widget) || !isset($widget))
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 @endif
-
+{{HTML::script('js/nprogress.js')}}
+<script>
+NProgress.start();
+ $(window).bind("load", function() {
+   NProgress.done();
+});
+</script>
 {{HTML::script('js/tooltip.js')}}
 @if(isset($widget) && in_array('gallery', $widget))
 
