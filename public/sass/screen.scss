@@ -6885,10 +6885,20 @@ div.wijmo-wijmenu .wijmo-wijmenu-child .wijmo-wijmenu-text {
 		font-size:$medium;
 		margin-bottom:$gutter / 2;
 	}
-
-	#showMap{
-		width: 400px;
-		height: 300px;
+	.showmap{
+		position: relative;
+		&:before{
+			content:"";
+			@include abs();
+			z-index: 10;
+			background-image: image-url('map-overlay.png');
+			background-size: cover;
+			pointer-events:none;
+		}
+	}
+	#showMap,.showmap{
+		width: 100%;
+		height: 400px;
 		display: block;
 	}
 	#equipment-tab{
@@ -6943,10 +6953,10 @@ div.wijmo-wijmenu .wijmo-wijmenu-child .wijmo-wijmenu-text {
 	#pictures-tab{
 		padding:0;
 		margin-left:- gutter() / 2 ;
-		margin-right:- gutter()/ 2;
+		margin-right:- gutter() / 2;
 		.picture-gallery{
 			@include cl(6);
-			width: 310px;
+			width: 300px;
 			margin-bottom:$gutter;
 		}
 

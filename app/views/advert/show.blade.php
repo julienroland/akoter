@@ -9,8 +9,8 @@
 		<div class="tabs">
 			<ul class="advert-tabs">
 				<li><a class="" href="#description-tab">{{trans('locations.description')}}</a></li>
-				<li><a class="" href="#localisation-tab">{{trans('locations.localisation')}}</a></li>
-				<li><a class="" href="#pictures-tab">{{trans('locations.pictures')}}</a></li>
+				<li><a class="" id="tabslocalisation" href="#localisation-tab">{{trans('locations.localisation')}}</a></li>
+				<li><a class="" id="tabspicture" href="#pictures-tab">{{trans('locations.pictures')}}</a></li>
 				<li><a class="" href="#equipment-tab">{{trans('locations.specificity')}}</a></li>
 				<li><a class="" href="#comment-tab">{{trans('locations.comments')}}</a></li>
 			</ul>
@@ -45,7 +45,9 @@
 				
 			</div>
 			<div id="localisation-tab" class="pannel">
-				<div id="showMap" data-location="{{$building->latlng}}"></div>
+			<div class="thumbnail showmap">
+					<div  id="showMap" data-location="{{$building->latlng}}"></div>
+				</div>
 				<address class="address">
 					<span class="street">{{$location->building->address}}</span> <span class="number">{{$location->building->number}}</span>
 					<span class="postal">{{$location->building->postal}}</span> <span class="region section">{{$region}}</span> <span class="locality">{{$location->building->locality->name}}</span>

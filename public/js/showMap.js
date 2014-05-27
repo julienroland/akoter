@@ -37,9 +37,8 @@
  	geocoder = new google.maps.Geocoder();
 
  	$(function(){
- 		$('.tabs a').bind('onClick', function() {
- 			console.log('ok');
- 			google.maps.event.trigger(gMap, 'resize');
+ 		$('#tabslocalisation').on('click', function() {
+ 			displayGoogleMap();
  		});
  	});
 

@@ -5,6 +5,7 @@
 class LocationController extends BaseController
 {
 	public function voir( $location ){
+
 		$building = $location->building()->first();
 
 		$photosLocation = $location->photo()->orderBy('order')->get();
@@ -32,7 +33,8 @@ class LocationController extends BaseController
 		$user = $building->user()->first();
 
 		$translations = $location->translation()->get()->lists('value','key');
-
+$location->nb_views = $location->nb_views + 1;
+		$location->save();
 		return View::make('advert.show', array(
 			'page'=>'advert',
 			'widget'=>array(

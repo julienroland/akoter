@@ -22,7 +22,7 @@ class ImagesTypesTableSeeder extends Seeder {
 				),
 			array(
 				'name'=>'gallery',
-				'width'=>310,
+				'width'=>300,
 				'height'=>null,
 				'extension'=>'jpg',
 				),
