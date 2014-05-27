@@ -233,7 +233,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface, Slugg
 			'activeBuilding'=>function($query){
 				$query->has('activeLocation');
 			},
-			'activeBuilding.activeLocation',
+			'activeBuilding.activeLocation.request',
 			'activeBuilding.activeLocation.photo'=>function($query) use($user){
 
 				$query->where('order', 1 );
@@ -247,7 +247,19 @@ class User extends Eloquent implements UserInterface, RemindableInterface, Slugg
 		->whereId($user->id)->first();
 	}
 
-	
+	public static function getNumberRequest( $user ){
+		
+		$dump = $user->location()->with('request')->get();
+
+		$nb = 0;
+
+		foreach($dump as $location){
+
+			$nb = $nb + $location->request->count();
+		}
+
+		return $nb;
+	}
 
 	public static function getWaitingLocations( $user ){
 

@@ -46,5 +46,12 @@ return array(
 'th'=>'<sup>ème</sup>',
 'connect_comment'=>'Vous devez être connecté pour poster un commentaire,',
 'connection'=>'se connecter',
+'nb_locations'=>'Nombre de votes',
+'charge'=>'Charge',
+'typeLocation'=>'Location de type :name',
+'nb_seat'=>'Nombre de place disponible :number',
+'nb_rate'=>'Nombre de vote: <strong>:number</strong>',
+'start_at'=>'A parti du',
+'garantee'=>'Caution de :number €',
 
 );

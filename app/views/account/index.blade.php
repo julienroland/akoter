@@ -2,7 +2,7 @@
 
 @section('account')
 
-@if($user->isOwner == 1)
+@if(Auth::user()->isOwner == 1)
 
 @include('account.owner.index')
 

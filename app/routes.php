@@ -240,6 +240,14 @@ Route::group(array('prefix' => $lang), function () use ($lang) {
         *
         **/
         Route::get(trans('routes.locations').'/{location_slug}',array('as'=>'showLocation','uses'=>'LocationController@voir'));
+
+        /**
+        *
+        * Request
+        *
+        **/
+        
+        Route::get(trans('routes.account') . '/{user_slug}/' .trans('routes.request'),array('as'=>'seeRequest','uses'=>'AccountController@indexRequest'));
         
         /**
          *

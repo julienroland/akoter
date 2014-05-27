@@ -52,7 +52,11 @@
 					</div>
 
 					<div class="applications_location">
-						Aucune demande
+					@if($location->request->count() == 1)
+ 					{{trans('account.request_location',array('number'=>$location->request->count()))}}
+ 					@else
+ 					{{trans('account.requests_location',array('number'=>$location->request->count()))}}
+ 					@endif
 					</div>
 				</div>
 				<div class="actions">

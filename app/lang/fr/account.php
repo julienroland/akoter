@@ -3,13 +3,14 @@
 array(
 
 	'configuration'=>'Configuration',
-	'personnal_informations'=>'Informations personnelles',
-	'settings'=>'Paramètres du compte',
+	'personnal_informations'=>'Informations',
+	'settings'=>'Paramètres',
+	'request'=>'Demande',
 	'mail'=>'Messagerie',
 	'bookmark'=>'Favoris',
 	'likes'=>'Appréciations',
-	'manage_locations'=>'Gestion de locations',
-	'manage_locations_propri'=>'Gestion de d\'annonces',
+	'manage_locations'=>'Locations',
+	'manage_locations_propri'=>'Annonces',
 	'manage'=>'Gestion',
 	'suspend'=>'Suspendre le compte',
 	'reactive'=>'Reactiver le compte',
@@ -52,6 +53,13 @@ array(
 	'location_waiting_validation'=>'Location en attente de validation',
 	'location_notcomplete'=>'Votre annonce sur cette location n\'est complète qu\'à :percent',
 	'room_remaining_location'=>'Places occupés',
+	'request_location'=>'<strong>:number</strong> demande de location',
+	'requests_location'=>'<strong>:number</strong> demandes de location',
+	'number_request'=>'Voir les demandes de location',
+	'check_advert'=>'Voir la liste de vos annonces',
+	'check_locations'=>'Voir vos locations, d\'avant et de maintenant',
+	'check_personnal_informations'=>'Modifier vos informations personnelles',
+	'check_settings'=>'Modifier vos paramètres, validez votre email',
 
 
 	);

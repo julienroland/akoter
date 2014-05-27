@@ -186,11 +186,15 @@
 				<p>{{trans('locations.connect_comment')}} <a href="{{route('connection')}}">{{trans('locations.connection')}}</a>.</p>
 
 				@endif
+
 				@if(Helpers::isOk($comments))
 				<div class="comments">
+
+				<?php $i=0; ?>
 					@foreach($comments as $comment)
 					<?php $translation = $comment->translation->lists('value','key'); ?>
-					<div class="comment">
+
+					<div class="comment {{$i !== 0 && $i%2 != 0 ? 'striped' : ''}}">
 						<div class="user">
 							<div class="photo">
 								<img class="thumbnail" width="{{Config::get('var.user_photo_width')}}" height="{{Config::get('var.user_photo_height')}}" src="{{'/'.Config::get('var.images_dir').Config::get('var.users_dir').$comment->user->id.'/'.Config::get('var.profile_dir').$comment->user->photo}}" >
@@ -211,7 +215,10 @@
 							{{$translation['text']}}
 						</p>
 					</div>
+
+					<?php $i++; ?>
 					@endforeach
+
 				</div>
 				@endif
 			</div>
@@ -221,20 +228,20 @@
 
 				<span class="price">{{round($location->price)}}€</span>
 				<span class="perMonth">{{trans('general.perMonth')}}</span>
-				<span class="charge">{{Config::get('var.charges')[$location->charge_type]}}</span>
+				<span class="charge">{{trans('locations.charge')}} {{Config::get('var.charges')[$location->charge_type]}}</span>
 				@if($location->charge_type > 0)
 				<span class="chargePrice">{{$location->charge_price}}€</span>
 				@endif
-				<span class="typeLocation">{{$typeLocation}}</span>
-				<span class="nb_seat"><i class="icon icon-user3"></i>{{$location->remaining_room}}</span>
+				<span class="typeLocation">{{trans('locations.typeLocation',array('name'=>$typeLocation))}}</span>
+				<span class="nb_seat"><i class="icon icon-user3"></i>{{trans('locations.nb_seat',array('number'=>$location->remaining_room))}}</span>
 				<div class="date">
-					<span class="dt">A parti du: </span>
+					<span class="dt">{{trans('locations.start_at')}}: </span>
 					<i class="icon icon-calendar68"></i>
 					<span class="start fdate">{{Helpers::beTime(Helpers::createCarbonDate($location->start_date), '$d $nd $M $y')}}</span>
 					<span class="to">{{trans('general.to')}}</span>
 					<span class="start fdate">{{Helpers::beTime(Helpers::createCarbonDate($location->end_date), '$d $nd $M $y')}}</span>
 				</div>
-				<span class="caution">{{$location->garantee}}</span>
+				<span class="caution">{{trans('locations.garantee', array('number'=>$location->garantee))}} </span>
 				@if($location->advert_specific == 0)
 				{{trans('locations.remaining_location',array('number'=>$location->remaining_location))}}
 				@endif
@@ -258,7 +265,7 @@
 					<span class="icon {{Helpers::isStar( 5, $location->rating )}}" aria-hidden="true"></span>
 				</div>
 
-				<span class="number_rate">Nombre de votes : <strong>{{$location->nb_rate}}</strong></span>
+				<span class="number_rate">{{trans('locations.nb_rate',array('number'=>$location->nb_rate))}} </span>
 			</div>
 
 			<div class="user">

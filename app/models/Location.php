@@ -86,6 +86,16 @@ class Location extends Eloquent{
 public function user(){
 
 	return $this->belongsToMany('User','user_location')
+	->withPivot('status','begin','end')
+	->withTimestamps(); 
+}
+
+public function request(){
+
+	return $this->belongsToMany('User','user_location')
+	->withPivot('status','begin','end')
+	->whereStatus(0)
+	->whereRequest(1)
 	->withTimestamps(); 
 }
 

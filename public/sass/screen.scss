@@ -2927,9 +2927,24 @@ $country-h: 100px;
 		padding: 1em 0;
 		position: relative;
 		background-color: transparent;
+		.nb_request{
+			display: inline-block;
+			padding:3px;
+			background-color: $tc;
+			color:white;
+			width: 15px;
+			height: 15px;
+			@include border-radius(50%);
+			text-align: center;
+			line-height: 15px;
+			font-weight: bold;
+		}
 		a {
 			color: $tc;
 			text-decoration: none;
+			&:hover,&:focus,&:active{
+				text-decoration: underline;
+			}
 		}
 		.profil {
 			@include c(12);
@@ -7303,12 +7318,12 @@ only screen and (min-device-pixel-ratio: 1.5){
 	background-image: image-url('rating.png');
 }
 .note_propriete label input{
-		opacity:0;
-		-ms-filter:"alpha(opacity=0)";
-		width:24px;
-		height:23px;
-		margin-top: 0;
-	}
+	opacity:0;
+	-ms-filter:"alpha(opacity=0)";
+	width:24px;
+	height:23px;
+	margin-top: 0;
+}
 .note_propriete label{
 	cursor:pointer;
 	background-image: image-url('rating-hv.png');
@@ -7327,6 +7342,12 @@ only screen and (min-device-pixel-ratio: 1.5){
 	}
 }
 /** END note_propriete **/
+/**
+*
+* Tooltip
+*
+**/
+.tooltip-container{display:none;position:absolute;top:0;left:0;border-radius:1px;-moz-border-radius:1px;-webkit-border-radius:1px;line-height:normal !important;box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;background-color:#222;background:rgba(0, 0, 0, 0.8);z-index:99}.tooltip-container .tooltip-wrapper{position:relative}.tooltip-container .tooltip-arrow{position:absolute;border-width:8px;border-style:solid}.tooltip-container.arrow-b .tooltip-arrow{top:-16px;left:50%;margin-left:-8px;border-color:transparent transparent #222 transparent;border-color:transparent transparent rgba(0, 0, 0, 0.8) transparent}.tooltip-container.arrow-t .tooltip-arrow{bottom:-16px;left:50%;margin-left:-8px;border-color:#222 transparent transparent transparent;border-color:rgba(0, 0, 0, 0.8) transparent transparent transparent}.tooltip-container.arrow-l .tooltip-arrow{top:50%;right:-16px;margin-top:-8px;border-color:transparent transparent transparent #222;border-color:transparent transparent transparent rgba(0, 0, 0, 0.8)}.tooltip-container.arrow-r .tooltip-arrow{top:50%;left:-16px;margin-top:-8px;border-color:transparent #222 transparent transparent;border-color:transparent rgba(0, 0, 0, 0.8) transparent transparent}.tooltip-container .tooltip-content{color:#fff;text-shadow:0 1px 0 rgba(0, 0, 0, 0.3);padding:8px 16px;font-size:0.8em;text-align:center}
 /* END LOADING MAP */
 /* ANIMATION CSS3 */
 @import "animate";

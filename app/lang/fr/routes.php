@@ -47,6 +47,7 @@ return array(
     'contact-owner'=>'contacter-le-proprietaire',
     'on-location'=>'a-propos-de-sa-location-numero',
     'reserved'=>'reservation-pour-ce-logement',
+    'request'=>'demande-de-location',
 
 );
 
