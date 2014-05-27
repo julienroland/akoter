@@ -341,7 +341,7 @@ $(document).ready(function() {
   tinymce.init({
     selector: ".editor",
     mode : "textareas",
-    toolbar: "bold italic | bullist numlist outdent indent",
+    toolbar: "bold italic",
     language_url : '/js/editor/fr.js',
     menubar: "tools edit",
     plugins: [

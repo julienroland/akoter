@@ -13,9 +13,12 @@ class Location extends Eloquent{
 		'floor'=>'required | numeric',
 		'room'=>'required | numeric',
 		'chargePrice'=>'required_with:charge | numeric',
-		'start_date'=>'required_with:available | date',
+		'start_date'=>'required_with:available | date ',
 		'end_date'=>'required_with:available,start_date | date',
 		'advert.en'=>'required_without_all:title.fr,title.nl',
+		'advert.en'=>'min:100 |max:2048',
+		'advert.fr'=>'min:100 |max:2048',
+		'advert.nl'=>'min:100 |max:2048',
 		);
 
 	public function getTitleAttribute(){
@@ -130,18 +133,18 @@ public function particularity(){
 
 public static function getOptions($location){
 
-		$dump = $location->option()->with('translation')->get();
+	$dump = $location->option()->with('translation')->get();
 
-		$data = array();
+	$data = array();
 
-		foreach($dump as $option){
+	foreach($dump as $option){
 
-			$data[$option->id]  = $option->translation[0]->value;
+		$data[$option->id]  = $option->translation[0]->value;
 
-		}
-
-		return Collection::make($data);
 	}
+
+	return Collection::make($data);
+}
 
 public static function getLocationsPaginateList( $nb_obj = null, $paginate = null, $orderBy = 'created_at'  , $orderWay = 'asc' , $lang_id = null ){
 

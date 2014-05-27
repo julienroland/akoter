@@ -21,13 +21,6 @@
 
 	@include('includes.success')
 
-	@foreach($options as $option)
-	<div class="field">
-		<label for="garantee">{{trans('inscription.garantee')}}</label>
-		<input type="number" value="{{Helpers::isOk($building->garantee) ? $building->garantee: '' }}"name="garantee" id="garantee" placeholder="{{trans('inscription.garantee_placeholder')}}">
-	</div>
-	@endforeach
-
 	@foreach($situations as $situation)
 
 	@if($situation->language_id == 1)
@@ -85,7 +78,7 @@
 		<div id="{{$lang}}-advert">
 			<div class="field">
 				<label for="advert[{{$lang}}]">{{trans('inscription.write_advert',array('lang'=>trans('general.lang')[$lang]))}}</label>
-				<textarea name="advert[{{$lang}}]" data-validator="false" class="{{isset($advert_lang[$lang]) ? 'editor': ''}}" id="advert[{{$lang}}]">{{isset($advert_lang[$lang]) ? $advert_lang[$lang] :''}}</textarea>
+				<textarea name="advert[{{$lang}}]" data-validator="false" class="editor" id="advert[{{$lang}}]">{{isset($advert_lang[$lang]) ? $advert_lang[$lang] :''}}</textarea>
 				<div class="informations">
 					{{trans('inscription.write_advert_tuto')}}
 				</div>

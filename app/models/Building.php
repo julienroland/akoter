@@ -15,16 +15,15 @@ class Building extends Eloquent {
 		);
 
 	public static $infos_general_rules = array(
-		'garantee'=>'required | numeric',
 		'situations'=>'required|array',
 		'situations.en'=>'required_without_all:situations.fr,situations.nl',
-		'situations.en'=>'min:10 |max:2048',
-		'situations.fr'=>'min:10 |max:2048',
-		'situations.nl'=>'min:10 |max:2048',
+		'situations.en'=>'min:100 |max:2048',
+		'situations.fr'=>'min:100 |max:2048',
+		'situations.nl'=>'min:100 |max:2048',
 		'advert.en'=>'required_without_all:advert.fr,advert.nl',
-		'advert.en'=>'min:10 |max:2048',
-		'advert.fr'=>'min:10 |max:2048',
-		'advert.nl'=>'min:10 |max:2048',
+		'advert.en'=>'min:100 |max:2048',
+		'advert.fr'=>'min:100 |max:2048',
+		'advert.nl'=>'min:100 |max:2048',
 		);
 
 

@@ -51,7 +51,7 @@
 				<div id="{{$lang}}-title">
 					<div class="field">
 						<label for="location_{{$location->id}}[title][{{$lang}}]">{{trans('form.titleAdvert',array('lang'=>trans('general.lang')[$lang]))}}</label>
-						<input type="text" value="{{isset($titleData[$langId]) ? $titleData[$langId]:( isset(Session::get('adverts')['location_'.$location->id]) ? Session::get('adverts')['location_'.$location->id]['title'][$lang]:'')}}" {{App::getLocale() == $lang ? 'required' :''}} name="location_{{$location->id}}[title][{{$lang}}]" id="{{$location->id}}[title][{{$lang}}]" placeholder="{{trans('form.titleAdvert',array('lang'=>trans('general.lang')[$lang]))}}">
+						<input type="text" value="{{isset($titleData[$langId]) ? $titleData[$langId]:( isset(Session::get('adverts')['location_'.$location->id]) ? Session::get('adverts')['location_'.$location->id]['title'][$lang]:'')}}" {{App::getLocale() == $lang ? 'required' :''}} name="location_{{$location->id}}[title][{{$lang}}]" id="location_{{$location->id}}[title][{{$lang}}]" placeholder="{{trans('form.titleAdvert',array('lang'=>trans('general.lang')[$lang]))}}">
 					</div>
 				</div>
 				@endforeach
@@ -113,13 +113,13 @@
 				<div class="field">
 					{{Form::label('location_'.$location->id.'[start_date]', trans('form.start_date'),array('aria-hidden'=>'false'))}}
 					<div class="input-date icon-calendar68">
-						{{Form::text('location_'.$location->id.'[start_date]',isset($locationsData) ? Helpers::dateNaForm($locationsData[$location->id][0]->start_date) : (isset(Session::get('adverts')['location_'.$location->id]) ? Helpers::dateNaForm(Session::get('adverts')['location_'.$location->id]['start_date']) : '') ,array('class'=>'datepicker','title'=>trans('form.start_date'),'placeholder'=>trans('form.start_date2')))}}
+						{{Form::text('location_'.$location->id.'[start_date]',isset($locationsData[$location->id][0]->start_date) ? Helpers::dateNaForm($locationsData[$location->id][0]->start_date) : (isset(Session::get('adverts')['location_'.$location->id]) ? Helpers::dateNaForm(Session::get('adverts')['location_'.$location->id]['start_date']) : '') ,array('class'=>'datepicker','title'=>trans('form.start_date'),'placeholder'=>trans('form.start_date2')))}}
 					</div>
 				</div>
 				<div class="field">
 					{{Form::label('location_'.$location->id.'[end_date]', trans('form.end_date'),array('aria-hidden'=>'false'))}}
 					<div class="input-date icon-calendar68">
-						{{Form::text('location_'.$location->id.'[end_date]', isset($locationsData) ? Helpers::dateNaForm($locationsData[$location->id][0]->end_date) : (isset(Session::get('adverts')['location_'.$location->id]) ? Helpers::dateNaForm(Session::get('adverts')['location_'.$location->id]['end_date']) : '') ,array('class'=>'datepicker','title'=>trans('form.end_date'),'placeholder'=>trans('form.end_date2')))}}
+						{{Form::text('location_'.$location->id.'[end_date]', isset($locationsData[$location->id][0]->end_date) ? Helpers::dateNaForm($locationsData[$location->id][0]->end_date) : (isset(Session::get('adverts')['location_'.$location->id]) ? Helpers::dateNaForm(Session::get('adverts')['location_'.$location->id]['end_date']) : '') ,array('class'=>'datepicker','title'=>trans('form.end_date'),'placeholder'=>trans('form.end_date2')))}}
 					</div>
 				</div>
 			</div>
@@ -196,7 +196,7 @@
 				<div id="{{$lang}}-advert">
 					<div class="field">
 						<label for="location_{{$location->id}}[advert][{{$lang}}]">{{trans('inscription.advert_in',array('lang'=>trans('general.lang')[$lang]))}}</label>
-						<textarea name="location_{{$location->id}}[advert][{{$lang}}]" id="location_{{$location->id}}[advert][{{$lang}}]" class="{{Helpers::isOk($advertData[$langId]) ? 'editor': ''}}">{{isset($advertData[$langId]) ? $advertData[$langId] :( isset(Session::get('adverts')['location_'.$location->id]['advert']) ? Session::get('adverts')['location_'.$location->id]['advert'][$lang]:'')}}</textarea>
+						<textarea name="location_{{$location->id}}[advert][{{$lang}}]" id="location_{{$location->id}}[advert][{{$lang}}]" class="editor">{{isset($advertData[$langId]) ? $advertData[$langId] :( isset(Session::get('adverts')['location_'.$location->id]['advert']) ? Session::get('adverts')['location_'.$location->id]['advert'][$lang]:'')}}</textarea>
 					</div>
 				</div>
 				@endforeach

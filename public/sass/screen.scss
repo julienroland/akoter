@@ -6891,6 +6891,18 @@ div.wijmo-wijmenu .wijmo-wijmenu-child .wijmo-wijmenu-text {
 		height: 300px;
 		display: block;
 	}
+	#equipment-tab{
+		ul{
+			margin-bottom: $gutter;
+			margin-left:- 1em;
+			margin-right:- 1em;
+		}
+		.equipment-title{
+			font-size: $large;
+			margin-bottom: $gutter / 2;
+			display: inline-block;
+		}
+	}
 	.ui-tabs-nav.advert-tabs{
 		margin-bottom: $gutter;
 		margin-left: - gutter() / 2;

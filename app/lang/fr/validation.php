@@ -161,6 +161,12 @@ return array(
         "seat"=>'Places',
         "nb_locations"=>'Nombre de logements',
         "text"=>'Message',
+        "situations.fr"=>'Situation en Français',
+        "situations.nl"=>'Situation en Néerlandais',
+        "situations.en"=>'Situation en Anglais',
+        "advert.fr"=>'Annonce en Français',
+        "advert.nl"=>'Annonce en Néerlandais',
+        "advert.en"=>'Annonce en Anglais',
     ),
 
 );

@@ -34,5 +34,15 @@ return array(
 'contacted'=>'Contacter',
 'remaining_location'=>'Ceci est une annonce groupé, il reste encore <strong>:number locations</strong> disponible',
 'waiting_reserved'=>'En attente',
+'particularity-title'=>'Particularités du logement',
+'building-equipment-title'=>'Equipements du bâtiment (pièces commune, ...)',
+'location-equipment-title'=>'Equipements du logement (pièce privé, ...)',
+'specificity'=>'Spécificité',
+'size'=>'Dimension',
+'floor'=>'Etage',
+'accessible'=>'Accessible aux handicapés',
+'ground_floor'=>'Rez-de-chaussée',
+'first_floor'=>'<sup>er</sup>',
+'th'=>'<sup>ème</sup>',
 
 );

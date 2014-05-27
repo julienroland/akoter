@@ -411,9 +411,6 @@ class InscriptionController extends BaseController {
 		
 		if( $validator->passes()){
 
-			$building->garantee = $input['garantee'];
-			$building->save();
-
 			$situations = array_filter($input['situations']);
 			$adverts = array_filter($input['advert']);
 
@@ -429,13 +426,13 @@ class InscriptionController extends BaseController {
 
 					if(Helpers::isOk($text)){
 
-						if(Helpers::isNotOk(Translation::whereContentType('building')->whereKey('situations')->whereLanguageId(Config::get('var.langId')[$key])->first())){
+						if(Helpers::isNotOk(Translation::whereContentType('building')->whereContentId($building->id)->whereKey('situations')->whereLanguageId(Config::get('var.langId')[$key])->first())){
 
 							$translation = new Translation;
 						}
 						else{
 
-							$translation = Translation::whereContentType('building')->whereKey('situations')->whereLanguageId(Config::get('var.langId')[$key])->first();
+							$translation = Translation::whereContentType('building')->whereContentId($building->id)->whereKey('situations')->whereLanguageId(Config::get('var.langId')[$key])->first();
 						}
 
 						$translation->content_type = "Building";
@@ -446,13 +443,13 @@ class InscriptionController extends BaseController {
 
 					}else{
 
-						if(Helpers::isNotOk(Translation::whereContentType('building')->whereKey('situations')->whereLanguageId(Config::get('var.langId')[$key])->first())){
+						if(Helpers::isNotOk(Translation::whereContentType('building')->whereContentId($building->id)->whereKey('situations')->whereLanguageId(Config::get('var.langId')[$key])->first())){
 
 							$translation = new Translation;
 
 						}else{
 
-							$translation = Translation::whereContentType('building')->whereKey('situations')->whereLanguageId(Config::get('var.langId')[$key])->first();
+							$translation = Translation::whereContentType('building')->whereContentId($building->id)->whereKey('situations')->whereLanguageId(Config::get('var.langId')[$key])->first();
 						}
 
 						$translation->content_type = "Building";
@@ -464,18 +461,20 @@ class InscriptionController extends BaseController {
 
 					$translation->save();
 				}
+			}
+			if(Helpers::isOk(array_filter($input['advert']))){
 
 				foreach($input['advert'] as $key => $text){
 
 					if(Helpers::isOk($text)){
 
-						if(Helpers::isNotOk(Translation::whereContentType('building')->whereKey('advert')->whereLanguageId(Config::get('var.langId')[$key])->first())){
+						if(Helpers::isNotOk(Translation::whereContentType('building')->whereContentId($building->id)->whereKey('advert')->whereLanguageId(Config::get('var.langId')[$key])->first())){
 
 							$translation = new Translation;
 						}
 						else{
 
-							$translation = Translation::whereContentType('building')->whereKey('advert')->whereLanguageId(Config::get('var.langId')[$key])->first();
+							$translation = Translation::whereContentType('building')->whereContentId($building->id)->whereKey('advert')->whereLanguageId(Config::get('var.langId')[$key])->first();
 						}
 
 						$translation->content_type = "Building";
@@ -486,13 +485,13 @@ class InscriptionController extends BaseController {
 
 					}else{
 
-						if(Helpers::isNotOk(Translation::whereContentType('building')->whereKey('advert')->whereLanguageId(Config::get('var.langId')[$key])->first())){
+						if(Helpers::isNotOk(Translation::whereContentType('building')->whereContentId($building->id)->whereKey('advert')->whereLanguageId(Config::get('var.langId')[$key])->first())){
 
 							$translation = new Translation;
 
 						}else{
 
-							$translation = Translation::whereContentType('building')->whereKey('advert')->whereLanguageId(Config::get('var.langId')[$key])->first();
+							$translation = Translation::whereContentType('building')->whereContentId($building->id)->whereKey('advert')->whereLanguageId(Config::get('var.langId')[$key])->first();
 						}
 
 						$translation->content_type = "Building";
@@ -505,6 +504,7 @@ class InscriptionController extends BaseController {
 					$translation->save();
 				}
 			}
+
 			$building->register_step = 4;
 			$building->save();
 
@@ -529,7 +529,7 @@ class InscriptionController extends BaseController {
 		return View::make('inscription.owner.photo_building', array('page'=>'inscription','widget'=>array('upload','ui','sort')))
 		->with(compact('building','photos'));
 	}
-	
+
 	public function indexAdverts($user_slug, $building){
 
 		$locations = $building->location()->with(array('typeLocation.translation'))->get();
@@ -538,7 +538,7 @@ class InscriptionController extends BaseController {
 			$query->whereIn('key', array('title','advert'));
 		}
 		,'particularity'))->get()->groupBy('id');
-		
+
 		$options = Option::whereTypeOptionId(3)->with('translation')->get();
 
 		$particularities = particularity::with('translation')->get();
@@ -578,26 +578,26 @@ class InscriptionController extends BaseController {
 				$location->accessible = isset($input['accessible']) ? 1 : 0;
 				/*$location->slug = $input['chargePrice'];*/
 
-				if(Helpers::isOk($input['option'])){
+				if(isset($input['option']) && Helpers::isOk($input['option'])){
 
 					$location->option()->detach();
+					
+
+					foreach($input['option'] as $key => $option){
+
+						$location->option()->attach($key);
+					}
 				}
-
-				foreach($input['option'] as $key => $option){
-
-					$location->option()->attach($key);
-				}
-
-				if(Helpers::isOk($input['particularity'])){
+				if(isset($input['particularity']) && Helpers::isOk($input['particularity'])){
 
 					$location->particularity()->detach();
+					
+
+					foreach($input['particularity'] as $key => $particularity){
+
+						$location->particularity()->attach($key);
+					}
 				}
-
-				foreach($input['particularity'] as $key => $particularity){
-
-					$location->particularity()->attach($key);
-				}
-
 				$titles = array_filter($input['title']);
 
 
@@ -624,7 +624,7 @@ class InscriptionController extends BaseController {
 						$translation->language_id = Config::get('var.langId')[$key];
 
 					}else{
-						
+
 						if(Helpers::isNotOk(Translation::whereContentId($location_id)->whereContentType('Location')->whereKey('title')->whereLanguageId(Config::get('var.langId')[$key])->first())){
 
 							$translation = new Translation;
@@ -720,7 +720,7 @@ class InscriptionController extends BaseController {
 					$slug_translation->save(); 
 				}
 
-				
+
 
 				$building->register_step = 6;
 				$building->save();
@@ -735,7 +735,7 @@ class InscriptionController extends BaseController {
 				$fields = $validator->failed();
 
 				return Redirect::back()
-				->withInput()
+				->withInput($inputs)
 				->withFields($fields)
 				->withErrors($validator);
 			}

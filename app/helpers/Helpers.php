@@ -5,11 +5,11 @@ use Carbon\Carbon;
 class Helpers {
 
 	public static function transDecode($str) {
-    return preg_replace_callback("/\\\u([0-9a-f]{4})/i",
-        create_function('$matches',
-            'return html_entity_decode(\'&#x\'.$matches[1].\';\', ENT_QUOTES, \'UTF-8\');'
-        ), $str);
-}
+		return preg_replace_callback("/\\\u([0-9a-f]{4})/i",
+			create_function('$matches',
+				'return html_entity_decode(\'&#x\'.$matches[1].\';\', ENT_QUOTES, \'UTF-8\');'
+				), $str);
+	}
 
 	public static function addBeforeExtension( $stringWithExt, $string ){
 
@@ -579,7 +579,14 @@ public static function dateNaForm( $date ){
 
 	$dateExplode = explode('-',$date);
 
-	return $dateExplode[2].'-'. $dateExplode[1].'-'.$dateExplode[0];
+	if(isset($dateExplode[2])){
+
+		return $dateExplode[2].'-'. $dateExplode[1].'-'.$dateExplode[0];
+	}
+	else{
+
+		return null;
+	}
 }
 public static function createCarbonDate( $date ){
 

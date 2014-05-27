@@ -11,7 +11,7 @@
 				<li><a class="" href="#description-tab">{{trans('locations.description')}}</a></li>
 				<li><a class="" href="#localisation-tab">{{trans('locations.localisation')}}</a></li>
 				<li><a class="" href="#pictures-tab">{{trans('locations.pictures')}}</a></li>
-				<li><a class="" href="#equipment-tab">{{trans('locations.equipment')}}</a></li>
+				<li><a class="" href="#equipment-tab">{{trans('locations.specificity')}}</a></li>
 				<li><a class="" href="#comment-tab">{{trans('locations.comments')}}</a></li>
 			</ul>
 
@@ -38,7 +38,8 @@
 					<span class="title-description">{{trans('locations.title_description', array('type'=>$typeLocation,'city'=>$location->building->locality->name))}}</span>
 
 					{{$translations['advert']}}
-
+					
+					
 				</div>
 
 				
@@ -50,6 +51,7 @@
 					<span class="postal">{{$location->building->postal}}</span> <span class="region section">{{$region}}</span> <span class="locality">{{$location->building->locality->name}}</span>
 				</address>
 				<div class="informations-situation">
+
 					<span class="title-situation">
 						{{trans('locations.situation_title')}}
 					</span>
@@ -74,24 +76,49 @@
 			</div>
 
 			<div id="equipment-tab" class="pannel">
-				<ul>
-					<?php $i=0; ?>
-					@foreach($optionBuilding as $id => $name)
+				<div class="infos-usefull">
+					<span class="equipment-title">{{trans('locations.particularity-title')}}</span>
+					<ul>
+						<li class="option"><span class="icon icon-meter2"></span>{{trans('locations.size')}}: {{round($location->size)}} m<sup>2</sup></li>
+						<li class="option"><span class="icon icon-longa"></span>{{trans('locations.floor')}}: {{$location->floor}} {{$location->floor == 0 ? trans('locations.ground_floor') : $location->floor == 1 ? trans('locations.first_floor') : trans('locations.th')}}</li>
+						@if($location->accessible == 1 )
+						<li class="option"><span class="icon icon-check30"></span>{{trans('locations.accessible')}} </li>
+						@endif
+					</ul>
+				</div>
+				<div class="particularity">
+					<span class="equipment-title">{{trans('locations.particularity-title')}}</span>
+					<ul>
+						@foreach($particularities as $particularity)
 
-					<li class="option {{$i !== 0 && $i%2 != 0 ? 'striped' : ''}} ">{{$name}}</li>
+						<li class="option"><i class="icon {{$particularity->icon}}"></i>{{$particularity->translation[0]->value}}</li>
+						@endforeach
+					</ul>
+				</div>
+				<div class="building-equipment">
+					<span class="equipment-title">{{trans('locations.building-equipment-title')}}</span>
+					<ul>
+						<?php $i=0; ?>
+						@foreach($optionBuilding as $id => $name)
 
-					<?php $i++; ?>
-					@endforeach
-				</ul>
-				<ul>
-					<?php $i=0; ?>
-					@foreach($optionLocation as $id => $name)
+						<li class="option {{$i !== 0 && $i%2 != 0 ? 'striped' : ''}} "><i class="icon icon-check30"></i>{{$name}}</li>
 
-					<li class="option {{$i !== 0 && $i%2 != 0 ? 'striped' : ''}} ">{{$name}}</li>
+						<?php $i++; ?>
+						@endforeach
+					</ul>
+				</div>
+				<div class="location-equipment">
+					<span class="equipment-title">{{trans('locations.location-equipment-title')}}</span>
+					<ul>
+						<?php $i=0; ?>
+						@foreach($optionLocation as $id => $name)
 
-					<?php $i++; ?>
-					@endforeach
-				</ul>
+						<li class="option {{$i !== 0 && $i%2 != 0 ? 'striped' : ''}} "><i class="icon icon-check30"></i>{{$name}}</li>
+
+						<?php $i++; ?>
+						@endforeach
+					</ul>
+				</div>
 			</div>
 
 			<div id="comment-tab" class="pannel">

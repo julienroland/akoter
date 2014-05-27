@@ -20,12 +20,14 @@ class LocationController extends BaseController
 		$region = $building->region->translation()->pluck('value');
 
 		$typeLocation = $location->typeLocation->translation()->pluck('value');
-		
+
 		$building_translations = $building->translation()->get()->lists('value','key');
 		
 		$optionBuilding = Building::getOptions( $building );
 
 		$optionLocation = Location::getOptions( $location );
+
+		$particularities = $location->with('particularity.translation')->first()->particularity;
 
 		$user = $building->user()->first();
 
@@ -58,7 +60,8 @@ class LocationController extends BaseController
 			'building_translations',
 			'typeLocation',
 			'optionBuilding',
-			'optionLocation'
+			'optionLocation',
+			'particularities'
 			));
 	}
 
