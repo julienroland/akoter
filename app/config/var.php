@@ -10,7 +10,7 @@ return array(
 	'images_dir'=>'images/',
 	'users_dir'=>'users/',
 	'agences_dir'=>'agences/',
- 	'buildings_dir'=>'buildings/',
+	'buildings_dir'=>'buildings/',
 	'locations_dir'=>'locations/',
 	'commons_dir'=>'commons_rooms/',
 	'moreBuildingPhotos'=>'more',
@@ -44,7 +44,7 @@ return array(
 	'p_location'=>'location_',
 	'p_particularity'=>'particularity_',
 //others
-    	'logo'=>'/img/logo/logo.png',
+	'logo'=>'/img/logo/logo.png',
 	'remember'=>60 * 24,
 	//img
 	'img_small'=>'small',
@@ -117,7 +117,15 @@ return array(
 
 		),
 	'img_quality'=>90,
-
+	'keywords'=>trans('seo.keywords'),
+	'lat'=>'50,28',
+	'lng'=>'4.52',
+	'street'=>'Rue Basse Montagne',
+	'city'=>'Namur',
+	'postal'=>'5100',
+	'country'=>'Belgique',
+	'email'=>'akoter@julien-roland.be',
+	'phone'=>'+32 (0)495 94 51 93',
 
 
 

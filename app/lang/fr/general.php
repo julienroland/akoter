@@ -102,4 +102,6 @@ return array (
   'reservation_owner'=>'Demande de location',
   'reservation_owner_intro'=>'Faite votre demande pour louer ce bien, le propriétaire recevera un mail et un message sur son compte.',
   'to'=>'à',
+  'newsletter'=>'Restez à jour en recevant les dernières informations via email.',
+
   );

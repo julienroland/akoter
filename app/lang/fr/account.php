@@ -61,6 +61,7 @@ array(
 	'check_locations'=>'Voir vos locations, d\'avant et de maintenant',
 	'check_personnal_informations'=>'Modifier vos informations personnelles',
 	'check_settings'=>'Modifier vos paramètres, validez votre email',
+	'nav'=>'Rubriques de gestion du compte',
 
 
 	);

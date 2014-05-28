@@ -4,6 +4,7 @@ return array(
 
 	'l_particularity'=>':stuff disponible',
 	'l_particularity_perso'=>':stuff personnel disponible',
-	'h1_base'=>'Accueil du site Akoter, proposant de la location et co-location de kots (logement étudiants) en Belgique.',
+	'h1_base'=>'Akoter, proposant de la location de kots (logement étudiants) dans toute la Belgique.',
+	'keywords'=>'Kot,logement étudiant,location,appartement,studio,maison,duplex,internat,ecole,recherche,au alentour,proximitée,louer,Namur,Liège,Bruxelles,Belgique'
 	
 	);

@@ -2,7 +2,7 @@
   <div class="contentPopup">
     <a href="" class="closePopup" tabindex="4" title="Fermer la fénêtre"></a>
     <div class="wrapper">
-      <h3 aria-level="3" role="heading" class="titlePopup">Choisissez une langue</h3>
+      <h4 aria-level="4" role="heading" class="titlePopup">{{trans('title.lang')}}</h4>
       <div class="lang-choice french {{Helpers::isCurrentLanguage( 'fr' )}}">
         <a href="/fr" title="Changer vers le Français" tabindex="1">
           <span class="country-french flag"></span>

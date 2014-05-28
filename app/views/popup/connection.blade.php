@@ -20,7 +20,7 @@
        </div>
        <div class="loginEmail">
        <span class="or">{{strtolower(trans('connections.or'))}}</span>
-         {{Form::open(array('route'=>'connection','class'=>'mainType'))}}
+         {{Form::open(array('route'=>'connection','class'=>'mainType','role'=>'form'))}}
          <div class="field">
            {{Form::label('email_co', trans('connections.your_field',array('name'=>'email')))}}
            <div class="input-email icon-arroba">

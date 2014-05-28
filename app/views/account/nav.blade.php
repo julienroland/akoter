@@ -1,4 +1,5 @@
-<div class="nav-account">
+<nav role="navigation" class="nav-account">
+		<h2 aria-level="2" role="heading" class="section">{{trans('account.nav')}}</h2>
 	<ul>
 		<div class="profil">
 			<div class="thumbnail">
@@ -76,4 +77,4 @@
 		</li>
 		
 	</ul>
-</div>
+</nav>

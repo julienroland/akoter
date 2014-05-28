@@ -89,7 +89,7 @@
 			</div>
 		</div>	
 		@if(Helpers::isOk( $posts ) )
-		<section class="informationsSupp">
+		<section class="informationsSupp" role="article">
 			<div class="wrapper">
 				<div class="row">
 					<h2 aria-level="2" role="heading" class="section">{{Lang::get('posts.mod5_title')}}</h2>

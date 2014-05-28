@@ -20,9 +20,11 @@
 
 @include('popup.lang')
 
-<div class="container">
+<main class="container" id="main">
+
 	@yield('container')
-</div>
+	
+</main>
 
 <div class="overlay" aria-hidden="true"></div>
 

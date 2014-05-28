@@ -99,6 +99,7 @@ return array(
         'success_inscription_steps'=> 'Félicitation, votre bien à bien été enregistré avec toutes vos locations !',
         'message_success'=> 'Message bien envoyé !',
         'request_reservation_succes'=> 'Votre demande de réservation à bien été envoyé. Vous recevrez un retour du propriétaire par mail et via votre compte',
+        'newsletter'=> 'Vous aviez bien été ajouté à la newsletter',
         ),
 
     /*

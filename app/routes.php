@@ -189,6 +189,14 @@ Route::group(array('prefix' => $lang), function () use ($lang) {
 
         }*/
 
+        /**
+        *
+        * Newsletter
+        *
+        **/
+
+        Route::post(trans('routes.newsletter'), array('as'=>'newsletter','uses'=>'NewsletterController@add'));
+        
 
         /**
          *
@@ -351,6 +359,7 @@ Route::group(array('prefix' => $lang), function () use ($lang) {
             *
             **/
             Route::get( trans('routes.account') . '/{user_slug}/' .trans('routes.how_be_tenant'), array('as'=>'how_be_tenant', 'uses'=>'AccountController@howBeTenant'));
+            
             Route::group(array('before'=>'available_user'), function(){
 
                 Route::get(trans('routes.reserved').'/{location_slug}/', array('as'=>'reserved','uses'=>'UserController@reserved'));

@@ -5,7 +5,7 @@
 		<div class="formSearch">
 			<div class="searchBar">
 			<div class="input-search icon-magnifier10">
-				<input type="search" value="{{Input::has('search') ? Input::get('search') :''}}" name="search" placeholder="{{trans('form.search_location_keywords')}}">
+				<input type="search" role="search" value="{{Input::has('search') ? Input::get('search') :''}}" name="search" placeholder="{{trans('form.search_location_keywords')}}">
 				</div>
 			</div>
 			<div class="fieldsSearch">
