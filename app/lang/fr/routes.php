@@ -42,6 +42,7 @@ return array(
     'inscription_step8' => 'coordonnees-de-contact',
     'inscription_comfirm' => 'comfirmation-d-inscription',
     'how_be_owner' => 'comment-devenir-proprietaire',
+    'how_be_tenant' => 'comment-devenir-locataire',
     'edit_photo' => 'changer-la-photo-de-profil',
     'locations' => 'location-etudiants',
     'contact-owner'=>'contacter-le-proprietaire',

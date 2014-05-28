@@ -4,8 +4,6 @@ use Carbon\Carbon;
 
 class AccountController extends BaseController {
 
-	
-
 	public function __construct( )
 	{
 		
@@ -288,12 +286,24 @@ class AccountController extends BaseController {
 		return View::make('account.owner.how_be', array('page'=>'account'))
 		->with(compact('personnalNotComplete'));
 	}
+
 	public function editPhoto(){
 
 		return View::make('account.photo',array('page'=>'photo'));
 	}
-	public function indexRequest(){
 
-		return View::make('account.owner.request', array('page'=>'account'));
+	public function howBeTenant(){
+
+		return View::make('account.tenant.how_be', array('page'=>'account'));
+	}
+
+	public function indexRequest($user_slug){
+
+		$requests = Auth::user()->location()->with(array('request','translation'=>function($query){
+			$query->whereKey('title');
+		}))->get();
+
+		return View::make('account.owner.request', array('page'=>'account'))
+		->withRequests($requests);
 	}
 }

@@ -197,6 +197,16 @@ Route::filter('allow_advance', function(){
 	}
 
 });
+
+Route::filter('available_user', function(){
+
+	if(Auth::user()->validate != 1 || Auth::user()->active != 1 || Auth::user()->email_comfirm != 1){
+
+		return Redirect::route('how_be_tenant', Auth::user()->slug);
+	}
+
+});
+
 /*
 |--------------------------------------------------------------------------
 | Authentication Filters

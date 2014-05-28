@@ -42,7 +42,7 @@
 		<li><a href="" ><span class="icon icon-medal30"></span>{{trans('account.likes')}}</a></li>
 		<li><a href="" title="{{trans('account.check_locations')}}" class="tooltip-ui"><span class="icon icon-gearwheels"></span>{{trans('account.manage_locations')}}</a></li>
 		@if(Auth::user()->isOwner == 1)
-		<li><a href="{{route('seeRequest', Auth::user()->slug)}}" title="{{trans('account.number_request')}}" class="tooltip-ui"><span class="icon icon-gearwheels"></span>{{trans('account.request')}} <span class="nb_request">{{$request}}</span></a></li>
+		<li><a href="{{route('seeRequest', Auth::user()->slug)}}" title="{{trans('account.number_request')}}" class="tooltip-ui"><span class="icon icon-gearwheels"></span>{{trans('account.request')}} @if($request > 0 )<span class="nb_request">{{$request}}</span>@endif</a></li>
 		<li><a href="" title="{{trans('account.check_advert')}}" class="tooltip-ui"><span class="icon icon-gearwheels"></span>{{trans('account.manage_locations_propri')}}</a></li>
 		@endif
 		<li class="opGroup">{{trans('account.configuration')}}</li>

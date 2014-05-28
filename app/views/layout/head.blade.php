@@ -7,7 +7,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>title</title>
+  <title>{{isset($request) && $request > 0  ? '('.$request.') ' :''}} {{isset($title) ? $title : trans('general.titlePage')}}</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 

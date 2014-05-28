@@ -231,7 +231,7 @@ Route::group(array('prefix' => $lang), function () use ($lang) {
                 $route->setParameter('location_slug', $translation->value);
             }
 
-        	return Location::findOrFail($translation->content_id);
+            return Location::findOrFail($translation->content_id);
 
         });
         /**
@@ -350,10 +350,14 @@ Route::group(array('prefix' => $lang), function () use ($lang) {
             * Reserved
             *
             **/
+            Route::get( trans('routes.account') . '/{user_slug}/' .trans('routes.how_be_tenant'), array('as'=>'how_be_tenant', 'uses'=>'AccountController@howBeTenant'));
+            Route::group(array('before'=>'available_user'), function(){
 
-            Route::get(trans('routes.reserved').'/{location_slug}/', array('as'=>'reserved','uses'=>'UserController@reserved'));
+                Route::get(trans('routes.reserved').'/{location_slug}/', array('as'=>'reserved','uses'=>'UserController@reserved'));
 
-            Route::post(trans('routes.reserved').'/{location_slug}/', array('as'=>'reserved_location','uses'=>'UserController@reserved_location'));
+                Route::post(trans('routes.reserved').'/{location_slug}/', array('as'=>'reserved_location','uses'=>'UserController@reserved_location'));
+
+            });
 
             /**
              *

@@ -174,7 +174,8 @@ class User extends Eloquent implements UserInterface, RemindableInterface, Slugg
 	}
 	public function allLocations()
 	{
-		return $this->belongsToMany('Location','user_location');
+		return $this->belongsToMany('Location','user_location')
+		->withTimestamps();
 	}
 	
 	public function notice(){
@@ -248,14 +249,16 @@ class User extends Eloquent implements UserInterface, RemindableInterface, Slugg
 	}
 
 	public static function getNumberRequest( $user ){
-		
-		$dump = $user->location()->with('request')->get();
+
+		$dump = $user->building()->with('location.request')->get();
 
 		$nb = 0;
+		
+		foreach($dump as $building){
+			foreach($building->location as $location){
 
-		foreach($dump as $location){
-
-			$nb = $nb + $location->request->count();
+				$nb = $nb + $location->request->count();
+			}
 		}
 
 		return $nb;

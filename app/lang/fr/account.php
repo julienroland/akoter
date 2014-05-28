@@ -39,6 +39,7 @@ array(
 	'home'=>'Accueil',
 	'agence'=>'Vos agences',
 	'how_be_owner'=>'Comment devenir proprietaire',
+	'how_be_tenant'=>'Comment devenir locataire',
 	'pro'=>'S\'inscrire en tant que professionnel vous permet d\'ajouter votre entreprise à notre base de donnée, vous obtiendrez des avatanges t\'elle que de la visiblité sur les annonces, ...',
 	'completeProfile'=>'Completer mon profile',
 	'registerLocation'=>'Inscrire une location',

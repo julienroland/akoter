@@ -1,6 +1,7 @@
 <?php
 
 return array (
+  'titlePage'=>'Akoter, site de locations étudiant en Belgique',
   'introuvable' => 'Page introuvable',
   'last_adverts' => '<span class="b">Les dernières</span> annonces',
   'search_locations' => '<span class="b">Recherche</span> de logements',
