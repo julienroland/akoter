@@ -18,6 +18,11 @@ class Post extends Eloquent {
 		->where(Config::get('var.t_langCol'), Session::get('langId')); 
 	}
 
+	public function translations(){
+
+		return $this->morphMany('Translation','content');
+	}
+
 	public static function getPosts( $page, $hook = null){
 
 		if(Helpers::isOk($hook)){

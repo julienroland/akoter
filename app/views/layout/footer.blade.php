@@ -1,17 +1,13 @@
-<section class="newsletter">
+<section id="newsletter">
 		<h2 aria-level="2" role="heading" class="section">{{trans('title.newsletter')}}</h2>
 	<div class="wrapper">
 			<p>{{trans('general.newsletter')}}</p>
-			@if(isset($successNewsletter))
-			{{$successNewsletter}}
-			@endif
-
-			@if(isset($errors))
-			{{$errors->first('newsletter')}}
+			@if(isset($success_newsletter))
+			{{$success_newsletter}}
 			@endif
 
 			{{Form::open(array('route'=>'newsletter','class'=>'inlineType  newsletter-form'))}}
-				<input type="email" name="newsletter" required class="{{isset($fields->newsletter) ? 'form-error':''}}" id="newsletter" placeholder="email@email.com">
+				<input type="email" name="newsletter" required class="{{isset($fields->newsletter) ? 'form-error':''}}" id="newsletter" placeholder="{{$errors->first('newsletter')? $errors->first('newsletter') :'email@email.com'}}">
 				{{Form::submit(trans('form.add'))}}
 			{{Form::close()}}
 	</div>

@@ -334,17 +334,40 @@ Route::group(array('prefix' => $lang), function () use ($lang) {
 
             		Route::get('leave', array('uses'=>'Admin_UserController@leave'));
 
-            		Route::get('buildings', array('uses'=>'Admin_BuildingController@index'));
+                    /**
+                    *
+                    * Building
+                    *
+                    **/
+                    
+                    Route::get('buildings', array('uses'=>'Admin_BuildingController@index'));
 
-            		Route::get('building/delete/{building_id}', array('uses'=>'Admin_BuildingController@delete'));
+                    Route::get('building/delete/{building_id}', array('uses'=>'Admin_BuildingController@delete'));
 
-            		Route::get('building/validate/{building_id}', array('uses'=>'Admin_BuildingController@validate'));
+                    Route::get('building/validate/{building_id}', array('uses'=>'Admin_BuildingController@validate'));
 
-            		Route::get('building/contact/{building_id}', array('uses'=>'Admin_BuildingController@contact'));
+                    Route::get('building/contact/{building_id}', array('uses'=>'Admin_BuildingController@contact'));
 
-            		Route::post('building/sendMessage/{building_id}/{user_id}', array('uses'=>'Admin_BuildingController@sendMessage'));
-            		
-            	});
+                    Route::post('building/sendMessage/{building_id}/{user_id}', array('uses'=>'Admin_BuildingController@sendMessage'));
+
+                    /**
+                    *
+                    * Articles
+                    *
+                    **/
+                    Route::bind('article_id', function ($value, $route) {
+
+                        return Post::whereId($value)->with('translation','user')->firstOrFail();
+
+                    });
+
+                    Route::get('articles', array('uses'=>'Admin_ArticleController@index'));
+
+                    Route::get('articles/voir/{article_id}', array('uses'=>'Admin_ArticleController@show'));
+                    
+
+
+                });
 
 });
             /**

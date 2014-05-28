@@ -181,7 +181,7 @@ class Helpers {
 	}
 	public static function beTime( $timestamp ,  $format = '$d $nd $M $y $hh$m', $year=null){
 
-		return Helpers::displayHumanDate($timestamp->setTimezone('Europe/Brussels'), $format , $year);
+			return Helpers::displayHumanDate($timestamp->setTimezone('Europe/Brussels'), $format , $year);
 	}
 	public static function cacheEager( $key){
 
