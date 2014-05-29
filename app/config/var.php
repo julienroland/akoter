@@ -6,7 +6,7 @@ return array(
 	'img_dir'=>'/img/',
 	'img_locations_dir'=>'/img/locations/',
 	'img_users_dir'=>'/img/locations/',
-	'img_posts_dir'=>'/img/posts/',
+	'img_posts_dir'=>'img/posts/',
 	'images_dir'=>'images/',
 	'users_dir'=>'users/',
 	'agences_dir'=>'agences/',
@@ -93,6 +93,10 @@ return array(
 			'available:desc'=>trans('form.available'),
 			'created_at:asc'=>trans('form.created_date'),
 			),
+		),
+	'articles_photo'=>array(
+		'width'=>300,
+		'height'=>200,
 		),
 	'steps'=>8,
 	'steps_names'=>array(

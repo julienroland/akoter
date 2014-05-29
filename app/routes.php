@@ -364,6 +364,14 @@ Route::group(array('prefix' => $lang), function () use ($lang) {
                     Route::get('articles', array('uses'=>'Admin_ArticleController@index'));
 
                     Route::get('articles/voir/{article_id}', array('uses'=>'Admin_ArticleController@show'));
+
+                    Route::get('articles/notpublish/{article_id}', array('uses'=>'Admin_ArticleController@unpublish'));
+
+                    Route::get('articles/publish/{article_id}', array('uses'=>'Admin_ArticleController@publish'));
+
+                    Route::post('articles/addPhoto/{article_id}', array('uses'=>'Admin_ArticleController@addPhoto'));
+
+                    Route::post('articles/edit/{article_id}', array('uses'=>'Admin_ArticleController@edit'));
                     
 
 

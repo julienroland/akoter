@@ -7,6 +7,28 @@ class AgenceController extends BaseController
 	public function __construct(ImageController $image){
 
 		$this->image = $image;
+		
+		$personnal = array(
+			'first_name' => Auth::user()->first_name,
+			'name' => Auth::user()->name,
+			'email' => Auth::user()->email,
+			'civility' => Auth::user()->civility,
+			'address' => Auth::user()->address,
+			'region' => Auth::user()->region_id,
+			'locality' => Auth::user()->locality_id,
+			'phone' => Auth::user()->phone,
+			'postal' => Auth::user()->postal,
+
+			);
+
+		$this->request = User::getNumberRequest(Auth::user());
+		$this->personnal = User::personnalsRequiredNotComplete( $personnal );
+
+		View::share(array(
+			'request'=>$this->request,
+			'personnal'=>$this->personnal
+			));
+
 	}
 
 	public function index(){

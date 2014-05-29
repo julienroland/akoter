@@ -9,8 +9,8 @@
         "cviebrock/eloquent-sluggable": "2.0.*",
         "way/generators": "dev-master",
         "facebook/php-sdk": "dev-master",
-        "intervention/image": "2.*",
-        "intervention/imagecache": "2.*",
+        "intervention/image": "1.*",
+        "intervention/imagecache": "1.*",
         "barryvdh/laravel-ide-helper": "1.*",
         "barryvdh/laravel-translation-manager": "*",
         "torann/geoip": "dev-master"

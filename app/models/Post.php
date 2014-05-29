@@ -5,6 +5,10 @@ class Post extends Eloquent {
 	protected $guarded = array();
 	
 	public static $rules = array(
+		'title'=>'required',
+		'text'=>'required',
+		'page'=>'required',
+		'position'=>'required',
 		);
 
 	public function user(){
@@ -32,6 +36,7 @@ class Post extends Eloquent {
 				))
 			->where('content_type', $page )
 			->where('content_position', $hook)
+			->where('publish', 1)
 			->get();
 
 		}else{
@@ -40,6 +45,7 @@ class Post extends Eloquent {
 				'translation'
 				))
 			->where('content_type', $page )
+			->where('publish', 1)
 			->get();
 		}
 

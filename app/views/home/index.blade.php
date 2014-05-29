@@ -97,7 +97,7 @@
 					@foreach( $posts->data->mod5 as $post )
 
 					<div class="infos">
-						<a aria-hidden="true" href="{{url(trans('routes.posts').'/'.$post->slug)}}"><img src="{{Config::get('var.img_posts_dir')}}{{$post->img->url}}" width="{{$post->img->width}}" height="{{$post->img->height}}" class="imgIntro" aria-hidden="true"></a>
+						<a aria-hidden="true" href="{{url(trans('routes.posts').'/'.$post->slug)}}"><img src="/{{Config::get('var.img_posts_dir').$post->img->url}}" width="{{$post->img->width}}" height="{{$post->img->height}}" class="imgIntro" aria-hidden="true"></a>
 						<h3 aria-level="3" role="heading" class="titleText">{{$post->title}}</h3>
 						{{$post->content}}
 

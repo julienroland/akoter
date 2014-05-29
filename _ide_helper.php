@@ -12765,40 +12765,55 @@ namespace {
 	}
 	class Image extends \Intervention\Image\Facades\Image{
 		/**
-		 * Creates new instance of Image Manager
+		 * Create a new instance of Image class
 		 *
-		 * @param Illuminate\Config\Repository $config
-		 * @static 
-		 */
-		 public static function __construct($config = null){
-			//Method inherited from \Intervention\Image\ImageManager
-			 \Intervention\Image\ImageManager::__construct($config);
-		 }
-
-		/**
-		 * Initiates an Image instance from different input types
-		 *
-		 * @param mixed $data
-		 * @return Intervention\Image\Image
-		 * @static 
-		 */
-		 public static function make($data){
-			//Method inherited from \Intervention\Image\ImageManager
-			return \Intervention\Image\ImageManager::make($data);
-		 }
-
-		/**
-		 * Creates an empty image canvas
-		 *
+		 * @param string  $source
 		 * @param integer $width
 		 * @param integer $height
-		 * @param mixed $background
-		 * @return Intervention\Image\Image
+		 * @param mixed   $bgcolor
 		 * @static 
 		 */
-		 public static function canvas($width, $height, $background = null){
-			//Method inherited from \Intervention\Image\ImageManager
-			return \Intervention\Image\ImageManager::canvas($width, $height, $background);
+		 public static function __construct($source = null, $width = null, $height = null, $bgcolor = null){
+			//Method inherited from \Intervention\Image\Image
+			 \Intervention\Image\Image::__construct($source, $width, $height, $bgcolor);
+		 }
+
+		/**
+		 * Open a new image resource from image file
+		 *
+		 * @param mixed $source
+		 * @return Image
+		 * @static 
+		 */
+		 public static function make($source){
+			//Method inherited from \Intervention\Image\Image
+			return \Intervention\Image\Image::make($source);
+		 }
+
+		/**
+		 * Create a new empty image resource
+		 *
+		 * @param int   $width
+		 * @param int   $height
+		 * @param mixed $bgcolor
+		 * @return Image
+		 * @static 
+		 */
+		 public static function canvas($width, $height, $bgcolor = null){
+			//Method inherited from \Intervention\Image\Image
+			return \Intervention\Image\Image::canvas($width, $height, $bgcolor);
+		 }
+
+		/**
+		 * Create a new image resource with image data from string
+		 *
+		 * @param string $data
+		 * @return Image
+		 * @static 
+		 */
+		 public static function raw($string){
+			//Method inherited from \Intervention\Image\Image
+			return \Intervention\Image\Image::raw($string);
 		 }
 
 		/**
@@ -12811,9 +12826,628 @@ namespace {
 		 * @return Image
 		 * @static 
 		 */
-		 public static function cache($callback, $lifetime = null, $returnObj = false){
-			//Method inherited from \Intervention\Image\ImageManager
-			return \Intervention\Image\ImageManager::cache($callback, $lifetime, $returnObj);
+		 public static function cache($callback = null, $lifetime = null, $returnObj = false){
+			//Method inherited from \Intervention\Image\Image
+			return \Intervention\Image\Image::cache($callback, $lifetime, $returnObj);
+		 }
+
+		/**
+		 * Open a new image resource from image file
+		 *
+		 * @param string $path
+		 * @return Image
+		 * @static 
+		 */
+		 public static function open($path){
+			//Method inherited from \Intervention\Image\Image
+			return \Intervention\Image\Image::open($path);
+		 }
+
+		/**
+		 * Resize current image based on given width/height
+		 * 
+		 * Width and height are optional, the not given parameter is calculated
+		 * based on the given. The ratio boolean decides whether the resizing
+		 * should keep the image ratio. You can also pass along a boolean to
+		 * prevent the image from being upsized.
+		 *
+		 * @param integer $width  The target width for the image
+		 * @param integer $height The target height for the image
+		 * @param boolean $ratio  Determines if the image ratio should be preserved
+		 * @param boolean $upsize Determines whether the image can be upsized
+		 * @return Image
+		 * @static 
+		 */
+		 public static function resize($width = null, $height = null, $ratio = false, $upsize = true){
+			//Method inherited from \Intervention\Image\Image
+			return \Intervention\Image\Image::resize($width, $height, $ratio, $upsize);
+		 }
+
+		/**
+		 * Legacy method to support old resizing calls
+		 *
+		 * @param array $dimensions
+		 * @return Image
+		 * @static 
+		 */
+		 public static function legacyResize($dimensions = array()){
+			//Method inherited from \Intervention\Image\Image
+			return \Intervention\Image\Image::legacyResize($dimensions);
+		 }
+
+		/**
+		 * Resize image to new width, constraining proportions
+		 *
+		 * @param integer $width
+		 * @return Image
+		 * @static 
+		 */
+		 public static function widen($width){
+			//Method inherited from \Intervention\Image\Image
+			return \Intervention\Image\Image::widen($width);
+		 }
+
+		/**
+		 * Resize image to new height, constraining proportions
+		 *
+		 * @param integer $height
+		 * @return Image
+		 * @static 
+		 */
+		 public static function heighten($height){
+			//Method inherited from \Intervention\Image\Image
+			return \Intervention\Image\Image::heighten($height);
+		 }
+
+		/**
+		 * Resize image canvas
+		 *
+		 * @param int     $width
+		 * @param int     $height
+		 * @param string  $anchor
+		 * @param boolean $relative
+		 * @param mixed   $bgcolor
+		 * @return Image
+		 * @static 
+		 */
+		 public static function resizeCanvas($width, $height, $anchor = null, $relative = false, $bgcolor = null){
+			//Method inherited from \Intervention\Image\Image
+			return \Intervention\Image\Image::resizeCanvas($width, $height, $anchor, $relative, $bgcolor);
+		 }
+
+		/**
+		 * Crop the current image
+		 *
+		 * @param integer $width
+		 * @param integer $height
+		 * @param integer $pos_x
+		 * @param integer $pos_y
+		 * @return Image
+		 * @static 
+		 */
+		 public static function crop($width, $height, $pos_x = null, $pos_y = null){
+			//Method inherited from \Intervention\Image\Image
+			return \Intervention\Image\Image::crop($width, $height, $pos_x, $pos_y);
+		 }
+
+		/**
+		 * Cut out a detail of the image in given ratio and resize to output size
+		 *
+		 * @param integer $width
+		 * @param integer $height
+		 * @return Image
+		 * @static 
+		 */
+		 public static function grab($width = null, $height = null){
+			//Method inherited from \Intervention\Image\Image
+			return \Intervention\Image\Image::grab($width, $height);
+		 }
+
+		/**
+		 * Legacy Method to support older grab calls
+		 *
+		 * @param array $dimensions
+		 * @return Image
+		 * @static 
+		 */
+		 public static function legacyGrab($dimensions = array()){
+			//Method inherited from \Intervention\Image\Image
+			return \Intervention\Image\Image::legacyGrab($dimensions);
+		 }
+
+		/**
+		 * Trim away image space in given color
+		 *
+		 * @param string $base Position of the color to trim away
+		 * @param array  $away Borders to trim away
+		 * @param int    $tolerance Tolerance of color comparison
+		 * @param int    $feather Amount of pixels outside (when positive) or inside (when negative) of the strict limit of the matched color
+		 * @return Image
+		 * @static 
+		 */
+		 public static function trim($base = null, $away = null, $tolerance = null, $feather = 0){
+			//Method inherited from \Intervention\Image\Image
+			return \Intervention\Image\Image::trim($base, $away, $tolerance, $feather);
+		 }
+
+		/**
+		 * Mirror image horizontally or vertically
+		 *
+		 * @param mixed $mode
+		 * @return Image
+		 * @static 
+		 */
+		 public static function flip($mode = null){
+			//Method inherited from \Intervention\Image\Image
+			return \Intervention\Image\Image::flip($mode);
+		 }
+
+		/**
+		 * Insert another image on top of the current image
+		 *
+		 * @param mixed   $source
+		 * @param integer $pos_x
+		 * @param integer $pos_y
+		 * @param string  $anchor
+		 * @return Image
+		 * @static 
+		 */
+		 public static function insert($source, $pos_x = 0, $pos_y = 0, $anchor = null){
+			//Method inherited from \Intervention\Image\Image
+			return \Intervention\Image\Image::insert($source, $pos_x, $pos_y, $anchor);
+		 }
+
+		/**
+		 * Set opacity of current image
+		 *
+		 * @param integer $transparency
+		 * @return Image
+		 * @static 
+		 */
+		 public static function opacity($transparency){
+			//Method inherited from \Intervention\Image\Image
+			return \Intervention\Image\Image::opacity($transparency);
+		 }
+
+		/**
+		 * Apply given image as alpha mask on current image
+		 *
+		 * @param mixed   $source
+		 * @param boolean $mask_with_alpha
+		 * @return Image
+		 * @static 
+		 */
+		 public static function mask($source, $mask_with_alpha = false){
+			//Method inherited from \Intervention\Image\Image
+			return \Intervention\Image\Image::mask($source, $mask_with_alpha);
+		 }
+
+		/**
+		 * Rotate image with given angle
+		 *
+		 * @param float  $angle
+		 * @param string $color
+		 * @param int    $ignore_transparent
+		 * @return Image
+		 * @static 
+		 */
+		 public static function rotate($angle = 0, $bgcolor = '#000000', $ignore_transparent = 0){
+			//Method inherited from \Intervention\Image\Image
+			return \Intervention\Image\Image::rotate($angle, $bgcolor, $ignore_transparent);
+		 }
+
+		/**
+		 * Fill image with given color or image source at position x,y
+		 *
+		 * @param mixed   $source
+		 * @param integer $pos_x
+		 * @param integer $pos_y
+		 * @return Image
+		 * @static 
+		 */
+		 public static function fill($source, $pos_x = null, $pos_y = null){
+			//Method inherited from \Intervention\Image\Image
+			return \Intervention\Image\Image::fill($source, $pos_x, $pos_y);
+		 }
+
+		/**
+		 * Set single pixel
+		 *
+		 * @param string  $color
+		 * @param integer $pos_x
+		 * @param integer $pos_y
+		 * @return Image
+		 * @static 
+		 */
+		 public static function pixel($color, $pos_x = 0, $pos_y = 0){
+			//Method inherited from \Intervention\Image\Image
+			return \Intervention\Image\Image::pixel($color, $pos_x, $pos_y);
+		 }
+
+		/**
+		 * Draw rectangle in current image starting at point 1 and ending at point 2
+		 *
+		 * @param string  $color
+		 * @param integer $x1
+		 * @param integer $y1
+		 * @param integer $x2
+		 * @param integer $y2
+		 * @param boolean $filled
+		 * @return Image
+		 * @static 
+		 */
+		 public static function rectangle($color, $x1 = 0, $y1 = 0, $x2 = 10, $y2 = 10, $filled = true){
+			//Method inherited from \Intervention\Image\Image
+			return \Intervention\Image\Image::rectangle($color, $x1, $y1, $x2, $y2, $filled);
+		 }
+
+		/**
+		 * Draw a line in current image starting at point 1 and ending at point 2
+		 *
+		 * @param string  $color
+		 * @param integer $x1
+		 * @param integer $y1
+		 * @param integer $x2
+		 * @param integer $y2
+		 * @return Image
+		 * @static 
+		 */
+		 public static function line($color, $x1 = 0, $y1 = 0, $x2 = 10, $y2 = 10){
+			//Method inherited from \Intervention\Image\Image
+			return \Intervention\Image\Image::line($color, $x1, $y1, $x2, $y2);
+		 }
+
+		/**
+		 * Draw an ellipse centered at given coordinates.
+		 *
+		 * @param string  $color
+		 * @param integer $pos_x
+		 * @param integer $pos_y
+		 * @param integer $width
+		 * @param integer $height
+		 * @param boolean $filled
+		 * @return Image
+		 * @static 
+		 */
+		 public static function ellipse($color, $pos_x = 0, $pos_y = 0, $width = 10, $height = 10, $filled = true){
+			//Method inherited from \Intervention\Image\Image
+			return \Intervention\Image\Image::ellipse($color, $pos_x, $pos_y, $width, $height, $filled);
+		 }
+
+		/**
+		 * Draw a circle centered at given coordinates
+		 *
+		 * @param string  $color
+		 * @param integer $x
+		 * @param integer $y
+		 * @param integer $radius
+		 * @param boolean $filled
+		 * @return Image
+		 * @static 
+		 */
+		 public static function circle($color, $x = 0, $y = 0, $radius = 10, $filled = true){
+			//Method inherited from \Intervention\Image\Image
+			return \Intervention\Image\Image::circle($color, $x, $y, $radius, $filled);
+		 }
+
+		/**
+		 * Compatibility method to decide old or new style of text writing
+		 *
+		 * @param string  $text
+		 * @param integer $posx
+		 * @param integer $posy
+		 * @param mixed   $size_or_callback
+		 * @param string  $color
+		 * @param integer $angle
+		 * @param string  $fontfile
+		 * @return Image
+		 * @static 
+		 */
+		 public static function text($text, $posx = 0, $posy = 0, $size_or_callback = null, $color = '000000', $angle = 0, $fontfile = null){
+			//Method inherited from \Intervention\Image\Image
+			return \Intervention\Image\Image::text($text, $posx, $posy, $size_or_callback, $color, $angle, $fontfile);
+		 }
+
+		/**
+		 * Write text in current image, define details via callback
+		 *
+		 * @param string  $text
+		 * @param integer $posx
+		 * @param integer $posy
+		 * @param Closure $callback
+		 * @return Image
+		 * @static 
+		 */
+		 public static function textCallback($text, $posx = 0, $posy = 0, $callback = null){
+			//Method inherited from \Intervention\Image\Image
+			return \Intervention\Image\Image::textCallback($text, $posx, $posy, $callback);
+		 }
+
+		/**
+		 * Legacy method to keep support of old style of text writing
+		 *
+		 * @param string  $text
+		 * @param integer $pos_x
+		 * @param integer $pos_y
+		 * @param integer $angle
+		 * @param integer $size
+		 * @param string  $color
+		 * @param string  $fontfile
+		 * @return Image
+		 * @static 
+		 */
+		 public static function legacyText($text, $pos_x = 0, $pos_y = 0, $size = 16, $color = '000000', $angle = 0, $fontfile = null){
+			//Method inherited from \Intervention\Image\Image
+			return \Intervention\Image\Image::legacyText($text, $pos_x, $pos_y, $size, $color, $angle, $fontfile);
+		 }
+
+		/**
+		 * Changes the brightness of the current image
+		 *
+		 * @param int $level [description]
+		 * @return Image
+		 * @static 
+		 */
+		 public static function brightness($level){
+			//Method inherited from \Intervention\Image\Image
+			return \Intervention\Image\Image::brightness($level);
+		 }
+
+		/**
+		 * Changes the contrast of the current image
+		 *
+		 * @param int $level
+		 * @return Image
+		 * @static 
+		 */
+		 public static function contrast($level){
+			//Method inherited from \Intervention\Image\Image
+			return \Intervention\Image\Image::contrast($level);
+		 }
+
+		/**
+		 * Pixelate current image
+		 *
+		 * @param integer $size
+		 * @param boolean $advanced
+		 * @return Image
+		 * @static 
+		 */
+		 public static function pixelate($size = 10, $advanced = true){
+			//Method inherited from \Intervention\Image\Image
+			return \Intervention\Image\Image::pixelate($size, $advanced);
+		 }
+
+		/**
+		 * Turn current image into a greyscale verision
+		 *
+		 * @return Image
+		 * @static 
+		 */
+		 public static function grayscale(){
+			//Method inherited from \Intervention\Image\Image
+			return \Intervention\Image\Image::grayscale();
+		 }
+
+		/**
+		 * Alias of greyscale
+		 *
+		 * @return Image
+		 * @static 
+		 */
+		 public static function greyscale(){
+			//Method inherited from \Intervention\Image\Image
+			return \Intervention\Image\Image::greyscale();
+		 }
+
+		/**
+		 * Invert colors of current image
+		 *
+		 * @return Image
+		 * @static 
+		 */
+		 public static function invert(){
+			//Method inherited from \Intervention\Image\Image
+			return \Intervention\Image\Image::invert();
+		 }
+
+		/**
+		 * Apply colorize filter to current image
+		 *
+		 * @param integer $red
+		 * @param integer $green
+		 * @param integer $blue
+		 * @return Image
+		 * @static 
+		 */
+		 public static function colorize($red, $green, $blue){
+			//Method inherited from \Intervention\Image\Image
+			return \Intervention\Image\Image::colorize($red, $green, $blue);
+		 }
+
+		/**
+		 * Apply blur filter on the current image
+		 *
+		 * @param integer $amount
+		 * @return Image
+		 * @static 
+		 */
+		 public static function blur($amount = 1){
+			//Method inherited from \Intervention\Image\Image
+			return \Intervention\Image\Image::blur($amount);
+		 }
+
+		/**
+		 * Set a maximum number of colors for the current image
+		 *
+		 * @param integer $count
+		 * @param mixed   $matte
+		 * @return Image
+		 * @static 
+		 */
+		 public static function limitColors($count = null, $matte = null){
+			//Method inherited from \Intervention\Image\Image
+			return \Intervention\Image\Image::limitColors($count, $matte);
+		 }
+
+		/**
+		 * Determine whether an Image should be interlaced
+		 *
+		 * @param boolean $interlace
+		 * @return Image
+		 * @static 
+		 */
+		 public static function interlace($interlace = true){
+			//Method inherited from \Intervention\Image\Image
+			return \Intervention\Image\Image::interlace($interlace);
+		 }
+
+		/**
+		 * Applies gamma correction
+		 *
+		 * @param float $input
+		 * @param float $output
+		 * @return Image
+		 * @static 
+		 */
+		 public static function gamma($input, $output){
+			//Method inherited from \Intervention\Image\Image
+			return \Intervention\Image\Image::gamma($input, $output);
+		 }
+
+		/**
+		 * Set current image as original (reset will return to this)
+		 *
+		 * @return void
+		 * @static 
+		 */
+		 public static function backup(){
+			//Method inherited from \Intervention\Image\Image
+			 \Intervention\Image\Image::backup();
+		 }
+
+		/**
+		 * Reset to original image resource
+		 *
+		 * @return void
+		 * @static 
+		 */
+		 public static function reset(){
+			//Method inherited from \Intervention\Image\Image
+			 \Intervention\Image\Image::reset();
+		 }
+
+		/**
+		 * Encode image in different formats
+		 *
+		 * @param string  $format
+		 * @param integer $quality
+		 * @return string
+		 * @static 
+		 */
+		 public static function encode($format = null, $quality = 90){
+			//Method inherited from \Intervention\Image\Image
+			return \Intervention\Image\Image::encode($format, $quality);
+		 }
+
+		/**
+		 * Picks and formats color at position
+		 *
+		 * @param int    $x
+		 * @param int    $y
+		 * @param string $format
+		 * @return mixed
+		 * @static 
+		 */
+		 public static function pickColor($x, $y, $format = null){
+			//Method inherited from \Intervention\Image\Image
+			return \Intervention\Image\Image::pickColor($x, $y, $format);
+		 }
+
+		/**
+		 * Allocate color from given string
+		 *
+		 * @param string $value
+		 * @return int
+		 * @static 
+		 */
+		 public static function parseColor($value){
+			//Method inherited from \Intervention\Image\Image
+			return \Intervention\Image\Image::parseColor($value);
+		 }
+
+		/**
+		 * Save image in filesystem
+		 *
+		 * @param string  $path
+		 * @param integer $quality
+		 * @return Image
+		 * @static 
+		 */
+		 public static function save($path = null, $quality = 90){
+			//Method inherited from \Intervention\Image\Image
+			return \Intervention\Image\Image::save($path, $quality);
+		 }
+
+		/**
+		 * Read Exif data from the current image
+		 * 
+		 * Note: Windows PHP Users - in order to use this method you will need to
+		 * enable the mbstring and exif extensions within the php.ini file.
+		 *
+		 * @param string $key
+		 * @return mixed
+		 * @static 
+		 */
+		 public static function exif($key = null){
+			//Method inherited from \Intervention\Image\Image
+			return \Intervention\Image\Image::exif($key);
+		 }
+
+		/**
+		 * Send direct output with proper header
+		 *
+		 * @param string  $type
+		 * @param integer $quality
+		 * @return string
+		 * @static 
+		 */
+		 public static function response($type = null, $quality = 90){
+			//Method inherited from \Intervention\Image\Image
+			return \Intervention\Image\Image::response($type, $quality);
+		 }
+
+		/**
+		 * Destroys image resource and frees memory
+		 *
+		 * @return void
+		 * @static 
+		 */
+		 public static function destroy(){
+			//Method inherited from \Intervention\Image\Image
+			 \Intervention\Image\Image::destroy();
+		 }
+
+		/**
+		 * Calculates checksum of current image
+		 *
+		 * @return String
+		 * @static 
+		 */
+		 public static function checksum(){
+			//Method inherited from \Intervention\Image\Image
+			return \Intervention\Image\Image::checksum();
+		 }
+
+		/**
+		 * Returns image stream
+		 *
+		 * @return string
+		 * @static 
+		 */
+		 public static function __toString(){
+			//Method inherited from \Intervention\Image\Image
+			return \Intervention\Image\Image::__toString();
 		 }
 
 	}
@@ -12887,6 +13521,44 @@ namespace {
 
 	}
 	class Collection extends \Illuminate\Database\Eloquent\Collection{
+	}
+	class GeoIP extends \Torann\GeoIP\GeoIPFacade{
+		/**
+		 * Create a new GeoIP instance.
+		 *
+		 * @param \Illuminate\Config\Repository  $config
+		 * @param \Illuminate\Session\Store  $session
+		 * @return void
+		 * @static 
+		 */
+		 public static function __construct($config, $session){
+			//Method inherited from \Torann\GeoIP\GeoIP
+			 \Torann\GeoIP\GeoIP::__construct($config, $session);
+		 }
+
+		/**
+		 * Save location data in the session.
+		 *
+		 * @return void
+		 * @static 
+		 */
+		 public static function saveLocation(){
+			//Method inherited from \Torann\GeoIP\GeoIP
+			 \Torann\GeoIP\GeoIP::saveLocation();
+		 }
+
+		/**
+		 * Get location from IP.
+		 *
+		 * @param string $ip Optional
+		 * @return array
+		 * @static 
+		 */
+		 public static function getLocation($ip = null){
+			//Method inherited from \Torann\GeoIP\GeoIP
+			return \Torann\GeoIP\GeoIP::getLocation($ip);
+		 }
+
 	}
 }
 

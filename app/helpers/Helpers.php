@@ -15,7 +15,16 @@ class Helpers {
 
 		$stringEx = explode( '.', $stringWithExt );
 
-		return Helpers::toSlug( $stringEx[0].' '.$string.'.'.$stringEx[1] );
+		return Str::slug( $stringEx[0].' '.$string.'.'.$stringEx[1] );
+
+	}
+
+
+	public static function retinaFilename( $stringWithExt, $string ){
+
+		$stringEx = explode( '.', $stringWithExt );
+
+		return  $stringEx[0].$string.'.'.$stringEx[1] ;
 
 	}
 
@@ -181,7 +190,7 @@ class Helpers {
 	}
 	public static function beTime( $timestamp ,  $format = '$d $nd $M $y $hh$m', $year=null){
 
-			return Helpers::displayHumanDate($timestamp->setTimezone('Europe/Brussels'), $format , $year);
+		return Helpers::displayHumanDate($timestamp->setTimezone('Europe/Brussels'), $format , $year);
 	}
 	public static function cacheEager( $key){
 
@@ -293,15 +302,25 @@ class Helpers {
 
 		}
 	}
-	public static function isActive( $route ){
+	public static function isActive( $currentRoute, $route=null ){
 
-		if( Route::current()->getName() === $route){
+		if(Helpers::isOk($route)){
 
-			echo 'class="active"';
 
+			if( $route === $currentRoute){
+
+				echo 'class="active"';
+
+			}
+
+		}else{
+
+			if( Route::current()->getName() === $currentRoute){
+
+				echo 'class="active"';
+
+			}
 		}
-
-
 	}
 	public static function getFilterBy( $string ){
 

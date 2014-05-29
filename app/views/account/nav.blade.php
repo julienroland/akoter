@@ -35,7 +35,7 @@
 
 		@if(Auth::user()->pro == 1)
 
-		<li><a href="{{route('index_agence',Auth::user()->slug)}}" ><span class="icon icon-close13"></span><span>{{trans('account.agence')}}</span></a></li>
+		<li><a href="{{route('index_agence',Auth::user()->slug)}}" ><span class="icon icon-key105"></span><span>{{trans('account.agence')}}</span></a></li>
 
 		@endif
 
