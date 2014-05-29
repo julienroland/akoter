@@ -363,7 +363,7 @@ Route::group(array('prefix' => $lang), function () use ($lang) {
 
                     Route::get('articles', array('uses'=>'Admin_ArticleController@index'));
 
-                    Route::get('articles/voir/{article_id}', array('uses'=>'Admin_ArticleController@show'));
+                    Route::get('articles/edit/{article_id}', array('uses'=>'Admin_ArticleController@edit'));
 
                     Route::get('articles/notpublish/{article_id}', array('uses'=>'Admin_ArticleController@unpublish'));
 
@@ -371,9 +371,15 @@ Route::group(array('prefix' => $lang), function () use ($lang) {
 
                     Route::post('articles/addPhoto/{article_id}', array('uses'=>'Admin_ArticleController@addPhoto'));
 
-                    Route::post('articles/edit/{article_id}', array('uses'=>'Admin_ArticleController@edit'));
+                    Route::post('articles/edit/{article_id}', array('uses'=>'Admin_ArticleController@store'));
                     
-
+                    /**
+                    *
+                    * Users
+                    *
+                    **/
+                    
+                    Route::get('users', array('uses'=>'Admin_UserController@index'));
 
                 });
 

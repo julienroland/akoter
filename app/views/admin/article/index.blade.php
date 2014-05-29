@@ -27,18 +27,19 @@
 					</tr>
 				</thead>
 				<tbody>
-					@foreach($articles as $article)
+					@foreach($articles as $post)
 					
 					<tr >
-						<td>{{$article->id}}</td>
-						<td>{{$article->translation[0]->value}}</td>
-						<td>{{$article->content_type}}</td>
-						<td>{{$article->content_position}}</td>
-						<td><a href="">{{$article->user->first_name.' '.$article->user->name}}</a></td>
-						<td>{{Helpers::beTime($article->created_at)}}</td>
-						<td>{{Helpers::beTime($article->updated_at)}}</td>
+						<td>{{$post->id}}</td>
+						<td>{{$post->translation[0]->value}}</td>
+						<td>{{$post->content_type}}</td>
+						<td>{{$post->content_position}}</td>
+						<td><a href="">{{$post->user->first_name.' '.$post->user->name}}</a></td>
+						<td>{{Helpers::beTime($post->created_at)}}</td>
+						<td>{{Helpers::beTime($post->updated_at)}}</td>
 						<td>
-							<a href="{{url('admin/articles/voir', $article->id)}}" class="btn btn-info">Voir</a>
+							<a href="{{url('admin/articles/edit', $post->id)}}" class="btn btn-warning"><i class="glyphicon glyphicon-pencil"></i></a>
+							<a href="{{$post->publish == 0 ? url('admin/articles/publish', $post->id) : url('admin/articles/depublish', $post->id) }}" class="btn {{$post->publish == 0 ? 'btn-success' : 'btn-danger'}}"><i class="glyphicon glyphicon-eye-{{$post->publish == 0 ? 'open' : 'close'}}"></i></a>
 
 						</td>
 					</tr>

@@ -13,7 +13,7 @@ class Admin_ArticleController extends \Admin_AdminController
 		return View::make('admin.article.index')
 		->with(compact('articles'));
 	}
-	public function show( $post ){
+	public function edit( $post ){
 
 		return View::make('admin.article.show', array('widget'=>array('editor')))
 		->withPost($post);
@@ -35,15 +35,37 @@ class Admin_ArticleController extends \Admin_AdminController
 		return Redirect::back();
 	}
 
-	public function edit( $post ){
+	public function store( $post ){
 		$input = Input::all();
-dd(Input::all());
-		$validator = Validator::make($input, Post::$rules)
+
+		$validator = Validator::make($input, Post::$rules);
 
 		if($validator->passes()){
 
+			foreach(Config::get('var.lang') as $id => $lang){
+
+				$translation = $post->translations()->whereLanguage_id($id);
+
+				$title = $post->translations()->whereLanguage_id($id)->whereKey('title')->first();
+				$title->value = Helpers::translate($input['title'], 'fr', $lang);
+				$title->save();
+
+				$content = $post->translations()->whereLanguage_id($id)->whereKey('content')->first();
+				$content->value = Helpers::translate($input['text'], 'fr', $lang);
+				$content->save();
+
+				$slug = $post->translations()->whereLanguage_id($id)->whereKey('slug')->first();
+				$slug->value = Str::slug(Helpers::translate($input['title'], 'fr', $lang).' '.$post->id);
+				$slug->save();
+
+			}
+			
+			$post->content_type = $input['page'];
+			$post->content_position = $input['position'];
+			$post->save();
+
 			return Redirect::back()
-			->withSucess('Article bien modifié'),
+			->withSucess('Article bien modifié');
 
 		}else{
 

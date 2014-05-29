@@ -11,6 +11,14 @@
             <a href="{{url('admin/articles')}}">Articles</a>
         </li>
 
+        <li {{Helpers::isActive('users', Request::segment(2))}}>
+            <a href="{{url('admin/users')}}">Utilisateurs</a>
+        </li>
+
+        <li {{Helpers::isActive('translations', Request::segment(2))}}>
+            <a href="{{url('admin/translations')}}">Traductions</a>
+        </li>
+
 
     </ul>
             <!--  <form class="navbar-form navbar-left" role="search">

@@ -37,9 +37,9 @@
 						<td>{{Helpers::beTime($building->updated_at)}}</td>
 						<td>
 						<a href="{{url('admin/building/validate', $building->id)}}" class="btn btn-success" title="Valider le building">✔</a href="{{url('admin/building/validate', $building->id)}}">
-							<a href="{{url('admin/building/contact', $building->id)}}" class="btn btn-info" title="Envoyer un mail au l'utilisateur"><i class="glyphicon glyphicon-envelope"></i></a>
+							<a href="{{url('admin/building/contact', $building->id)}}" class="btn btn-info" title="Envoyer un mail au l'utilisateur"><i class="glyphicon glyphicon-trashglyphicon-envelope"></i></a>
 							<a class="btn btn-warning " ><i class="glyphicon glyphicon-pencil"></i></a>
-							<a href="{{url('admin/building/delete', $building->id)}}" title="Supprimer le bâtiment" onclick="javascript:alert('êtes-vous sur de vouloir supprimer le bâtiment ?');" class="btn btn-danger" >X</a>
+							<a href="{{url('admin/building/delete', $building->id)}}" title="Supprimer le bâtiment" onclick="javascript:alert('êtes-vous sur de vouloir supprimer le bâtiment ?');" class="btn btn-danger" ><i class="glyphicon glyphicon-trash"></i></a>
 
 						</td>
 					</tr>
