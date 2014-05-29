@@ -2,16 +2,23 @@
 
 @section('account')
 
-@foreach( $requests as $req)
-	
-	@foreach($req->request as $r)
-	{{dd($r)}}
+@foreach( $requests as $building)
+
+	@foreach($building->location as $location)
+
+	@foreach($location->request as $req)
+
 	<div class="request">
 	<div class="infos">
-		<span class="title-location">{{$req->translation[0]->value}}</span>
-		<span class="user-name">{{$r->first_name.' '.$r->name}}</span>
+		<span class="title-location">{{$location->translation[0]->value}}</span>
+		
+		<span class="user-name">{{$req->first_name.' '.$req->name}}</span>
 		</div>
 	</div>
+	<div class="actions">
+		
+	</div>
+	@endforeach
 	@endforeach
 
 @endforeach

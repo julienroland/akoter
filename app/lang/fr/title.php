@@ -14,5 +14,7 @@ return array(
 		'contrast'=>'Changer les contrastes de la carte',
 		'streetView'=>'Afficher la vue de la rue',
 		'allKots'=>'Voir tous les logement sur la carte (même lors du filtrage)',
-		)
+		'scroll'=>'Zoomer via la molette de la souris ou via les flèches du clavier',
+		),
+	'lang-choose'=>'Langues disponibles: Français, Néerlandais, Anglais.',
 	);

@@ -2,43 +2,67 @@
 
 @section('account')
 <div class="account-container">
-	<div class="how_be_owner">
+	<div class="how_be">
 		<h2 aria-level="2" role="heading" class="accountTitle">{{trans('account.how_be_owner')}}</h2>
 
-		<div class="owner_step {{$personnalNotComplete ? ($personnalNotComplete->count < $personnalNotComplete->total ? 'notdone' :'done') : 'done'}}">
+		<div class="how_be_step {{$personnal ? ($personnal->count < $personnal->total ? 'notdone' :'done') : 'done'}}">
 			<p>
-				{{trans('inscription.how_be_owner.first')}}
+				{{trans('inscription.how_be.profile')}}
 
-				@if($personnalNotComplete)
+				@if($personnal)
 
-				<span class="informations">{{trans('account.required_percent', array('percent'=>Helpers::toPercent($personnalNotComplete->count,$personnalNotComplete->total,'diff')))}} </span>
+				<span class="informations">{{trans('account.required_percent', array('percent'=>Helpers::toPercent($personnal->count,$personnal->total,'diff')))}} </span>
 				
+				@else
+
+				<span class="success">{{trans('account.stepDone')}}</span>
+
 				@endif
 			</p>
+			@if($personnal)
 			<a href="{{route('account_personnal', Auth::user()->slug)}}" class="btn-inscription">{{trans('account.completeProfile')}}</a>
+			@endif
 		</div>
-		<div class="owner_step {{Auth::user()->email_comfirm == 0 ? 'notdone' : 'done'}}">
+		<div class="how_be_step {{Auth::user()->email_comfirm == 0 ? 'notdone' : 'done'}}">
+
 			@include('includes.success')
+
 			<p>
-				{{trans('inscription.how_be_owner.second')}}
+				{{trans('inscription.how_be.email')}}
 			</p>
+
+			@if(Auth::user()->email_comfirm == 0)
+
 			<a href="{{route('checkEmail', Auth::user()->slug)}}" class="btn-inscription">{{trans('account.validateEmail')}}</a>
+
+			@else
+
+			<span class="success">{{trans('account.stepDone')}}</span>
+
+			@endif
 		</div>
-		<div class="owner_step notdone">
+		<div class="how_be_step {{Auth::user()->validate == 0 ? 'notdone' : 'done'}}">
 			<p>
-				{{trans('inscription.how_be_owner.third')}}
+			{{trans('inscription.how_be.admin')}}
+				
 			</p>
+		</div>
+		<div class="how_be_step {{Auth::user()->building()->get()->count() ? 'done' :'notdone'}}">
+			<p>
+				{{trans('inscription.how_be.location')}}
+			</p>
+
 			<a href="{{route('index_localisation_building', Auth::user()->slug)}}" class="btn-inscription">{{trans('account.registerLocation')}}</a>
 		</div>
-		<div class="owner_step">
+		<div class="how_be_step">
 			<p>
-				{{trans('inscription.how_be_owner.fourth')}}
+				{{trans('inscription.how_be.admin_location')}}
 			</p>
 
 		</div>
-		<div class="owner_step">
+		<div class="how_be_step">
 			<p>
-				{{trans('inscription.how_be_owner.five')}}
+				{{trans('inscription.how_be.done')}}
 			</p>
 		</div>			
 

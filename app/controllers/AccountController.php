@@ -299,11 +299,23 @@ class AccountController extends BaseController {
 
 	public function indexRequest($user_slug){
 
-		$requests = Auth::user()->location()->with(array('request','translation'=>function($query){
+		$requests = Auth::user()->building()->with(array('location.request','location.translation'=>function($query){
 			$query->whereKey('title');
 		}))->get();
 
 		return View::make('account.owner.request', array('page'=>'account'))
 		->withRequests($requests);
+	}
+
+	public function requestValidation( ){
+
+		Mailgun::send('emails.requestValidation', array('user'=>Auth::user()), function($message){
+
+			$message->to(Config::get('mailgun::from')['address'], Config::get('mailgun::from')['name'])
+			->subject('Demande d\'avancement pour la validation du compte');
+		});
+
+		return Redirect::back()
+		->withSuccess(trans('inscription.how_be.requestSend'));
 	}
 }

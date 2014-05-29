@@ -42,7 +42,7 @@
           </ul>
         </div>
         <div class="language">
-           <a href="" class="lang toPopup" data-type="lang" role="button" title="Changer de langue"><span class="flag flag-{{App::getLocale()}}"></span>{{trans('general.lang')[App::getLocale()]}}</a>
+           <a href="javascript:void(0)" role="button" class="lang toPopup tooltip-ui-s" data-type="lang" role="button" title="{{trans('title.lang-choose')}}"><span class="flag flag-{{App::getLocale()}}"></span>{{trans('general.lang')[App::getLocale()]}}</a>
         </div>
       </nav>
     </div>

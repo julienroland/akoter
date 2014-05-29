@@ -8,7 +8,7 @@
      <span class="loadingText">{{trans('general.loading')}}</span>
    </div>
 
-   {{Form::text('','',array('id'=>'zoom','data-min'=>'7','data-max'=>'15','data-step'=>'1','autocomplete'=>'off'))}}
+   {{Form::text('','',array('id'=>'zoom','data-min'=>'7','data-max'=>'15','data-step'=>'1','autocomplete'=>'off','class'=>'tooltip-ui-s','title'=>trans('title.map.scroll')))}}
 
    <div class="mapItem">
      <div class="accordeon">
@@ -25,7 +25,6 @@
           {{Form::label('form-city',ucfirst(trans('form.city')).':')}}
           <div class="icon-map54 input-city">
             {{Form::text('city','',array('tabindex'=>'4','id'=>'form-city','class'=>'form-city form-icon','placeholder'=>trans('form.locality')))}}
-            <div class="autocomplete"></div>
           </div>
         </div>
         <div class="field">

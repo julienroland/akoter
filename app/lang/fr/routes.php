@@ -49,6 +49,7 @@ return array(
     'on-location'=>'a-propos-de-sa-location-numero',
     'reserved'=>'reservation-pour-ce-logement',
     'request'=>'demande-de-location',
+    'requestValidation'=>'accelerer-la-validation',
     'newsletter'=>'ajout-a-la-newsletter',
 
 );

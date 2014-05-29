@@ -32,12 +32,16 @@ return array(
 	'localisation_intro'=>'Localisez précisement votre batiment via le formulaire et la carte.',
 	'type_location_intro'=>'Ajoutez tout les types de logement qu\'abrite votre bien, choissisez de créer une annonce globale ou une annonce spécifique à chacune d\'entres elles',
 	'infos_general_intro'=>'Indiquez les éléments relatif au logement globale, les textes doivent être au minimun completer dans une langue.',
-	'how_be_owner'=>array(
-		'first'=>'Completez votre profile à 100%',
-		'second'=>'Vous devez faire vérifier votre email pour des raisons de sécurités.',
-		'third'=>'Ajouter votre logement à notre site via le formulaire d\'inscription',
-		'fourth'=>'Nous validerons votre inscription',
-		'five'=>'Votre annonce est bien ajouté sur notre site et est visible par tout le monde',
+	'how_be'=>array(
+		'profile'=>'Completez votre profile à 100%',
+		'email'=>'Vous devez faire vérifier votre email pour des raisons de sécurités.',
+		'admin'=>'Nous validons votre profile',
+		'location'=>'Ajouter votre logement à notre site via le formulaire d\'inscription',
+		'admin_location'=>'Nous validerons votre inscription',
+		'done'=>'Votre annonce est bien ajouté sur notre site et est visible par tout le monde',
+		'request_validation'=>'Accélérer',
+		'request_validation_title'=>'Accélérer le processus via une demande mettant en avant votre compte pour les administrateurs',
+		'requestSend'=>'Demande envoyé, nous valideront votre compte rapidement',
 		),
 	'locate_map_btn'=>'Localiser sur la carte',
 	'locate_map_infos'=>array(

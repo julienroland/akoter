@@ -404,6 +404,13 @@ Route::group(array('prefix' => $lang), function () use ($lang) {
             });
 
             /**
+            *
+            * Request validation
+            *
+            **/
+            Route::get( trans('routes.account') . '/{user_slug}/' .trans('routes.requestValidation'), array('as'=>'requestValidation', 'uses'=>'AccountController@requestValidation'));
+            
+            /**
              *
              * Photo
              *

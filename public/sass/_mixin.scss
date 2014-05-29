@@ -1077,7 +1077,7 @@ input[type="checkbox"]{
 }
 input[type="submit"]{
 	cursor:pointer;
-	background:lighten($blblue,5%);
+	background-color:lighten($blblue,5%);
 	background: linear-gradient(to bottom,lighten($blblue,15%),lighten($blblue,8%));
 	color:white;
 	text-decoration: none;
@@ -1103,13 +1103,11 @@ input[type="submit"]{
 		@include box-shadow(rgba(0,0,0,0.2) 0 2px 0 inset,rgba(0,0,0,0.1) 0px 2px 3px ,rgba(0,0,0,0) 1px 1px 1px , rgba(0,0,0,0) 1px 1px 1px );
 	}
 	&:hover,&:focus{
-		background:0;
 		outline:0;
-		background-color: $bblueD;
 		border:1px solid $bblueD;
 		border-top: 1px solid lighten($bblueD,5%);
 		border-bottom: 1px solid darken($bblueD,10%);
-		text-decoration: underline;
+		background: linear-gradient(to bottom,lighten($blblue,5%),$blblue);
 
 	}
 	&:disabled{
