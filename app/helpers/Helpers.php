@@ -15,7 +15,7 @@ class Helpers {
 
 		$stringEx = explode( '.', $stringWithExt );
 
-		return Str::slug( $stringEx[0].' '.$string.'.'.$stringEx[1] );
+		return  $stringEx[0].'-'.$string.'.'.$stringEx[1] ;
 
 	}
 

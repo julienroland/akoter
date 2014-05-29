@@ -535,8 +535,7 @@ a {
 		}
 	}
 	.wrapper {
-		position: relative;
-		z-index: 1;
+
 	}
 	.fa {
 		margin-right: 5px;
@@ -1187,14 +1186,13 @@ input[type="checkbox"]:checked + label {
 			background-color: $bg;
 			height: 20px;
 		}
-		margin-bottom: $gutter/2;
 	}
 	.controlItem {
 		@include cl(12);
 		text-align: center;
-		margin-bottom: $gutter / 2;
 		a {
-			display: inline-block;
+			display: block;
+			width: 100%;
 			@include box-sizing(border-box);
 			@include a(0, 0, none);
 			color: white;
@@ -1208,13 +1206,6 @@ input[type="checkbox"]:checked + label {
 			&:hover, &:focus, &:active {
 				@include transition(all 0.3s ease-in-out);
 				background-color: $mc;
-				@include box-shadow($bg 0 0 2px 0 inset);
-				border: 1px solid $bg;
-				.icon {
-					&:before {
-						color: $bg;
-					}
-				}
 			}
 			.icon {
 				&:before {
@@ -1236,19 +1227,12 @@ input[type="checkbox"]:checked + label {
 	}
 	.showAllMarkerKot {
 		display: block;
-		a {
-
+		a{
 			.icon {
-				display: block;
-				width: 25px;
-				text-align: center;
-				margin-top: 5px;
-				height: 25px;
-				background-image: url('../img/map/markers/small-kot.png');
-				background-repeat: no-repeat;
-				background-position: center;
+				&:before {
+					font-size: 48px;
+				}
 			}
-
 		}
 	}
 	.active {
@@ -1256,8 +1240,6 @@ input[type="checkbox"]:checked + label {
 		a {
 			@include transition(all 0.3s ease-in-out);
 			background-color: $mc;
-			@include box-shadow($bg 0 0 2px 0 inset);
-			border: 1px solid $bg;
 			.icon {
 				&:before {
 					color: $tc;
@@ -7347,7 +7329,31 @@ only screen and (min-device-pixel-ratio: 1.5){
 * Tooltip
 *
 **/
-.tooltip-container{display:none;position:absolute;top:0;left:0;border-radius:1px;-moz-border-radius:1px;-webkit-border-radius:1px;line-height:normal !important;box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;background-color:#222;background:rgba(0, 0, 0, 0.8);z-index:99}.tooltip-container .tooltip-wrapper{position:relative}.tooltip-container .tooltip-arrow{position:absolute;border-width:8px;border-style:solid}.tooltip-container.arrow-b .tooltip-arrow{top:-16px;left:50%;margin-left:-8px;border-color:transparent transparent #222 transparent;border-color:transparent transparent rgba(0, 0, 0, 0.8) transparent}.tooltip-container.arrow-t .tooltip-arrow{bottom:-16px;left:50%;margin-left:-8px;border-color:#222 transparent transparent transparent;border-color:rgba(0, 0, 0, 0.8) transparent transparent transparent}.tooltip-container.arrow-l .tooltip-arrow{top:50%;right:-16px;margin-top:-8px;border-color:transparent transparent transparent #222;border-color:transparent transparent transparent rgba(0, 0, 0, 0.8)}.tooltip-container.arrow-r .tooltip-arrow{top:50%;left:-16px;margin-top:-8px;border-color:transparent #222 transparent transparent;border-color:transparent rgba(0, 0, 0, 0.8) transparent transparent}.tooltip-container .tooltip-content{color:#fff;text-shadow:0 1px 0 rgba(0, 0, 0, 0.3);padding:8px 16px;font-size:0.8em;text-align:center}
+.tipsy { font-size: $x-small; position: absolute; padding: 5px; z-index: 100000; }
+.tipsy-inner { background-color: #000; color: #FFF; max-width: 200px; padding: 5px 8px 4px 8px; text-align: center; }
+
+  /* Rounded corners */
+  .tipsy-inner { border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px; }
+  
+  /* Uncomment for shadow */
+  /*.tipsy-inner { box-shadow: 0 0 5px #000000; -webkit-box-shadow: 0 0 5px #000000; -moz-box-shadow: 0 0 5px #000000; }*/
+  
+  .tipsy-arrow { position: absolute; width: 0; height: 0; line-height: 0; border: 5px dashed #000; }
+  
+  /* Rules to colour arrows */
+  .tipsy-arrow-n { border-bottom-color: #000; }
+  .tipsy-arrow-s { border-top-color: #000; }
+  .tipsy-arrow-e { border-left-color: #000; }
+  .tipsy-arrow-w { border-right-color: #000; }
+  
+  .tipsy-n .tipsy-arrow { top: 0px; left: 50%; margin-left: -5px; border-bottom-style: solid; border-top: none; border-left-color: transparent; border-right-color: transparent; }
+  .tipsy-nw .tipsy-arrow { top: 0; left: 10px; border-bottom-style: solid; border-top: none; border-left-color: transparent; border-right-color: transparent;}
+  .tipsy-ne .tipsy-arrow { top: 0; right: 10px; border-bottom-style: solid; border-top: none;  border-left-color: transparent; border-right-color: transparent;}
+  .tipsy-s .tipsy-arrow { bottom: 0; left: 50%; margin-left: -5px; border-top-style: solid; border-bottom: none;  border-left-color: transparent; border-right-color: transparent; }
+  .tipsy-sw .tipsy-arrow { bottom: 0; left: 10px; border-top-style: solid; border-bottom: none;  border-left-color: transparent; border-right-color: transparent; }
+  .tipsy-se .tipsy-arrow { bottom: 0; right: 10px; border-top-style: solid; border-bottom: none; border-left-color: transparent; border-right-color: transparent; }
+  .tipsy-e .tipsy-arrow { right: 0; top: 50%; margin-top: -5px; border-left-style: solid; border-right: none; border-top-color: transparent; border-bottom-color: transparent; }
+  .tipsy-w .tipsy-arrow { left: 0; top: 50%; margin-top: -5px; border-right-style: solid; border-left: none; border-top-color: transparent; border-bottom-color: transparent; }
 
 /**
 *
@@ -7356,34 +7362,34 @@ only screen and (min-device-pixel-ratio: 1.5){
 **/
 /* Make clicks pass-through */
 #nprogress {
-  pointer-events: none;
+	pointer-events: none;
 }
 
 #nprogress .bar {
-  background: $mc;
+	background: $mc;
 
-  position: fixed;
-  z-index: 1031;
-  top: 0;
-  left: 0;
+	position: fixed;
+	z-index: 1031;
+	top: 0;
+	left: 0;
 
-  width: 100%;
-  height: 2px;
+	width: 100%;
+	height: 2px;
 }
 
 /* Fancy blur effect */
 #nprogress .peg {
-  display: block;
-  position: absolute;
-  right: 0px;
-  width: 100px;
-  height: 100%;
-  box-shadow: 0 0 10px $mc, 0 0 5px $mc;
-  opacity: 1.0;
+	display: block;
+	position: absolute;
+	right: 0px;
+	width: 100px;
+	height: 100%;
+	box-shadow: 0 0 10px $mc, 0 0 5px $mc;
+	opacity: 1.0;
 
-  -webkit-transform: rotate(3deg) translate(0px, -4px);
-      -ms-transform: rotate(3deg) translate(0px, -4px);
-          transform: rotate(3deg) translate(0px, -4px);
+	-webkit-transform: rotate(3deg) translate(0px, -4px);
+	-ms-transform: rotate(3deg) translate(0px, -4px);
+	transform: rotate(3deg) translate(0px, -4px);
 }
 
 /* Remove these to get rid of the spinner */

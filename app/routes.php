@@ -328,8 +328,6 @@ Route::group(array('prefix' => $lang), function () use ($lang) {
 
             		Route::get('/', array('as'=>'getIndexAdmin','uses'=>'Admin_AdminController@index'));
 
-            		Route::get('login', array('as' => 'login_admin', 'uses' => 'Admin_UserController@connect'));
-
             		Route::get('disconnect', array('uses'=>'Admin_UserController@disconnect'));
 
             		Route::get('leave', array('uses'=>'Admin_UserController@leave'));

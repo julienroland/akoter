@@ -34,7 +34,7 @@
 
         </div>
         <div class="field">
-          <button  class="send" id="filter">{{ucfirst(trans('form.filter'))}}</button>
+          <button role="button" class="send" id="filter">{{ucfirst(trans('form.filter'))}}</button>
         </div>
       </div>
     </div>
@@ -43,24 +43,24 @@
 
 <div class="mapControls">
  <div class="tab">
-   <a href="" title="{{trans('general.hide_panel')}}" aria-hidden="true">
-     <span class="icon icon-prohibited1"></span>
+   <a aria-label="{{trans('general.hide_panel')}}" role="button" href="javascript:void(0)" title="{{trans('general.hide_panel')}}" aria-hidden="true">
+     <span aria-hidden="true" class="icon icon-prohibited1"></span>
    </a>
  </div>
  <ul>
    <li class="controlItem colorBlind"> 
-     <a href="" title="Changer les contrastes">
-       <span class="icon icon-contrast"></span>
+     <a aria-label="{{trans('title.map.contrast')}}" role="button" class="tooltip-ui-e" href="javascript:void(0)" title="{{trans('title.map.contrast')}}">
+       <span aria-hidden="true" class="icon icon-contrast"></span>
      </a>
    </li>
    <li class="controlItem streetView"> 
-     <a href="" title="Voir la rue">
-       <span class="icon icon-person3"></span>
+     <a aria-label="{{trans('title.map.streetView')}}" role="button" class="tooltip-ui-e" href="javascript:void(0)" title="{{trans('title.map.streetView')}}">
+       <span aria-hidden="true" class="icon icon-person3"></span>
      </a>
    </li>
    <li class="controlItem showAllMarkerKot">
-     <a href="" title="Voir les tous kots">
-       <span class="icon"></span> 
+     <a aria-label="{{trans('title.map.allKots')}}" role="button" href="javascript:void(0)" class="tooltip-ui-e" title="{{trans('title.map.allKots')}}">
+       <span aria-hidden="true" class="icon icon-location32"></span> 
      </a></li>
 
    </ul>

@@ -12,4 +12,27 @@ class Admin_UserController extends \Admin_AdminController
 		->with(compact('users'));
 	}
 
+	public function disconnect()
+	{
+		if(Auth::check()){
+
+			Auth::logout();
+
+			Session::flush();
+
+			return Redirect::guest('/');
+		}
+		else{
+
+			return Redirect::guest('/');
+
+		}
+		
+	}
+
+	public function leave()
+	{
+		return Redirect::to('/');
+	}
+
 }

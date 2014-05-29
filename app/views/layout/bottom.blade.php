@@ -9,7 +9,7 @@ NProgress.start();
    NProgress.done();
 });
 </script>
-{{HTML::script('js/tooltip.js')}}
+
 @if(isset($widget) && in_array('gallery', $widget))
 
 {{HTML::script('js/min/grid.js')}}
@@ -378,6 +378,16 @@ NProgress.start();
 @endif
 
 {{HTML::script('js/min/retina.js')}}
+
+{{HTML::script('js/jquery.tipsy.js')}}
+<script>
+   $(function() {
+   $('.tooltip-ui-e').tipsy({fade: true,gravity:'w',delayOut: 100, opacity: 0.9});
+   $('.tooltip-ui-w').tipsy({fade: true,gravity:'e',delayOut: 100, opacity: 0.9});
+   $('.tooltip-ui-s').tipsy({fade: true,gravity:'n',delayOut: 100, opacity: 0.9});
+   $('.tooltip-ui-n').tipsy({fade: true,gravity:'s',delayOut: 100, opacity: 0.9});
+ });
+</script>
 <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
 <script async>
   (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=

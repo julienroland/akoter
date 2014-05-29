@@ -1090,10 +1090,10 @@ input[type="submit"]{
 	display:block;
 	height:44px;
 	border:1px solid $blblue;
-	@include text-shadow(rgba(0,0,0,0.25) 0 -1px 0 );
+	@include text-shadow(rgba(0,0,0,0.60) 0 -1px 0 );
 	border-top: 1px solid lighten($blblue,5%);
 	border-bottom: 1px solid darken($blblue,10%);
-	@include box-shadow(rgba(255,255,255,0.2) 0 1px 0 inset,rgba(0,0,0,0.1) 0px 2px 3px ,rgba(0,0,0,0) 1px 1px 1px , rgba(0,0,0,0) 1px 1px 1px );
+	@include box-shadow(rgba(255,255,255,0.4) 0 1px 0 inset,rgba(0,0,0,0.1) 0px 2px 3px ,rgba(0,0,0,0) 1px 1px 1px , rgba(0,0,0,0) 1px 1px 1px );
 	padding:1px $gutter/2;
 	border-radius:3px;
 	@include transition(all 0.2s ease-in-out);
