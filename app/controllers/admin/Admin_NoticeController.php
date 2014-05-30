@@ -9,24 +9,11 @@ class Admin_NoticeController extends \Admin_AdminController
 		$notices = Notice::with('translation');
 
 
-		if(Input::has('search')){
-
-			$notices = $notices
-			->join('users','notices.user_id','=','users.id')
-			->join('translations', function($join){
-				$join->on('notices.id','=','translations.content_id')
-				->where('translations.content_type','=','Notice')
-				->where('translations.key','=','text');
-				
-			})
-			->where('notices.id','like','%'.Input::get('search').'%')
-			->orWhere('users.first_name','like','%'.Input::get('search').'%')
-			->orWhere('translations.value','like','%'.Input::get('search').'%')
-			->orWhere('users.name','like','%'.Input::get('search').'%')
-			->distinct()
-			->select('users.id as user_id','notices.*');
-
+		$search = $this->search(Input::all(),$notices);
+		if(Helpers::isOk($search)){
+			$notices = $search;
 		}
+
 		$notices = $notices->with('user');
 		
 		$notices = $notices->paginate(20);
