@@ -207,6 +207,15 @@ Route::filter('available_user', function(){
 
 });
 
+Route::filter('isOwner', function(){
+
+	if(Auth::user()->isOwner != 1 || Auth::user()->active != 1 || Auth::user()->email_comfirm != 1){
+
+		return Redirect::back(route('account_home', Auth::user()->slug) );
+	}
+
+});
+
 /*
 |--------------------------------------------------------------------------
 | Authentication Filters

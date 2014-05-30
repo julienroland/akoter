@@ -110,5 +110,6 @@ return array(
 	'click-rating'=>'Cliquez pour noter',
 	'commenting'=>'Commenter',
 	'comment'=>'Commentaire',
+	
 
 );		

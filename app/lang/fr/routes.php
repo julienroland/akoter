@@ -51,6 +51,7 @@ return array(
     'request'=>'demande-de-location',
     'requestValidation'=>'accelerer-la-validation',
     'newsletter'=>'ajout-a-la-newsletter',
+    'add_notice'=>'ajout-un-avis-sur-akoter',
 
 );
 

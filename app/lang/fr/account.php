@@ -63,6 +63,7 @@ array(
 	'check_settings'=>'Modifier vos paramètres, validez votre email',
 	'nav'=>'Rubriques de gestion du compte',
 	'stepDone'=>'Etape réussi !',
+	'notice'=>'Donner son avis',
 
 
 	);

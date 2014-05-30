@@ -205,6 +205,15 @@ Route::group(array('prefix' => $lang), function () use ($lang) {
          **/
 
         Route::get(Lang::get('routes.home'), array('as' => 'home', 'uses' => 'HomeController@index'));
+
+        /**
+        *
+        * Articles
+        *
+        **/
+
+        Route::get(trans('routes.posts').'/{post_slug}', array('as'=>'showPost','uses'=>'PostController@show'));
+        
         /**
         *
         * Contact tenant
@@ -405,6 +414,19 @@ Route::group(array('prefix' => $lang), function () use ($lang) {
 
             /**
             *
+            * Test if user is a owner
+            *
+            **/
+            
+            Route::group(array('before'=>'isOwner'), function(){
+
+
+                Route::get( trans('routes.account') . '/{user_slug}/' . trans('routes.add_notice'),array('as'=>'index_add_notice','uses'=>'NoticeController@add'));
+
+            });
+
+            /**
+            *
             * Request validation
             *
             **/
@@ -418,19 +440,20 @@ Route::group(array('prefix' => $lang), function () use ($lang) {
 
             Route::get(trans('routes.account') . '/{user_slug}/' . trans('routes.edit_photo'), array('as' => 'edit_photo', 'uses' => 'AccountController@editPhoto'));
 
-            /*	Route::bind('user_slug', function($value, $route)
-                {
+            Route::bind('user_slug', function($value, $route)
+            {
+                if(User::whereSlug($value)->firstOrFail()){
+
                     if($value === Auth::user()->slug){
 
                         return $value;
 
-                    }else{
-                        dd(str_replace('{user_slug}',Auth::user()->slug, Route::current()->getUri()));
-                        return Redirect::to(str_replace('{user_slug}',Auth::user()->slug, Route::current()->getUri()));
                     }
-                    return User::where('initial_2', $value)->firstOrFail();
+                }
 
-                });*/
+                return Response::view('missing.default',array(),404); 
+
+            });
 
             /**
              *

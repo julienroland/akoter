@@ -1,4 +1,4 @@
-<section id="newsletter">
+<section class="newsletter">
 		<h2 aria-level="2" role="heading" class="section">{{trans('title.newsletter')}}</h2>
 	<div class="wrapper">
 			<p>{{trans('general.newsletter')}}</p>
