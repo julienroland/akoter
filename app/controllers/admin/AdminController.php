@@ -2,14 +2,19 @@
 
 class Admin_AdminController extends \BaseController
 {
-	public function __construct()
+	public function __construct(LangController $lang)
 	{
-		$this->beforeFilter('auth');
+		$this->lang = $lang;
 	}
 
 	public function index()
 	{
-		return View::make('admin.index');
+
+		$dynamiqueTrans = Translation::remember(Config::get('var.remember'),'translations')->get()->count();
+		$staticTrans = Helpers::cache($this->lang->getAll()->count() * count(Config::get('var.lang')), 'staticTrans');
+
+		return View::make('admin.index')
+		->with(compact('staticTrans','dynamiqueTrans'));
 	}
 
 	function search( $search, $class){

@@ -18,7 +18,7 @@
             <p>Il y a x utilisateurs enregistré.</p>
             <p>Il y a x utilisateurs en attente de validation</p>
             <p>Il y a x pages/contenu de type cms</p>
-            <p>Il y a x traductions statics et x dynamique</p>
+            <p>Il y a <strong>{{$staticTrans}}</strong> traductions statics et <strong>{{$dynamiqueTrans}}</strong> dynamiques</p>
         </div>
     </div>
 </div>

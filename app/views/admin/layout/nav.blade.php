@@ -1,9 +1,6 @@
  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
     <ul class="nav navbar-nav">
 
-        <li {{Helpers::IsNotok(Request::segment(2))? 'class="active"' :''}} >
-            {{link_to_route('getIndexAdmin','Accueil admin')}}
-        </li>
         <li {{Helpers::isActive('buildings', Request::segment(2))}}>
             <a href="{{url('admin/buildings')}}">Bâtiments</a>
         </li>

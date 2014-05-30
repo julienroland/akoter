@@ -9,7 +9,7 @@ class LangController extends BaseController {
 		* Array qui stockera les traductions
 		*
 		**/
-		$langs = array();
+		$langs = new Collection;
 
 		/**
 		*
@@ -48,8 +48,15 @@ class LangController extends BaseController {
 
 			$fileName = explode('.' , $ex[count($ex)-1])[0];
 
+			if(Request::ajax()){
 
-			$langs[$fileName] = File::getRequire( $files );
+				$langs[$fileName] = File::getRequire( $files );
+
+			}else{
+
+				$this->recursivePush($langs, File::getRequire( $files ));
+				
+			}
 			
 		}
 		
@@ -58,8 +65,29 @@ class LangController extends BaseController {
 		* @return json
 		*
 		**/
-		
-		return Response::json($langs, 200);
+		if(Request::ajax()){
+
+			return Response::json($langs, 200);
+
+		}else{
+
+			return $langs;
+		}
 	}
 
+	public function recursivePush($langs, $data){
+
+		foreach($data as $file){
+
+			if(is_array($file)){
+
+				$this->recursivePush($langs, $file);
+			}
+
+			$langs->push($file);
+		}
+
+		return $langs;
+
+	}
 }

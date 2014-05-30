@@ -11,7 +11,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Admin - {{Auth::user()->first_name}}</a>
+            <a class="navbar-brand" href="{{url('admin/')}}">Admin - {{Auth::user()->first_name}}</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
