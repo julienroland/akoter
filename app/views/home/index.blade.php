@@ -89,7 +89,7 @@
 			</div>
 		</div>	
 		@if(Helpers::isOk( $posts ) )
-		<section class="informationsSupp" role="article">
+		<article itemscope itemtype="http://schema.org/BlogPosting" class="informationsSupp" role="article">
 			<div class="wrapper">
 				<div class="row">
 					<h2 aria-level="2" role="heading" class="section">{{Lang::get('posts.mod5_title')}}</h2>
@@ -97,17 +97,19 @@
 					@foreach( $posts->data->mod5 as $post )
 
 					<div class="infos">
-						<a role="button" title="{{trans('general.post.title',array('name'=>$post->title))}}" href="{{route('showPost',$post->slug)}}"><img src="/{{Config::get('var.img_posts_dir').$post->img->url}}" width="{{$post->img->width}}" height="{{$post->img->height}}" class="imgIntro" aria-hidden="true"></a>
-						<h3 aria-level="3" role="heading" class="titleText">{{$post->title}}</h3>
-						{{$post->content}}
+						<a role="button" itemprop="url" title="{{trans('general.post.title',array('name'=>$post->title))}}" href="{{route('showPost',$post->slug)}}"><img src="/{{Config::get('var.img_posts_dir').$post->img->url}}" width="{{$post->img->width}}" height="{{$post->img->height}}" class="imgIntro" aria-hidden="true"></a>
+						<h3 itemprop="headline" aria-level="3" role="heading" class="titleText">{{$post->title}}</h3>
+						<div itemprop="text">
+							{{$post->content}}
+						</div>
 
-						<a href="{{route('showPost',$post->slug)}}" class="learnMore icon-plus12">{{trans('general.post.more')}}</a>
+						<a href="{{route('showPost',$post->slug)}}" itemprop="url" role="button" class="learnMore icon-plus12">{{trans('general.post.more')}}</a>
 					</div>
 
 					@endforeach
 				</div>
 			</div>
-		</section>
+		</article>
 		@endif
 	</div>
 </section>

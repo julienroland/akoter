@@ -5,7 +5,9 @@ class Notice extends Eloquent {
 
 	protected $guarded = array();
 
-	public static $rules = array();
+	public static $rules = array(
+		'notice'=>'min:100 | required',
+		);
 
 	public function user()
 	{

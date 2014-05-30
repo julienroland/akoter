@@ -35,7 +35,7 @@ class Helpers {
 		return $stringEx[0].'.'.$extension;
 	}
 
-	public static function translate($text, $from, $to){
+	public static function translate($text, $from=null, $to){
 
 		$text = urlencode($text);
 

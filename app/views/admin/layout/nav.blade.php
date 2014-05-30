@@ -19,6 +19,10 @@
             <a href="{{url('admin/translations')}}">Traductions</a>
         </li>
 
+         <li {{Helpers::isActive('notices', Request::segment(2))}}>
+            <a href="{{url('admin/notices')}}">Avis</a>
+        </li>
+
 
     </ul>
             <!--  <form class="navbar-form navbar-left" role="search">

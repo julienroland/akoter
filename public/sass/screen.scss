@@ -1959,7 +1959,7 @@ input[type="checkbox"]:checked + label {
 /* FOOTER */
 .foot {
 	@include c(12);
-	background-color: lighten($borange,30%);
+	background-color: lighten($borange,40%);
 	min-height: 200px;
 	padding: 3em 0;
 	.permalink {
@@ -7499,7 +7499,7 @@ only screen and (min-device-pixel-ratio: 1.5){
 *
 **/
 .newsletter{
-	background-color: lighten(saturate($borange,10%),20%);
+	background-color: lighten($borange,35%);
 	padding:$gutter / 2 0;
 	p{
 		@include cl(6);

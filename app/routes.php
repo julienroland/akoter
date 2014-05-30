@@ -388,6 +388,13 @@ Route::group(array('prefix' => $lang), function () use ($lang) {
                     
                     Route::get('users', array('uses'=>'Admin_UserController@index'));
 
+                    /**
+                    *
+                    * Notice
+                    *
+                    **/
+                    Route::get('notices', array('uses'=>'Admin_NoticeController@index'));
+
                 });
 
 });
@@ -422,6 +429,8 @@ Route::group(array('prefix' => $lang), function () use ($lang) {
 
 
                 Route::get( trans('routes.account') . '/{user_slug}/' . trans('routes.add_notice'),array('as'=>'index_add_notice','uses'=>'NoticeController@add'));
+
+                Route::post( trans('routes.account') . '/{user_slug}/' . trans('routes.add_notice'),array('as'=>'add_notice','uses'=>'NoticeController@store'));
 
             });
 
