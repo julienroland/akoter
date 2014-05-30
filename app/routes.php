@@ -466,18 +466,21 @@ Route::group(array('prefix' => $lang), function () use ($lang) {
 
             Route::bind('user_slug', function($value, $route)
             {
-                if(User::whereSlug($value)->firstOrFail()){
+                if(Auth::check()){
+                    if(User::whereSlug($value)->firstOrFail()){
 
-                    if($value === Auth::user()->slug){
+                        if($value === Auth::user()->slug){
 
-                        return $value;
+                            return $value;
 
+                        }
                     }
                 }
 
                 return Response::view('missing.default',array(),404); 
 
             });
+
 
             /**
              *
@@ -542,11 +545,14 @@ Route::group(array('prefix' => $lang), function () use ($lang) {
 
             Route::bind('location_id', function ($value, $route) {
 
-            	return Location::whereId($value)->with(array('translation', 'building' => function ($query) {
-            		$query->whereUserId(Auth::user()->id);
-            	}))->firstOrFail();
+                if(Auth::check()){
+                   return Location::whereId($value)->with(array('translation', 'building' => function ($query) {
+                      $query->whereUserId(Auth::user()->id);
+                  }))->firstOrFail();
+               }
+               return Response::view('missing.default', 404);
 
-            });
+           });
 
             /**
              *
