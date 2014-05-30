@@ -13,6 +13,7 @@
 				{{Session::get('success')}}
 			</div>
 			@endif
+			{{$notices->links()}}
 			Bâtiments en attente de validation
 			<table class="table table-striped table-bordered">
 				<thead>
@@ -46,6 +47,7 @@
 					@endforeach
 				</tbody>
 			</table>
+			{{$notices->links()}}
 
 		</div>
 	</div>

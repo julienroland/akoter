@@ -6,7 +6,7 @@ class Admin_UserController extends \Admin_AdminController
 {
 	public function index()
 	{	
-		$users = User::with('role','language')->orderBy('created_at','desc')->get();
+		$users = User::with('role','language')->orderBy('created_at','desc')->paginate(20);
 
 		return View::make('admin.user.index')
 		->with(compact('users'));

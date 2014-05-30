@@ -393,7 +393,22 @@ Route::group(array('prefix' => $lang), function () use ($lang) {
                     * Notice
                     *
                     **/
+
+                    Route::bind('notice_id', function ($value, $route) {
+
+                        return Notice::whereId($value)->with('translation','user')->firstOrFail();
+
+                    });
+
                     Route::get('notices', array('uses'=>'Admin_NoticeController@index'));
+
+                    Route::get('notices/validate/{notice_id}', array('uses'=>'Admin_NoticeController@validate'));
+
+                    Route::get('notices/devalidate/{notice_id}', array('uses'=>'Admin_NoticeController@devalidate'));
+
+                    Route::get('notices/edit/{notice_id}', array('uses'=>'Admin_NoticeController@edit'));
+
+                    Route::get('notices/delete/{notice_id}', array('uses'=>'Admin_NoticeController@remove'));
 
                 });
 

@@ -13,19 +13,20 @@
 				{{Session::get('success')}}
 			</div>
 			@endif
+
+			<div class="col-lg-4">
+				{{$notices->appends(Input::get())->links()}}
+			</div>
+			<div class="col-lg-4 right">
+				@include('admin.includes.sort')
+			</div>
+
 			<table class="table table-striped table-bordered">
 				<thead>
 					<tr>
 						<th>Référence</th>
 						<th>Nom</th>
-						<th>Email</th>
-						<th>Role</th>
-						<th>Langue</th>
-						<th>Email-Comfirm</th>
-						<th>Validaté</th>
-						<th>Propriétaire</th>
-						<th>Supprimé</th>
-						<th>Dernière connexion</th>
+						<th>Texte</th>
 						<th>Crée le</th>
 						<th>Mis à jour le</th>
 						<th>Actions</th>
@@ -33,32 +34,29 @@
 				</thead>
 				<tbody>
 
-					@foreach($users as $user)
-					
-					<tr >
-						<td>{{$user->id}}</td>
-						<td>{{$user->first_name. ' ' .$user->name}}</td>
-						<td>{{$user->email}}</td>
-						<td>{{$user->role->name}}</td>
-						<td>{{$user->language->name}}</td>
-						<td><i class="glyphicon glyphicon-{{$user->email_comfirm == 1 ? 'ok' : 'remove'}}"></i> </td>
-						<td><i class="glyphicon glyphicon-{{$user->validate == 1 ? 'ok' : 'remove'}}"></i></td>
-						<td><i class="glyphicon glyphicon-{{$user->isOwner == 1 ? 'ok' : 'remove'}}"></i></td>
-						<td><i class="glyphicon glyphicon-{{$user->delete == 1 ? 'ok' : 'remove'}}"></i></td>
-						<td>{{$user->connected_at->diffForHumans()}}</td>
-						<td>{{Helpers::dateNaForm($user->created_at)}}</td>
-						<td>{{Helpers::dateNaForm($user->updated_at)}}</td>
-						<td>
-							<a href="{{url('admin/users/validate', $user->id)}}" class="btn {{$user->validate == 1 ? 'btn-success' : 'btn-danger'}}"><i class="glyphicon glyphicon-{{$user->validate == 1 ? 'ok' : 'remove'}}"></i></a>
-							<a href="{{url('admin/users/voir', $user->id)}}" class="btn btn-info"><i class="glyphicon glyphicon-eye-open"></i></a>
-							<a href="{{url('admin/users/edit', $user->id)}}" class="btn btn-warning"><i class="glyphicon glyphicon-pencil"></i></a>
-							<a href="{{url('admin/users/delete', $user->id)}}" class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i></a>
+					@foreach($notices as $notice)
 
+					<?php $translation = $notice->translation->lists('value','key'); ?>
+
+					<tr >
+						<td>{{$notice->id}}</td>
+						<td><a href="{{url('admin/users', $notice->user->id)}}">{{$notice->user->first_name.' '.$notice->user->first_name}}</a></td>
+						<td>{{$translation['text']}}</td>
+						<td>{{Helpers::betime($notice->created_at)}}</td>
+						<td>{{Helpers::betime($notice->updated_at)}}</td>
+						<td>
+							<a href="{{$notice->validate == 0 ? url('admin/notices/validate', $notice->id) : url('admin/notices/devalidate', $notice->id)}}" class="btn {{$notice->validate == 1 ? 'btn-success' : 'btn-danger'}}"><i class="glyphicon glyphicon-{{$notice->validate == 1 ? 'ok' : 'remove'}}"></i></a>
+							<a href="{{url('admin/notices/edit', $notice->id)}}" class="btn btn-warning"><i class="glyphicon glyphicon-pencil"></i></a>
+							<a href="{{url('admin/notices/delete', $notice->id)}}" class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i></a>
 						</td>
+						
 					</tr>
 					@endforeach
+
 				</tbody>
 			</table>
+
+			{{$notices->links()}}
 
 		</div>
 	</div>

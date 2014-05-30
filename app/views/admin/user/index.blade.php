@@ -13,6 +13,7 @@
 				{{Session::get('success')}}
 			</div>
 			@endif
+			{{$notices->links()}}
 			<table class="table table-striped table-bordered">
 				<thead>
 					<tr>
@@ -59,6 +60,7 @@
 					@endforeach
 				</tbody>
 			</table>
+			{{$notices->links()}}
 
 		</div>
 	</div>

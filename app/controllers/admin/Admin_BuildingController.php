@@ -4,7 +4,7 @@ class Admin_BuildingController extends \Admin_AdminController
 {
 	public function index()
 	{	
-		$unverified = Building::invalid()->with('user')->get();
+		$unverified = Building::invalid()->with('user')->paginate(20);
 
 		return View::make('admin.building.index')
 		->with(compact('unverified'));

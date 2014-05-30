@@ -7,6 +7,20 @@ Form::macro('btext', function($name, $label = null, $value = null, $attributes =
     return fieldWrapper($name, $label, $element);
 });
 
+Form::macro('bsubmit', function($value = null, $attributes = array('class'=>'btn btn-primary'))
+{
+    $element = Form::submit( $value, $attributes);
+
+    return '<div class="form-group">'.$element.'</div>';
+});
+
+Form::macro('bsearch', function($name, $label = null, $value = null, $attributes = array())
+{
+    $element = Form::input('search',$name, $value, fieldAttributes($name, $attributes));
+
+    return fieldWrapper($name, $label, $element);
+});
+
 Form::macro('bpassword', function($name, $label = null, $attributes = array())
 {
     $element = Form::password($name, fieldAttributes($name, $attributes));

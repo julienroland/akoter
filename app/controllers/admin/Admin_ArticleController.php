@@ -8,7 +8,7 @@ class Admin_ArticleController extends \Admin_AdminController
 	{	
 		$articles = Post::with(array('translation'=>function($query){
 			$query->whereKey('title');
-		},'user'))->orderBy('created_at','desc')->get();
+		},'user'))->orderBy('created_at','desc')->paginate(20);
 
 		return View::make('admin.article.index')
 		->with(compact('articles'));
