@@ -265,6 +265,18 @@ Route::group(array('prefix' => $lang), function () use ($lang) {
         **/
         
         Route::get(trans('routes.account') . '/{user_slug}/' .trans('routes.request'),array('as'=>'seeRequest','uses'=>'AccountController@indexRequest'));
+
+        Route::get(trans('routes.account') . '/{user_slug}/' .trans('routes.request').'/'.trans('routes.validRequest').'/{request_id}',array('as'=>'validRequest','uses'=>'AccountController@validRequest'));
+
+        Route::get(trans('routes.account') . '/{user_slug}/' .trans('routes.request').'/'.trans('routes.refuseRequest').'/{request_id}',array('as'=>'refuseRequest','uses'=>'AccountController@refuseRequest'));
+
+        /**
+        *
+        * Adverts
+        *
+        **/
+        
+        Route::get(trans('routes.account') . '/{user_slug}/' .trans('routes.adverts'),array('as'=>'indexAdverts','uses'=>'AccountController@indexAdverts'));
         
         /**
          *
@@ -385,8 +397,18 @@ Route::group(array('prefix' => $lang), function () use ($lang) {
                     * Users
                     *
                     **/
-                    
+
+                     Route::bind('user_id', function ($value, $route) {
+
+                        return User::findOrFail($value);
+
+                    });
+
                     Route::get('users', array('uses'=>'Admin_UserController@index'));
+
+                    Route::get('users/validate/{user_id}', array('uses'=>'Admin_UserController@validate'));
+
+                    Route::get('users/devalidate/{user_id}', array('uses'=>'Admin_UserController@devalidate'));
 
                     /**
                     *
@@ -546,26 +568,46 @@ Route::group(array('prefix' => $lang), function () use ($lang) {
             Route::bind('location_id', function ($value, $route) {
 
                 if(Auth::check()){
-                   return Location::whereId($value)->with(array('translation', 'building' => function ($query) {
-                      $query->whereUserId(Auth::user()->id);
-                  }))->firstOrFail();
-               }
-               return Response::view('missing.default', 404);
+                 return Location::whereId($value)->with(array('translation', 'building' => function ($query) {
+                  $query->whereUserId(Auth::user()->id);
+              }))->firstOrFail();
+             }
+             return Response::view('missing.default', 404);
 
-           });
-
+         });
+            /**
+            *
+            * DASHBOARD
+            *
+            **/
+            
             /**
              *
              * Dashboard one location
              *
              **/
 
-            Route::get(trans('routes.account') . '/{user_slug}/' . trans('routes.location') . '/{location_id}', array('as' => 'dashboard_location', 'uses' => 'LocationDashboardController@index'));
+            Route::get(trans('routes.account') . '/{user_slug}/' . trans('routes.dashboard') . '/{location_id}', array('as' => 'dashboard_location', 'uses' => 'LocationDashboardController@index'));
 
             /**
              *
              * Edit location
              */
+
+            /**
+            *
+            * Tenant
+            *
+            **/
+
+            Route::get(trans('routes.account') . '/{user_slug}/' . trans('routes.dashboard') . '/{location_id}/'.trans('routes.tenants'), array('as' => 'dashboard_tenants', 'uses' => 'LocationDashboardController@indexTenants'));
+            
+            /**
+            *
+            * END DASHBOARD
+            *
+            **/
+            
             /* Localisation */
 
             /**

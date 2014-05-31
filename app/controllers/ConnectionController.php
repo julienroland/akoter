@@ -183,7 +183,7 @@ public function disconnect(){
 
 		Auth::logout();
 
-		Session::flush();
+		/*Session::flush();*/
 
 		/*Cookie::forget('login');*/
 

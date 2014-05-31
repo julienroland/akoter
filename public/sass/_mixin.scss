@@ -407,10 +407,16 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#35a0c6', end
 			font-style: italic;
 			margin-left: $gutter / 2;
 		}
+		&.field{
+			border:0;
+			padding:0;
+		}
 	}
 		.label{
 			color:$greyD2;
 			margin-bottom: 3px;
+			font-style:normal;
+			font-weight:400;
 		}
 
 	.group{
@@ -603,6 +609,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#35a0c6', end
 		}
 		li{
 			margin-bottom: $gutter / 2;
+		}
+		p{
+			margin-bottom: 0;
 		}
 	} 
 	.success{
@@ -1201,6 +1210,7 @@ input[type="submit"]{
 	.section {
 		display: inline-block;
 		position: absolute;
+		left:-9999999px!important;
 		height: 0!important;
 		background-color: white;
 		color:$tc!important;

@@ -6,7 +6,17 @@ class Admin_UserController extends \Admin_AdminController
 {
 	public function index()
 	{	
-		$users = User::with('role','language')->orderBy('created_at','desc')->paginate(20);
+		$users = User::with('role')->with('role','language');
+
+		if(Input::has('search')){
+			$users = $users
+			->where('id','like','%'.Input::get('search').'%')
+			->orWhere('first_name','like','%'.Input::get('search').'%')
+			->orWhere('name','like','%'.Input::get('search').'%')
+			->orWhere('email','like','%'.Input::get('search').'%');
+		}
+
+		$users =  $users->orderBy('created_at','desc')->paginate(20);
 
 		return View::make('admin.user.index')
 		->with(compact('users'));
@@ -18,7 +28,7 @@ class Admin_UserController extends \Admin_AdminController
 
 			Auth::logout();
 
-			Session::flush();
+			/*Session::flush();*/
 
 			return Redirect::guest('/');
 		}
@@ -35,4 +45,22 @@ class Admin_UserController extends \Admin_AdminController
 		return Redirect::to('/');
 	}
 
+
+	public function validate( $user ){
+
+		$user->validate = 1;
+		$user->save();
+
+		return Redirect::back()
+		->withSuccess('Utilisateur bien validaté');
+	}
+
+	public function devalidate( $user ){
+
+		$user->validate = 0;
+		$user->save();
+
+		return Redirect::back()
+		->withSuccess('Utilisateur bien devalidaté');
+	}
 }

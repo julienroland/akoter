@@ -8,7 +8,28 @@ class Admin_ArticleController extends \Admin_AdminController
 	{	
 		$articles = Post::with(array('translation'=>function($query){
 			$query->whereKey('title');
-		},'user'))->orderBy('created_at','desc')->paginate(20);
+		},'user'));
+
+		if(Input::has('search')){
+			$articles = $articles
+			->join('users','posts.user_id','=','users.id')
+			->join('translations', function($join) {
+				$join->on('posts.id','=','translations.content_id')
+				->where('translations.content_type','=','Post')
+				->where('translations.key','=','title');
+				
+			})
+			->orWhere('translations.value','like','%'.Input::get('search').'%')
+			->orWhere('posts.id','like','%'.Input::get('search').'%')
+			->orWhere('users.id','like','%'.Input::get('search').'%')
+			->orWhere('users.first_name','like','%'.Input::get('search').'%')
+			->orWhere('users.name','like','%'.Input::get('search').'%')
+			->orWhere('posts.content_type','like','%'.Input::get('search').'%')
+			->orWhere('posts.content_position','like','%'.Input::get('search').'%')
+			->select('users.name','posts.*');
+		}
+
+		$articles = $articles->paginate(20);
 
 		return View::make('admin.article.index')
 		->with(compact('articles'));

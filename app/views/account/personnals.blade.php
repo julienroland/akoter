@@ -8,7 +8,7 @@
 <div class="account-container">
 	{{Form::open(array('route'=>array('save_personnal',Auth::user()->slug),'method'=>'put','class'=>'inlineType rules', 'data-rules'=>json_encode(User::$personnals_rules)))}}
 	<fieldset>
-		<legend>Informations de contact</legend>
+		<legend>{{trans('acccount.infos_contact')}}</legend>
 
 
 		<div class="field">
@@ -23,14 +23,14 @@
 			<i class="icon-required" aria-hidden="true"></i>
 		</div>
 
-		<div class="field born">
-			<span class="label">{{trans('form.born')}}:</span>
+		<fieldset class="field born">
+			<legend class="label">{{trans('form.born')}}:</legend>
 			{{Form::input('number','day',isset(Helpers::createCarbonDate($user->born)->day) ? Helpers::createCarbonDate($user->born)->day : (Session::has('account_personnal') ? Session::get('account_personnal')['day']:''),array('required','placeholder'=>trans('inscription.born_day'),'min'=>1,'max'=>31,'id'=>'day','data-validator'=>'false'))}}
 
 			{{Form::select('month',trans('general.month_select'),isset(Helpers::createCarbonDate($user->born)->month) ? Helpers::createCarbonDate($user->born)->month : (Session::has('account_personnal') ? Session::get('account_personnal')['month']:''),array('class'=>'select','data-placeholder'=>trans('inscription.born_month'),'id'=>'month','data-validator'=>'false'))}}
 
 			{{Form::input('number','year',isset(Helpers::createCarbonDate($user->born)->year) ? Helpers::createCarbonDate($user->born)->year : (Session::has('account_personnal') ? Session::get('account_personnal')['year']:''),array('required','placeholder'=>trans('inscription.born_year'),'min'=>1900,'max'=>date('Y'),'id'=>'year'))}}
-		</div>
+		</fieldset>
 
 		<div class="field">
 			{{Form::label('c0',trans('form.male'))}}
@@ -66,7 +66,7 @@
 
 	</fieldset>
 	<fieldset>
-		<legend>Adresse</legend>
+		<legend>{{trans('account.address')}}</legend>
 
 		<div class="field">
 			{{Form::label('address',trans('form.address'))}}

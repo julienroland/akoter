@@ -46,17 +46,26 @@
 					@endif
 
 					<div class="remainingPlace">
+						@if(Helpers::isNotOk($location->nb_locations))
+
 						@if(Helpers::isOk($location->nb_room) && Helpers::isOk($location->remaining_room))
 						{{trans('account.room_remaining_location')}}: {{$location->nb_room - $location->remaining_room }} / {{$location->nb_room}}
+						@else
+						{{trans('account.locationComplete',array('number'=>$location->nb_room - $location->remaining_room .'/'. $location->nb_room))}}
+						@endif
+						@else
+							
+							{{trans('account.nb_location', array('number'=>$location->remaining_location))}}
+
 						@endif
 					</div>
 
 					<div class="applications_location">
-					@if($location->request->count() == 1)
- 					{{trans('account.request_location',array('number'=>$location->request->count()))}}
- 					@else
- 					{{trans('account.requests_location',array('number'=>$location->request->count()))}}
- 					@endif
+						@if($location->request->count() == 1)
+						{{trans('account.request_location',array('number'=>$location->request->count()))}}
+						@else
+						{{trans('account.requests_location',array('number'=>$location->request->count()))}}
+						@endif
 					</div>
 				</div>
 				<div class="actions">

@@ -52,6 +52,11 @@ return array(
     'requestValidation'=>'accelerer-la-validation',
     'newsletter'=>'ajout-a-la-newsletter',
     'add_notice'=>'ajout-un-avis-sur-akoter',
+    'adverts'=>'liste-vos-annonces',
+    'validRequest'=>'accepter-la-demande',
+    'refuseRequest'=>'refuser-la-demande',
+    'dashboard'=>'gestion-de-location',
+    'tenants'=>'locataires',
 
 );
 

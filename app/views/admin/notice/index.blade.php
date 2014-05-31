@@ -14,7 +14,7 @@
 			</div>
 			@endif
 
-			<div class="col-lg-4">
+			<div class="col-lg-8">
 				{{$notices->appends(Input::get())->links()}}
 			</div>
 			<div class="col-lg-4 right">
@@ -56,7 +56,7 @@
 				</tbody>
 			</table>
 
-			{{$notices->links()}}
+			{{$notices->appends(Input::all())->links()}}
 
 		</div>
 	</div>

@@ -90,10 +90,19 @@ public function user(){
 	->withTimestamps(); 
 }
 
-public function request(){
+public function tenants(){
 
 	return $this->belongsToMany('User','user_location')
 	->withPivot('status','begin','end')
+	->whereStatus(1)
+	->whereRequest(0)
+	->withTimestamps(); 
+}
+
+public function request(){
+
+	return $this->belongsToMany('User','user_location')
+	->withPivot('status','begin','end','nb_locations','seat','text','id')
 	->whereStatus(0)
 	->whereRequest(1)
 	->withTimestamps(); 

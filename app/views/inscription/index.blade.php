@@ -16,7 +16,7 @@
 		<div class="wrapper">
 
 			<div class="facebook">
-			<a href="{{route('fbConnect')}}" title="{{trans('inscription.inscription_title',array('name'=>'Facebook'))}}">
+				<a href="{{route('fbConnect')}}" title="{{trans('inscription.inscription_title',array('name'=>'Facebook'))}}">
 					<div class="logo">
 
 					</div>
@@ -26,7 +26,7 @@
 				</a>
 			</div>
 			<div class="loginEmail">
-<span class="or">{{strtolower(trans('connections.or'))}}</span>
+				<span class="or">{{strtolower(trans('connections.or'))}}</span>
 				{{Form::open(array('route'=>'inscription_save','class'=>'inlineType rules','data-rules'=>json_encode(User::$inscription_rules)))}}
 				@include('includes.errors')
 
@@ -38,45 +38,49 @@
 				</div>
 				@endif
 				<div class="field">
-					{{Form::label('first_name',trans('inscription.first_name'))}}
+				<label for="first_name">{{trans('inscription.first_name').trans('form.required')}}</label>
 					<input type="text" id="first_name" name="first_name" autofocus value="{{Session::has('inscription') ? Session::get('inscription')['first_name'] :''}}" required placeholder="{{trans('inscription.first_name')}}">
 					<i class="icon-required" aria-hidden="true"></i>
 				</div>
 				<div class="field">
-					{{Form::label('name',trans('inscription.name'))}}
+					<label for="name">{{trans('inscription.name').trans('form.required')}}</label>
 					<input type="text" id="name" name="name" value="{{Session::has('inscription') ? Session::get('inscription')['name']:''}}" required placeholder="{{trans('inscription.name')}}">
 					<i class="icon-required" aria-hidden="true"></i>
 				</div>
 
-				<div class="field">
-					{{Form::label('c0',trans('form.male'))}}
+				<fieldset class="field">
+					<legend class="section">{{trans('form.sex').trans('form.required')}}</legend>
+
+					<label for="c0">{{trans('form.male')}}</label>
 					{{Form::radio('civility',0,Session::has('inscription') && Session::get('inscription')['civility'] == 0 ? true : false,array('id'=>'c0'))}}
 
-					{{Form::label('c1',trans('form.female'))}}
+					<label for="c1">{{trans('form.female')}}</label>
 					{{Form::radio('civility',1,Session::has('inscription') &&Session::get('inscription')['civility'] == 1 ? true :false,array('id'=>'c1'))}}
 					<i class="icon-required" aria-hidden="true"></i>
-				</div>
-				<div class="field born">
-					<span class="label">{{trans('inscription.born')}}:</span>
+				</fieldset>
+				<fieldset class="field born">
+					<legend class="label">{{trans('inscription.born').trans('form.required')}}:</legend>
 					{{Form::input('number','day',Session::has('inscription') ? Session::get('inscription')['day']:'',array('required','placeholder'=>trans('inscription.born_day'),'min'=>1,'max'=>31,'id'=>'day','data-validator'=>'false'))}}
 
 					{{Form::select('month',trans('general.month_select'),Session::has('inscription') ? Session::get('inscription')['month']:'',array('class'=>'select','data-placeholder'=>trans('inscription.born_month'),'id'=>'month','data-validator'=>'false'))}}
 
 					{{Form::input('number','year',Session::has('inscription') ? Session::get('inscription')['year']:'',array('required','placeholder'=>trans('inscription.born_year'),'min'=>1900,'max'=>date('Y'),'id'=>'year'))}}
-				</div>
+				</fieldset>
 				<div class="field">
 
-					{{Form::label('email', trans('inscription.email'))}}
+					<label for="email">{{trans('inscription.email').trans('form.required')}}</label>
 					<input id="email" value="{{Session::has('inscription') ? Session::get('inscription')['email']:''}}" type="email" name="email" required placeholder="email@email.com" class="form-email form-icon {{isset(Session::get('fields')['email']) ? 'form-error':''}}" id="">
 					<i class="icon-required" aria-hidden="true"></i>
 				</div>
 				<div class="field">
-					{{Form::label('password', trans('inscription.password'))}}
+
+					<label for="password">{{trans('inscription.password').trans('form.required')}}</label>
 					<input id="password" value="{{Session::has('inscription') ? Session::get('inscription')['password']:''}}" type="password" name="password" required  placeholder="{{trans('form.password')}}" class="form-password {{isset(Session::get('fields')['password']) ? 'form-error':''}}" id="">
 					<i class="icon-required" aria-hidden="true"></i>
 				</div>
 				<div class="field">
-					{{Form::label('password_ck', trans('inscription.password_ck'))}}
+
+					<label for="password_ck">{{trans('inscription.password_ck').trans('form.required')}}</label>
 					<input id="password_ck" value="{{Session::has('inscription') ? Session::get('inscription')['password_ck']:''}}" type="password" name="password_ck" required  placeholder="{{trans('form.password-ck')}}" class="form-password {{isset(Session::get('fields')['password_ck']) ? 'form-error':''}}" id="">
 					<i class="icon-required" aria-hidden="true"></i>
 				</div>

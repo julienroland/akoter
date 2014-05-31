@@ -101,6 +101,8 @@ return array(
         'request_reservation_succes'=> 'Votre demande de réservation à bien été envoyé. Vous recevrez un retour du propriétaire par mail et via votre compte',
         'newsletter'=> 'Vous aviez bien été ajouté à la newsletter',
         'success_add_notice' => 'Merci beaucoup !<br> Votre avis à bien été enregistré, il doit être validé avant d\'être visible',
+        'requestValidate' => 'Demande accepté !',
+        'refuseValidate' => 'Demande refusé !',
         ),
 
     /*
@@ -169,6 +171,7 @@ return array(
         "advert.fr"=>'Annonce en Français',
         "advert.nl"=>'Annonce en Néerlandais',
         "advert.en"=>'Annonce en Anglais',
+        "notice"=>'Avis',
     ),
 
 );

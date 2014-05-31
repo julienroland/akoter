@@ -24,8 +24,6 @@ class AccountController extends AccountBaseController {
 
 			$waitingLocations = User::getWaitingLocations( Auth::user() );
 
-
-
 			$invalidLocations = User::getInvalidLocations( Auth::user() );
 
 
@@ -40,7 +38,25 @@ class AccountController extends AccountBaseController {
 
 
 	}
+	public function indexAdverts(){
 
+		if(Auth::user()->isOwner == 1){
+
+			$activeLocations = User::getActiveLocations( Auth::user() );
+
+			$waitingLocations = User::getWaitingLocations( Auth::user() );
+
+			$invalidLocations = User::getInvalidLocations( Auth::user() );
+
+
+			return View::make('account.index', array('page'=>'account'))
+			->with(compact(array('activeLocations','waitingLocations','invalidLocations','inactiveBuilding','numberRequest')));
+
+		}
+
+
+		return View::make('account.index', array('page'=>'account'));
+	}
 	public function personnalData(){
 
 		$user = User::with(array(
@@ -289,6 +305,46 @@ class AccountController extends AccountBaseController {
 
 		return View::make('account.owner.request', array('page'=>'account'))
 		->withRequests($requests);
+	}
+
+	public function validRequest( $user_slug, $id_request){
+
+		$request = UserLocation::findOrFail($id_request);
+		$location = Location::findOrFail($request->location_id);
+
+		if($location->remaining_location == 0 && $location->remaining_room == 0){
+
+			return Redirect::back()
+			->withError(trans('account.locationFull'));
+		}
+		$request->request = 0;
+		$request->status = 1;
+		$request->save();
+
+		if($location->remaining_room != 0){
+
+			$location->remaining_room -= $request->seat;
+
+		}
+
+		$location->save();
+
+		if($location->remaining_room == 0 && $location->remaining_location != 0){
+
+			$location->remaining_location -= $request->nb_locations;
+			$location->remaining_room = $location->nb_room; 
+		}
+		
+		$location->save();
+
+
+		return Redirect::back()
+		->withSuccess(trans('validation.custom.requestValidate'));
+	}
+
+	public function refuseRequest( $user_slug, $id_request){
+
+		dd($id_request);
 	}
 
 	public function requestValidation( ){

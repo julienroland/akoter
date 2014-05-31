@@ -13,7 +13,13 @@
 				{{Session::get('success')}}
 			</div>
 			@endif
-			{{$notices->links()}}
+			<div class="col-lg-8">
+			{{$users->appends(Input::all())->links()}}
+			</div>
+			<div class="col-lg-4">
+				@include('admin.includes.sort')
+			</div>
+
 			<table class="table table-striped table-bordered">
 				<thead>
 					<tr>
@@ -60,7 +66,7 @@
 					@endforeach
 				</tbody>
 			</table>
-			{{$notices->links()}}
+			{{$users->appends(Input::all())->links()}}
 
 		</div>
 	</div>

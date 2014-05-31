@@ -8,7 +8,7 @@
 @endif
 @else
 <div class="informations">
-    {{trans('account.location_notcomplete',array('percent'=>$location->building->register_step))}}
+    {{trans('account.location_notcomplete',array('percent'=>Helpers::toPercent($location->building->register_step, Config::get('var.steps'))))}}
 </div>
 @endif
 

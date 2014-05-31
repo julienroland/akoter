@@ -249,19 +249,21 @@ class User extends Eloquent implements UserInterface, RemindableInterface, Slugg
 	}
 
 	public static function getNumberRequest( $user ){
+		if(Helpers::isOk($user)){
+			$dump = $user->building()->with('location.request')->get();
 
-		$dump = $user->building()->with('location.request')->get();
+			$nb = 0;
+			
+			foreach($dump as $building){
+				foreach($building->location as $location){
 
-		$nb = 0;
-		
-		foreach($dump as $building){
-			foreach($building->location as $location){
-
-				$nb = $nb + $location->request->count();
+					$nb = $nb + $location->request->count();
+				}
 			}
-		}
 
-		return $nb;
+			return $nb;
+		}
+		return 0;
 	}
 
 	public static function getWaitingLocations( $user ){

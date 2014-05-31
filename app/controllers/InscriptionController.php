@@ -2,11 +2,18 @@
 
 use Carbon\Carbon;
 
-class InscriptionController extends BaseController {
+class InscriptionController extends AccountBaseController {
 
 	public function __construct(ImageController $image)   
 	{
 		$this->ImageController = $image;
+		
+		if(Auth::check()){
+			View::share(array(
+				'request'=>$this->nb_request(),
+				'personnal'=>$this->personnalComplete()
+				));
+		}
 	}
 
 	public function index(){

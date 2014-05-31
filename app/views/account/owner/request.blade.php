@@ -2,24 +2,38 @@
 
 @section('account')
 
+@include('includes.errors')
+@include('includes.success')
+
 @foreach( $requests as $building)
 
-	@foreach($building->location as $location)
+@foreach($building->location as $location)
 
-	@foreach($location->request as $req)
+@if($location->request->count())
 
-	<div class="request">
+@foreach($location->request as $req)
+
+<div class="request">
 	<div class="infos">
 		<span class="title-location">{{$location->translation[0]->value}}</span>
 		
 		<span class="user-name">{{$req->first_name.' '.$req->name}}</span>
-		</div>
+		<div class="infos-locations">
+			<span class="seat">{{trans('account.nb_seat',array('number'=>$req->pivot->seat))}}</span>
+			<span class="nb_locations">{{trans('account.nb_locations',array('number'=>$req->pivot->nb_locations))}}</span>
+		</div>			
 	</div>
-	<div class="actions">
-		
-	</div>
-	@endforeach
-	@endforeach
+</div>
+<div class="actions">
+	<a href="{{route('validRequest',array(Auth::user()->slug,$req->pivot->id))}}" class="accept tooltip-ui-e icon icon-approve" title="{{trans('account.accept')}}"></a>
+	<a href="{{route('refuseRequest',array(Auth::user()->slug,$req->pivot->id))}}" class="refuse tooltip-ui-e icon icon-remove11" title="{{trans('account.refuse')}}"></a>
+
+</div>
+@endforeach
+@else
+	<p>{{trans('account.no_request_location',array('number'=>$location->id))}}</p>
+@endif
+@endforeach
 
 @endforeach
 

@@ -32,16 +32,16 @@
 
 			<li><a href="" ><span class="icon icon-medal30"></span>{{trans('account.likes')}}</a></li>
 
-			<li><a href="" title="{{trans('account.check_locations')}}" class="tooltip-ui"><span class="icon icon-gearwheels"></span>{{trans('account.manage_locations')}}</a></li>
+			<li><a href="" title="{{trans('account.check_locations')}}" class="tooltip-ui-s"><span class="icon icon-address14"></span>{{trans('account.manage_locations')}}</a></li>
 
 			@if(Auth::user()->isOwner == 1)
 
-			<li><a href="{{route('seeRequest', Auth::user()->slug)}}" title="{{trans('account.number_request')}}" class="tooltip-ui"><span class="icon icon-gearwheels"></span>{{trans('account.request')}}
+			<li><a href="{{route('seeRequest', Auth::user()->slug)}}" title="{{trans('account.number_request')}}" class="tooltip-ui-s"><span class="icon icon-gearwheels"></span>{{trans('account.request')}}
 				@if($request > 0 )<span class="nb_request">{{$request}}</span>
 				@endif
 			</a></li>
 
-			<li><a href="" title="{{trans('account.check_advert')}}" class="tooltip-ui"><span class="icon icon-gearwheels"></span>{{trans('account.manage_locations_propri')}}</a></li>
+			<li><a href="{{route('indexAdverts',Auth::user()->slug)}}" title="{{trans('account.check_advert')}}" class="tooltip-ui-s"><span class="icon icon-gearwheels"></span>{{trans('account.manage_locations_propri')}}</a></li>
 
 			@endif
 
@@ -49,7 +49,7 @@
 
 			<li class="active">
 
-				<a  title="{{trans('account.check_personnal_informations')}}" class="tooltip-ui {{isset($personnalNotComplete) &&  Helpers::isOk($personnalNotComplete) && $personnalNotComplete->count > 0 ? 'hasInfo' : ''}}" href="{{route('account_personnal', Auth::user()->slug)}}" {{Helpers::isActive('account_personnal')}}>
+				<a  title="{{trans('account.check_personnal_informations')}}" class="tooltip-ui-s {{isset($personnalNotComplete) &&  Helpers::isOk($personnalNotComplete) && $personnalNotComplete->count > 0 ? 'hasInfo' : ''}}" href="{{route('account_personnal', Auth::user()->slug)}}" {{Helpers::isActive('account_personnal')}}>
 					<span class="icon icon-user3"></span>{{trans('account.personnal_informations')}}
 
 					@if(isset($personnal))
@@ -68,7 +68,7 @@
 			</li>
 			<li>
 
-				<a title="{{trans('account.check_settings')}}" class="tooltip-ui" href="{{route('account_params',Auth::user()->slug)}}" {{Helpers::isActive('account_params')}}>
+				<a title="{{trans('account.check_settings')}}" class="tooltip-ui-s" href="{{route('account_params',Auth::user()->slug)}}" {{Helpers::isActive('account_params')}}>
 					<span class="icon icon-tools6"></span>{{trans('account.settings')}}
 				</a>
 

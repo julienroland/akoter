@@ -102,10 +102,10 @@ class Building extends Eloquent {
 
 		foreach($dump as $option){
 
-			$data[$option->id]  = $option->translation[0]->value;
+			$data[$option->id]  = isset($option->translation[0]) ? $option->translation[0]->value: '';
 
 		}
-
 		return Collection::make($data);
+
 	}
 }
