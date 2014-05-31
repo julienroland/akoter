@@ -53,5 +53,6 @@ return array(
 'nb_rate'=>'Nombre de vote: <strong>:number</strong>',
 'start_at'=>'A parti du',
 'garantee'=>'Caution de :number €',
+'goLocation'=>'Voir les détails de la location',
 
 );

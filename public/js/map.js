@@ -14,6 +14,8 @@
        var
        gMap,
        sImgDir = 'img/',
+       sBuildingDir = '/images/users/:user_id/buildings/:building_id/',
+       sLocationDir = '/images/users/:user_id/locations/:location_id/',
         //ICONS
         kotIcon = sImgDir+'map/markers/kot.png',
         schoolIcon = sImgDir+'map/markers/school.png',
@@ -68,6 +70,11 @@
   sCenterCity,
   gCenterCity,
   nDistanceValueOk,
+  $listingBtn = $('.ListingBtn'),
+  $slider = $('#slider'),
+  $pager = $('#slider-pager'),
+  $listLocations = $('.typeLocationList ul'),
+
   //SELECTOR
   $loading = $('.loading'),
   $filter = $('#filter'),
@@ -187,7 +194,7 @@
       
       $showMarkersKot.on('click','a',showAllMarkerKot);
 
-  });
+    });
 
     /**
     *
@@ -405,14 +412,14 @@
         	}
         }
 
-    }else{
+      }else{
 
-    	processSubmit( $submit, 0 );
+       processSubmit( $submit, 0 );
 
-    }
-});
+     }
+   });
 
-}
+  }
 });
 
 
@@ -475,7 +482,7 @@ var displayDataRange = function(){
     	$l_range.html('Distance: '+$(this).val()+'m');
     }
 
-};
+  };
 
 /**
 *
@@ -544,9 +551,9 @@ var changeZoom = function(event, delta ){
 
           $zoom.css('cursor','ns-resize');
 
-      }
-      else
-      {
+        }
+        else
+        {
 
           /**
           *
@@ -555,10 +562,10 @@ var changeZoom = function(event, delta ){
           **/
           
           $zoom.css('cursor','s-resize');
-      } 
+        } 
 
-  }
-  else{
+      }
+      else{
 
         /**
         *
@@ -584,9 +591,9 @@ var changeZoom = function(event, delta ){
         
         $zoom.css('cursor','n-resize');
 
-    }
-} 
-else{
+      }
+    } 
+    else{
       /**
       *
       * @if higher than min
@@ -617,8 +624,8 @@ else{
         **/
         
         $zoom.css('cursor','ns-resize');
-    }
-    else{
+      }
+      else{
 
         /**
         *
@@ -627,10 +634,10 @@ else{
         **/
         
         $zoom.css('cursor','n-resize');
-    } 
-}
-}
-else if(event.type ==="keydown"){
+      } 
+    }
+  }
+  else if(event.type ==="keydown"){
 
     /**
     *
@@ -686,7 +693,7 @@ else if(event.type ==="keydown"){
       *
       **/
       
-  }else if(event.keyCode === nLeft) {
+    }else if(event.keyCode === nLeft) {
       /**
       *
       * get latLng and zoom
@@ -713,7 +720,7 @@ else if(event.type ==="keydown"){
       *
       **/
       
-  }else if(event.keyCode === nRight) {
+    }else if(event.keyCode === nRight) {
 
       /**
       *
@@ -734,9 +741,9 @@ else if(event.type ==="keydown"){
 
       gMap.panTo( new google.maps.LatLng(gLat, gLng + ((0.1) / gZoom)*2));
 
-  }
+    }
 
-}
+  }
 
 /**
  *
@@ -842,7 +849,7 @@ var fitToAllMarkers = function( markers ) {
         }
 
         bounds.extend(latlng);
-    }
+      }
 
     /**
     *
@@ -871,7 +878,7 @@ var fitToAllMarkers = function( markers ) {
        **/
 
 
-   };
+     };
 
 /**
 *
@@ -1042,7 +1049,7 @@ var eventInput = function()
   	}
     //actionChangeType ();
     //ajaxAllKot();
-});
+  });
 
   $range.change(function(){ // CHANGE RANGE SLIDER
 
@@ -1094,38 +1101,38 @@ var actionSchoolClick = function( nDistance ){
    //afficher le cercle
    
    drawCircle( 'ecole', gCurrentPlace , nDistance );
-}
-$.fn.extend({
-	a_animate: function( animation){
-		if(typeof animation === 'undefined'){
-			animation = 'bounce';
-		}
+ }
+ $.fn.extend({
+   a_animate: function( animation){
+    if(typeof animation === 'undefined'){
+     animation = 'bounce';
+   }
 
-		if(this.hasClass(animation)){
-			this.removeClass(animation).addClass(sAnimationEvent)
-			.addClass(animation).addClass(sAnimationEvent)
-			.delay(1000)
-			.queue(function(){
-				$(this).removeClass(animation).addClass(sAnimationEvent)
-				.dequeue();
-			});
+   if(this.hasClass(animation)){
+     this.removeClass(animation).addClass(sAnimationEvent)
+     .addClass(animation).addClass(sAnimationEvent)
+     .delay(1000)
+     .queue(function(){
+      $(this).removeClass(animation).addClass(sAnimationEvent)
+      .dequeue();
+    });
 
-		}else{
+   }else{
 
-			this.removeClass(sAnimationEvent)
-			.addClass(animation).addClass(sAnimationEvent)
-			.delay(1000)
-			.queue(function(){
-				$(this).removeClass(animation).addClass(sAnimationEvent)
-				.dequeue();
-			});
-		}
-	}
+     this.removeClass(sAnimationEvent)
+     .addClass(animation).addClass(sAnimationEvent)
+     .delay(1000)
+     .queue(function(){
+      $(this).removeClass(animation).addClass(sAnimationEvent)
+      .dequeue();
+    });
+   }
+ }
 });
-var removeFormTuto = function( selector, hasClass ){
-	if(selector.next().hasClass(hasClass)){
-		selector.next().remove();
-	}
+ var removeFormTuto = function( selector, hasClass ){
+   if(selector.next().hasClass(hasClass)){
+    selector.next().remove();
+  }
 };
 var removeFormError = function( form ){
 	if(form.hasClass('form-error')){
@@ -1196,7 +1203,7 @@ var processSubmit = function(that, nType){
 var ajaxAllKot = function(){
 	$.ajax({
 		dataType:"json",
-		url:"getKots",
+		url:"ajax/getKots",
 		type:"get",
 		success: function ( oData ){
 			oKots = oData;
@@ -1208,7 +1215,7 @@ var ajaxAllKot = function(){
 var ajaxAllSchool = function(){
 	$.ajax({
 		dataType: "json",
-		url:"getSchools",
+		url:"ajax/getSchools",
 		type:"get",
 		success: function ( oResponse ){
 			oSchools = oResponse;
@@ -1266,7 +1273,56 @@ var createMarkerSchool = function(oData){
 		styles: clusterStyleSchool,
 	}); 
 };
+var getDir = function(sString, aParams){
+  $.each(aParams, function(key, value){
 
+    sString = sString.replace(':'+key, value);    
+
+  });
+
+  return sString;
+
+}
+var beforeUrl = function(sUrl, string ){
+
+  sUrl = sUrl.split('.');
+
+  return sUrl[0]+string+'.'+sUrl[1];
+}
+var getLocations = function( nId ){
+  $.ajax({
+    dataType: "json",
+    url:"ajax/getLocations/"+nId,
+    type:"get",
+    success:function(oData){
+      console.log(oData);
+      $.each(oData.photo, function(i){
+
+        $slider.append('<li><img width="'+oData.photo[i].width+'" height="'+oData.photo[i].height+'" src='+getDir(sBuildingDir, {"building_id": oData.id, "user_id":oData.user_id})+beforeUrl(oData.photo[i].url,'-gallery')+'></li>');
+
+      });
+      $.each(oData.active_location, function(i){
+
+        $listLocations.append('<li><a href="'+oLang.routes.locations+'/'+oData.active_location[i].translation[0].value+'" class="tooltip-ui-w" title="'+oLang.locations.goLocation+'"><div class="type"><img src="'+getDir(sLocationDir, {"location_id": oData.active_location[i].id, "user_id":oData.user_id})+beforeUrl(oData.active_location[i].accroche[0].url,'-small')+'"><span class="number">'+oData.active_location[i].remaining_location+'</span></div><div class="price"><span class="expensive">'+Math.round(oData.active_location[i].price)+'€</span></div></a></li>'); //<div class="oneLocation"><ul><li><a href=""></a><div class="infosLocation"></div></li></ul></div>
+
+      });
+
+      $slider.responsiveSlides({  
+        manualControls: '#slider-pager',
+        nav: true,
+        pager: true,
+        auto: true,
+        prevText: oLang.form.previous,  
+        nextText: oLang.form.next,
+        namespace: "transparent-btns"
+      });
+
+      $('.tooltip-ui-w').tipsy();
+    }
+  });
+  $listingBtn.click();
+
+}
 var drawMarkerKot = function ( mPosition, sId, i)
 {
 
@@ -1286,11 +1342,12 @@ var drawMarkerKot = function ( mPosition, sId, i)
 		smoothZoom(gMap, 17, gMap.getZoom());
 		console.log(oKots[this.order]);
 
-		gMap.panTo(this.getPosition());
+    getLocations(this.id)
+    gMap.panTo(this.getPosition());
 
-		gCurrentPlace = this.getPosition();
+    gCurrentPlace = this.getPosition();
 
-	});
+  });
 
 }
 
@@ -1358,7 +1415,7 @@ var inRange = function ( oCenter, nDistance, sType ) //obj Google / numeric
 				gMarkerArrayKot[i].setOptions({visible: false});
 	     mc.redraw(); //TODO FAIRE FONCTIONNER CLUSTER AVEC DES MARKERS HIDDEN
 
-	 }else{
+     }else{
 
 	    if(bShowAllKot){// JE LES LAISSES VISIBLES
 	    	gMarkerArrayKot[i].setMap(gMap);
@@ -1373,24 +1430,24 @@ var inRange = function ( oCenter, nDistance, sType ) //obj Google / numeric
 	    	mc.redraw();
 	    }
 
-	}
-	mc.clearMarkers();
-	
-}
-else
-{
+   }
+   mc.clearMarkers();
 
-	aKots.push(oKots[i].id);
+ }
+ else
+ {
 
-	displayNumberResult(aKots.length);
+   aKots.push(oKots[i].id);
 
-	gMarkerArrayKot[i].setMap( gMap );
-	gMarkerArrayKot[i].setOptions({visible: true});
-	/*mc.addMarker(gMarkerArrayKot[i]);*/
-	gMap.fitBounds(boundd);
-	mc.redraw();
+   displayNumberResult(aKots.length);
 
-}
+   gMarkerArrayKot[i].setMap( gMap );
+   gMarkerArrayKot[i].setOptions({visible: true});
+   /*mc.addMarker(gMarkerArrayKot[i]);*/
+   gMap.fitBounds(boundd);
+   mc.redraw();
+
+ }
 
 
 }
@@ -1548,54 +1605,54 @@ var smoothZoom = function(map, max, cnt) {
 			smoothZoom(map, max, cnt + 1);
 		});
         setTimeout(function(){map.setZoom(cnt)}, 80); // 80ms is what I found to work well on my system -- it might not work well on all systems
+      }
+    };
+    var e_isSaw = function( e , that){
+     that.parent().removeClass('notSee');
+
+     var nNumberOfErrorsTab = Number($errorsTab.find('.number').html());
+
+     if(nNumberOfErrorsTab > 0 ){
+
+      $errorsTab.find('.number').html(nNumberOfErrorsTab-1);
+
+      $errorsNotificationsAppend.find('li a').each(function(){if($(this).parent().hasClass('notSee')){$(this).parent().hasClass('notSee');$(this).mouseover(function(e){e_isSaw(e, $(this));})};}); 
     }
-};
-var e_isSaw = function( e , that){
-	that.parent().removeClass('notSee');
 
-	var nNumberOfErrorsTab = Number($errorsTab.find('.number').html());
+  };
 
-	if(nNumberOfErrorsTab > 0 ){
+  var e_showCloseErrorsTab = function( e ){
+   if( e ){
+    e.preventDefault();
+  }
 
-		$errorsTab.find('.number').html(nNumberOfErrorsTab-1);
+  if(bErrorsTabStatus === 0 ){
 
-		$errorsNotificationsAppend.find('li a').each(function(){if($(this).parent().hasClass('notSee')){$(this).parent().hasClass('notSee');$(this).mouseover(function(e){e_isSaw(e, $(this));})};}); 
-	}
+    $errorsNotifications.css({
 
-};
+     right:"-12px",
 
-var e_showCloseErrorsTab = function( e ){
-	if( e ){
-		e.preventDefault();
-	}
+   }).queue(function(){
 
-	if(bErrorsTabStatus === 0 ){
+     bErrorsTabStatus = 1;
+     $(this).dequeue();
 
-		$errorsNotifications.css({
+   }).delay(3000).queue(function(){
+     if($errorsNotifications.is(':hover',':focus')){
+      bErrorsTabStatus = 1
+    }else{
+      $(this).css({
 
-			right:"-12px",
+       right:"-250px",
 
-		}).queue(function(){
-
-			bErrorsTabStatus = 1;
-			$(this).dequeue();
-
-		}).delay(3000).queue(function(){
-			if($errorsNotifications.is(':hover',':focus')){
-				bErrorsTabStatus = 1
-			}else{
-				$(this).css({
-
-					right:"-250px",
-
-				}).dequeue();
-				bErrorsTabStatus = 0;
-			}
-		});
+     }).dequeue();
+      bErrorsTabStatus = 0;
+    }
+  });
 
 
 
-	}
+ }
 
 };
 var e_errorNotification = function( id, sMessage, sIcon, animate ){
@@ -1624,7 +1681,7 @@ var e_errorNotification = function( id, sMessage, sIcon, animate ){
                 $errorsNotificationsAppend.find('li a').each(function(){if($(this).parent().hasClass('notSee')){$(this).parent().hasClass('notSee');$(this).mouseover(function(e){e_isSaw(e, $(this));})};}); 
                 /*$errorsNotificationsAppend.find('li a').each(function(){$(this).focus(function(e){e_isSaw(e, $(this));});}); */
 
-            }else{
+              }else{
 
                 //REPLACEMENT
                 var nNumberOfErrorsTab = Number($errorsTab.find('.number').html());
@@ -1642,30 +1699,30 @@ var e_errorNotification = function( id, sMessage, sIcon, animate ){
 
                 $errorsNotificationsAppend.find('li a').each(function(){if($(this).parent().hasClass('notSee')){$(this).parent().hasClass('notSee');$(this).mouseover(function(e){e_isSaw(e, $(this));})};}); 
                 /*$errorsNotificationsAppend.find('li a').each(function(){$(this).focus(function(e){e_isSaw(e, $(this));});}); */
-            }
-        };
+              }
+            };
 
-        var getCity = function(sPosition, sDistance, sType, callback){
+            var getCity = function(sPosition, sDistance, sType, callback){
 
-        	var nDistance = Number(sDistance);
+             var nDistance = Number(sDistance);
 
-        	if(sType ==="geocoder"){
+             if(sType ==="geocoder"){
 
-        		processSubmit($submit, 1);
+              processSubmit($submit, 1);
 
-        		var aMapOptions = {
-        			disableDefaultUI:true,
-        			scrollwheel:false,
-        			mapTypeId: google.maps.MapTypeId.ROADMAP,
-        			center:geocoder.geocode({
-        				address:sPosition,
-        				region:"be"
+              var aMapOptions = {
+               disableDefaultUI:true,
+               scrollwheel:false,
+               mapTypeId: google.maps.MapTypeId.ROADMAP,
+               center:geocoder.geocode({
+                address:sPosition,
+                region:"be"
 
-        			},function(aResults,sStatus)
-        			{
-        				if(sStatus ===google.maps.GeocoderStatus.OK)
-        				{
-        					var center = aResults[0].geometry.location;
+              },function(aResults,sStatus)
+              {
+                if(sStatus ===google.maps.GeocoderStatus.OK)
+                {
+                 var center = aResults[0].geometry.location;
 
                       /**
                       *
@@ -1705,7 +1762,7 @@ var e_errorNotification = function( id, sMessage, sIcon, animate ){
 
                       //drawCircle( 'ville' ,center , sDistance );
                       callback( true , center);
-                  }
+                    }
                     else if(sStatus ===google.maps.GeocoderStatus.ZERO_RESULTS)//1
                     {
                     	var id = 1;
@@ -1747,7 +1804,7 @@ var e_errorNotification = function( id, sMessage, sIcon, animate ){
                     	callback( false, sMessage);
                     }
 
-                })
+                  })
 }
 }else if( sType === "latlng" ){
 

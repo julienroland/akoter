@@ -23,12 +23,10 @@
   
     <div class="slider">
     <ul class="rslides" id="slider">
-      <li><img src="http://placehold.it/300x150" alt=""></li>
-      <li><img src="http://placehold.it/200x100" alt=""></li>
-      <li><img src="http://placehold.it/250x120" alt=""></li>
+
     </ul>
     </div>
-    <ul id="slider-pager">
+   <!-- <ul id="slider-pager">
       <li>
         <a href="#">
          <img src="http://placehold.it/50x30" alt="">
@@ -44,50 +42,9 @@
          <img src="http://placehold.it/50x30" alt="">
        </a>
      </li>
-   </ul>
+   </ul>-->
    <div class="typeLocationList">
     <ul>
-      <li>
-        <a href="javascript:void()">
-          <div class="type">
-            <img src="http://placehold.it/100x50" alt="">
-            <span class="number">
-              3
-            </span>
-          </div>
-          <div class="price">
-            <span class="cheap">300€</span>/<span class="expensive">300€</span>
-          </div>
-        </a>
-      </li>
-      <li>
-        <a href="javascript:void()">
-          <div class="type">
-            <img src="http://placehold.it/100x50" alt="">
-            <span class="number">
-              3
-            </span>
-          </div>
-          <div class="price">
-            <span class="cheap">300€</span>/<span class="expensive">300€</span>
-          </div>
-        </a>
-        <div class="oneLocation">
-          <ul>
-            <li>
-              <a href="">
-                <div class="infosLocation">
-                  <img src="http://placehold.it/50x30" alt="">
-                  <div class="priceOne">
-                    200€
-                  </div>
-                </div>
-                <span class="btn-one" href="">{{trans('general.see')}}</span>
-              </a>
-            </li> 
-          </ul>
-        </div>
-      </li>
 
     </ul>
   </div>

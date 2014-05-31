@@ -64,12 +64,19 @@ Route::get('activation/{key}', array('uses' => 'InscriptionController@activation
  **/
 
 /**
+*
+* Locations
+*
+**/
+Route::get('ajax/getLocations/{building_id}',array('uses'=>'BuildingController@getLocations'));
+
+/**
  *
  * Kots
  *
  **/
 
-Route::get('getKots', array('as' => 'getKots', 'uses' => 'BuildingController@gmGetBuilding'));
+Route::get('ajax/getKots', array('as' => 'getKots', 'uses' => 'BuildingController@gmGetBuilding'));
 
 /**
  *
@@ -77,7 +84,7 @@ Route::get('getKots', array('as' => 'getKots', 'uses' => 'BuildingController@gmG
  *
  **/
 
-Route::get('getSchools', array('uses' => 'SchoolController@gmGet'));
+Route::get('ajax/getSchools', array('uses' => 'SchoolController@gmGet'));
 
 /**
  *

@@ -24,7 +24,7 @@
         <div class="field">
           {{Form::label('form-city',ucfirst(trans('form.city')).':')}}
           <div class="icon-map54 input-city">
-            {{Form::text('city','',array('tabindex'=>'4','id'=>'form-city','class'=>'form-city form-icon','placeholder'=>trans('form.locality')))}}
+            {{Form::text('city','',array('autofocus','tabindex'=>'4','id'=>'form-city','class'=>'form-city form-icon','placeholder'=>trans('form.locality')))}}
           </div>
         </div>
         <div class="field">

@@ -8,22 +8,8 @@ class BuildingController extends BaseController
 	public function gmGetBuilding()
 	{
 
-		$locations = Building::
-		whereHas('location',function($query){
-			$query
-			->where( Config::get( 'var.l_validateCol' ) , 1 )
-			->where( Config::get( 'var.l_placesCol' ) ,'>', 0 )
-			->remember(Config::get('var.remember'), 'map_hasLocations');
-		})
-		->with(
-			array(
-				'location'=>function($query){
-					$query->remember(Config::get('var.remember'), 'map_locations');
-				},
-				))
-		->where('status_type', 1)
-		->remember(Config::get('var.remember'), 'map_buildings')
-		->get( );
+		$locations = Helpers::cache(Building::where('status_type', 1)
+		->get( ),'building_map');
 
 		return Response::json($locations, 200);
 	}
@@ -36,6 +22,15 @@ class BuildingController extends BaseController
 
 		}
 
+	}
+
+	public function getLocations( $building ){
+
+		return Response::json($building->whereId($building->id)->with(array('photo'=>function($query){
+			$query->orderBy('order');
+		},'activeLocation.typeLocation.translation','activeLocation.accroche','activeLocation.translation'=>function($query){
+			$query->whereKey('slug');
+		}))->firstOrFail(),200);
 	}
 
 

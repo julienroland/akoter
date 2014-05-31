@@ -85,6 +85,7 @@ return array(
 	'back_home'=>'Revenir à l\'accueil',
 	'number'=>'Numero',
 	'next'=>'Suivant',
+	'previous'=>'Précédent',
 	'numberLocations'=>'Nombre de location',
 	'street'=>'Rue',
 	'success_message'=>'<span class="b">Message bien envoyé !</span> Nous reviendrons vers vous par mail le plus rapidement possible.',
