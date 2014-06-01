@@ -1971,8 +1971,8 @@ input[type="checkbox"]:checked + label {
 			margin-bottom: $gutter / 4;
 
 			.icon:before{
-			font-size: $large;
-			margin-right: $gutter / 2;
+				font-size: $large;
+				margin-right: $gutter / 2;
 			}
 
 
@@ -2673,6 +2673,7 @@ $country-h: 100px;
   z-index: 10;
   padding: $gutter / 2 0;
   @include box-shadow(rgba(0, 0, 0, 0.3) 0 0 3px 0);
+  overflow:hidden;
   .wrapper {
   	overflow: visible;
   }
@@ -2745,7 +2746,7 @@ $country-h: 100px;
   	}
   }
   .orderBy {
-  	width: 150px;
+  	width: 100px;
 
   	.classify {
   		width: 80px;

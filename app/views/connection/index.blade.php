@@ -6,9 +6,9 @@
 	<div class="hero">
 		<div class="wrapper">
 
-			<h2 aria-level="2" role="heading" class="mainTitle">{{trans('inscription.create_account')}}</h2>
+			<h2 aria-level="2" role="heading" class="mainTitle">{{trans('inscription.connect')}}</h2>
 			<div class="intro">
-				{{trans('inscription.create_account_intro')}}
+				{{trans('inscription.connect_intro')}}
 			</div>
 		</div>
 	</div>
@@ -54,7 +54,7 @@
 					<div class="field">
 						{{Form::label('password_co', trans('connections.your_password',array('name','password')))}}
 						<div class="input-password icon-lock24">
-							<input aria-required="true" aria-labelledby="email_co" value="{{Cookie::has('login') ? Cookie::get('login')['password_co']: ''}}" type="password" name="password_co" required  placeholder="{{trans('form.password')}}" class="form-password {{isset(Session::get('fields')['password']) ? 'form-error':''}}" id="password_co">
+							<input aria-required="true" aria-labelledby="password_co" value="{{Cookie::has('login') ? Cookie::get('login')['password_co']: ''}}" type="password" name="password_co" required  placeholder="{{trans('form.password')}}" class="form-password {{isset(Session::get('fields')['password']) ? 'form-error':''}}" id="password_co">
 
 						</div>
 					</div>

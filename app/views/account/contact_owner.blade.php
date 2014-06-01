@@ -39,9 +39,9 @@
 			<input type="checkbox" name="translate" checked id="translate">
 		</div>
 		<div class="field choice-2">
-
+	
 			{{Form::submit(trans('form.send'))}}
-			<a href="{{route('showLocation', Route::current()->parameter('location_id')->translation()->whereId('slug')->pluck('value') )}}">{{trans('form.back')}}</a>
+			<a href="{{route('showLocation', Route::current()->parameter('location_id')->translation()->whereKey('slug')->pluck('value') )}}">{{trans('form.back')}}</a>
 		</div>
 		{{Form::close()}}
 	</div>

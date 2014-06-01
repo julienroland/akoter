@@ -17,7 +17,7 @@ class LocationController extends BaseController
 
 		$gallery = ImageType::name('gallery')->first();
 
-		$typeLocation = $location->typeLocation->translation()->pluck('value');
+		/*$typeLocation = $location->typeLocation->translation()->pluck('value');*/
 		$region = $building->region->translation()->pluck('value');
 
 		$typeLocation = $location->typeLocation->translation()->pluck('value');
@@ -33,13 +33,27 @@ class LocationController extends BaseController
 		$user = $building->user()->first();
 
 		$translations = $location->translation()->get()->lists('value','key');
-			
+
 		$comments = LocationComment::whereLocationId($location->id)->with('translation','user')->get();
 
-		$location->nb_views = $location->nb_views + 1;
+		$location->nb_views +=  1;
 		$location->save();
 
 		return View::make('advert.show', array(
+			'title'=>trans('title.showLocation',
+				array(
+					'typeLocation'=>$typeLocation,
+					'region'=>$region,
+					'title'=>$translations['title'],
+					)),
+			'description'=>trans('description.showLocation',array(
+				'description'=>strip_tags($translations['advert']),
+				)),
+			'keywords'=>$translations['title'].','.$typeLocation.' '.$region.','.$user->first_name.' '.$user->name,
+			'ogImage'=>Config::get('var.url').'/'.Helpers::imgDir(Config::get('var.img_locations_replace') ,array(
+				'user_id'=>$user->id,
+				'location_id'=>$location->id,
+				)).Helpers::addBeforeExtension($location->accroche()->pluck('url'), 'medium'),
 			'page'=>'advert',
 			'widget'=>array(
 				'tabs',
@@ -218,12 +232,15 @@ class LocationController extends BaseController
 			$locations = Location::getLocationsPaginateList( );
 		}
 
-
 		$input = Input::except('page');
 
 		Session::put('filter', $input );
 		
-		return View::make('listing.locations', array( 'page' => 'locations','widget'=>array(
+		return View::make('listing.locations', array( 
+			'page' => 'locations',
+			'title'=>trans('title.listing',array('region'=>isset($input['city']) ? $input['city']:'')),
+			'description'=>trans('description.listing',array('number'=>$locations->count(),'region'=>isset($input['city']) ? $input['city']:'')),
+			'widget'=>array(
 			'date',
 			'ui',
 			'form',

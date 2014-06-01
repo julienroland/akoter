@@ -26,7 +26,7 @@ class HomeController extends BaseController {
 			$query->whereStatusType( 1 );
 		}))->whereValidate( 1 )->count();
 
-		return View::make('home.index',array('page'=>'home','widget'=>array(
+		return View::make('home.index',array('title'=>trans('title.homepage'),'description'=>trans('description.homepage'),'page'=>'home','widget'=>array(
 			'map',
 			'slider',
 			'mousewheel',

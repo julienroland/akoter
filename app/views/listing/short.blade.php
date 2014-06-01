@@ -132,7 +132,7 @@
 						</li>
 					</ul>
 
-					<div class="left orderBy"><span class="title">{{trans('form.order')}} par: </span>{{Form::select('classify',Config::get('var.filter'),isset($input['classify']) ? $input['classify'] : (isset(Session::get('filter')['classify']) ? Session::get('filter')['classify'] :''),array('class'=>'classify'))}}</div>
+					<div class="left orderBy"><label class="section" for="classify">{{trans('form.order')}} {{trans('general.by')}}: </label>{{Form::select('classify',Config::get('var.filter'),isset($input['classify']) ? $input['classify'] : (isset(Session::get('filter')['classify']) ? Session::get('filter')['classify'] :''),array('id'=>'classify','class'=>'classify'))}}</div>
 				</div>
 			</div>
 			<div class="searchSubmit">

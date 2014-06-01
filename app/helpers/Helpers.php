@@ -4,6 +4,18 @@ use Carbon\Carbon;
 
 class Helpers {
 
+	public static function imgDir( $path, array $params){
+
+		foreach($params as $key => $value){
+
+			$path = str_replace(':'.$key, $value ,$path );
+
+		}
+
+		return $path;
+
+
+	}
 	public static function transDecode($str) {
 		return preg_replace_callback("/\\\u([0-9a-f]{4})/i",
 			create_function('$matches',

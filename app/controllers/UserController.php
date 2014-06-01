@@ -23,7 +23,11 @@ class UserController extends BaseController
 
 		$user = User::whereSlug($owner_slug)->firstOrFail();
 
-		return View::make('account.contact_owner', array('page'=>'contact','widget'=>array()))
+		return View::make('account.contact_owner', array(
+			'page'=>'contact',
+			'title'=>trans('title.contact_owner', array('name'=>$user->first_name.' '.$user->name)),
+			'description'=>trans('description.contact_owner', array('name'=>$user->first_name.' '.$user->name)),
+			))
 		->with(compact('user','location'));
 	}
 
@@ -31,7 +35,7 @@ class UserController extends BaseController
 
 		$input = Input::all();
 
-		$rules = array('name'=>'required | alpha', 'email'=>'email | required','text'=>'required');
+		$rules = array('name'=>'required', 'email'=>'email | required','text'=>'required');
 		$validator = Validator::make($input, $rules);
 
 		if($validator->passes()){

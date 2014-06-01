@@ -18,4 +18,10 @@ return array(
 		),
 	'lang-choose'=>'Langues disponibles: Français, Néerlandais, Anglais.',
 	'footer'=>'Trouvez les informations général, d\'autres informations utiles aux développeur, ... et retrouvez-nous sur les réseaux sociaux !',
+	'homepage'=>'Site de locations étudiant en Belgique | Akoter',
+	'register'=>'Créer un compte gratuitement | Akoter',
+	'connection'=>' Connectez-vous | Akoter',
+	'showLocation'=>':typeLocation :region, :title | Akoter',
+	'contact_owner'=>'Contacter le proprietaire :name | Akoter',
+	'listing'=>'Logements étudiant (kot) :region, locations :region | Akoter',
 	);

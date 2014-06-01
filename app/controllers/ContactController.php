@@ -4,12 +4,12 @@
 class ContactController extends BaseController {
 
 	public function contactUs(){
-
+		
 		return View::make('contact_us', array('page'=>'contact','widget'=>array('validator')));
 	}
 
 	public function sendMessage(){
-
+dd('ok');
 		$input = Input::all();
 
 		$validator = Validator::make($input, array('name'=>'required | alpha', 'email'=>'email | required','text'=>'required'));

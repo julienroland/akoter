@@ -1,8 +1,16 @@
 @include('layout.head')
 
+@if(isset($page) && $page == 'advert')
+
+<h2 class="section" role="heading" aria-level="2">{{trans('seo.h1_base')}}</h2>
+
+@else
+
 <h1 class="section" role="heading" aria-level="1">{{trans('seo.h1_base')}}</h1>
 
-@if(isset($page) && ($page !== 'connection' && $page !== 'contact'))
+@endif
+
+@if(isset($page))
 
 @include('layout.nav')
 

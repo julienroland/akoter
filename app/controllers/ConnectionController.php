@@ -14,7 +14,11 @@ class ConnectionController extends BaseController
 
 	public function index(){
 
-		return View::make('connection.index', array('page'=>'connection','widget'=>array('validator')));
+		return View::make('connection.index', array(
+			'title'=>trans('title.connection'),
+			'description'=>trans('description.connection'),
+			'page'=>'connection',
+			'widget'=>array('validator')));
 	}
 	public function connection() {
 		

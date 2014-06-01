@@ -3,8 +3,10 @@
 return array(
 //dir
 	'path'=>'/',
+	'url'=>'http://akoter.julien-roland.be',
 	'img_dir'=>'/img/',
 	'img_locations_dir'=>'/img/locations/',
+	'img_locations_replace'=>'/images/users/:user_id/locations/:location_id/',
 	'img_users_dir'=>'/img/locations/',
 	'img_posts_dir'=>'img/posts/',
 	'images_dir'=>'images/',

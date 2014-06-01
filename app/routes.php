@@ -242,7 +242,7 @@ Route::group(array('prefix' => $lang), function () use ($lang) {
          *
          **/
 
-        Route::get(Lang::get('routes.home'), array('as' => 'home', 'uses' => 'HomeController@index'));
+        Route::get(trans('routes.home'), array('as' => 'home', 'uses' => 'HomeController@index'));
 
         /**
         *
@@ -254,7 +254,7 @@ Route::group(array('prefix' => $lang), function () use ($lang) {
         
         /**
         *
-        * Contact tenant
+        * Contact owner
         *
         **/
 
@@ -268,9 +268,9 @@ Route::group(array('prefix' => $lang), function () use ($lang) {
          *
          **/
 
-        Route::any(Lang::get('routes.listing'), array('as' => 'listLocation', 'uses' => 'LocationController@getList'));
+        Route::get(trans('routes.listing'), array('as' => 'listLocation', 'uses' => 'LocationController@getList'));
 
-        Route::get(Lang::get('routes.contact'), array('as' => 'contact', function () {
+        Route::get(trans('routes.contact'), array('as' => 'contact', function () {
 
         	return View::make('contact');
 
@@ -606,13 +606,18 @@ Route::group(array('prefix' => $lang), function () use ($lang) {
             Route::bind('location_id', function ($value, $route) {
 
                 if(Auth::check()){
-                   return Location::whereId($value)->with(array('translation', 'building' => function ($query) {
-                      $query->whereUserId(Auth::user()->id);
-                  }))->firstOrFail();
-               }
-               return Response::view('missing.default', 404);
 
-           });
+                 return Location::whereId($value)->with(array('translation', 'building' => function ($query) {
+                  $query->whereUserId(Auth::user()->id);
+              }))->firstOrFail();
+             }
+             else{
+
+                return Location::whereId($value)->with(array('translation'))->firstOrFail();
+            }
+            return Response::view('missing.default', 404);
+
+        });
             /**
             *
             * DASHBOARD
@@ -746,9 +751,9 @@ Route::group(array('before' => 'guest'), function () {
              *
              **/
 
-            Route::post(Lang::get('routes.connection'), array('as' => 'connection', 'uses' => 'ConnectionController@connection'));
+            Route::post(trans('routes.connection'), array('as' => 'connection', 'uses' => 'ConnectionController@connection'));
 
-            Route::get(Lang::get('routes.connection'), array('as' => 'connection', 'uses' => 'ConnectionController@index'));
+            Route::get(trans('routes.connection'), array('as' => 'connection', 'uses' => 'ConnectionController@index'));
 
             /**
              *

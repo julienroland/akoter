@@ -97,4 +97,6 @@ return array(
 	'inscription_finish_intro'=>'L\'inscription de votre bien et de ses logements est belle et bien fini ! Dirigez vous vers votre <b>Compte</b>',
 	'inscription_done_go_account'=>'Aller sur son compte !',
 	'add_location'=>'Ajout location',
+	'connect'=>'Connectez-vous',
+	'connect_intro'=>'Vous aurez accès à votre compte avec toute les fonctionnalités utiles.',
 	);

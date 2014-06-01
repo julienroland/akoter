@@ -18,7 +18,11 @@ class InscriptionController extends AccountBaseController {
 
 	public function index(){
 
-		return View::make('inscription.index', array('page'=>'inscription','widget'=>array('select','validator','geoRegionLocality')));
+		return View::make('inscription.index', array(
+			'title'=>trans('title.register'),
+			'description'=>trans('description.register'),
+			'page'=>'inscription',
+			'widget'=>array('select','validator','geoRegionLocality')));
 
 	}
 	public function save(){
