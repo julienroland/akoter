@@ -120,7 +120,7 @@ public function currentUser(){
 }
 
 public function scopeValid($query){
-$query->where('available', 1)->where('validate', 1);
+	$query->where('available', 1)->where('validate', 1);
 }
 
 public function typeLocation(){
@@ -369,31 +369,75 @@ public static function getLocationsFilter( $input = null, $nb_obj = null, $pagin
 		}
 
 		//[img, title, type_location, city, short-description, rating, room_remaining, owner, charge[price,type]]
+		$locations = Location::with('translation');
 
-		$locations = Location::with(
+		if(isset($input['city']) && Helpers::isOk( $input['city'] ) && (!isset($input['list']) || Helpers::isNotOk($input['list']))){
 
-			array(
-				'translation',
-				'photo'=>function($query){
+			$region = ucfirst(Helpers::cleanString($input['city']));
+			$locations = $locations
+			->join('buildings','locations.building_id','=','buildings.id')
+			->join('regions','buildings.region_id','=','regions.id')
+			->join('translations as city', function( $join ) use( $region ){
+				$join
+				->on('regions.id','=','city.content_id')
+				->where('city.content_type','=','Region');
 
-					$query->whereOrder(1);
-				},
-				'building.region.translation',
-				'building.user',
-				'typeLocation.translation',
-				'building.locality',
-				'particularity.translation',
-				))
-		->where( Config::get( 'var.l_validateCol' ) , 1 )
-		->where( Config::get( 'var.l_placesCol' ) ,'>', 0 );
-		
-		if(isset($list) && Helpers::isOk($list)){
+			})
+->where('city.value','like','%'.$region.'%')
+->select('city.id as city_id','locations.*');
+}
 
-			$locations->whereIn('id', $list);
 
-		}
+if(isset($input['search']) && Helpers::isOk($input['search'])){
 
-		if(isset($input['search']) && Helpers::isOk($input['search'])){
+	$terms = explode(' ',$input['search']);
+
+	$locations = $locations
+	->join('translations as search', function( $join ) use( $input ){
+		$join
+		->on('locations.id','=','search.content_id')
+		->where('search.content_type','=','Location');
+
+	})
+	->where('search.key','=','title');
+	foreach( $terms as $term){
+
+		$locations = $locations
+
+		->where('search.value', 'like', '%'.$term.'%');
+
+
+				/*$locations = $locations->with(array('typeLocation.translation'=>function($query) use($term){
+					$query->where('key','name')->orWhere('value','like','%'.$term.'%');
+				}));*/
+}
+$locations = $locations->select('search.id as search_id','locations.*');
+}
+/*$locations->get();Helpers::getQuery();*/
+$locations = $locations->with(
+
+	array(
+		'translation',
+		'photo'=>function($query){
+
+			$query->whereOrder(1);
+		},
+		'building.region.translation',
+		'building.user',
+		'typeLocation.translation',
+		'building.locality',
+		'particularity.translation',
+		))
+->where( Config::get( 'var.l_validateCol' ) , 1 )
+->where( Config::get( 'var.l_placesCol' ) ,'>', 0 );
+
+if(isset($list) && Helpers::isOk($list)){
+
+	$locations->whereIn('id', $list);
+
+}
+
+		/*if(isset($input['search']) && Helpers::isOk($input['search'])){
 
 			$terms = explode(' ',$input['search']);
 
@@ -409,7 +453,7 @@ public static function getLocationsFilter( $input = null, $nb_obj = null, $pagin
 					$query->where('key','name')->orWhere('value','like','%'.$term.'%');
 				}));
 			}
-		}
+		}*/
 
 		if(isset($input['typeLocation']) && Helpers::isOk( $input['typeLocation'] )){
 
@@ -506,65 +550,20 @@ public static function getLocationsFilter( $input = null, $nb_obj = null, $pagin
 			}
 
 		}
-		/*if(isset($input['city']) && Helpers::isOk( $input['city'] )){
 
-			$region = ucfirst(Helpers::cleanString( $input['city'] ));
+		if(isset($input['classify']) && Helpers::isOk($input['classify'])){
 
-			$locations = $locations
-			->join('buildings','locations.building_id','=','buildings.id')
-			->join('regions','buildings.region_id','=','regions.id')
-			->join('translations','regions.id','=','translations.content_id')
-			->where('value','like','%'.$region.'%');
+			$locations->orderBy(Helpers::getFilterBy($input['classify']), Helpers::getFilterWay($input['classify']));
 
-
-			
-
-		}*/
-
-		if(isset($input['city']) && Helpers::isOk( $input['city'] ) && (!isset($input['list']) || Helpers::isNotOk($input['list']))){
-
-			$region = ucfirst(Helpers::cleanString( $input['city'] ));
-
-			$locations = $locations
-			->whereHas('building',function($query) use($region){
-
-				$query->whereHas('region', function($query) use($region){
-
-					$query->whereHas('translation', function($query) use($region){
-
-						$query->where('value','like','%'.$region.'%');
-
-					});
-
-				});
-
-			});
-			/**
-			
-				TODO:
-				- Test where has on translation
-				- the test has on region
-			
-				**/
+		}
 
 
 
 
-			}
-
-			if(isset($input['classify']) && Helpers::isOk($input['classify'])){
-
-				$locations->orderBy(Helpers::getFilterBy($input['classify']), Helpers::getFilterWay($input['classify']));
-
-			}
-
-
-
-
-	/*	$locations = $locations->take(30)->get();
-
-	dd($locations);*/
-	$locations = $locations->paginate( $paginate );
-	return $locations;
-}
+		$locations = $locations->take(30)->get();
+		Helpers::getQuery();
+		dd($locations);
+		$locations = $locations->paginate( $paginate );
+		return $locations;
+	}
 }
