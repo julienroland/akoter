@@ -39,6 +39,37 @@ if (in_array($lang, Config::get('app.available_locales'))) {
 	$lang = null;
 
 }
+/*===========================
+=            API            =
+===========================*/
+Route::group(array('prefix'=>'api'), function(){
+
+    Route::get('/',array('uses'=>'ApiController@index'));
+
+    Route::get('location/all', array('uses'=>'ApiController@allLocation'));
+
+    Route::get('location/get/{take}', array('uses'=>'ApiController@getTakeLocation'));
+
+    Route::get('location/in', array('uses'=>'ApiController@InLocation'));
+
+    Route::group(array('prefix'=>'doc'), function(){
+
+        Route::get('/',array('as'=>'api','uses'=>'ApiController@index'));
+
+
+        Route::get('locations',array('uses'=>'ApiController@locations'));
+
+        Route::get('schools',array('uses'=>'ApiController@schools'));
+
+        Route::get('leave',array('uses'=>'ApiController@leave'));
+    });
+
+});
+
+/*-----  End of API  ------*/
+
+
+
 /**
  *
  * VALIDATOR
@@ -405,7 +436,7 @@ Route::group(array('prefix' => $lang), function () use ($lang) {
                     *
                     **/
 
-                     Route::bind('user_id', function ($value, $route) {
+                    Route::bind('user_id', function ($value, $route) {
 
                         return User::findOrFail($value);
 
@@ -575,13 +606,13 @@ Route::group(array('prefix' => $lang), function () use ($lang) {
             Route::bind('location_id', function ($value, $route) {
 
                 if(Auth::check()){
-                 return Location::whereId($value)->with(array('translation', 'building' => function ($query) {
-                  $query->whereUserId(Auth::user()->id);
-              }))->firstOrFail();
-             }
-             return Response::view('missing.default', 404);
+                   return Location::whereId($value)->with(array('translation', 'building' => function ($query) {
+                      $query->whereUserId(Auth::user()->id);
+                  }))->firstOrFail();
+               }
+               return Response::view('missing.default', 404);
 
-         });
+           });
             /**
             *
             * DASHBOARD

@@ -119,6 +119,10 @@ public function currentUser(){
 	->where('status', 1)->withPivot('status','end','begin'); 
 }
 
+public function scopeValid($query){
+$query->where('available', 1)->where('validate', 1);
+}
+
 public function typeLocation(){
 
 	return $this->belongsTo('TypeLocation'); 

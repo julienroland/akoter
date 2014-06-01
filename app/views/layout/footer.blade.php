@@ -21,6 +21,7 @@
 		<ul class="permalink">
 			<li><a href="">Conditions général d'utilisation</a></li>
 			<li><a href="{{route('contact')}}">Contact</a></li>
+			<li><a href="{{route('api')}}">API</a></li>
 			<li><a href="{{route('how_be_tenant')}}">Devenir locataraire</a></li>
 			<li><a href="{{route('how_be_owner')}}">Devenir proprietaire</a></li>
 		</ul>
