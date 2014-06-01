@@ -54,5 +54,6 @@ return array(
 'start_at'=>'A parti du',
 'garantee'=>'Caution de :number €',
 'goLocation'=>'Voir les détails de la location',
+'favoris'=>'Ajouter la location à vos favoris',
 
 );

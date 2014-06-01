@@ -362,6 +362,7 @@ Route::group(array('prefix' => $lang), function () use ($lang) {
 
         Route::group(array('before' => 'auth'), function () {
 
+            Route::get( trans('routes.addFavoris').'/{user_slug}', array('as'=>'addFavoris','uses'=>'UserController@addFavoris'));
             /*
              * Admin
              *

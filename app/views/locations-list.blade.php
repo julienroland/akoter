@@ -94,9 +94,9 @@
         @if(Helpers::isOk($location->nb_locations))
         <div class="nb_locations">
             @if($location->nb_locations > 1)
-            <span title="{{Lang::get('locations.nb_locations')}}" class="icon icon-longa"></span><b>{{$location->nb_locations}}</b> <span class="section">{{Lang::get('locations.nb_locations')}}</span>
+            <span title="{{Lang::get('locations.nb_locations')}}" class="icon icon-longa"></span><b>{{$location->remaining_location}}</b> <span class="section">{{Lang::get('locations.nb_locations')}}</span>
             @else
-            <span title="{{Lang::get('locations.nb_location')}}" class="icon icon-longa"></span><b>{{$location->nb_locations}}</b> <span class="section">{{Lang::get('locations.nb_location')}}</span>
+            <span title="{{Lang::get('locations.nb_location')}}" class="icon icon-longa"></span><b>{{$location->remaining_location}}</b> <span class="section">{{Lang::get('locations.nb_location')}}</span>
             @endif
             </div>
           @endif

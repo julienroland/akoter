@@ -57,6 +57,7 @@ return array(
     'refuseRequest'=>'refuser-la-demande',
     'dashboard'=>'gestion-de-location',
     'tenants'=>'locataires',
+    'addFavoris'=>'ajout-de-favoris',
 
 );
 

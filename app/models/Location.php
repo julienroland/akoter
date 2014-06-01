@@ -560,9 +560,9 @@ if(isset($list) && Helpers::isOk($list)){
 
 
 
-		$locations = $locations->take(30)->get();
+		/*$locations = $locations->take(30)->get();
 		Helpers::getQuery();
-		dd($locations);
+		dd($locations);*/
 		$locations = $locations->paginate( $paginate );
 		return $locations;
 	}

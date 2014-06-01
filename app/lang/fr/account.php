@@ -75,5 +75,8 @@ array(
 	'locationFull'=>'La location est déjà complète, il ne peut y avoir plus de locataire',
 	'no_request'=>'Vous n\'avez reçus aucune demande, vous serez informé via le site et par email.',
 	'no_request_location'=>'Vous n\'avez reçus aucune demande pour votre location n° :number, vous serez informé via le site et par email.',
+	'desactivateLocation'=>'Ne pas mettre l\'annonce en ligne',
+	'activateLocation'=>'Mettre votre annonce en ligne',
+	'seeLocation'=>'Gérer la location',
 
 	);

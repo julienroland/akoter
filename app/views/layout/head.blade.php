@@ -11,14 +11,14 @@
   <meta name="robots" content="all">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>{{isset($request) && $request > 0  ? '('.$request.') ' :''}} {{isset($title) ? $title : trans('general.titlePage')}}</title>
-  <meta name="description" content="{{isset($description) ? $description :''}}">
+  <meta name="description" content="{{isset($description) ? $description :trans('description.base')}}">
   <meta name="author" content="{{Config::get('var.email')}}">
   <meta name="keywords" content="{{isset($keywords) ? $keywords : Config::get('var.keywords')}}">
   <link rel="apple-touch-icon" sizes="" href="">  
   <meta property="og:title" content="{{isset($title) ? $title : trans('general.titlePage')}}">
   <meta property="og:type" content="website">
   <meta property="og:image" content="{{isset($ogImage) ? $ogImage :'' }}">
-  <meta property="og:description" content="{{isset($description) ? $description :''}}">
+  <meta property="og:description" content="{{isset($description) ? $description :trans('description.base')}}">
   <meta property="og:url" content="{{Request::url()}}">
   <meta property="og:locale" content="{{App::getLocale()}}">
   @foreach(Config::get('app.setLocale') as $locale_og)

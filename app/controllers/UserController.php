@@ -1,7 +1,11 @@
 <?php 
 
 class UserController extends BaseController
-{
+{	
+	public function addFavoris( $user_slug ){
+
+
+	}
 
 	public function sendEmailComfirm(  ){
 

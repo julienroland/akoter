@@ -2799,6 +2799,13 @@ $country-h: 100px;
   }
 
 }
+.favoris{
+	margin: 1em 0;
+	text-align: center;
+	a{
+		color:red;
+	}
+}
 
 /**
 *
@@ -3019,13 +3026,130 @@ $country-h: 100px;
 		min-height: 100%;
 		background-color: white;
 		max-width: ($mw - 150px) - $gutter * 2;
-
+		
+		
 	}
 	.account-container {
 		padding: 3em 1em;
 	}
-}
+	.account-intro{
+		@include c(12);
+		min-height: 100px;
+		padding:2em 1em;
+		background-color: $borange;
+	}
 
+}
+.home-location{
+
+	.title-account{
+		font-size: $xx-large;
+		text-align: left;
+		font-weight: bold;
+		color:white;
+		margin-bottom: $gutter;
+	}
+
+	.undertitle-account{
+		font-size: $large;
+		text-align: left;
+		margin-bottom: $gutter / 2;
+	}
+	.content{
+
+	}
+}
+.location-account{
+	@include c(12);
+	padding:1em;
+	height: 7em;
+	@include border-radius(0);
+	&.success{
+		background-color: $bgreen;
+	}
+
+	.image{
+		width: 5em;
+		float: left;
+		margin-right: $gutter / 2;
+		height: 100%;
+
+	}
+	a{
+		color:white;
+		text-decoration: none;
+	}
+	.infos{
+		display: block;
+		float:left;
+		margin-right: $gutter / 2;
+		height: 100%;
+		width: 33em;
+	}
+	.actions{
+		display: block;
+		float: right;
+		margin-right: $gutter / 2;
+		height: 100%;
+		.desactivate{
+			display: block;
+			width: 2em;
+			line-height: 2em;
+			@include border-radius(50%);
+			height: 2em;
+			background-color: $error;
+			margin-bottom: $gutter / 4;
+			@include box-shadow($greyD 0 0 2px 1px, darken($error, 10%) 0 0 2px 1px inset);
+			border:2px solid white;
+			&:before{
+				font-size: $large;
+				height: 2em;
+				display: block;
+				margin:0 auto;
+				text-align: center;
+				&:hover,&:focus,&:active{
+					@include rotateZ(360deg);
+					@include transition(all ease 0.3s);
+				}
+			}
+		}
+		.activate{
+			display: block;
+			width: 2em;
+			line-height: 2em;
+			@include border-radius(50%);
+			height: 2em;
+			background-color: $success;
+			margin-bottom: $gutter / 4;
+			@include box-shadow($greyD 0 0 2px 0 , darken($success, 10%) 0 0 2px 1px inset);
+			&:before{
+				font-size: $large;
+				height: 2em;
+				display: block;
+				margin:0 auto;
+				text-align: center;
+			}
+		}
+		.see{
+			display: block;
+			width: 2em;
+			line-height: 2em;
+			@include border-radius(50%);
+			height: 2em;
+			background-color: $mc;
+			border:2px solid white;
+			margin-bottom: $gutter / 4;
+			@include box-shadow($greyD 0 0 2px 0 , darken($mc, 10%) 0 0 2px 1px inset);
+			&:before{
+				font-size: $large;
+				height: 2em;
+				display: block;
+				margin:0 auto;
+				text-align: center;
+			}
+		}
+	}
+}
 .introOwner {
 	.hero {
 		background-color: #fff;
