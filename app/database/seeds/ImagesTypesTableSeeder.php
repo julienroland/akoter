@@ -21,6 +21,12 @@ class ImagesTypesTableSeeder extends Seeder {
 				'extension'=>'jpg',
 				),
 			array(
+				'name'=>'mapslider',
+				'width'=>250,
+				'height'=>150,
+				'extension'=>'jpg',
+				),
+			array(
 				'name'=>'gallery',
 				'width'=>300,
 				'height'=>null,

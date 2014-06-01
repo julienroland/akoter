@@ -42,6 +42,7 @@ array(
 	'how_be_tenant'=>'Comment devenir locataire',
 	'pro'=>'S\'inscrire en tant que professionnel vous permet d\'ajouter votre entreprise à notre base de donnée, vous obtiendrez des avatanges t\'elle que de la visiblité sur les annonces, ...',
 	'completeProfile'=>'Completer mon profile',
+	'completeProfileBtn'=>'Completer',
 	'registerLocation'=>'Inscrire une location',
 	'edit_photo'=>'Modifier la photo',
 	'back_home'=>'Retour à l\'accueil de votre compte',

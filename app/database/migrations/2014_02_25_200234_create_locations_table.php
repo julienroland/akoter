@@ -33,7 +33,7 @@ class CreateLocationsTable extends Migration {
 			$table->float('rating');
 			$table->integer('nb_rate');
 			$table->float('garantee');	
-			$table->boolean('charge_type');
+			$table->tinyInteger('charge_type');
 			$table->integer('type_location_id')->unsigned();
 			$table->foreign('type_location_id')->references('id')->on('types_locations');
 			$table->integer('building_id')->unsigned();

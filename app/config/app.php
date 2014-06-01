@@ -54,7 +54,7 @@ return array(
 
 	'available_locales' => array('fr','en','nl'),
 
-	'setLocale' => array('fr'=>'fr_FR','en'=>'en_EN','nl'=>'nl_NL'),
+	'setLocale' => array('fr'=>'fr_FR','en'=>'en_GB','nl'=>'nl_NL'),
 	
 	'locale' => 'fr',
 
@@ -125,6 +125,7 @@ return array(
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 
 		'Way\Generators\GeneratorsServiceProvider',
+		'Cviebrock\EloquentSluggable\SluggableServiceProvider',
 		'Intervention\Image\ImageServiceProvider',
 		'Bogardo\Mailgun\MailgunServiceProvider',
 		'Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider',

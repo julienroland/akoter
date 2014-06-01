@@ -21,8 +21,8 @@ class CreateUserLocationTable extends Migration {
 			$table->foreign('location_id')->references('id')->on('locations');
 			$table->boolean('status');
 			$table->boolean('request');
-			$table->interger('seat');
-			$table->interger('nb_locations');
+			$table->integer('seat');
+			$table->integer('nb_locations');
 			$table->text('text');
 			$table->timestamp('begin');
 			$table->timestamp('end');

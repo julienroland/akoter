@@ -22,7 +22,7 @@
   }
 }
 .warning-tick{
-  color:$info;  
+  color:$borange;  
   text-decoration: none;
   cursor:pointer;
   @include transition(all 0.3s ease-in-out 0.2s);
@@ -34,7 +34,7 @@
   }
 }
 .warning-tick-box{
-  border:1px solid $info;
+  border:1px solid $borange;
   position:absolute;
   display:block;
   min-height:50px;

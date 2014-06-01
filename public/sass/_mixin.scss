@@ -243,9 +243,10 @@
 		@include transition(all 0.3s ease-in-out);
 		margin-top: 3px;
 		font-weight: 500;
+		@include box-shadow(lighten($borange,20%) 0 1px 2px 1px inset);
 		&:hover,&:focus,&:active{
 			@include transition(all 0.3s ease-in-out);
-			background-image:linear-gradient( top ,$borange, lighten($borange,5%));
+			background-image:linear-gradient( top ,lighten($borange,5%), lighten($borange,8%));
 			text-decoration: underline;
 		}
 	}
@@ -410,14 +411,18 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#35a0c6', end
 		&.field{
 			border:0;
 			padding:0;
+
+			legend{
+				margin-left: 0;
+			}
 		}
 	}
-		.label{
-			color:$greyD2;
-			margin-bottom: 3px;
-			font-style:normal;
-			font-weight:400;
-		}
+	.label{
+		color:$greyD2;
+		margin-bottom: 3px;
+		font-style:normal;
+		font-weight:400;
+	}
 
 	.group{
 		@include c(12);
@@ -838,13 +843,13 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#35a0c6', end
 	[type="checkbox"]:not(:checked):focus + label:before {
 		border: 1px dotted $mc;
 	}
+}
+&.listCheckbox{
+	@include cl(6);
+	label{
+		display: block;
+		height: 23px;
 	}
-	&.listCheckbox{
-		@include cl(6);
-		label{
-			display: block;
-			height: 23px;
-		}
 			/* Base for label styling */
 			[type="checkbox"]:not(:checked),
 			[type="checkbox"]:checked {

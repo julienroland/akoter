@@ -8,7 +8,7 @@
 <div class="account-container">
 	{{Form::open(array('route'=>array('save_personnal',Auth::user()->slug),'method'=>'put','class'=>'inlineType rules', 'data-rules'=>json_encode(User::$personnals_rules)))}}
 	<fieldset>
-		<legend>{{trans('acccount.infos_contact')}}</legend>
+		<legend>{{trans('account.infos_contact')}}</legend>
 
 
 		<div class="field">

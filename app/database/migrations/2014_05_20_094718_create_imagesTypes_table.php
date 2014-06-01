@@ -12,7 +12,7 @@ class CreateImagesTypesTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('imagesTypes', function(Blueprint $table)
+		Schema::create('images_types', function(Blueprint $table)
 		{
 			$table->increments('id');
 			$table->string('name');

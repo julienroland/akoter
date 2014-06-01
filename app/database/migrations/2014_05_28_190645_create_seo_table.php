@@ -19,8 +19,8 @@ class CreateSeoTable extends Migration {
 			$table->string('content_type');
 			$table->integer('content_id');
 			$table->text('value');
-			$table->interger('language_id');
-			$table->foreing('language_id')->references('id')->on('languages');
+			$table->integer('language_id')->unsigned();
+			$table->foreign('language_id')->references('id')->on('languages');
 			$table->timestamps();
 		});
 	}

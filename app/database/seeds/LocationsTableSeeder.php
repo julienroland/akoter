@@ -698,7 +698,7 @@ for($i = 1;$i < count($street)*2; $i++){
 		"nb_views"=>rand(0,10000),
 		"rating"=>rand(0,10),
 		"nb_rate"=>rand(0,1000),
-		"caution"=>rand(0,1000),
+		"garantee"=>rand(0,1000),
 		"created_at"=>Carbon::create(rand(2014,2015), rand(8,10), rand(1,30), 12),/*$date->format('Y-m-d H:i:s'),*/
 		
 		));
