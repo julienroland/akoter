@@ -17,4 +17,5 @@ return array(
 		'scroll'=>'Zoomer via la molette de la souris ou via les flèches du clavier',
 		),
 	'lang-choose'=>'Langues disponibles: Français, Néerlandais, Anglais.',
+	'footer'=>'Trouvez les informations général, d\'autres informations utiles aux développeur, ... et retrouvez-nous sur les réseaux sociaux !',
 	);

@@ -15,6 +15,8 @@ return array (
   'yes' => 'Oui',
   'no' => 'Non',
   'edit' => 'Modifier',
+  'goTop' => 'Remonter au contenu',
+  'goNav' => 'Revenir à la navigation',
   'tenants' => 'Locataires',
   'home' => 'Accueil',
   'lang' => 

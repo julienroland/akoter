@@ -17,47 +17,48 @@
 <footer class="foot" role="contentinfo">
 	<div class="contentBehind" aria-hidden="true"></div>
 	<div class="wrapper">
-		<h2 class="section" role="heading" aria-level="2">Trouvez les informations général, d'autres informations utiles aux développeur, ... et retrouvez-nous sur les réseaux sociaux !</h2>
-		<a href="#main" class="reader">Remonter au contenu</a>
-		<a href="#nav" class="reader">Revenir à la navigation</a>
+		<h2 class="section" role="heading" aria-level="2">{{trans('title.footer')}}</h2>
+		<a href="#main" class="reader">{{trans('general.goTop')}}</a>
+		<a href="#nav" class="reader">{{trans('general.goNav')}}</a>
 		<div class="row">
 			<section class="links">
-				<h3 aria-level="3" role="heading" class="linkTitle">Informations</h3>
+				<h3 aria-level="3" role="heading" class="linkTitle">{{trans('footer.infos')}}</h3>
 
 				<ul class="permalink">
-					<li><a href="">Conditions général d'utilisation</a></li>
-					<li><a href="{{route('contact')}}">Contact</a></li>
-					<li><a href="{{route('contact')}}">Qui sommes-nous</a></li>
-					<li><a href="{{route('contact')}}">Plan du site</a></li>
+					<li><a href="">{{trans('footer.cgu')}}</a></li>
+					<li><a href="{{route('contact')}}">{{trans('footer.contact-us')}}</a></li>
+					<li><a href="{{route('contact')}}">{{trans('footer.who_are')}}</a></li>
+					<li><a href="{{route('contact')}}">{{trans('footer.mapSite')}}</a></li>
 					@if(Auth::check())
-					<li><a href="{{route('how_be_tenant', Auth::user()->slug)}}">Devenir locataraire</a></li>
-					<li><a href="{{route('how_be_owner', Auth::user()->slug)}}">Devenir proprietaire</a></li>
+					<li><a href="{{route('how_be_tenant', Auth::user()->slug)}}">{{trans('footer.become_tenant')}}</a></li>
+					<li><a href="{{route('how_be_owner', Auth::user()->slug)}}">{{trans('footer.become_owner')}}</a></li>
 					@endif
 				</ul>
 			
 		</section>	
 		<section class="links">
-			<h3 aria-level="3" role="heading" class="linkTitle">Autres</h3>
+			<h3 aria-level="3" role="heading" class="linkTitle">{{trans('footer.other')}}</h3>
 
 			<ul class="permalink">
-				<li><a href="{{route('api')}}">API</a></li>
-				<li><a href="{{route('api')}}">Blog</a></li>
-				<li><a href="">Ajout logement</a></li>
-				<li><a href="">Ajout école</a></li>
+				<li><a href="{{route('api')}}">{{trans('footer.actu')}}</a></li>
+				<li><a href="">{{trans('footer.add_location')}}</a></li>
+				<li><a href="">{{trans('footer.add_schools')}}</a></li>
+				<li><a href="{{route('api')}}">{{trans('footer.api')}}</a></li>
 				
 				
 			</ul>
 		</section>	
 		<section class="links">
-			<h3 aria-level="3" role="heading" class="linkTitle">Réseaux sociaux</h3>
-
+			<h3 aria-level="3" role="heading" class="linkTitle">{{trans('footer.social')}}</h3>
 			<ul class="permalink">
-				<li class="icon icon-facebook"><a href="">Facebook</a></li>
+				<li ><a class="icon icon-facebook24" href="">Facebook</a></li>
+				<li ><a class="icon icon-google23" href="">Google plus</a></li>
+				<li ><a class="icon icon-social19" href="">Twitter</a></li>
 				
 			</ul>
 		</section>	
 		</div>
 	</div>
-	<div class="copyright">Copyright © 2014 www.akoter.julien-roland.be - Tous droits réservés.</div>
+	<div class="copyright">{{trans('footer.copyright')}}</div>
 </div>
 </footer>
