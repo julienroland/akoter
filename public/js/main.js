@@ -364,18 +364,19 @@ var getProprietePhoto = function( userId, proprieteId, sType ){
 			dataType: "json",
 			success:function( oData ){
 				console.log(oData);
+				console.log(sType);
 				if( oData ){
 
 					if($('#images[data-type="'+sType+'"]').length == 0){
 
-						$('#baseForm').after('<div id="images" data-type='+sType+'><ul id="sortable" class="ui-sortable" data-type="building"></ul></div>');
+						$('#baseForm[data-type="'+sType+'"]').after('<div id="images" data-type='+sType+'><ul id="sortable" class="ui-sortable" data-type="building"></ul></div>');
 
 					}
 					$('#images[data-type="'+sType+'"]').find('li').remove();
 
 				}
 				for( var i in oData ){
-                $('#images[data-type="'+sType+'"] ul').append('<li><span class="handle icon icon-move6"></span><a href="" class="deleteImage icon icon-remove11" data-id='+oData[i].id+' data-proprieteId='+oData[i].building_id+' data-type='+oData[i].type+' title='+oLang.form.delete_image+'><div class="image"><img class="thumbnail" src="'+ imgs_dir +'users/'+ userId + '/buildings/' + proprieteId + '/'+ sType +'/' + addBeforeExtension(oData[i].url, 'small') +'"></div></a></li>'); //userId/ProprieteId/
+                $('#images[data-type="'+sType+'"] ul').append('<li><span class="handle icon icon-move6"></span><a href="" class="deleteImage icon icon-remove11" data-id='+oData[i].id+' data-proprieteId='+oData[i].building_id+' data-type='+oData[i].type+' title='+oLang.form.delete_image+'><div class="image"><img class="thumbnail" src="'+ imgs_dir +'users/'+ userId + '/buildings/' + proprieteId + '/' + addBeforeExtension(oData[i].url, 'small') +'"></div></a></li>'); //userId/ProprieteId/
 
                 $('.deleteImage').on('click', function( e ){
                 	e.preventDefault();
@@ -439,6 +440,7 @@ var uploadFile = function(){
 		var nProprieteId = $(this).parent().attr('data-proprieteId');
 		var sType = $(this).parent().attr('data-type');
 		var $that = $(this);
+
 		$(this).uploadFile({
 			url: sBasePath + "ajax/uploadBuildingImage/"+sType+"/"+nProprieteId,
 			method: "post",
@@ -469,7 +471,7 @@ var uploadFile = function(){
 			{
 
 				$('#myform').submit();
-				console.log($(this));
+
 				getProprietePhoto( $that.parent().attr('data-userId'), $that.parent().attr('data-proprieteId'),$that.parent().attr('data-type') );
 			},
 

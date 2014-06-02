@@ -2686,10 +2686,10 @@ $country-h: 100px;
 .sortmenu {
 	@include abs-top();
 	@include c(12);
-  height: 112px;
-  top: $hm;
-  background-color: $bblue;
-  color: white;
+	height: 112px;
+	top: $hm;
+	background-color: $bblue;
+	color: white;
   /* font-weight: 500; */
   z-index: 1000;
   padding: $gutter / 2 0;
@@ -3916,9 +3916,10 @@ $country-h: 100px;
 	margin-bottom: $gutter;
 	margin-top: $gutter / 2;
 	.step {
-		@include cl(2.4);
+		@include cl(1.5);
 		height: 100%;
 		&:first-child {
+			@include cl(0.9);
 			.cnt {
 				padding-left: $gutter / 2;
 				&:before {
@@ -3932,10 +3933,11 @@ $country-h: 100px;
 			height: 100%;
 			position: relative;
 			text-decoration: none;
-			padding: 20px 0;
+			padding:25px 0;
 			padding-left: 30px + $gutter / 2;
 			line-height: 1;
-			font-weight: 500;
+			font-weight: 900;
+			font-size: $large;
 			cursor: default;
 			&:before {
 				content: "";
@@ -4134,15 +4136,18 @@ $country-h: 100px;
 }
 
 .ajax-file-upload {
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: 16px;
+	font-family: $ff;
+	font-size: $medium;
 	font-weight: bold;
-	padding: 15px 20px;
+	padding: 30px 20px;
+	line-height: 10px;
 	cursor: pointer;
-	line-height: 20px;
-	height: 25px;
+	height: 70px;
+	width: 150px;
 	margin: 0 10px 10px 0;
 	display: inline-block;
+	text-align: center;
+	@include rotateX(45deg);
 	background: #fff;
 	border: 1px solid #e8e8e8;
 	color: #888;
@@ -4152,30 +4157,30 @@ $country-h: 100px;
 	-moz-border-radius: 3px;
 	-moz-box-shadow: 0 2px 0 0 #e8e8e8;
 	-webkit-box-shadow: 0 2px 0 0 #e8e8e8;
-	box-shadow: 0 2px 0 0 #e8e8e8;
-	padding: 6px 10px 4px 10px;
+	@include box-sizing(border-box);
 	color: #fff;
-	background: $borange;
+	background: $mc;
 	border: none;
-	@include box-shadow(darken($borange, 20%) 0 3px 0 0);
-
+	@include box-shadow(darken($mc, 20%) 0 15px 0 0);
+	@include transition(all 0.3s ease-in);
 	vertical-align: middle;
+	pointer-events:auto;
 	input[type="file"] {
 		width: 100% !important;
 		height: 100% !important;
 	}
 }
 
-.ajax-file-upload:hover {
-	background: $borange;
-	margin-top: 2px;
-	@include box-shadow(darken($borange, 20%) 0 1px 0 0);
+.ajax-file-upload:hover,.ajax-file-upload:active {
+	background: $mc;
+	margin-bottom: -5px;
+	@include transition(all 0.15s ease-out);
+	@include box-shadow($mc 0 5px 0 0);
+
 
 }
 
 .ajax-upload-dragdrop {
-	border: 1px solid $greyL2;
-	background-color: white;
 	@include c(12);
 	min-height: 100px;
 	@include box-sizing(border-box);
@@ -4186,6 +4191,7 @@ $country-h: 100px;
 	text-align: left;
 	vertical-align: middle;
 	line-height: 100px;
+	pointer-events:none;
 	padding: 0 1em;
 	b {
 		font-weight: 400;

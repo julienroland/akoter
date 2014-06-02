@@ -81,7 +81,7 @@ return array(
 	'delete_image'=>'Supprimer l\'image',
 	'delete'=>'Supprimer',
 	'send'=>'Envoyer',
-	'upload'=>'Envoyer',
+	'upload'=>'Cliquez !',
 	'back_home'=>'Revenir à l\'accueil',
 	'number'=>'Numero',
 	'next'=>'Suivant',
@@ -113,6 +113,7 @@ return array(
 	'click-rating'=>'Cliquez pour noter',
 	'commenting'=>'Commenter',
 	'comment'=>'Commentaire',
+	'click'=>'Cliquer !',
 	
 
 );		

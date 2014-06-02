@@ -31,16 +31,17 @@
 
 		{{Form::open(array('url'=>array('ajax/uploadBuildingImage', 'building', $building->id),'files'=>true,'data-type'=>'building','data-proprieteId'=>$building->id,'data-userId'=>Auth::user()->id,'id'=>'baseForm'))}}
 		{{Form::file('file', array('class'=>'baseFile'))}}
-		{{Form::submit('envoyer', array('class'=>'baseFile'))}}
+		{{Form::submit(trans('form.click'), array('class'=>'baseFile'))}}
 		{{Form::close()}}
 
 
-		@if(isset($photos['building']) && Helpers::isOk( $photos['building']))
+		
 		<div class="informations">
 			{{trans('inscription.about_image_sort')}}
 		</div>
 		<div id="images" data-type="building" >
 			<ul id="sortable" data-type="building">
+				@if(isset($photos['building']) && Helpers::isOk( $photos['building']))
 				@foreach( $photos['building'] as $photo)
 
 				<li >
@@ -48,16 +49,17 @@
 					<a href="" class="deleteImage icon icon-remove11" data-id="{{$photo->id}}" data-proprieteId="{{$photo->building_id}}" data-type="{{$photo->type}}" title="{{trans('form.delete_image')}}">
 						<div class="image">
 
-							<img class="thumbnail" src="{{'/'.Config::get('var.images_dir').Config::get('var.users_dir').Auth::user()->id.'/'.Config::get('var.buildings_dir').$photo->building_id.'/building/'.Helpers::addBeforeExtension($photo->url, Config::get('var.img_small'))}}" alt="{{$photo->alt}}">
+							<img class="thumbnail" src="{{'/'.Config::get('var.images_dir').Config::get('var.users_dir').Auth::user()->id.'/'.Config::get('var.buildings_dir').$photo->building_id.'/'.Helpers::addBeforeExtension($photo->url, Config::get('var.img_small'))}}" alt="{{$photo->alt}}">
 
 						</div>
 					</a>
 				</li>
 
 				@endforeach
+				@endif
 			</ul>
 		</div>
-		@endif
+		
 	</div>
 
 	<div class="images_category">
@@ -72,16 +74,17 @@
 
 		{{Form::open(array('url'=>array('ajax/uploadBuildingImage', 'common', $building->id),'files'=>true,'data-type'=>'common','data-proprieteId'=>$building->id,'data-userId'=>Auth::user()->id,'id'=>'baseForm'))}}
 		{{Form::file('file', array('class'=>'baseFile'))}}
-		{{Form::submit('envoyer', array('class'=>'baseFile'))}}
+		{{Form::submit(trans('form.click'), array('class'=>'baseFile'))}}
 		{{Form::close()}}
 
 
-		@if(isset($photos['common']) && Helpers::isOk( $photos['common']))
+		
 		<div class="informations">
 			{{trans('inscription.about_image_sort')}}
 		</div>
 		<div id="images" data-type="common" >
 			<ul id="sortable" data-type="building">
+				@if(isset($photos['common']) && Helpers::isOk( $photos['common']))
 				@foreach( $photos['common'] as $photo)
 
 				<li >
@@ -89,16 +92,17 @@
 					<a href="" class="deleteImage icon icon-remove11" data-id="{{$photo->id}}" data-proprieteId="{{$photo->building_id}}" data-type="{{$photo->type}}" title="{{trans('form.delete_image')}}">
 						<div class="image">
 
-							<img class="thumbnail" src="{{'/'.Config::get('var.images_dir').Config::get('var.users_dir').Auth::user()->id.'/'.Config::get('var.buildings_dir').$photo->building_id.'/common/'.Helpers::addBeforeExtension($photo->url, Config::get('var.img_small'))}}" alt="{{$photo->alt}}">
+							<img class="thumbnail" src="{{'/'.Config::get('var.images_dir').Config::get('var.users_dir').Auth::user()->id.'/'.Config::get('var.buildings_dir').$photo->building_id.'/'.Helpers::addBeforeExtension($photo->url, Config::get('var.img_small'))}}" alt="{{$photo->alt}}">
 
 						</div>
 					</a>
 				</li>
 
 				@endforeach
+				@endif
 			</ul>
 		</div>
-		@endif
+		
 	</div>
 
 	<div class="images_category" data-type="more">
@@ -113,16 +117,17 @@
 
 		{{Form::open(array('url'=>array('ajax/uploadBuildingImage', Config::get('var.moreBuildingPhotos'), $building->id),'files'=>true,'data-type'=>'more','data-proprieteId'=>$building->id,'data-userId'=>Auth::user()->id,'id'=>'baseForm'))}}
 		{{Form::file('file', array('class'=>'baseFile'))}}
-		{{Form::submit('envoyer', array('class'=>'baseFile'))}}
+		{{Form::submit(trans('form.click'), array('class'=>'baseFile'))}}
 		{{Form::close()}}
 
 
-		@if(isset($photos['more']) && Helpers::isOk( $photos['more']))
+		
 		<div class="informations">
 			{{trans('inscription.about_image_sort')}}
 		</div>
-		<div id="images" >
-			<ul id="sortable" data-type="building">
+		<div id="images" data-type="more">
+			<ul id="sortable" data-type="more">
+				@if(isset($photos['more']) && Helpers::isOk( $photos['more']))
 				@foreach( $photos['more'] as $photo)
 
 				<li >
@@ -130,16 +135,17 @@
 					<a href="" class="deleteImage icon icon-remove11" data-id="{{$photo->id}}" data-proprieteId="{{$photo->building_id}}" data-type="{{$photo->type}}" title="{{trans('form.delete_image')}}">
 						<div class="image">
 
-							<img class="thumbnail" src="{{'/'.Config::get('var.images_dir').Config::get('var.users_dir').Auth::user()->id.'/'.Config::get('var.buildings_dir').$photo->building_id.'/more/'.Helpers::addBeforeExtension($photo->url, Config::get('var.img_small'))}}" alt="{{$photo->alt}}">
+							<img class="thumbnail" src="{{'/'.Config::get('var.images_dir').Config::get('var.users_dir').Auth::user()->id.'/'.Config::get('var.buildings_dir').$photo->building_id.'/'.Helpers::addBeforeExtension($photo->url, Config::get('var.img_small'))}}" alt="{{$photo->alt}}">
 
 						</div>
 					</a>
 				</li>
 
 				@endforeach
+				@endif
 			</ul>
 		</div>
-		@endif
+		
 	</div>
 	
 

@@ -49,7 +49,7 @@
 
 				{{Form::open(array('url'=>array('ajax/uploadLocationImage', 'location', $location->id),'files'=>true,'data-type'=>'location','data-locationId'=>$location->id,'data-userId'=>Auth::user()->id,'id'=>'baseForm'))}}
 				{{Form::file('file', array('class'=>'baseFile'))}}
-				{{Form::submit('envoyer', array('class'=>'baseFile'))}}
+				{{Form::submit(trans('form.click'), array('class'=>'baseFile'))}}
 				{{Form::close()}}
 
 

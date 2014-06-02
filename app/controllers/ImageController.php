@@ -72,7 +72,7 @@ public function postBuildingImage( $type='more', $id=null )
       return Response::json(trans('validation.custom.tooMuchImage'),500);
     }
 
-    $destinationPath = Config::get('var.images_dir').Config::get('var.users_dir').Auth::user()->id.'/'.Config::get('var.buildings_dir').'/'.$id.'/'.$type.'/';
+    $destinationPath = Config::get('var.images_dir').Config::get('var.users_dir').Auth::user()->id.'/'.Config::get('var.buildings_dir').$id.'/';
 
     $timestamp = Carbon::now()->timestamp;
   }
@@ -113,10 +113,6 @@ public function postBuildingImage( $type='more', $id=null )
 
       $image = Image::make( Input::file('file')->getRealPath() );
 
-      $filename = Helpers::toSlug(Helpers::addTimestamp( $part->getClientOriginalName(), null, $extension,  $timestamp ));
-
-      $nb_order = Building::find($id)->photo()->whereType($type)->max('order') + 1;
-
       $photo = new BuildingPhoto;
 
       $photo->url = $filename;
@@ -127,6 +123,10 @@ public function postBuildingImage( $type='more', $id=null )
 
       $photo =  Building::find( $id )->photo()->save($photo);
 
+      $filename = Helpers::toSlug(Helpers::addTimestamp( $part->getClientOriginalName(), null, $extension,  $timestamp ));
+
+      $nb_order = Building::find($id)->photo()->whereType($type)->max('order') + 1;
+
       $image->grab( 2500, 1600 )->save( $destinationPath.$filename )->encode('jpg', Config::get('var.img_quality'));
 
       foreach( $imageType as $type){
@@ -136,6 +136,9 @@ public function postBuildingImage( $type='more', $id=null )
         $image->grab( $type->width, $type->height )->save( $destinationPath.$filename )->encode('jpg', Config::get('var.img_quality'));
 
       }
+
+
+
     }
   }
 else //single file
@@ -150,7 +153,7 @@ else //single file
   $filename = Helpers::toSlug(Helpers::addTimestamp( $file->getClientOriginalName(), null, $extension,  $timestamp ));
 
   $nb_order = Building::find($id)->photo()->whereType($type)->max('order') + 1;
-  
+
   $photo = new BuildingPhoto;
 
   $photo->url = $filename;
@@ -170,6 +173,8 @@ else //single file
     $image->grab( $type->width, $type->height )->save( $destinationPath.$filename )->encode('jpg', Config::get('var.img_quality'));
 
   }
+
+
 
 }
 

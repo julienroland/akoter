@@ -21,6 +21,8 @@
 
 	@include('includes.success')
 
+	<div class="informations">{{trans('inscription.trans')}}</div>
+
 	@foreach($situations as $situation)
 
 	@if($situation->language_id == 1)

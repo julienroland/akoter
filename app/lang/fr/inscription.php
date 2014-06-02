@@ -99,4 +99,5 @@ return array(
 	'add_location'=>'Ajout location',
 	'connect'=>'Connectez-vous',
 	'connect_intro'=>'Vous aurez accès à votre compte avec toute les fonctionnalités utiles.',
+	'trans'=>'Vous n\'êtes pas obliger traduire les textes, nous le feront pour vous',
 	);

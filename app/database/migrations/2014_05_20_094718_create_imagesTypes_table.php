@@ -16,8 +16,8 @@ class CreateImagesTypesTable extends Migration {
 		{
 			$table->increments('id');
 			$table->string('name');
-			$table->integer('width');
-			$table->integer('height');
+			$table->integer('width')->nullable();
+			$table->integer('height')->nullable();
 			$table->string('extension',50);
 			$table->timestamps();
 		});
