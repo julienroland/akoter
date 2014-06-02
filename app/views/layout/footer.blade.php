@@ -1,3 +1,4 @@
+<div class="back-to-top"><a class="icon icon-arrow198 tooltip-ui-s" title="{{trans('general.backTop')}}" href="#main"></a></div>
 <section class="newsletter">
 	<h2 aria-level="2" role="heading" class="section">{{trans('title.newsletter')}}</h2>
 	<div class="wrapper">

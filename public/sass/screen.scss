@@ -38,7 +38,30 @@ body {
 	margin-top: 3px !important;
 	margin-bottom: $gutter / 2 !important;
 }
+.back-to-top{
+	display: block;
+	@include abs-bot-right( 10%,  10% );
+	position: fixed;
+	a{		
+		display: block;
+		text-align: center;
+		&:before{
+			
+			display: inline-block;
+			font-size: $xxx-large;
+			margin:0;
+			color:$greyD;
 
+
+		}
+		&:hover,&:active,&:focus{
+			&:before{
+				color:$mc;
+			}
+
+		}
+	}
+}
 p {
 	line-height: 1.3;
 }

@@ -109,5 +109,6 @@ return array (
     'more'=>'En savoir plus',
     'title'=>'Voir l\'article :name en entier',
     ),
+  'backTop'=>'Remonter en haut de la page',
 
   );
