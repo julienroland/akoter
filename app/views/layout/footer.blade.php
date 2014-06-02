@@ -45,7 +45,7 @@
 				<li><a href="">{{trans('footer.add_location')}}</a></li>
 				<li><a href="">{{trans('footer.add_schools')}}</a></li>
 				<li><a href="{{route('api')}}">{{trans('footer.api')}}</a></li>
-				@if(Auth::user()->role_id < 3)
+				@if(Auth::check() && Auth::user()->role_id < 3)
 				<li><a href="{{url('admin')}}">{{trans('footer.admin')}}</a></li>
 				@endif
 				

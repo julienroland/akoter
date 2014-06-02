@@ -2686,18 +2686,23 @@ $country-h: 100px;
 .sortmenu {
 	@include abs-top();
 	@include c(12);
+/* @include translate3d(0, 0, 0);
+  	-webkit-backface-visibility: hidden; */
   /* position: fixed;  */
   height: 112px;
   top: $hm;
   background-color: $bblue;
   color: white;
   /* font-weight: 500; */
-  z-index: 10;
+  z-index: 1000;
   padding: $gutter / 2 0;
   @include box-shadow(rgba(0, 0, 0, 0.3) 0 0 3px 0);
-  overflow:hidden;
+
   .wrapper {
   	overflow: visible;
+
+  	-webkit-backface-visibility: hidden;
+  	z-index: 10;
   }
   .formSearch {
   	@include cl(10);
@@ -2844,6 +2849,7 @@ $country-h: 100px;
 	width: auto;
 	min-width: 200px;
 	display: none;
+	z-index: 100;
 	label {
 		color: $mc;
 		display: none;

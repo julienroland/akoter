@@ -405,40 +405,44 @@ public static function getLocationsFilter( $input = null, $nb_obj = null, $pagin
 			->distinct();
 			// ->select(array('j3.id as j3_id','j2.id as j2_id','locations.*'));
 			
-		
-
-
 				/*$locations = $locations->with(array('typeLocation.translation'=>function($query) use($term){
 					$query->where('key','name')->orWhere('value','like','%'.$term.'%');
 				}));*/
 
 
-		}
+}
 
+if(isset($input['particularity']) && Helpers::isOk( $input['particularity'] )){
 
+	$locations = $locations->join('location_particularity','locations.id','=','location_particularity.location_id')
+	->join('particularities','location_particularity.particularity_id','=','particularities.id')
+	->whereIn('particularities.id', $input['particularity']);
 
-		$locations = $locations->with(
+}
+$locations->take(10)->get();
+Helpers::getQuery();
+$locations = $locations->with(
 
-			array(
-				'translation',
-				'photo'=>function($query){
+	array(
+		'translation',
+		'photo'=>function($query){
 
-					$query->whereOrder(1);
-				},
-				'building.region.translation',
-				'building.user',
-				'typeLocation.translation',
-				'building.locality',
-				'particularity.translation',
-				))
-		->where( Config::get( 'var.l_validateCol' ) , 1 )
-		->where( Config::get( 'var.l_placesCol' ) ,'>', 0 );
+			$query->whereOrder(1);
+		},
+		'building.region.translation',
+		'building.user',
+		'typeLocation.translation',
+		'building.locality',
+		'particularity.translation',
+		))
+->where( Config::get( 'var.l_validateCol' ) , 1 )
+->where( Config::get( 'var.l_placesCol' ) ,'>', 0 );
 
-		if(isset($list) && Helpers::isOk($list)){
+if(isset($list) && Helpers::isOk($list)){
 
-			$locations->whereIn('id', $list);
+	$locations->whereIn('id', $list);
 
-		}
+}
 
 		/*if(isset($input['search']) && Helpers::isOk($input['search'])){
 
@@ -464,7 +468,7 @@ public static function getLocationsFilter( $input = null, $nb_obj = null, $pagin
 
 		}	
 
-		if(isset($input['particularity']) && Helpers::isOk( $input['particularity'] )){
+		/*if(isset($input['particularity']) && Helpers::isOk( $input['particularity'] )){
 
 			$locations = $locations->whereHas('particularity', function($query) use($input){
 
@@ -472,7 +476,7 @@ public static function getLocationsFilter( $input = null, $nb_obj = null, $pagin
 
 			});
 
-		}
+}*/
 		/*if(isset($input['particularity']) && Helpers::isOk( $input['particularity'] )){
 
 			$locations = $locations->whereHas('particularity',function($query) use($input){
