@@ -59,7 +59,7 @@
 
          @foreach($location->particularity as $particularity)
 
-         <div class="{{Helpers::toSlug($particularity->icon)}} spe"  title="{{Lang::get('seo.l_particularity_perso',array('stuff'=>$particularity->translation[0]->value))}}"></div> 
+         <div class="{{Helpers::toSlug($particularity->icon)}} spe tooltip-ui-n"  title="{{$particularity->translation[0]->value}}"></div> 
          @endforeach
 
        </div>

@@ -78,11 +78,10 @@
 			<div class="wrapper">
 				<div class="content">
 					<span class="accroche">
-						<span class="b">Akoter</span> c'est <span class="nb_locations">{{$nb_locations}}</span> locations
+						{{trans('locations.accroche_title', array('number'=>$nb_locations))}}
 					</span>
 					<p>
-						dans toute la Belgique.
-						Trouvez le logement de vos rêves grâce à notre système de recherche !
+						{{trans('locations.accroche_content')}}
 					</p>
 					<a href="{{route('listLocation')}}" class="btn-img">{{trans('general.list_locations2')}}</a>
 				</div>

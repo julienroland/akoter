@@ -55,5 +55,7 @@ return array(
 'garantee'=>'Caution de :number €',
 'goLocation'=>'Voir les détails de la location',
 'favoris'=>'Ajouter la location à vos favoris',
+'accroche_title'=>'<span class="b">Akoter</span> c\'est <span class="nb_locations">:number</span> locations',
+'accroche_content'=>'dans toute la Belgique. Trouvez le logement de vos rêves grâce à notre système de recherche !',
 
 );

@@ -794,7 +794,7 @@ $particularity = array(
 		'Kitchen private',
 		),
 	'nl'=>array(
-		'Wifi prive',
+		'Wifi',
 		'Badkamer prive',
 		'fonteintje prive',
 		'keuken prive',
