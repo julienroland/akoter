@@ -88,6 +88,7 @@
 				</div>
 			</div>
 		</div>	
+
 		@if(Helpers::isOk( $posts ) )
 		<article itemscope itemtype="http://schema.org/BlogPosting" class="informationsSupp" role="article">
 			<div class="wrapper">

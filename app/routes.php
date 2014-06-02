@@ -250,6 +250,8 @@ Route::group(array('prefix' => $lang), function () use ($lang) {
         *
         **/
 
+        Route::get(trans('routes.posts'), array('as'=>'indexPost','uses'=>'PostController@index'));
+
         Route::get(trans('routes.posts').'/{post_slug}', array('as'=>'showPost','uses'=>'PostController@show'));
         
         /**

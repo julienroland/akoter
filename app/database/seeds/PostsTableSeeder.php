@@ -22,6 +22,8 @@ class PostsTableSeeder extends Seeder {
 				'img'=>$img[$i],
 				'width'=>300,
 				'height'=>200,
+				'post_type_id'=>1,
+				'publish'=>1,
 				'user_id'=>1,
 				));
 		}

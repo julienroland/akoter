@@ -4,7 +4,14 @@
 */
 class PostController extends BaseController
 {
-	
+	public function index(){
+
+		$posts = Post::article()->with('translation')->get();
+
+		return View::make('posts.index', array('page'=>'articles'))
+		->withPosts($posts);
+
+	}
 	public function show( $slug )
 	{
 		$id = Translation::whereContentType('Post')->whereKey('slug')->whereValue( $slug )->firstOrFail()->content_id;

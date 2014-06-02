@@ -15,7 +15,10 @@ class Post extends Eloquent {
 
 		return $this->belongsTo('User'); 
 	}
-	
+	public function scopeArticle( $query ){
+
+		$query->wherePublish(1)->wherePostTypeId( 1 );
+	}
 	public function translation(){
 
 		return $this->morphMany('Translation','content')

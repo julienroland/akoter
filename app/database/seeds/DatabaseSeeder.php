@@ -32,6 +32,7 @@ class DatabaseSeeder extends Seeder {
 		$this->call('OptionTableSeeder');
 		$this->call('TranslationsTableSeeder');
 		$this->call('ImagesTypesTableSeeder');
+		$this->call('TypesPostsTableSeeder');
 
 
 		DB::statement('SET foreign_key_checks = 1');
