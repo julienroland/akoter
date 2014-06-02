@@ -15,6 +15,7 @@ array(
 	'add_location'=>'Ajoutez un logement',
 	'add_schools'=>'Ajoutez des écoles',
 	'api'=>'API pour les développeurs',
+	'admin'=>'Administration du site',
 	'copyright'=>'Copyright © 2014 www.akoter.julien-roland.be - Tous droits réservés.',
 
 	);

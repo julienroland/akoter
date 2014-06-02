@@ -377,65 +377,68 @@ public static function getLocationsFilter( $input = null, $nb_obj = null, $pagin
 			$locations = $locations
 			->join('buildings','locations.building_id','=','buildings.id')
 			->join('regions','buildings.region_id','=','regions.id')
-			->join('translations as city', function( $join ) use( $region ){
-				$join
-				->on('regions.id','=','city.content_id')
-				->where('city.content_type','=','Region');
+			->join('translations as j1','regions.id','=',DB::raw('j1.content_id AND j1.content_type = "Region" AND j1.language_id = '.Session::get('langId')))
+			->where('j1.value','like','%'.$region.'%')
+			->distinct()
+			->select('j1.id as city_id','locations.*');
+		}
+		/*if(isset($input['city']) && Helpers::isOk( $input['city'] ) && (!isset($input['list']) || Helpers::isNotOk($input['list']))){
+			$locality = ucfirst(Helpers::cleanString($input['city']));
+			$locations = $locations
+			->join('buildings','locations.building_id','=','buildings.id')
+			->join('localities','buildings.locality_id','=','localities.id')
+			->where('localities.name','like','%'.$locality.'%')
+			->select('localities.id as city_id','locations.*');
+		}*/
 
-			})
-->where('city.value','like','%'.$region.'%')
-->select('city.id as city_id','locations.*');
-}
+		if(isset($input['search']) && Helpers::isOk($input['search'])){
 
+			/*$terms = explode(' ',$input['search']);*/
 
-if(isset($input['search']) && Helpers::isOk($input['search'])){
-
-	$terms = explode(' ',$input['search']);
-
-	$locations = $locations
-	->join('translations as search', function( $join ) use( $input ){
-		$join
-		->on('locations.id','=','search.content_id')
-		->where('search.content_type','=','Location');
-
-	})
-	->where('search.key','=','title');
-	foreach( $terms as $term){
-
-		$locations = $locations
-
-		->where('search.value', 'like', '%'.$term.'%');
+			$locations = $locations
+			->join('translations as j2', 'locations.id','=',DB::raw('j2.content_id AND j2.content_type = "Location" AND j2.language_id = '.Session::get('langId')))
+			->join('translations as j3', 'locations.type_location_id','=',DB::raw('j3.content_id AND j3.content_type = "TypeLocation" AND j3.language_id = '.Session::get('langId')))
+			->where('j2.key','=','title')
+			->where('j2.value', 'like', '%'.$input['search'].'%')
+			->orWhere('j3.value', 'like', '%'.$input['search'].'%')
+			->with('translations')
+			->distinct();
+			// ->select(array('j3.id as j3_id','j2.id as j2_id','locations.*'));
+			
+		
 
 
 				/*$locations = $locations->with(array('typeLocation.translation'=>function($query) use($term){
 					$query->where('key','name')->orWhere('value','like','%'.$term.'%');
 				}));*/
-}
-$locations = $locations->select('search.id as search_id','locations.*');
-}
-/*$locations->get();Helpers::getQuery();*/
-$locations = $locations->with(
 
-	array(
-		'translation',
-		'photo'=>function($query){
 
-			$query->whereOrder(1);
-		},
-		'building.region.translation',
-		'building.user',
-		'typeLocation.translation',
-		'building.locality',
-		'particularity.translation',
-		))
-->where( Config::get( 'var.l_validateCol' ) , 1 )
-->where( Config::get( 'var.l_placesCol' ) ,'>', 0 );
+		}
 
-if(isset($list) && Helpers::isOk($list)){
 
-	$locations->whereIn('id', $list);
 
-}
+		$locations = $locations->with(
+
+			array(
+				'translation',
+				'photo'=>function($query){
+
+					$query->whereOrder(1);
+				},
+				'building.region.translation',
+				'building.user',
+				'typeLocation.translation',
+				'building.locality',
+				'particularity.translation',
+				))
+		->where( Config::get( 'var.l_validateCol' ) , 1 )
+		->where( Config::get( 'var.l_placesCol' ) ,'>', 0 );
+
+		if(isset($list) && Helpers::isOk($list)){
+
+			$locations->whereIn('id', $list);
+
+		}
 
 		/*if(isset($input['search']) && Helpers::isOk($input['search'])){
 
@@ -556,8 +559,6 @@ if(isset($list) && Helpers::isOk($list)){
 			$locations->orderBy(Helpers::getFilterBy($input['classify']), Helpers::getFilterWay($input['classify']));
 
 		}
-
-
 
 
 		/*$locations = $locations->take(30)->get();

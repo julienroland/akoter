@@ -39,7 +39,7 @@ body {
 	margin-bottom: $gutter / 2 !important;
 }
 .back-to-top{
-	display: block;
+	display: none;
 	@include abs-bot-right( 10%,  10% );
 	position: fixed;
 	z-index: 1000;
@@ -2142,7 +2142,7 @@ input[type="checkbox"]:checked + label {
   .tab {
   	@include border-radius(5px 0 0 5px);
   	pointer-events: auto;
-  	border: 2px solid $info;
+  	border: 2px solid $borange;
   	border-right: 0;
   	@include abs-top-left();
   	height: 40px;
@@ -2159,7 +2159,7 @@ input[type="checkbox"]:checked + label {
   			float: right;
   			font-size: 0.8em;
   			@include border-radius(50% 50%);
-  			background-color: $info;
+  			background-color: $borange;
   			color: white;
   			width: 14px;
   			@include transition(all 0.3s ease-in-out);
