@@ -541,11 +541,9 @@ a {
 
 	.language {
 		float: right;
-		height: $h-m;
-		line-height: $h-m;
+		height: $hm;
+		line-height: $hm;
 		vertical-align: middle;
-		margin-top: ($hm - $h-m) / 2;
-		margin-bottom: ($hm - $h-m) / 2;
 
 		.lang {
 			color: white;
@@ -600,7 +598,6 @@ a {
 			display: block;
 			height: 100%;
 			float: left;
-			line-height: $hm;
 			@include box-sizing(border-box);
 			position: relative;
 			&.register {
@@ -612,6 +609,7 @@ a {
 				height: 100%;
 				color: $borange;
 				padding: 0 $gutter;
+				line-height: $hm - 15px;
 				display: block;
 				position: relative;
 				font-weight: 600;

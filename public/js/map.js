@@ -924,7 +924,7 @@ if( bShowAllKot ){
   
 }else{
 
-	mc.addMarkers(gMarkerArrayKot);
+	/*mc.addMarkers(gMarkerArrayKot);*/
 
 	for(var i =0; i < gMarkerArrayKot.length; i++){
 
@@ -994,108 +994,109 @@ var eventInput = function()
 
   }); 
 
-  $city.change(function(){ ///CHANGE INPUT TEXT
-  	console.log('ok');
-  	nDistanceValueOk = Number(sRange.value);
+  $city.change(cityForm);
 
-  	if(!$.isNumeric(nDistanceValueOk))
-  	{
-  		var id = 5;
-  		var sMessage = oLang.map.range_required;
-  		var sIcon = sImgDir+"reseaux/fb.jpg";
-
-  		e_errorNotification(id, sMessage, sIcon );
-  	}   
-
-  	sCenterCity = sCity.value;
-
-  	bSchoolClick = false;
-
-  	removeFormTuto($range, 'messageTuto');
-
-  	removeFormError( $city );
-
-  	if(bSchoolClick)
-  	{
-  		actionEcoleClick( nDistanceValueOk );
-  	}
-  	else
-  	{
-
-  		getCity( sCenterCity , nDistanceValueOk , "geocoder", function( bType, sMessage ){
-  			if(bType){
-  				gCenterCity  = sMessage;
-
-  				processSubmit( $submit, 0 );
-
-  				if($range.next().hasClass('tuto')){
-
-  				}else{
-
-  					if($range.next().hasClass('messageTuto')){
-
-  					}else{
-  						$range.after('<span class="range messageTuto">'+oLang.map.you_can_change_range+'</span>');
-  					}
-  				}
-
-  			}else{
-
-  				processSubmit( $submit, 0 );
-
-  			}
-  		});
-
-  	}
-    //actionChangeType ();
-    //ajaxAllKot();
-  });
-
-  $range.change(function(){ // CHANGE RANGE SLIDER
-
-  	nDistanceValueOk = Number(sRange.value);
-
-  	if(!$.isNumeric(nDistanceValueOk))
-  	{
-  		var id = 5;
-  		var sMessage = oLang.map.range_required;
-  		var sIcon = sImgDir+"reseaux/fb.jpg";
-
-  		e_errorNotification(id, sMessage, sIcon );
-  	}   
-
-
-  	sCenterCity = sCity.value;
-  	/*if( sCenterCity === ""){
-
-  		$showMarkersKot.css('display','block');
-
-  	}*/
-
-
-  	if(bSchoolClick) {
-
-  		actionSchoolClick( nDistanceValueOk );
-
-  	}
-  	else
-  	{
-  		formError(sCenterCity === "", $('.localite.messageError'), $city ,'localite', $('.mainType') ,oLang.map.select_location, $city);
-
-  		if(gCenterCity){
-
-  			drawCircle('ville' , gCenterCity , nDistanceValueOk);
-
-  		}else{
-
-  			$range.prop('disabled', true);
-
-  		}
-  	}
-
-  });
+  $range.change(rangeForm);
 
 };
+var rangeForm = function(){
+
+  nDistanceValueOk = Number(sRange.value);
+
+    if(!$.isNumeric(nDistanceValueOk))
+    {
+      var id = 5;
+      var sMessage = oLang.map.range_required;
+      var sIcon = sImgDir+"reseaux/fb.jpg";
+
+      e_errorNotification(id, sMessage, sIcon );
+    }   
+
+
+    sCenterCity = sCity.value;
+    /*if( sCenterCity === ""){
+
+      $showMarkersKot.css('display','block');
+
+    }*/
+
+
+    if(bSchoolClick) {
+
+      actionSchoolClick( nDistanceValueOk );
+
+    }
+    else
+    {
+      formError(sCenterCity === "", $('.localite.messageError'), $city ,'localite', $('.mainType') ,oLang.map.select_location, $city);
+
+      if(gCenterCity){
+
+        drawCircle('ville' , gCenterCity , nDistanceValueOk);
+
+      }else{
+
+        $range.prop('disabled', true);
+
+      }
+    }
+}
+var cityForm = function(){
+
+    nDistanceValueOk = Number(sRange.value);
+
+    if(!$.isNumeric(nDistanceValueOk))
+    {
+      var id = 5;
+      var sMessage = oLang.map.range_required;
+      var sIcon = sImgDir+"reseaux/fb.jpg";
+
+      e_errorNotification(id, sMessage, sIcon );
+    }   
+
+    sCenterCity = sCity.value;
+
+    bSchoolClick = false;
+
+    removeFormTuto($range, 'messageTuto');
+
+    removeFormError( $city );
+
+    if(bSchoolClick)
+    {
+      actionEcoleClick( nDistanceValueOk );
+    }
+    else
+    {
+
+      getCity( sCenterCity , nDistanceValueOk , "geocoder", function( bType, sMessage ){
+        if(bType){
+          gCenterCity  = sMessage;
+
+          processSubmit( $submit, 0 );
+
+          if($range.next().hasClass('tuto')){
+
+          }else{
+
+            if($range.next().hasClass('messageTuto')){
+
+            }else{
+              $range.after('<span class="range messageTuto">'+oLang.map.you_can_change_range+'</span>');
+            }
+          }
+
+        }else{
+
+          processSubmit( $submit, 0 );
+
+        }
+      });
+
+    }
+    //actionChangeType ();
+    //ajaxAllKot();
+}
 var actionSchoolClick = function( nDistance ){
   //filtrer les kots en fonction d'un rayon
    //afficher le cercle
@@ -1320,7 +1321,7 @@ var getLocations = function( nId ){
       $('.tooltip-ui-w').tipsy();
     }
   });
-  $listingBtn.click();
+$listingBtn.click();
 
 }
 var drawMarkerKot = function ( mPosition, sId, i)
@@ -1393,26 +1394,26 @@ var defineCircle = function(center, radius, sColor){
 }
 var inRange = function ( oCenter, nDistance, sType ) //obj Google / numeric
 {
-	console.log(oCenter);
+	if(nDistance > 1){
 
-	aKots = [];
-	var options = defineCircle(oCenter, nDistance);
-	cityCircle.setOptions( options );
-	if(sType==='ville'){
-		cityCircle.bindTo('center', gMarker, 'position');
-	}
-	gMarker._cityCircle = cityCircle;
+   aKots = [];
+   var options = defineCircle(oCenter, nDistance);
+   cityCircle.setOptions( options );
+   if(sType==='ville'){
+    cityCircle.bindTo('center', gMarker, 'position');
+  }
+  gMarker._cityCircle = cityCircle;
 
-	var boundd = cityCircle.getBounds();
-	for(var i=0;i<oKots.length;i++)
-	{
-		/*console.log(oKots[i].id+!boundd.contains(new google.maps.LatLng(getLatLng(oKots[i].latlng, 'lat'), getLatLng(oKots[i].latlng, 'lng'))));*/
-		if(!boundd.contains(new google.maps.LatLng(getLatLng(oKots[i].latlng, 'lat'), getLatLng(oKots[i].latlng, 'lng')))){
+  var boundd = cityCircle.getBounds();
+  for(var i=0;i<oKots.length;i++)
+  {
+    /*console.log(oKots[i].id+!boundd.contains(new google.maps.LatLng(getLatLng(oKots[i].latlng, 'lat'), getLatLng(oKots[i].latlng, 'lng'))));*/
+    if(!boundd.contains(new google.maps.LatLng(getLatLng(oKots[i].latlng, 'lat'), getLatLng(oKots[i].latlng, 'lng')))){
 
-			if(typeof bShowAllKot === 'undefined'){
+     if(typeof bShowAllKot === 'undefined'){
 
-				gMarkerArrayKot[i].setMap(null);
-				gMarkerArrayKot[i].setOptions({visible: false});
+      gMarkerArrayKot[i].setMap(null);
+      gMarkerArrayKot[i].setOptions({visible: false});
 	     mc.redraw(); //TODO FAIRE FONCTIONNER CLUSTER AVEC DES MARKERS HIDDEN
 
      }else{
@@ -1458,8 +1459,8 @@ var inRange = function ( oCenter, nDistance, sType ) //obj Google / numeric
 }*/
 
 $listKot.attr('value',JSON.stringify(aKots));
-
 }
+};
 var displayNumberResult = function( nNumber ){
 
 	if($l_range.html().indexOf('(') < 0){
@@ -1604,7 +1605,7 @@ var smoothZoom = function(map, max, cnt) {
 			google.maps.event.removeListener(z);
 			smoothZoom(map, max, cnt + 1);
 		});
-        setTimeout(function(){map.setZoom(cnt)}, 80); // 80ms is what I found to work well on my system -- it might not work well on all systems
+        setTimeout(function(){map.setZoom(cnt)}, 50); // 80ms is what I found to work well on my system -- it might not work well on all systems
       }
     };
     var e_isSaw = function( e , that){

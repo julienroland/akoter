@@ -41,7 +41,7 @@
 			<h3 aria-level="3" role="heading" class="linkTitle">{{trans('footer.other')}}</h3>
 
 			<ul class="permalink">
-				<li><a href="{{route('api')}}">{{trans('footer.actu')}}</a></li>
+				<li><a href="{{route('indexPost')}}">{{trans('footer.actu')}}</a></li>
 				<li><a href="">{{trans('footer.add_location')}}</a></li>
 				<li><a href="">{{trans('footer.add_schools')}}</a></li>
 				<li><a href="{{route('api')}}">{{trans('footer.api')}}</a></li>
