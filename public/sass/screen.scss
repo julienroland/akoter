@@ -2686,9 +2686,6 @@ $country-h: 100px;
 .sortmenu {
 	@include abs-top();
 	@include c(12);
-/* @include translate3d(0, 0, 0);
-  	-webkit-backface-visibility: hidden; */
-  /* position: fixed;  */
   height: 112px;
   top: $hm;
   background-color: $bblue;
@@ -2700,7 +2697,6 @@ $country-h: 100px;
 
   .wrapper {
   	overflow: visible;
-
   	-webkit-backface-visibility: hidden;
   	z-index: 10;
   }
@@ -7699,6 +7695,17 @@ only screen and (min-device-pixel-ratio: 1.5){
 		}
 	}
 }
+/**
+*
+* School info
+*
+**/
+.school{
+	.titleSchool{
+		font-weight: bold;
+	}
+}
+
 /**
 *
 * Chosen

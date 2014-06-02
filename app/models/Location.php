@@ -416,11 +416,11 @@ if(isset($input['particularity']) && Helpers::isOk( $input['particularity'] )){
 
 	$locations = $locations->join('location_particularity','locations.id','=','location_particularity.location_id')
 	->join('particularities','location_particularity.particularity_id','=','particularities.id')
-	->whereIn('particularities.id', $input['particularity']);
+	->whereIn('location_particularity.particularity_id', $input['particularity'])
+	->with('particularity');
 
 }
-$locations->take(10)->get();
-Helpers::getQuery();
+
 $locations = $locations->with(
 
 	array(

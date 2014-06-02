@@ -1003,17 +1003,17 @@ var rangeForm = function(){
 
   nDistanceValueOk = Number(sRange.value);
 
-    if(!$.isNumeric(nDistanceValueOk))
-    {
-      var id = 5;
-      var sMessage = oLang.map.range_required;
-      var sIcon = sImgDir+"reseaux/fb.jpg";
+  if(!$.isNumeric(nDistanceValueOk))
+  {
+    var id = 5;
+    var sMessage = oLang.map.range_required;
+    var sIcon = sImgDir+"reseaux/fb.jpg";
 
-      e_errorNotification(id, sMessage, sIcon );
-    }   
+    e_errorNotification(id, sMessage, sIcon );
+  }   
 
 
-    sCenterCity = sCity.value;
+  sCenterCity = sCity.value;
     /*if( sCenterCity === ""){
 
       $showMarkersKot.css('display','block');
@@ -1040,8 +1040,8 @@ var rangeForm = function(){
 
       }
     }
-}
-var cityForm = function(){
+  }
+  var cityForm = function(){
 
     nDistanceValueOk = Number(sRange.value);
 
@@ -1096,8 +1096,8 @@ var cityForm = function(){
     }
     //actionChangeType ();
     //ajaxAllKot();
-}
-var actionSchoolClick = function( nDistance ){
+  }
+  var actionSchoolClick = function( nDistance ){
   //filtrer les kots en fonction d'un rayon
    //afficher le cercle
    
@@ -1351,7 +1351,6 @@ var drawMarkerKot = function ( mPosition, sId, i)
   });
 
 }
-
 var drawMarkerSchool = function ( mPosition, sId , i)
 {
 
@@ -1370,13 +1369,31 @@ var drawMarkerSchool = function ( mPosition, sId , i)
 
  	bSchoolClick = true;
 
- 	smoothZoom( gMap, 17, gMap.getZoom());
+ gMap.setZoom(17);
 
  	gMap.panTo(this.getPosition());
+  var oDataOneSchool = oSchools[this.id];
 
- 	gCurrentPlace = this.getPosition();
+  gCurrentPlace = this.getPosition();
+  var contentString = 
+  '<div class="school">'+
+  '<h3 aria-level="3" role="heading" class="titleSchool">'+
+  oDataOneSchool.name+
+  '</h3>'+
+  '<span class="address">'+
+  oDataOneSchool.street+', '+oDataOneSchool.locality.postal+' ('+oDataOneSchool.locality.name+' '+oDataOneSchool.region.translation[0].value +')'+
+  '</span>'+
+  '<div class="website">'+
+  oDataOneSchool.web+
+  '</div>'+
+  '</div>';
+  var infowindow = new google.maps.InfoWindow({
+    content: contentString
+  });
 
- });
+  infowindow.open(gMap,gMarkerSchool);
+
+});
 
 };
 var defineCircle = function(center, radius, sColor){
