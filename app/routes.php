@@ -640,11 +640,11 @@ Route::group(array('prefix' => $lang), function () use ($lang) {
 
                 if(Auth::check()){
 
-                 return Location::whereId($value)->with(array('translation', 'building' => function ($query) {
-                  $query->whereUserId(Auth::user()->id);
-              }))->firstOrFail();
-             }
-             else{
+                   return Location::whereId($value)->with(array('translation', 'building' => function ($query) {
+                      $query->whereUserId(Auth::user()->id);
+                  }))->firstOrFail();
+               }
+               else{
 
                 return Location::whereId($value)->with(array('translation'))->firstOrFail();
             }
@@ -691,14 +691,20 @@ Route::group(array('prefix' => $lang), function () use ($lang) {
              * Agence
              *
              **/
+            Route::bind('agence_slug', function($value, $route){
+
+                return Auth::user()->agence()->whereSlug($value)->firstOrFail();
+            });
 
             Route::get(trans('routes.account') . '/{user_slug}/' . trans('routes.agences'), array('as' => 'index_agence', 'uses' => 'AgenceController@index'));
 
-            Route::get(trans('routes.account') . '/{user_slug}/' . trans('routes.add_agence'), array('as' => 'add_agence', 'uses' => 'AgenceController@add'));
+            Route::get(trans('routes.account') . '/{user_slug}/' .trans('routes.agences').'/'. trans('routes.add_agence'), array('as' => 'add_agence', 'uses' => 'AgenceController@add'));
 
-            Route::post(trans('routes.account') . '/{user_slug}/' . trans('routes.add_agence'), array('as' => 'store_agence', 'uses' => 'AgenceController@store'));
+            Route::post(trans('routes.account') . '/{user_slug}/' .trans('routes.agences').'/'. trans('routes.add_agence'), array('as' => 'store_agence', 'uses' => 'AgenceController@store'));
 
-            /*Route::get(trans('routes.account').'/{user_slug}/'.trans('routes.add_agence'),array('as'=>'save_agence','uses'=>'AgenceController@add'));*/
+            Route::get(trans('routes.account') . '/{user_slug}/' .trans('routes.agences').'/'. trans('routes.show_agence') .'/{agence_slug}', array('as' => 'show_agence', 'uses' => 'AgenceController@show'));
+
+
 
             /**
              *

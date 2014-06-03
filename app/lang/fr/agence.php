@@ -20,4 +20,7 @@ array(
 	'success_save'=>'Votre agence à bien été enregistrée !',
 	'no_agence'=>'Vous n\'avez aucune agence lié à votre compte',
 	'create_agence'=>'Ajoutez votre agence gratuitement',
+	'show'=>'Voir l\'agence et la gérer',
+	'nos_locations'=>'L\'agence :name n\'a pas encore de location',
+	'nb_employes'=>'Il y a <strong>:number</strong> employé(s)',
 	);

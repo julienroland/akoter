@@ -8,6 +8,8 @@
   {{trans('agence.intro')}}
 </p>
 <div class="formContainer large">
+@include('includes.errors')
+@include('includes.success')
 {{Form::open(array('route'=>array('store_agence',Auth::user()->slug),'files'=>true,'method'=>'post','class'=>'inlineType rules agenceAjax', 'data-rules'=>json_encode(Agence::$rules)))}}
 
   <div class="field">

@@ -36,6 +36,8 @@ class LocationController extends BaseController
 
 		$comments = LocationComment::whereLocationId($location->id)->with('translation','user')->get();
 
+		$agence = $location->agence()->first();
+
 		$location->nb_views +=  1;
 		$location->save();
 
@@ -83,7 +85,8 @@ class LocationController extends BaseController
 			'optionBuilding',
 			'optionLocation',
 			'particularities',
-			'comments'
+			'comments',
+			'agence'
 			));
 	}
 	public function addComment( $location ){

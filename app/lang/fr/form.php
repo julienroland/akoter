@@ -18,6 +18,7 @@ return array(
 	'isAvailable'=>'Disponible ?',
 	'isAvailableLocation'=>'Location disponible ?',
 	'rate'=>'Les mieux noté',
+	'none'=>'Aucune',
 	'accessible'=>'Accessible aux handicapés ?',
 	'charge'=>'Charge',
 	'charges'=>'Charges',

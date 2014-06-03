@@ -140,6 +140,10 @@ public function favoris(){
 	return $this->hasMany('Favoris');
 }
 
+public function agence(){
+	
+	return $this->belongsTo('Agence');
+}
 
 public function photo(){
 

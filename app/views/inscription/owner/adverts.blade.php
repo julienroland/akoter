@@ -40,10 +40,10 @@
 			<div class="informations">{{trans('inscription.specificAdvert',array('type'=>strtolower($location->typeLocation->translation[0]->value)))}} </div>
 			@endif
 			
-			@if($agency->count() > 0)
+			@if(count($agency) > 0)
 			<div class="field">
 				<label for="location_{{$location->id}}[agency]">{{trans('inscription.location_of_agency')}}</label>
-				{{Form::select('location_'.$location->id.'[agency]', array(''), array('class'=>'select'))}}
+				{{Form::select('location_'.$location->id.'[agency]', $agency,'', array('data-placeholder'=>trans('inscription.choose_agence'),'class'=>'select'))}}
 			</div>
 			@else
 			<div class="informations">{{trans('inscription.you_have_no_agence')}} <a href="{{route('add_agence', Auth::user()->slug)}}">{{trans('inscription.register_agency_advert')}}</a></div>

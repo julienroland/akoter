@@ -1297,6 +1297,13 @@ input[type="submit"]{
 	top: $top;
 	margin: auto;
 }
+
+@mixin abs-bot-left($bot:0, $left:0){
+	position: absolute;
+	left:$left;
+	bottom:$bot;
+	margin: auto;
+}
 @mixin abs-bot-right($bot:0, $right:0){
 	position: absolute;
 	right:$right;

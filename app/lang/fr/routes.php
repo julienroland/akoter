@@ -58,6 +58,7 @@ return array(
     'dashboard'=>'gestion-de-location',
     'tenants'=>'locataires',
     'addFavoris'=>'ajout-de-favoris',
+    'show_agence'=>'gerer-votre-agence',
 
 );
 

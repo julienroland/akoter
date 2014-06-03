@@ -1,8 +1,10 @@
 <?php
+use Cviebrock\EloquentSluggable\SluggableInterface;
+use Cviebrock\EloquentSluggable\SluggableTrait;
+class Agence extends Eloquent implements SluggableInterface {
+	use SluggableTrait;
 
-class Agence extends Eloquent {
-
-	public static $sluggable = array(
+	protected $sluggable = array(
 		'build_from' => 'name',
 		'save_to'    => 'slug',
 		);
@@ -14,8 +16,8 @@ class Agence extends Eloquent {
 		'region'=>'required | alpha_dash',
 		'locality'=>'required | alpha_dash',
 		'postal'=>'required | numeric',
-		'login'=>'required',
-		'logo'=>'image | mimes:jpeg,jpg',
+		'login'=>'required | unique:agences,login',
+		'logo'=>'image | mimes:jpeg,jpg,gif,png',
 		'password'=>'required',
 		'password_ck'=>'required|same:password',
 		'language'=>'required',
@@ -34,9 +36,15 @@ class Agence extends Eloquent {
 		return $this->belongsToMany('User')
 		->withTimestamps();
 	}
+
 	public function language()
 	{
 		return $this->hasMany('Language');
+	}
+
+	public function location()
+	{
+		return $this->hasMany('Location');
 	}
 
 	public function locality()

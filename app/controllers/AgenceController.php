@@ -30,6 +30,13 @@ class AgenceController extends BaseController
 			));
 
 	}
+	public function show( $user_slug, $agence ){
+
+		$locations = $agence->location()->with('photo','request','translation')->get();
+
+		return View::make('agence.show', array('page'=>'agence'))
+		->with(compact('locations','agence'));
+	}
 
 	public function index(){
 
@@ -55,7 +62,7 @@ class AgenceController extends BaseController
 
 			$agence = new Agence;
 
-			$agence->name = $input['name'];
+			$agence->name = ucfirst($input['name']);
 			$agence->nb_employes = $input['nb_employer'];
 			$agence->login = $input['login'];
 			$agence->password = Hash::make($input['password']);
@@ -72,6 +79,8 @@ class AgenceController extends BaseController
 			$agence->logo = $this->image->logoAgence( $agence->id );
 
 			$agence->save();
+
+			Auth::user()->agence()->attach($agence->id);
 
 			Cache::forget('agences'.Auth::user()->id);
 
@@ -99,5 +108,7 @@ class AgenceController extends BaseController
 		}
 
 	}
+
+
 	
 }

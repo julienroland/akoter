@@ -295,7 +295,7 @@ class InscriptionController extends AccountBaseController {
 						$location->save();
 					}
 
-					$building->register_step = 2;
+					$building->register_step = $building->register_step < 2 ? 2 : $building->register_step;
 					$building->save();
 
 					Session::put('inscription.current', 2);
@@ -361,7 +361,7 @@ class InscriptionController extends AccountBaseController {
 
 		}
 
-		$building->register_step = 3;
+		$building->register_step = $building->register_step < 3 ? 3 :$building->register_step;
 		$building->save();
 		Session::put('inscription.current', 3);
 
@@ -518,7 +518,7 @@ class InscriptionController extends AccountBaseController {
 				}
 			}
 
-			$building->register_step = 4;
+			$building->register_step = $building->register_step < 4 ? 4 : $building->register_step;
 			$building->save();
 
 			Session::put('inscription.current', 4);
@@ -556,9 +556,8 @@ class InscriptionController extends AccountBaseController {
 
 		$particularities = particularity::with('translation')->get();
 
-		$agency = Auth::user()->agence()->get();
-
-
+		$agency = User::agenceList();
+		
 		return View::make('inscription.owner.adverts', array('page'=>'inscription','widget'=>array('ui','tabs','editor','datepicker','select')))
 		->with(compact('building','locations','options','particularities','locationsData','agency'));
 	}
@@ -580,7 +579,9 @@ class InscriptionController extends AccountBaseController {
 				$location_id = (int)explode('_',$keyInput)[1];
 
 				$location = Location::find($location_id);
-
+				if(isset($input['agency'])){
+					$location->agence_id = $input['agency'];	
+				}
 				$location->price = $input['price'];
 				$location->size = $input['size'];
 				$location->floor = $input['floor'];
@@ -750,7 +751,7 @@ class InscriptionController extends AccountBaseController {
 			}
 		}
 		
-		$building->register_step = 6;
+		$building->register_step = $building->register_step < 6 ? 6 : $building->register_step;
 		$building->save();
 
 		Session::put('inscription.current', 6);

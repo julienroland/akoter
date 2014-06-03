@@ -3484,6 +3484,7 @@ $country-h: 100px;
 * Agence
 *
 **/
+
 .agence-container{
 	@include c(12);
 	padding:3em 1em;
@@ -3492,9 +3493,33 @@ $country-h: 100px;
 		text-align: center;
 	}
 }
+.agence-profile{
+	.header{
+		height: 200px;
+		@include c(12);
+		position: relative;
+		padding:1em;
+		background-color: $greyL3;
+		margin-bottom: $gutter * 2;
+		.image{
+			float: left;
+			width: 200px;
+			@include abs-bot-left(-70px / 2, $gutter / 2);
+		}
+		.name{
+			float: left;
+			font-size: $xx-large;
+			font-weight: bold;
+			@include abs-bot-left($gutter / 2, 210px + $gutter * 2);
+		}
+		.nb_employes{
+			@include abs-bot-right($gutter / 2, $gutter / 2);
+		}
+	}
+}
 .agence {
 	@include cl(3);
-	width: 200px;
+	width: auto;
 	margin-bottom: $gutter;
 	a {
 		position: relative;

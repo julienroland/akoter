@@ -115,6 +115,20 @@ class User extends Eloquent implements UserInterface, RemindableInterface, Slugg
 	 */
 	protected $hidden = array('password');
 
+	public static function agenceList(){
+		$agences = Auth::user()->agence()->get();
+
+		$data = array(''=>'',''=>trans('form.none'));
+
+		foreach($agences as $agence){
+
+			$data[$agence->id] = $agence->name;
+
+		}
+
+
+		return $data;
+	}
 	public static function personnalsRequiredNotComplete( $data ){
 
 		$validator = Validator::make($data, User::$personnals_exist);
