@@ -291,6 +291,15 @@ Route::group(array('prefix' => $lang), function () use ($lang) {
             return Location::findOrFail($translation->content_id);
 
         });
+
+        /**
+        *
+        * Edit photo
+        *
+        **/
+        
+        Route::post('editPhoto', array('as'=>'editPhotoProfile','uses'=>'UserController@editPhoto'));
+
         /**
         *
         * Voir
@@ -364,7 +373,7 @@ Route::group(array('prefix' => $lang), function () use ($lang) {
 
         Route::group(array('before' => 'auth'), function () {
 
-            Route::get( trans('routes.addFavoris').'/{user_slug}', array('as'=>'addFavoris','uses'=>'UserController@addFavoris'));
+            Route::get( trans('routes.addFavoris').'/{location_id}', array('as'=>'addFavoris','uses'=>'UserController@addFavoris'));
             /*
              * Admin
              *
@@ -409,6 +418,27 @@ Route::group(array('prefix' => $lang), function () use ($lang) {
                     Route::get('building/contact/{building_id}', array('uses'=>'Admin_BuildingController@contact'));
 
                     Route::post('building/sendMessage/{building_id}/{user_id}', array('uses'=>'Admin_BuildingController@sendMessage'));
+
+                    /**
+                    *
+                    * Location
+                    *
+                    **/
+                    Route::bind('advert_id', function ($value, $route) {
+
+                        return Location::findOrFail($value);
+
+                    });
+                    
+                    Route::get('locations', array('uses'=>'Admin_AdvertController@index'));
+
+                    Route::get('location/delete/{advert_id}', array('uses'=>'Admin_AdvertController@delete'));
+
+                    Route::get('location/validate/{advert_id}', array('uses'=>'Admin_AdvertController@validate'));
+
+                    Route::get('location/contact/{advert_id}', array('uses'=>'Admin_AdvertController@contact'));
+
+                    Route::post('location/sendMessage/{advert_id}/{user_id}', array('uses'=>'Admin_AdvertController@sendMessage'));
 
                     /**
                     *

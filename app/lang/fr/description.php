@@ -1,8 +1,6 @@
 <?php 
 
 return array(
-
-	
 	'base'=>'Akoter est un site de locations étudiant en Belgique, rechercher ou louer, le site est gratuit pour tous !',
 	'homepage'=>'Akoter est un site de locations étudiant en Belgique, rechercher la location de vos rêve via notre système de recherche avancé !',
 	'register'=>'Créer un compte sur Akoter, vous aurez la possibilité de devenir locataire et/ou proprietaire gratuitement !',

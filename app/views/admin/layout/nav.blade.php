@@ -4,6 +4,9 @@
         <li {{Helpers::isActive('buildings', Request::segment(2))}}>
             <a href="{{url('admin/buildings')}}">Bâtiments</a>
         </li>
+        <li {{Helpers::isActive('locations', Request::segment(2))}}>
+            <a href="{{url('admin/locations')}}">Annonces</a>
+        </li>
         <li {{Helpers::isActive('articles', Request::segment(2))}}>
             <a href="{{url('admin/articles')}}">Articles</a>
         </li>

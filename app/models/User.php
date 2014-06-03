@@ -139,6 +139,16 @@ class User extends Eloquent implements UserInterface, RemindableInterface, Slugg
 		return $this->hasMany('Building');
 	}
 
+	public function favoris(){
+
+		return $this->hasMany('Favoris');
+	}
+
+	public function scopeValid($query){
+
+		return $query->whereEmailComfirm(1)->whereValidate(1);
+	}
+
 	public function inactiveBuilding(){
 
 		return $this->hasMany('Building')
@@ -183,9 +193,15 @@ class User extends Eloquent implements UserInterface, RemindableInterface, Slugg
 		return $this->hasMany('Notice');
 	}
 
-	public function agence(){
+	public function bossAgence(){
 
 		return $this->hasMany('Agence');
+	}
+
+	public function agence()
+	{
+		return $this->belongsToMany('Agence')
+		->withTimestamps();
 	}
 
 	public function subscription()

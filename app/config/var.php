@@ -75,6 +75,7 @@ return array(
 		''=>trans('form.all'),
 		'0'=>trans('locations.included'),
 		'1'=>trans('locations.not_included'),
+		'2'=>trans('locations.charges_conso'),
 		),
 	'filter'=>array(
 		''=>trans('form.position'),

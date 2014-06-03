@@ -556,8 +556,11 @@ class InscriptionController extends AccountBaseController {
 
 		$particularities = particularity::with('translation')->get();
 
-		return View::make('inscription.owner.adverts', array('page'=>'inscription','widget'=>array('ui','tabs','editor','datepicker')))
-		->with(compact('building','locations','options','particularities','locationsData'));
+		$agency = Auth::user()->agence()->get();
+
+
+		return View::make('inscription.owner.adverts', array('page'=>'inscription','widget'=>array('ui','tabs','editor','datepicker','select')))
+		->with(compact('building','locations','options','particularities','locationsData','agency'));
 	}
 
 	public function saveAdverts( $user_slug, $building ){

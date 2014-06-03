@@ -31,6 +31,11 @@ class Building extends Eloquent {
 	{
 		return $this->belongsTo('User');
 	}
+	public function userValid()
+	{
+		return $this->belongsTo('User')
+		->whereEmailComfirm(1)->whereValidate(1);
+	}
 
 	public function scopeInvalid($query){
 		$query->whereStatusType( 0 );

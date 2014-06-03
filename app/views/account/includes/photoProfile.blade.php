@@ -17,5 +17,8 @@
 	@endif
 </div>
 <span class="name">{{Auth::user()->first_name}} {{Auth::user()->name}}</span>
-<a href="{{route('edit_photo', Auth::user()->slug)}}">{{trans('account.edit_photo')}}</a>
+{{Form::open(array('route'=>'editPhotoProfile','files'=>true))}}
+<a onclick="$('.photoProfile').click()" href="javascript:void(0)">{{trans('account.edit_photo')}}</a>
+{{Form::file('file', array('class'=>'photoProfile hide'))}}
+{{Form::close()}}
 </div>

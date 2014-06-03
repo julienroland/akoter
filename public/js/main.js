@@ -271,6 +271,10 @@ $toPopup.on('click',openPopup);
 		$('html, body').animate({scrollTop: 0}, 300);
 		return false;
 	})
+
+	$('.photoProfile').on('change', function(){
+		$(this).parent().submit();
+	});
 });	
 /*var fixSort = function(){
 	var $sort = $('.short');

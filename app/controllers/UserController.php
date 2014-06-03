@@ -2,7 +2,26 @@
 
 class UserController extends BaseController
 {	
-	public function addFavoris( $user_slug ){
+	public function __construct(ImageController $image){
+
+		$this->image = $image;
+
+	}
+	public function addFavoris( $location ){
+
+		$already = Auth::user()->favoris()->whereLocationId($location->id)->get();
+
+		if(!$already->count() > 0){
+
+			$favoris = new Favoris;
+			$favoris->user_id = Auth::user()->id;
+			$favoris->location_id = $location->id;
+			$favoris->save();
+
+			return Redirect::back();
+		}
+
+		return Redirect::back();
 
 
 	}
@@ -21,6 +40,31 @@ class UserController extends BaseController
 
 		return Redirect::back()
 		->withSuccess(trans('account.mailSend'));
+	}
+
+	public function editPhoto(){
+
+		if(Input::hasFile('file')){
+
+			$validator = Validator::make(array('file'=>Input::file('file')), array('file'=>'required | mimes:jpeg,bmp,png,gif,jpg'));
+
+			if($validator->passes()){
+
+				$this->image->editUserPhoto( Auth::user(), Input::file('file'));
+
+				return Redirect::back()
+				->withSuccess(trans('validation.custom.userPhotoEdit'));
+
+			}
+			else{
+
+				return Redirect::back()
+				->withErrors($validator);
+
+			}
+
+		}
+
 	}
 
 	public function indexContactOwner( $owner_slug, $location ){
@@ -48,7 +92,7 @@ class UserController extends BaseController
 			$slug =  $location->translations()->whereLanguageId($user->language_id)->whereKey('slug')->pluck('value');
 
 			if(isset($input['translate'])){ 
-				
+
 				$input['text'] = Helpers::translate($input['text'], Config::get('var.lang')[$user->language_id], Config::get('var.lang')[$user->language_id]);
 			}
 

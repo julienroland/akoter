@@ -1,7 +1,7 @@
 @extends('layout.layout')
 
 @section('container')
-
+	
 @if($validation)
 @if(isset($user))
 <p>Merci {{$user->first_name .' ' . $user->name}}, {{trans('validation.custom.valid')}}</p>

@@ -5,7 +5,7 @@
 <div class="account">
 <div class="wrapper">
 <div class="row">
-
+@include('includes.success')
 @include('account.nav')
 
 <div class="account-content">

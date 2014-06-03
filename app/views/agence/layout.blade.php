@@ -3,7 +3,8 @@
 @section('account')
 
 @include('agence.nav')
-
-@yield('agence')
+<div class="agence-container">
+	@yield('agence')
+</div>
 
 @stop

@@ -1633,6 +1633,13 @@ input[type="checkbox"]:checked + label {
 			padding: 5px 0;
 			padding-top: 8px;
 			background-color: white;
+			&.add_info.conso{
+				font-style: normal;
+				color: $greyD2;
+				.little{
+					font-size: $small;
+				}
+			}
 			&.add_info {
 				font-style: italic;
 				line-height: 1.2;
@@ -2997,12 +3004,14 @@ $country-h: 100px;
 			margin-bottom: $gutter / 2;
 
 			.name {
-				display: inline-block;
+				display: block;
+				font-size: $small;
+				float: left;
 				margin-top: $gutter / 2;
 
 			}
 			a {
-				font-size: 12px;
+				font-size: $x-small;
 				text-decoration: underline;
 			}
 		}
@@ -3014,7 +3023,7 @@ $country-h: 100px;
 		li {
 			position: relative;
 			margin-bottom: $gutter / 5;
-			font-size: 0.9em;
+			font-size: $small;
 			a {
 				.icon {
 					width: 20px;
@@ -3058,9 +3067,19 @@ $country-h: 100px;
 	}
 	.account-intro{
 		@include c(12);
-		min-height: 100px;
-		padding:2em 1em;
-		background-color: $borange;
+		height: 50px;
+		text-align: center;
+		background-color: $mc;
+		padding: 0.5em 1em;
+		border-top: 1px solid darken($mc, 10%);
+		border-right: 1px solid darken($mc, 10%);
+		border-left: 1px solid darken($mc, 10%);
+		border-bottom: 1px solid darken($mc, 10%);
+		margin-bottom: $gutter;
+		.title-account{
+			font-size: $large;
+			color:white;
+		}
 	}
 
 }
@@ -3082,16 +3101,96 @@ $country-h: 100px;
 	.content{
 
 	}
+	.legend{
+		@include c(12);
+		height: 40px;
+		padding:0 1em;
+		margin-bottom: $gutter;
+		.active-legend{
+			float:left;
+			position: relative;
+			padding-left: $gutter + 10px;
+			margin: 0 gutter()/2;
+			&:before{
+				content:"";
+				border:1px solid $greyD;
+				visibility: visible;
+				width: 20px;
+				height: 20px;
+				@include abs-left();
+				background-color: $bgreen;
+				display: block;
+			}
+		}
+		.waiting-legend{
+			float:left;
+			position: relative;
+			padding-left: $gutter + 10px;
+			margin: 0 gutter()/2;
+			&:before{
+				content:"";
+				visibility: visible;
+				border:1px solid $greyD;
+				width: 20px;
+				height: 20px;
+				@include abs-left();
+				background-color: $yellow;
+				display: block;
+			}
+		}
+		.invalid-legend{
+			float:left;
+			position: relative;
+			padding-left: $gutter + 10px;
+			margin: 0 gutter()/2;
+			&:before{
+				content:"";
+				visibility: visible;
+				border:1px solid $greyD;
+				width: 20px;
+				height: 20px;
+				@include abs-left();
+				background-color: $error;
+				display: block;
+			}
+
+		}
+	}
 }
+
 .location-account{
 	@include c(12);
-	padding:1em;
 	height: 7em;
+	padding:0;
 	@include border-radius(0);
 	&.success{
-		background-color: $bgreen;
+		a{
+			background-color: $bgreen;
+			border-bottom: 1px solid darken($bgreen,10%);
+		}
 	}
-
+	&.waiting{
+		
+		a{
+			color:$tc;
+			background-color: $yellow;
+			border-bottom: 1px solid $info;
+			
+			
+		}
+	}
+	.title-location-account{
+		font-weight: 500;
+		display: block;
+		height: 1em;
+		word-wrap:break-word;
+		overflow:hidden;
+		text-overflow:ellipsis;
+		ms-text-overflow:ellipsis;
+	}
+	.address-location-account{
+		font-size: $small;
+	}
 	.image{
 		width: 5em;
 		float: left;
@@ -3100,76 +3199,33 @@ $country-h: 100px;
 
 	}
 	a{
+		padding:1em;
+		@include c(12);
 		color:white;
+		height: 100%;
 		text-decoration: none;
+		&:hover,&:focus,&:active{
+			.actions{
+				text-decoration: underline;
+			}
+		}
 	}
 	.infos{
 		display: block;
 		float:left;
 		margin-right: $gutter / 2;
 		height: 100%;
-		width: 33em;
+		width: 25em;
 	}
 	.actions{
 		display: block;
 		float: right;
 		margin-right: $gutter / 2;
 		height: 100%;
-		.desactivate{
-			display: block;
-			width: 2em;
-			line-height: 2em;
-			@include border-radius(50%);
-			height: 2em;
-			background-color: $error;
-			margin-bottom: $gutter / 4;
-			@include box-shadow($greyD 0 0 2px 1px, darken($error, 10%) 0 0 2px 1px inset);
-			border:2px solid white;
-			&:before{
-				font-size: $large;
-				height: 2em;
-				display: block;
-				margin:0 auto;
-				text-align: center;
-				&:hover,&:focus,&:active{
-					@include rotateZ(360deg);
-					@include transition(all ease 0.3s);
-				}
-			}
-		}
-		.activate{
-			display: block;
-			width: 2em;
-			line-height: 2em;
-			@include border-radius(50%);
-			height: 2em;
-			background-color: $success;
-			margin-bottom: $gutter / 4;
-			@include box-shadow($greyD 0 0 2px 0 , darken($success, 10%) 0 0 2px 1px inset);
-			&:before{
-				font-size: $large;
-				height: 2em;
-				display: block;
-				margin:0 auto;
-				text-align: center;
-			}
-		}
 		.see{
 			display: block;
-			width: 2em;
-			line-height: 2em;
-			@include border-radius(50%);
 			height: 2em;
-			background-color: $mc;
-			border:2px solid white;
-			margin-bottom: $gutter / 4;
-			@include box-shadow($greyD 0 0 2px 0 , darken($mc, 10%) 0 0 2px 1px inset);
 			&:before{
-				font-size: $large;
-				height: 2em;
-				display: block;
-				margin:0 auto;
-				text-align: center;
 			}
 		}
 	}
@@ -3381,7 +3437,7 @@ $country-h: 100px;
 	@include border-radius(3px);
 	border: 1px solid $greyL2;
 	background-color: #d4d4d4;
-	margin-bottom: $gutter * 2;
+	margin-top: $gutter /2;
 	@include box-shadow(lighten($greyL2, 15%) 0 -1px 1 pxz inset);
 	a {
 		@include c(12);
@@ -3428,6 +3484,14 @@ $country-h: 100px;
 * Agence
 *
 **/
+.agence-container{
+	@include c(12);
+	padding:3em 1em;
+	.intro{
+		color:$greyD;
+		text-align: center;
+	}
+}
 .agence {
 	@include cl(3);
 	width: 200px;
@@ -3972,6 +4036,10 @@ $country-h: 100px;
 			}
 			&.current {
 				cursor: pointer;
+				background-color:$mc;
+				&:after {
+					border-left-color: $mc;
+				}
 			}
 		}
 	}

@@ -4,7 +4,7 @@
 <div class="account-container">
 	<div class="how_be">
 		<h2 aria-level="2" role="heading" class="accountTitle">{{trans('account.how_be_owner')}}</h2>
-
+<!-- <div class="intro">Tant que les étapes requisent n'ont pas été faites, vos logements ne pourront être visible pour les autres utilisateurs</div> -->
 		<div class="how_be_step {{$personnal ? ($personnal->count < $personnal->total ? 'notdone' :'done') : 'done'}}">
 			<p>
 				{{trans('inscription.how_be.profile')}}
@@ -25,8 +25,6 @@
 		</div>
 		<div class="how_be_step {{Auth::user()->email_comfirm == 0 ? 'notdone' : 'done'}}">
 
-			@include('includes.success')
-
 			<p>
 				{{trans('inscription.how_be.email')}}
 			</p>
@@ -43,8 +41,12 @@
 		</div>
 		<div class="how_be_step {{Auth::user()->validate == 0 ? 'notdone' : 'done'}}">
 			<p>
-			{{trans('inscription.how_be.admin')}}
-				
+				{{trans('inscription.how_be.admin')}}
+				@if(Auth::user()->validate == 0)
+
+				<a class="btn-inscription tooltip-ui-s" title="{{trans('inscription.how_be.request_validation_title')}}" href="{{route('requestValidation', Auth::user()->slug)}}">{{trans('inscription.how_be.request_validation')}}</a>
+
+				@endif
 			</p>
 		</div>
 		<div class="how_be_step {{Auth::user()->building()->get()->count() ? 'done' :'notdone'}}">

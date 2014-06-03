@@ -103,6 +103,7 @@ return array(
         'success_add_notice' => 'Merci beaucoup !<br> Votre avis à bien été enregistré, il doit être validé avant d\'être visible',
         'requestValidate' => 'Demande accepté !',
         'refuseValidate' => 'Demande refusé !',
+        'userPhotoEdit' => 'Photo de profile bien modifié !',
         ),
 
     /*
@@ -172,6 +173,8 @@ return array(
         "advert.nl"=>'Annonce en Néerlandais',
         "advert.en"=>'Annonce en Anglais',
         "notice"=>'Avis',
+        "nb_employer"=>'Nombre d\'employés',
+        "locality"=>'Localité',
     ),
 
 );

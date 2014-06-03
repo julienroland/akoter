@@ -40,14 +40,14 @@
 				<h3 aria-level="3" role="heading" class="image_cat_title">{{trans('inscription.photoOneAdvert')}}</h3>
 				@endif
 				<div class="informations">{{trans('inscription.buildingAdvert_intro')}}</div>
-				{{Form::open(array('url'=>array('ajax/uploadLocationImage','location',$location->id),'files'=>true,'data-type'=>'location','data-locationId'=> $location->id,'data-userId'=>Auth::user()->id))}}
+				{{Form::open(array('url'=>array('ajax/uploadLocationImage','location',$location->id),'files'=>true,'data-type'=>$location->id.'-advert','data-locationId'=> $location->id,'data-userId'=>Auth::user()->id))}}
 				<div class="mulitpleLocationfileuploader">{{trans('form.upload')}}</div>
 
 				{{Form::hidden('preview_image','',array('id'=>'preview_image'))}}
 
 				{{Form::close()}}
 
-				{{Form::open(array('url'=>array('ajax/uploadLocationImage', 'location', $location->id),'files'=>true,'data-type'=>'location','data-locationId'=>$location->id,'data-userId'=>Auth::user()->id,'id'=>'baseForm'))}}
+				{{Form::open(array('url'=>array('ajax/uploadLocationImage', 'location', $location->id),'files'=>true,'data-type'=>$location->id.'-advert','data-locationId'=>$location->id,'data-userId'=>Auth::user()->id,'id'=>'baseForm'))}}
 				{{Form::file('file', array('class'=>'baseFile'))}}
 				{{Form::submit(trans('form.click'), array('class'=>'baseFile'))}}
 				{{Form::close()}}
@@ -57,12 +57,12 @@
 				<div class="informations">
 					{{trans('inscription.about_image_sort')}}
 				</div>
-				<div id="images"  data-type="location">
-					<ul id="sortable" data-type="location">
+				<div id="images" data-type="{{$location->id}}-advert" >
+					<ul id="sortable" data-type="{{$location->id}}-advert">
 
 						@foreach( $photos[$location->id][0]->photo as $photo)
 
-						<li data-type="location">
+						<li data-type="{{$location->id}}-advert">
 							<span class="handle icon icon-move6"></span>		
 							<a href="" class="deleteAdvertImage icon icon-remove11" data-id="{{$photo->id}}" data-locationId="{{$photo->location_id}}"  title="{{trans('form.delete_image')}}">
 								<div class="image">

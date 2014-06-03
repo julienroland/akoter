@@ -78,27 +78,28 @@
           </div>
           <span class="number"><b>{{$location->nb_rate}}</b> {{Lang::get('locations.votes')}}</span>
         </div>
-        <div class="howMuch {{$location->advert_specific == 0 &&  Helpers::isOk($location->nb_locations) ? 'both' :''}}">
+        <div class="howMuch {{$location->advert_specific == 0 &&  Helpers::isOk($location->nb_locations) && $location->nb_locations > 1 ? 'both' :''}}">
+
           @if($location->advert_specific == 0)
-            <div class="seat">
+          <div class="seat">
            <span class="icon icon-user3"></span>
            <span class="peoples">
             @if($location->remaining_room > 1)
-       
+
             <b>{{$location->remaining_room}}</b> {{Lang::get('locations.seats')}}
             @else
             <b>{{$location->remaining_room}}</b> {{Lang::get('locations.seat')}}   
             @endif
           </span>
-          </div>
-        @if(Helpers::isOk($location->nb_locations))
+        </div>
+        @if(Helpers::isOk($location->nb_locations) )
         <div class="nb_locations">
-            @if($location->nb_locations > 1)
-            <span title="{{Lang::get('locations.nb_locations')}}" class="icon icon-longa"></span><b>{{$location->remaining_location}}</b> <span class="section">{{Lang::get('locations.nb_locations')}}</span>
-            @else
-            <span title="{{Lang::get('locations.nb_location')}}" class="icon icon-longa"></span><b>{{$location->remaining_location}}</b> <span class="section">{{Lang::get('locations.nb_location')}}</span>
+          @if($location->nb_locations > 1)
+          <span title="{{Lang::get('locations.nb_locations')}}" class="icon icon-longa"></span><b>{{$location->remaining_location}}</b> <span class="section">{{Lang::get('locations.nb_locations')}}</span>
+            <!-- 
+            <span title="{{Lang::get('locations.nb_location')}}" class="icon icon-longa"></span><b>{{$location->remaining_location}}</b> <span class="section">{{Lang::get('locations.nb_location')}}</span> -->
             @endif
-            </div>
+          </div>
           @endif
           @else
           <div class="seat">
@@ -110,31 +111,35 @@
              <b>{{$location->remaining_room}}</b> {{Lang::get('locations.seat')}}
              @endif
 
-           @endif
-         </span>
+             @endif
+           </span>
+         </div>
        </div>
-     </div>
-     <div class="priceLocation">
+       <div class="priceLocation">
 
-       @if($location->charge_type === "1")
-       <div class="priceCharge">
-         <span class="textPrice">{{Lang::get('locations.charge_of')}}</span>
-         <span class="thePrice">
-           {{round($location->charge_price).'€'}}
-         </span>
+         @if($location->charge_type == 1)
+         <div class="priceCharge">
+           <span class="textPrice">{{Lang::get('locations.charge_of')}}</span>
+           <span class="thePrice">
+             {{round($location->charge_price).'€'}}
+           </span>
+         </div>
+         @elseif($location->charge_type == 2)
+         <span class="priceCharge add_info conso">
+          {{Lang::get('locations.charges_conso')}}
+        </span>
+        @elseif($location->charge_type == 0)
+        <span class="priceCharge add_info">
+          {{Lang::get('locations.charges_included')}}
+        </span>
+        @endif
+        <div class="priceLoyer">
+         <span class="textPrice">{{Lang::get('locations.rent_of')}}</span>
+         <div class="thePrice">{{round($location->price)}}€</div>
        </div>
-       @else
-       <span class="priceCharge add_info">
-        {{Lang::get('locations.charges_included')}}
-      </span>
-      @endif
-      <div class="priceLoyer">
-       <span class="textPrice">{{Lang::get('locations.rent_of')}}</span>
-       <div class="thePrice">{{round($location->price)}}€</div>
      </div>
    </div>
- </div>
-</a>
+ </a>
 
 </div>
 

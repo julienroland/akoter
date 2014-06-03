@@ -122,7 +122,9 @@ public function currentUser(){
 public function scopeValid($query){
 	$query->where('available', 1)->where('validate', 1);
 }
-
+public function scopeInvalid($query){
+	$query->where('validate', 1);
+}
 public function typeLocation(){
 
 	return $this->belongsTo('TypeLocation'); 
@@ -131,6 +133,11 @@ public function typeLocation(){
 public function building(){
 
 	return $this->belongsTo('Building'); 
+}
+
+public function favoris(){
+
+	return $this->hasMany('Favoris');
 }
 
 
@@ -310,11 +317,18 @@ public static function getLocationsList( $nb_obj = null, $paginate = null, $orde
 		$lang_id = Session::get('langId');
 	}
 
-
 		//[img, title, type_location, city, short-description, rating, room_remaining, owner, charge[price,type]]
+	$locations = Location::with('translation');
 
-	$locations = Location::with(
+	$locations = $locations
+	->join('buildings','locations.building_id','=','buildings.id')
+	->join('users','buildings.user_id','=','users.id')
+	->where('users.validate','=',1)
+	->where('users.email_comfirm','=',1)
+	->where('buildings.status_type','=',1)
+	->select('buildings.id as bu','users.id as uu','locations.*');
 
+	$locations = $locations->with(
 		array(
 			'translation',
 			'accroche',
@@ -324,7 +338,7 @@ public static function getLocationsList( $nb_obj = null, $paginate = null, $orde
 			'typeLocation.translation',
 			'particularity.translation',
 			))
-	->where( Config::get( 'var.l_validateCol' ) , 1 )
+	->where( 'locations.'.Config::get( 'var.l_validateCol' ) , 1 )
 	->where( Config::get( 'var.l_placesCol' ) ,'>', 0 )
 	->distinct('building')
 	->orderBy( $orderBy , $orderWay )
@@ -420,6 +434,13 @@ if(isset($input['particularity']) && Helpers::isOk( $input['particularity'] )){
 	->with('particularity');
 
 }
+$locations = $locations
+->join('buildings','locations.building_id','=','buildings.id')
+->join('users','buildings.user_id','=','users.id')
+->where('users.validate','=',1)
+->where('users.email_comfirm','=',1)
+->where('buildings.status_type','=',1)
+->select('buildings.id as bu','users.id as uu','locations.*');
 
 $locations = $locations->with(
 
@@ -435,7 +456,7 @@ $locations = $locations->with(
 		'building.locality',
 		'particularity.translation',
 		))
-->where( Config::get( 'var.l_validateCol' ) , 1 )
+->where( 'locations.'.Config::get( 'var.l_validateCol' ) , 1 )
 ->where( Config::get( 'var.l_placesCol' ) ,'>', 0 );
 
 if(isset($list) && Helpers::isOk($list)){

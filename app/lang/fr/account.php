@@ -55,6 +55,7 @@ array(
 	'location_waiting_validation'=>'Location en attente de validation',
 	'location_notcomplete'=>'<p>Votre annonce sur cette location n\'est complète qu\'à :percent%</p><p>Elle ne peut être visible uniquement si elle dispose de 100%</p>',
 	'room_remaining_location'=>'Places occupés',
+	'room_remaining'=>'il reste :number place(s)',
 	'request_location'=>'<strong>:number</strong> demande de location',
 	'requests_location'=>'<strong>:number</strong> demandes de location',
 	'number_request'=>'Voir les demandes de location',
@@ -79,5 +80,9 @@ array(
 	'desactivateLocation'=>'Ne pas mettre l\'annonce en ligne',
 	'activateLocation'=>'Mettre votre annonce en ligne',
 	'seeLocation'=>'Gérer la location',
+	'check_agency'=>'Créer ou Gérer vos agences',
+	'account_not_validate'=>'Votre compte n\'a pas été encore validé',
+	'email_not_comfirm'=>'Vous n\'avez pas validé votre email',
+	'seeSteps_owner'=>'plus d\'informations',
 
 	);

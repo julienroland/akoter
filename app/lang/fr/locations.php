@@ -57,5 +57,6 @@ return array(
 'favoris'=>'Ajouter la location à vos favoris',
 'accroche_title'=>'<span class="b">Akoter</span> c\'est <span class="nb_locations">:number</span> locations',
 'accroche_content'=>'dans toute la Belgique. Trouvez le logement de vos rêves grâce à notre système de recherche !',
+'charges_conso'=>'<span class="little">Charges sur</span> consommation',
 
 );

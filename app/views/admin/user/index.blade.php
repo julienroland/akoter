@@ -56,7 +56,9 @@
 						<td>{{Helpers::dateNaForm($user->created_at)}}</td>
 						<td>{{Helpers::dateNaForm($user->updated_at)}}</td>
 						<td>
-							<a href="{{url('admin/users/validate', $user->id)}}" class="btn {{$user->validate == 1 ? 'btn-success' : 'btn-danger'}}"><i class="glyphicon glyphicon-{{$user->validate == 1 ? 'ok' : 'remove'}}"></i></a>
+
+							<a href="{{$user->validate == 1 ? url('admin/users/devalidate', $user->id) : url('admin/users/validate', $user->id)}}" class="btn {{$user->validate == 1 ? 'btn-success' : 'btn-danger'}}"><i class="glyphicon glyphicon-{{$user->validate == 1 ? 'ok' : 'remove'}}"></i></a>
+
 							<a href="{{url('admin/users/voir', $user->id)}}" class="btn btn-info"><i class="glyphicon glyphicon-eye-open"></i></a>
 							<a href="{{url('admin/users/edit', $user->id)}}" class="btn btn-warning"><i class="glyphicon glyphicon-pencil"></i></a>
 							<a href="{{url('admin/users/delete', $user->id)}}" class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i></a>

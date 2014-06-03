@@ -209,8 +209,10 @@ class Helpers {
 
 	}
 	public static function beTime( $timestamp ,  $format = '$d $nd $M $y $hh$m', $year=null){
-
-		return Helpers::displayHumanDate($timestamp->setTimezone('Europe/Brussels'), $format , $year);
+		if(is_object($timestamp)){
+			return Helpers::displayHumanDate($timestamp->setTimezone('Europe/Brussels'), $format , $year);
+		}
+		return '';
 	}
 	public static function cacheEager( $key){
 
@@ -630,8 +632,10 @@ public static function dateNaForm( $date ){
 public static function createCarbonDate( $date ){
 
 	$dateExplode = explode('-',$date);
-
-	return Carbon::createFromDate($dateExplode[0], $dateExplode[1], $dateExplode[2]);
+	if(isset($dateExplode[0]) && isset($dateExplode[1]) && isset($dateExplode[2]) ){
+		return Carbon::createFromDate($dateExplode[0], $dateExplode[1], $dateExplode[2]);
+	}
+	return '';
 
 }
 public static function humanDay( $date ){

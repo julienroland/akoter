@@ -22,8 +22,6 @@
 		</div>
 		<div class="how_be_step {{Auth::user()->email_comfirm == 0 ? 'notdone' : 'done'}}">
 
-			@include('includes.success')
-
 			<p>
 				{{trans('inscription.how_be.email')}}
 			</p>

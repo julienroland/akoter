@@ -9,12 +9,11 @@ class AccountController extends AccountBaseController {
 		
 		View::share(array(
 			'request'=>$this->nb_request(),
-			'personnal'=>$this->personnalComplete()
+			'personnal'=>$this->personnalComplete(),
 			));
 	}
 
 	public function index(){
-
 
 		/*$currentLocation = $user->currentLocation()->first();*/
 
@@ -26,16 +25,12 @@ class AccountController extends AccountBaseController {
 
 			$invalidLocations = User::getInvalidLocations( Auth::user() );
 
-
 			return View::make('account.index', array('page'=>'account'))
 			->with(compact(array('activeLocations','waitingLocations','invalidLocations','inactiveBuilding','numberRequest')));
 
 		}
 
-
 		return View::make('account.index', array('page'=>'account'));
-
-
 
 	}
 	public function indexAdverts(){

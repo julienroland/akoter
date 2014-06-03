@@ -612,6 +612,10 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#35a0c6', end
 			background-color: transparent;
 			padding: 0;
 		}
+		.btn-inscription{
+			max-width: 200px;
+			margin:0;
+		}
 		li{
 			margin-bottom: $gutter / 2;
 		}
@@ -1175,6 +1179,7 @@ input[type="submit"]{
 	@extend .mainType;
 	.chosen-container{
 		margin-left: $gutter ;
+		width: auto!important;
 		
 	}
 	.field{

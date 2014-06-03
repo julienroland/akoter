@@ -7,6 +7,7 @@
  <p class="intro">
   {{trans('agence.intro')}}
 </p>
+<div class="formContainer large">
 {{Form::open(array('route'=>array('store_agence',Auth::user()->slug),'files'=>true,'method'=>'post','class'=>'inlineType rules agenceAjax', 'data-rules'=>json_encode(Agence::$rules)))}}
 
   <div class="field">
@@ -16,12 +17,12 @@
   </div>
 
   <div class="field">
-    {{Form::label('nb_employe',trans('agence.nb_employe'))}}
+    {{Form::label('nb_employer',trans('agence.nb_employe'))}}
     {{Form::input('numeric','nb_employer','',array('placeholder'=>trans('agence.nb_employe'),'required', 'class'=>isset(Session::get('field')['nb_employe']) ? 'form-error':''))}}
   </div>
 
   <div class="field">
-    {{Form::label('logo',trans('agence.logo').' (200 x 130)')}}
+    {{Form::label('logo',trans('agence.logo'))}}
     {{Form::file('logo',array('placeholder'=>trans('agence.logo'),'required', 'class'=>isset(Session::get('field')['logo']) ? 'form-error':''))}}
     <i class="icon-required" aria-hidden="true"></i>
   </div> 
@@ -89,6 +90,6 @@
   {{Form::close()}}
 
 </div>
-
+</div>
 
 @stop

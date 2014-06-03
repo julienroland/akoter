@@ -2,6 +2,7 @@
 	<h2 aria-level="2" role="heading" class="section">{{trans('account.nav')}}</h2>
 	<ul>
 		<div class="profil">
+		
 			@include('account.includes.photoProfile')
 
 			<li><a href="{{route('account_home',Auth::user()->slug)}}" ><span class="icon icon-home63"></span>{{trans('account.home')}}</a></li>
@@ -24,7 +25,7 @@
 
 			@if(Auth::user()->pro == 1)
 
-			<li><a href="{{route('index_agence',Auth::user()->slug)}}" ><span class="icon icon-key105"></span><span>{{trans('account.agence')}}</span></a></li>
+			<li><a href="{{route('index_agence',Auth::user()->slug)}}" class="tooltip-ui-s" title="{{trans('account.check_agency')}}"><span class="icon icon-key105"></span>{{trans('account.agence')}}</a></li>
 
 			@endif
 

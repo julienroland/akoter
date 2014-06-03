@@ -24,11 +24,16 @@ class Agence extends Eloquent {
 		'year'=>'required|integer|digits:4',
 		);
 
-	public function user()
+	public function boss()
 	{
 		return $this->belongsTo('User');
 	}
 
+	public function user()
+	{
+		return $this->belongsToMany('User')
+		->withTimestamps();
+	}
 	public function language()
 	{
 		return $this->hasMany('Language');

@@ -37,7 +37,25 @@ class ImageController extends BaseController {
 
   }
 }
+public function editUserPhoto( $user, $photo){
 
+ $destinationPath = Config::get('var.images_dir').Config::get('var.users_dir').$user->id.'/'.Config::get('var.profile_dir');
+
+ $timestamp = Carbon::now()->timestamp;
+
+ File::exists( $destinationPath ) or File::makeDirectory( $destinationPath , 0777, true, true);
+ 
+ $filename = sha1($timestamp).'.jpg';
+
+ $image = Image::make( $photo )->grab( Config::get('var.user_photo_width') , Config::get('var.user_photo_height') )->save($destinationPath.$filename)->encode('jpg', Config::get('var.img_quality'));
+
+ $user->photo = $filename;
+ $user->save();
+
+ return $filename;
+
+
+}
 public function logoAgence( $agence_id ){
 
   $logo = Input::file('logo');
@@ -113,6 +131,8 @@ public function postBuildingImage( $type='more', $id=null )
 
       $image = Image::make( Input::file('file')->getRealPath() );
 
+      $filename = Helpers::toSlug(Helpers::addTimestamp( $part->getClientOriginalName(), null, $extension,  $timestamp ));
+
       $photo = new BuildingPhoto;
 
       $photo->url = $filename;
@@ -122,8 +142,6 @@ public function postBuildingImage( $type='more', $id=null )
       $photo->type = $type;
 
       $photo =  Building::find( $id )->photo()->save($photo);
-
-      $filename = Helpers::toSlug(Helpers::addTimestamp( $part->getClientOriginalName(), null, $extension,  $timestamp ));
 
       $nb_order = Building::find($id)->photo()->whereType($type)->max('order') + 1;
 

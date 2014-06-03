@@ -82,7 +82,7 @@ class AgenceController extends BaseController
 			}else{
 
 				$fields = $validator->failed();
-				return Redirect::route('index_add_agence',Auth::user()->slug)
+				return Redirect::back()
 				->withInput()
 				->with(compact('fields'))
 				->withErrors($validator);
@@ -92,7 +92,7 @@ class AgenceController extends BaseController
 
 			
 			$fields = $validator->failed();
-			return Redirect::route('index_add_agence',Auth::user()->slug)
+			return Redirect::back()
 			->withInput()
 			->with(compact('fields'))
 			->withErrors($validator);
