@@ -5,7 +5,6 @@ array(
 	'infos'=>'Informations',
 	'other'=>'Autres',
 	'social'=>'Réseaux sociaux',
-	'cgu'=>'Conditions général d\'utilisation',
 	'contact-us'=>'Contactez-nous',
 	'who_are'=>'Qui sommes-nous ?',
 	'mapSite'=>'Plan du site',

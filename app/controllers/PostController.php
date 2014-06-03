@@ -16,7 +16,7 @@ class PostController extends BaseController
 	{
 		$id = Translation::whereContentType('Post')->whereKey('slug')->whereValue( $slug )->firstOrFail()->content_id;
 
-		$post = Post::find($id)->with('translation')->firstOrFail();
+		$post = Post::whereId($id)->with('translation')->firstOrFail();
 
 		$otherPosts = Post::where('id','!=',$id)->with('translation')->take(3)->get();
 

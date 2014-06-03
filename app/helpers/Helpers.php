@@ -5,6 +5,10 @@ use \DetectLanguage\DetectLanguage;
 DetectLanguage::setApiKey(Config::get('var.detect_key'));
 class Helpers {
 
+	public static function footer(){
+
+		return Post::wherePostTypeId(2)->with('translation')->get();
+	}
 	public static function imgDir( $path, array $params){
 
 		foreach($params as $key => $value){

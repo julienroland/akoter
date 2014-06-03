@@ -2,16 +2,16 @@
 <section class="newsletter">
 	<h2 aria-level="2" role="heading" class="section">{{trans('title.newsletter')}}</h2>
 	<div class="wrapper">
-	<div class="row">
-		<p>{{trans('general.newsletter')}}</p>
-		@if(isset($success_newsletter))
-		{{$success_newsletter}}
-		@endif
+		<div class="row">
+			<p>{{trans('general.newsletter')}}</p>
+			@if(isset($success_newsletter))
+			{{$success_newsletter}}
+			@endif
 
-		{{Form::open(array('route'=>'newsletter','class'=>'inlineType  newsletter-form'))}}
-		<input type="email" name="newsletter" required class="{{isset($fields->newsletter) ? 'form-error':''}}" id="newsletter" placeholder="{{$errors->first('newsletter')? $errors->first('newsletter') :'email@email.com'}}">
-		{{Form::submit(trans('form.add'))}}
-		{{Form::close()}}
+			{{Form::open(array('route'=>'newsletter','class'=>'inlineType  newsletter-form'))}}
+			<input type="email" name="newsletter" required class="{{isset($fields->newsletter) ? 'form-error':''}}" id="newsletter" placeholder="{{$errors->first('newsletter')? $errors->first('newsletter') :'email@email.com'}}">
+			{{Form::submit(trans('form.add'))}}
+			{{Form::close()}}
 		</div>
 	</div>
 </section>
@@ -26,7 +26,10 @@
 				<h3 aria-level="3" role="heading" class="linkTitle">{{trans('footer.infos')}}</h3>
 
 				<ul class="permalink">
-					<li><a href="">{{trans('footer.cgu')}}</a></li>
+					@foreach(Helpers::footer() as $post)
+					<?php $data = $post->translation->lists('value','key'); ?>
+					<li><a href="{{route('showPost', $data['slug'])}}">{{$data['title']}}</a></li>
+					@endforeach
 					<li><a href="{{route('contact')}}">{{trans('footer.contact-us')}}</a></li>
 					<li><a href="{{route('contact')}}">{{trans('footer.who_are')}}</a></li>
 					<li><a href="{{route('contact')}}">{{trans('footer.mapSite')}}</a></li>
@@ -35,32 +38,32 @@
 					<li><a href="{{route('how_be_owner', Auth::user()->slug)}}">{{trans('footer.become_owner')}}</a></li>
 					@endif
 				</ul>
-			
-		</section>	
-		<section class="links">
-			<h3 aria-level="3" role="heading" class="linkTitle">{{trans('footer.other')}}</h3>
 
-			<ul class="permalink">
-				<li><a href="{{route('indexPost')}}">{{trans('footer.actu')}}</a></li>
-				<li><a href="">{{trans('footer.add_location')}}</a></li>
-				<li><a href="">{{trans('footer.add_schools')}}</a></li>
-				<li><a href="{{route('api')}}">{{trans('footer.api')}}</a></li>
-				@if(Auth::check() && Auth::user()->role_id < 3)
-				<li><a href="{{url('admin')}}">{{trans('footer.admin')}}</a></li>
-				@endif
-				
-				
-			</ul>
-		</section>	
-		<section class="links">
-			<h3 aria-level="3" role="heading" class="linkTitle">{{trans('footer.social')}}</h3>
-			<ul class="permalink">
-				<li ><a class="icon icon-facebook24" href="">Facebook</a></li>
-				<li ><a class="icon icon-google23" href="">Google plus</a></li>
-				<li ><a class="icon icon-social19" href="">Twitter</a></li>
-				
-			</ul>
-		</section>	
+			</section>	
+			<section class="links">
+				<h3 aria-level="3" role="heading" class="linkTitle">{{trans('footer.other')}}</h3>
+
+				<ul class="permalink">
+					<li><a href="{{route('indexPost')}}">{{trans('footer.actu')}}</a></li>
+					<li><a href="">{{trans('footer.add_location')}}</a></li>
+					<li><a href="">{{trans('footer.add_schools')}}</a></li>
+					<li><a href="{{route('api')}}">{{trans('footer.api')}}</a></li>
+					@if(Auth::check() && Auth::user()->role_id < 3)
+					<li><a href="{{url('admin')}}">{{trans('footer.admin')}}</a></li>
+					@endif
+
+
+				</ul>
+			</section>	
+			<section class="links">
+				<h3 aria-level="3" role="heading" class="linkTitle">{{trans('footer.social')}}</h3>
+				<ul class="permalink">
+					<li ><a class="icon icon-facebook24" href="">Facebook</a></li>
+					<li ><a class="icon icon-google23" href="">Google plus</a></li>
+					<li ><a class="icon icon-social19" href="">Twitter</a></li>
+
+				</ul>
+			</section>	
 		</div>
 	</div>
 	<div class="copyright">{{trans('footer.copyright')}}</div>

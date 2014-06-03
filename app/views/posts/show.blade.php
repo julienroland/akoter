@@ -14,7 +14,7 @@
 		</div>
 		<div class="wrapper">
 			<div itemprop="text" class="content">
-				{{$translation['content']}}
+				{{html_entity_decode($translation['content'])}}
 			</div>
 		</div>
 	</article>
