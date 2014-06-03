@@ -58,9 +58,9 @@
 		@foreach(Config::get('var.langId') as $lang => $langId)
 		<div id="{{$lang}}-situation">
 			<div class="field">
-				<label for="situations[{{$lang}}]">{{trans('inscription.situations',array('lang'=>trans('general.lang')[$lang]))}}</label>
-				<textarea name="situations[{{$lang}}]"  placeholder="{{trans('inscription.situations_placeholder')}}" id="situations[{{$lang}}]">{{isset($situation_lang[$lang]) ? $situation_lang[$lang] :''}}</textarea>
-				<div class="informations">
+				<label for="situations[{{$lang}}]">{{trans('inscription.situations',array('lang'=>trans('general.lang')[$lang])).trans('form.required')}}</label>
+				<textarea aria-describedby="info_situation" name="situations[{{$lang}}]"  placeholder="{{trans('inscription.situations_placeholder')}}" id="situations[{{$lang}}]">{{isset($situation_lang[$lang]) ? $situation_lang[$lang] :''}}</textarea>
+				<div id="info_situation" class="informations">
 					{{trans('inscription.situations_tuto')}}
 				</div>
 			</div>
@@ -79,9 +79,9 @@
 		@foreach(Config::get('var.langId') as $lang => $langId)
 		<div id="{{$lang}}-advert">
 			<div class="field">
-				<label for="advert[{{$lang}}]">{{trans('inscription.write_advert',array('lang'=>trans('general.lang')[$lang]))}}</label>
-				<textarea name="advert[{{$lang}}]" data-validator="false" class="editor" id="advert[{{$lang}}]">{{isset($advert_lang[$lang]) ? $advert_lang[$lang] :''}}</textarea>
-				<div class="informations">
+				<label for="advert[{{$lang}}]">{{trans('inscription.write_advert',array('lang'=>trans('general.lang')[$lang])).trans('form.required')}}</label>
+				<textarea aria-describedby="info_advert" name="advert[{{$lang}}]" data-validator="false" class="editor" id="advert[{{$lang}}]">{{isset($advert_lang[$lang]) ? $advert_lang[$lang] :''}}</textarea>
+				<div id="info_advert" class="informations">
 					{{trans('inscription.write_advert_tuto')}}
 				</div>
 			</div>

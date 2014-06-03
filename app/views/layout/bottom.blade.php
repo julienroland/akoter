@@ -382,10 +382,10 @@ NProgress.start();
 {{HTML::script('js/jquery.tipsy.js')}}
 <script>
    $(function() {
-   $('.tooltip-ui-e').tipsy({ fade: true, gravity:'w', delayIn: 200, delayOut: 300, opacity: 0.9});
-   $('.tooltip-ui-w').tipsy({ fade: true, gravity:'e', delayIn: 200, delayOut: 300, opacity: 0.9});
-   $('.tooltip-ui-s').tipsy({ fade: true, gravity:'n', delayIn: 200, delayOut: 300, opacity: 0.9});
-   $('.tooltip-ui-n').tipsy({ fade: true, gravity:'s', delayIn: 200, delayOut: 300, opacity: 0.9});
+   $('.tooltip-ui-e').tipsy({ aria: true, fade: true, gravity:'w', delayIn: 200, delayOut: 300, opacity: 0.9});
+   $('.tooltip-ui-w').tipsy({ aria: true,fade: true, gravity:'e', delayIn: 200, delayOut: 300, opacity: 0.9});
+   $('.tooltip-ui-s').tipsy({ aria: true,fade: true, gravity:'n', delayIn: 200, delayOut: 300, opacity: 0.9});
+   $('.tooltip-ui-n').tipsy({ aria: true,fade: true, gravity:'s', delayIn: 200, delayOut: 300, opacity: 0.9});
  });
 </script>
 <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->

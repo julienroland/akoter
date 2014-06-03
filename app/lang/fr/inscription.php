@@ -77,7 +77,7 @@ return array(
 	'situations_placeholder'=>'A quelques mètres des magasins, lignes de bus à deux pas. Train à 15 minutes. Le centre ville est à 5 minutes en bus',
 	'garantee'=>'Caution',
 	'garantee_placeholder'=>'Entrez le montant de la caution, laissez vide si il n\'y en a pas.',
-	'blank_charge_price'=>'Vous pouvez laisser le montant vide si celles-ci sont comprise',
+	'blank_charge_price'=>'Vous pouvez laisser le montant vide si celles-ci dependent de la consomation, la loi oblige d\'informer du prix des charges même si elles sont comprise dans le prix total',
 	'infos_general'=>'Informations générales',
 	'about_image_sort'=>'Vous pouvez choisir <b>l\'ordre d\'affichage </b> de vos image en cliquant sur le <b>bouton rouge</b> disposé sur les images puis en le déplacent. Vous pouvez également <b>supprimer</b> une image en cliquant dessus.',
 	'photoBuilding'=>'Photos du batiment',
@@ -100,4 +100,9 @@ return array(
 	'connect'=>'Connectez-vous',
 	'connect_intro'=>'Vous aurez accès à votre compte avec toute les fonctionnalités utiles.',
 	'trans'=>'Vous n\'êtes pas obliger traduire les textes, nous le feront pour vous',
+	'specificAdvert'=>'Annonce spécifique, logement de type :type',
+	'type_location1'=>'Quel type de logement disposez-vous ? Choissisez aucune pour ne pas en définir',
+	'type_location2'=>'Définissez le nombre de logement de ce type que contient votre bien',
+	'type_location3'=>'Chaque annonce aura sa propre annonce',
+	'building_description_legend'=>'Cochez les cases qui correspondent aux critères de votre logement',
 	);

@@ -27,6 +27,7 @@ class CreateLocationsTable extends Migration {
 			$table->boolean('accessible');
 			$table->boolean('comments_status');
 			$table->integer('nb_views');
+			$table->integer('register_step');
 			$table->integer('floor');
 			$table->integer('nb_locations')->nullable();
 			$table->integer('remaining_location')->nullable();

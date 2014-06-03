@@ -39,33 +39,33 @@
 	@include('includes.success')
 
 	<div class="field">
-		<label for="region">{{trans('form.region')}} <span class="icon-required" aria-hidden="true"></span></label>
+		<label for="region">{{trans('form.region').trans('form.required')}} <span class="icon-required" aria-hidden="true"></span></label>
 		{{Form::select('region',$regions->data,isset($building->region_id) ? $building->region_id : (Session::has('inscription.localisation_input') ? Session::get('inscription.localisation_input')['region'] : ''),array('class'=>'select autocomplete','data-placeholder'=>trans('form.region'),'data-validator'=>'false','autofocus'))}}
 	</div>
 
 	<div class="field">
-		<label for="locality">{{trans('form.Locality')}} <span class="icon-required" aria-hidden="true"></span></label>
+		<label for="locality">{{trans('form.Locality').trans('form.required')}} <span class="icon-required" aria-hidden="true"></span></label>
 		{{Form::select('locality',$localities->data, isset($building->locality_id) ? $building->locality_id : (Session::has('inscription.localisation_input') ? Session::get('inscription.localisation_input')['locality'] : ''),array('class'=>'select autocomplete','data-placeholder'=>trans('form.locality'),'data-validator'=>'false'))}}
 	</div>
 
 	<div class="field">
-		<label for="address">{{trans('form.street')}} <span class="icon-required" aria-hidden="true"></span></label>
+		<label for="address">{{trans('form.street').trans('form.required')}} <span class="icon-required" aria-hidden="true"></span></label>
 		<input type="text" name="address" class="autocomplete" required id="address" value="{{isset($building->address) ? $building->address : (Session::has('inscription.localisation_input') ? Session::get('inscription.localisation_input')['address'] : '')}}" placeholder="{{trans('form.street')}}">
 	</div>
 
 	<div class="field">
-		<label for="postal">{{trans('form.postal')}} <span class="icon-required" aria-hidden="true"></span></label>
+		<label for="postal">{{trans('form.postal').trans('form.required')}} <span class="icon-required" aria-hidden="true"></span></label>
 		<input type="number" name="postal" required id="postal" value="{{isset($building->postal) ? $building->postal : (Session::has('inscription.localisation_input') ? Session::get('inscription.localisation_input')['postal'] : '')}}" placeholder="{{trans('form.postal')}}">
 	</div>
 
 	<div class="field">
-		<label for="number">{{trans('form.number')}} <span class="icon-required" aria-hidden="true"></span></label>
+		<label for="number">{{trans('form.number').trans('form.required')}} <span class="icon-required" aria-hidden="true"></span></label>
 		<input type="number" name="number" required id="number" value="{{isset($building->number) ? $building->number : (Session::has('inscription.localisation_input') ? Session::get('inscription.localisation_input')['number'] : '')}}" placeholder="{{trans('form.number')}}">
 	</div>
 
 
 	<div class="localisation_map">
-		<div class="informations">
+		<div class="informations" id="info_map">
 			<ol>
 				<li>
 					{{trans('inscription.locate_map_infos.1')}}
@@ -78,14 +78,14 @@
 				</li>
 			</ol>
 		</div>
-		<a href="javascript:void(0)" class="btn" id="rechercheMap">{{trans('inscription.locate_map_btn')}}</a>
+		<a href="javascript:void(0)" aria-describedny="info_map" class="btn" role="button" id="rechercheMap">{{trans('inscription.locate_map_btn')}}</a>
 		<div id="gmapLocalisation">
 			
 		</div>
 		
 	</div>
 	<div class="field previous">
-		<a href="{{route('account_home', Auth::user()->slug)}}" title="{{trans('account.back_home')}}">{{trans('general.back')}}</a>
+		<a href="{{route('account_home', Auth::user()->slug)}}" role="button" title="{{trans('account.back_home')}}">{{trans('general.back')}}</a>
 	</div>
 	<div class="field next">
 		{{Form::submit(trans('form.next'))}}

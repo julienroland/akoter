@@ -771,6 +771,12 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#35a0c6', end
 	.informations{
 		float: left;
 	}
+	&.radio{
+		input[type="radio"]{
+			margin-top: $gutter / 2 + 5px;
+			margin-right: $gutter / 2;
+		}
+	}
 	&.checkbox{
 		label{
 			display: block;

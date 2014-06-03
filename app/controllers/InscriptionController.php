@@ -271,6 +271,7 @@ class InscriptionController extends AccountBaseController {
 								$location->nb_room = 1;
 								$location->remaining_room = 1;
 								$location->nb_locations = 1; 
+								$location->remaining_location = 1; 
 							}
 
 							$location->type_location_id = $type; 
@@ -289,6 +290,7 @@ class InscriptionController extends AccountBaseController {
 						$location->type_location_id = $type; 
 						$location->advert_specific = 0; 
 						$location->nb_locations = $number[$key]; 
+						$location->remaining_location = $number[$key]; 
 
 						$location->save();
 					}
@@ -567,6 +569,7 @@ class InscriptionController extends AccountBaseController {
 		foreach($inputs as $key => $input){
 
 			$validator = Validator::make($input, Location::$rules);
+			$validator->setAttributeNames(trans('validation.attributes'));
 
 			if( $validator->passes() ){
 
@@ -585,9 +588,9 @@ class InscriptionController extends AccountBaseController {
 				$location->start_date = Helpers::dateNaForm($input['start_date']);
 				$location->end_date = Helpers::dateNaForm($input['end_date']);
 				$location->comments_status = isset($input['comments']) ? 1 : 0;
-				$location->charge_type = isset($input['charge']) ? 0 : 1;
+				$location->charge_type = isset($input['charge']) ? $input['charge'] : 0;
 				$location->accessible = isset($input['accessible']) ? 1 : 0;
-				/*$location->slug = $input['chargePrice'];*/
+				$location->register_step = $location->register_step < 6 ? 6 : $location->register_step;
 
 				if(isset($input['option']) && Helpers::isOk($input['option'])){
 

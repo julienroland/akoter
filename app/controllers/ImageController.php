@@ -322,6 +322,12 @@ if( Helpers::isOk($image) ) {
 
   $building = $location->building()->first();
 
+  if($location->register_step < 7){
+
+    $location->register_step = 7;  
+    $location->save();
+
+  }
   if($building->register_step < 7){
 
     $building->register_step = 7;  

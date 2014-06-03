@@ -21,22 +21,22 @@
 
 	<div class="images_category">
 		<h3 aria-level="3" role="heading" class="image_cat_title">{{trans('inscription.photoBuilding')}}</h3>
-		<div class="informations">{{trans('inscription.buildingPhoto_intro')}}</div>
+		<div id="photo_buildingd" class="informations">{{trans('inscription.buildingPhoto_intro').trans('form.required')}}</div>
 		{{Form::open(array('url'=>array('ajax/uploadBuildingImage','building',$building->id),'files'=>true,'data-type'=>'building','data-proprieteId'=> $building->id,'data-userId'=>Auth::user()->id))}}
-		<div class="mulitplefileuploader">{{trans('form.upload')}}</div>
+		<div aria-hidden="true" class="mulitplefileuploader">{{trans('form.upload')}}</div>
 
 		{{Form::hidden('preview_image','',array('id'=>'preview_image'))}}
 
 		{{Form::close()}}
 
-		{{Form::open(array('url'=>array('ajax/uploadBuildingImage', 'building', $building->id),'files'=>true,'data-type'=>'building','data-proprieteId'=>$building->id,'data-userId'=>Auth::user()->id,'id'=>'baseForm'))}}
-		{{Form::file('file', array('class'=>'baseFile'))}}
+		{{Form::open(array('url'=>array('ajax/uploadBuildingImage', 'building', $building->id),'files'=>true,'data-type'=>'building','role'=>'form','data-proprieteId'=>$building->id,'data-userId'=>Auth::user()->id,'id'=>'baseForm'))}}
+		{{Form::file('file', array('class'=>'baseFile','aria-describedby'=>'photos_building'))}}
 		{{Form::submit(trans('form.click'), array('class'=>'baseFile'))}}
 		{{Form::close()}}
 
 
 		
-		<div class="informations">
+		<div aria-hidden="true" class="informations">
 			{{trans('inscription.about_image_sort')}}
 		</div>
 		<div id="images" data-type="building" >
@@ -44,9 +44,9 @@
 				@if(isset($photos['building']) && Helpers::isOk( $photos['building']))
 				@foreach( $photos['building'] as $photo)
 
-				<li >
-					<span class="handle icon icon-move6"></span>		
-					<a href="" class="deleteImage icon icon-remove11" data-id="{{$photo->id}}" data-proprieteId="{{$photo->building_id}}" data-type="{{$photo->type}}" title="{{trans('form.delete_image')}}">
+				<li role="treeitem" aria-dropeffect="copy move popup">
+					<span role="treeitem" aria-dropeffect="copy move popup" href="javascript:void(0)" class="handle icon icon-move6"></span>		
+					<a role="button" href="javascript:void(0)" role="treeitem" aria-dropeffect="copy move popup" class="deleteImage icon icon-remove11" data-id="{{$photo->id}}" data-proprieteId="{{$photo->building_id}}" data-type="{{$photo->type}}" title="{{trans('form.delete_image')}}">
 						<div class="image">
 
 							<img class="thumbnail" src="{{'/'.Config::get('var.images_dir').Config::get('var.users_dir').Auth::user()->id.'/'.Config::get('var.buildings_dir').$photo->building_id.'/'.Helpers::addBeforeExtension($photo->url, Config::get('var.img_small'))}}" alt="{{$photo->alt}}">
@@ -89,7 +89,7 @@
 
 				<li >
 					<span class="handle icon icon-move6"></span>		
-					<a href="" class="deleteImage icon icon-remove11" data-id="{{$photo->id}}" data-proprieteId="{{$photo->building_id}}" data-type="{{$photo->type}}" title="{{trans('form.delete_image')}}">
+					<a role="button" href="javascript:void(0)" class="deleteImage icon icon-remove11" data-id="{{$photo->id}}" data-proprieteId="{{$photo->building_id}}" data-type="{{$photo->type}}" title="{{trans('form.delete_image')}}">
 						<div class="image">
 
 							<img class="thumbnail" src="{{'/'.Config::get('var.images_dir').Config::get('var.users_dir').Auth::user()->id.'/'.Config::get('var.buildings_dir').$photo->building_id.'/'.Helpers::addBeforeExtension($photo->url, Config::get('var.img_small'))}}" alt="{{$photo->alt}}">
@@ -132,7 +132,7 @@
 
 				<li >
 					<span class="handle icon icon-move6"></span>		
-					<a href="" class="deleteImage icon icon-remove11" data-id="{{$photo->id}}" data-proprieteId="{{$photo->building_id}}" data-type="{{$photo->type}}" title="{{trans('form.delete_image')}}">
+					<a role="button" href="javascript:void(0)" class="deleteImage icon icon-remove11" data-id="{{$photo->id}}" data-proprieteId="{{$photo->building_id}}" data-type="{{$photo->type}}" title="{{trans('form.delete_image')}}">
 						<div class="image">
 
 							<img class="thumbnail" src="{{'/'.Config::get('var.images_dir').Config::get('var.users_dir').Auth::user()->id.'/'.Config::get('var.buildings_dir').$photo->building_id.'/'.Helpers::addBeforeExtension($photo->url, Config::get('var.img_small'))}}" alt="{{$photo->alt}}">

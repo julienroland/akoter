@@ -30,7 +30,8 @@
 
 
 	@foreach($options as $option)
-	<div class="field listCheckbox">
+	<fieldset class="field listCheckbox">
+	<legend class="section">{{trans('inscription.building_description_legend')}}</legend>
 		<input type="checkbox" {{isset($currentOptions) && isset($currentOptions[$option->id]) ? 'checked':''}} name="building[{{$option->id}}]" id="building[{{$option->id}}]">
 		@if(isset($option->translation[0]))
 
@@ -40,13 +41,13 @@
 
 		
 
-	</div>
+	</fieldset>
 
 	@endforeach
-	<div class="clear"></div>
+	<div aria-hidden="true" class="clear"></div>
 	<div class="field previous">
 
-		<a href="{{route(Config::get('var.steps_routes.2'), array(Auth::user()->slug, $building->id))}}" title="{{trans('account.back_previous_step')}}">{{trans('general.back')}}</a>
+		<a role="button" href="{{route(Config::get('var.steps_routes.2'), array(Auth::user()->slug, $building->id))}}" title="{{trans('account.back_previous_step')}}">{{trans('general.back')}}</a>
 
 	</div>
 	<div class="field next">

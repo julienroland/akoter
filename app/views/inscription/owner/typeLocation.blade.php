@@ -26,25 +26,25 @@
 	</div>
 
 	<div class="field type_location col">
-		<div class="th-1" title="Quel type de logement disposez-vous ? Choissisez aucune pour ne pas en définir"> {{trans('inscription.type_location')}}</div>
-		<div class="th-2" title="Définissez le nombre de logement de ce type que contient votre bien"> {{trans('inscription.number_location')}}</div>
-		<div class="th-3" title="Chaque annonce aura sa propre annonce"> {{trans('inscription.spe_advert')}}</div>
+		<div class="th-1 tooltip-ui-s" title="{{trans('inscription.type_location1')}}"> {{trans('inscription.type_location')}}</div>
+		<div class="th-2 tooltip-ui-s" title="{{trans('inscription.type_location2')}}"> {{trans('inscription.number_location')}}</div>
+		<div class="th-3 tooltip-ui-s" title="{{trans('inscription.type_location3')}}"> {{trans('inscription.spe_advert')}}</div>
 	</div>
 
 	@for($i = 1; $i < count($typeLocation); $i++ )
 
 	<div class="field type_location col">
 		{{Form::select('type_location['.$i.']',$typeLocation,
-		$typesLocations[$i]['id'],array('class'=>'select'))}}
+		$typesLocations[$i]['id'],array('class'=>'select','title'=>trans('inscription.type_location')))}}
 
-		<input type="number" class="number" placeholder="{{trans('form.numberLocations')}}" value="{{$typesLocations[$i]['number']}}" name="number[{{$i}}]">
+		<input type="number" class="number" title="{{trans('inscription.number_location')}}" placeholder="{{trans('form.numberLocations')}}" value="{{$typesLocations[$i]['number']}}" name="number[{{$i}}]">
 		<input type="checkbox" class="yesornot" {{$typesLocations[$i]['advert'] == 1 ? 'checked' : '' }} id="global" name="global[{{$i}}]" class="global" id="">
-		<label for="global"><span class="ui" data-yes="{{trans('general.yes')}}" data-not="{{trans('general.no')}}"></span></label>
+		<label for="global"><span class="ui" data-yes="{{trans('general.yes')}}" data-not="{{trans('general.no')}}"></span><span class="section">{{trans('inscription.spe_advert')}}</span></label>
 	</div>
 
 	@endfor
 	<div class="field previous">
-		<a href="{{route(Config::get('var.steps_routes.1'), array(Auth::user()->slug, $building->id))}}" title="{{trans('account.back_previous_step')}}">{{trans('general.back')}}</a>
+		<a role="button" href="{{route(Config::get('var.steps_routes.1'), array(Auth::user()->slug, $building->id))}}" title="{{trans('account.back_previous_step')}}">{{trans('general.back')}}</a>
 	</div>
 
 	<div class="field next">

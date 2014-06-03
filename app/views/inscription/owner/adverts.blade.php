@@ -36,6 +36,8 @@
 			
 			@if($location->nb_locations > 1)
 			<div class="informations">{{trans('inscription.groupAdvert',array('number'=>$location->nb_locations,'type'=>strtolower($location->typeLocation->translation[0]->value)))}} </div>
+			@else
+			<div class="informations">{{trans('inscription.specificAdvert',array('type'=>strtolower($location->typeLocation->translation[0]->value)))}} </div>
 			@endif
 			<div class="tabs">
 				<ul>
@@ -50,82 +52,106 @@
 
 				<div id="{{$lang}}-title">
 					<div class="field">
-						<label for="location_{{$location->id}}[title][{{$lang}}]">{{trans('form.titleAdvert',array('lang'=>trans('general.lang')[$lang]))}}</label>
-						<input type="text" value="{{isset($titleData[$langId]) ? $titleData[$langId]:( isset(Session::get('adverts')['location_'.$location->id]) ? Session::get('adverts')['location_'.$location->id]['title'][$lang]:'')}}" {{App::getLocale() == $lang ? 'required' :''}} name="location_{{$location->id}}[title][{{$lang}}]" id="location_{{$location->id}}[title][{{$lang}}]" placeholder="{{trans('form.titleAdvert',array('lang'=>trans('general.lang')[$lang]))}}">
+						<label for="location_{{$location->id}}[title][{{$lang}}]">{{trans('form.titleAdvert',array('lang'=>trans('general.lang')[$lang])).trans('form.required')}} <span class="icon-required" aria-hidden="true"></span></label>
+						<input type="text" value="{{isset($titleData[$langId]) ? $titleData[$langId]:( isset(Session::get('adverts')['location_'.$location->id]) ? Session::get('adverts')['location_'.$location->id]['title'][$lang]:'')}}"  name="location_{{$location->id}}[title][{{$lang}}]" id="location_{{$location->id}}[title][{{$lang}}]" placeholder="{{trans('form.titleAdvert',array('lang'=>trans('general.lang')[$lang]))}}">
 					</div>
 				</div>
 				@endforeach
 			</div>
 
 			<div class="field">
-				<label for="location_{{$location->id}}[price]">{{trans('form.price')}} / {{trans('general.perMonth')}}</label>
+
+				<label for="location_{{$location->id}}[price]">{{trans('form.price')}} {{trans('general.perMonth').trans('form.required')}} <span class="icon-required" aria-hidden="true"></span></label>
 				<div class="input-price">
-					<input type="number" min="0" value="{{isset($locationsData) ? $locationsData[$location->id][0]->price : (isset(Session::get('adverts')['location_'.$location->id]) ? Session::get('adverts')['location_'.$location->id]['price'] : '')}}" required name="location_{{$location->id}}[price]" id="location_{{$location->id}}[price]" placeholder="{{trans('form.price')}}">
+					<input type="number" min="0" value="{{isset(Session::get('adverts')['location_'.$location->id]) ? Session::get('adverts')['location_'.$location->id]['price'] : (isset($locationsData) ? $locationsData[$location->id][0]->price : '')}}" required name="location_{{$location->id}}[price]" id="location_{{$location->id}}[price]" placeholder="{{trans('form.price')}}">
 				</div>
 			</div>
 
 			<div class="field">
-				<label for="location_{{$location->id}}[size]">{{trans('form.size')}} (m<sup>2</sup>)</label>
+				<label for="location_{{$location->id}}[size]">{{trans('form.size')}} (m<sup>2</sup>){{trans('form.required')}} <span class="icon-required" aria-hidden="true"></span></label>
 				<div class="input-size icon-meter2">
-					<input type="number" value="{{isset($locationsData) ? $locationsData[$location->id][0]->size : (isset(Session::get('adverts')['location_'.$location->id]) ? Session::get('adverts')['location_'.$location->id]['size'] : '')}}" min="0" required name="location_{{$location->id}}[size]" id="location_{{$location->id}}[size]" placeholder="{{trans('form.size')}}">
+					<input type="number" value="{{isset(Session::get('adverts')['location_'.$location->id]) ? Session::get('adverts')['location_'.$location->id]['size'] : (isset($locationsData) ? $locationsData[$location->id][0]->size : '')}}" min="0" required name="location_{{$location->id}}[size]" id="location_{{$location->id}}[size]" placeholder="{{trans('form.size')}}">
 				</div>
 			</div>
 
 			<div class="field">
-				<label for="location_{{$location->id}}[floor]">{{trans('form.floor')}} </label>
-				<input type="number" value="{{isset($locationsData) ? $locationsData[$location->id][0]->floor : (isset(Session::get('adverts')['location_'.$location->id]) ? Session::get('adverts')['location_'.$location->id]['floor'] : '')}}"  min="0" name="location_{{$location->id}}[floor]" id="location_{{$location->id}}[floor]" required placeholder="{{trans('form.floor')}}">
-				<div class="informations">{{trans('inscription.floor_help')}}</div>
+				<label aria-describedby="info_floor" for="location_{{$location->id}}[floor]">{{trans('form.floor').trans('form.required')}} <span class="icon-required" aria-hidden="true"></span></label>
+				<input type="number" value="{{isset(Session::get('adverts')['location_'.$location->id]) ? Session::get('adverts')['location_'.$location->id]['floor'] : (isset($locationsData) ? $locationsData[$location->id][0]->floor : '')}}"  min="0" name="location_{{$location->id}}[floor]" id="location_{{$location->id}}[floor]" required placeholder="{{trans('form.floor')}}">
+				<div id="info_floor" class="informations">{{trans('inscription.floor_help')}}</div>
 			</div>
 
 			<div class="field">
-				<label for="location_{{$location->id}}[room]">{{trans('form.room')}} </label>
-				<input type="number" value="{{isset($locationsData) ? $locationsData[$location->id][0]->nb_room : (isset(Session::get('adverts')['location_'.$location->id]) ? Session::get('adverts')['location_'.$location->id]['room'] : '')}}" min="0" name="location_{{$location->id}}[room]" id="location_{{$location->id}}[room]" required placeholder="{{trans('form.room')}}">
-				<div class="informations">
+				<label aria-describedby="info_room" for="location_{{$location->id}}[room]">{{trans('form.room').trans('form.required')}} <span class="icon-required" aria-hidden="true"></span></label>
+				<input type="number" value="{{isset(Session::get('adverts')['location_'.$location->id]) ? Session::get('adverts')['location_'.$location->id]['room'] : (isset($locationsData) ? $locationsData[$location->id][0]->nb_room : '')}}" min="0" name="location_{{$location->id}}[room]" id="location_{{$location->id}}[room]" required placeholder="{{trans('form.room')}}">
+				<div id="info_room" class="informations">
 					{{trans('inscription.room_available_help')}}
 				</div>
 			</div>
 
-			<div class="field charge-form checkbox">
-				<input type="checkbox" {{isset($locationsData) && $locationsData[$location->id][0]->charge_type == 0 ? 'checked' :(isset(Session::get('adverts')['location_'.$location->id]['charge']) ? 'checked': '')}}  name="location_{{$location->id}}[charge]" id="location_{{$location->id}}[charge]">
+			<fieldset class="field charge-form checkbox">
+				<!-- <input type="checkbox" {{isset($locationsData) && $locationsData[$location->id][0]->charge_type == 0 ? 'checked' :(isset(Session::get('adverts')['location_'.$location->id]['charge']) ? 'checked': '')}}  name="location_{{$location->id}}[charge]" id="location_{{$location->id}}[charge]">
 				<label for="location_{{$location->id}}[charge]">
 					{{trans('form.charge_included')}}
-				</label>
+				</label> -->
+				<div class="field radio">
 
-				<label for="location_{{$location->id}}[chargePrice]" style="display:none;">{{trans('form.price_charge')}}</label>
-				<input type="number" value="{{isset($locationsData) ? $locationsData[$location->id][0]->charge_price : (isset(Session::get('adverts')['location_'.$location->id]) ? Session::get('adverts')['location_'.$location->id]['chargePrice'] : '')}}"  min="0" name="location_{{$location->id}}[chargePrice]" title="{{trans('form.price_charge')}} / {{trans('general.perMonth')}}" placeholder="{{trans('form.price_charge')}} / {{trans('general.perMonth')}}" id="location_{{$location->id}}[chargePrice]">
-				<div class="informations">
+					<input type="radio" {{isset(Session::get('adverts')['location_'.$location->id]['charge']) && Session::get('adverts')['location_'.$location->id]['charge'] == 0 ? 'checked': (isset($locationsData) && $locationsData[$location->id][0]->charge_type == 0 ? 'checked':'')}} name="location_{{$location->id}}[charge]" value="0" id="location_{{$location->id}}[charge1]">
+					<label for="location_{{$location->id}}[charge1]">
+						{{trans('form.charge_included')}}
+					</label>
+
+
+				</div>
+				<div class="field radio">
+					<input type="radio" {{isset(Session::get('adverts')['location_'.$location->id]['charge']) && Session::get('adverts')['location_'.$location->id]['charge'] == 1 ? 'checked': (isset($locationsData) && $locationsData[$location->id][0]->charge_type == 1 ? 'checked':'')}} name="location_{{$location->id}}[charge]" value="1" id="location_{{$location->id}}[charge2]">
+					<label for="location_{{$location->id}}[charge2]">
+						{{trans('form.charge_inclusive')}}
+					</label>
+					
+				</div>
+				<div class="field radio">
+					<input type="radio" {{isset(Session::get('adverts')['location_'.$location->id]['charge']) && Session::get('adverts')['location_'.$location->id]['charge'] == 2 ? 'checked': (isset($locationsData) && $locationsData[$location->id][0]->charge_type == 2 ? 'checked':'')}} name="location_{{$location->id}}[charge]" value="2" id="location_{{$location->id}}[charge3]">
+					<label for="location_{{$location->id}}[charge3]">
+						{{trans('form.charge_consumption')}}
+					</label>
+
+
+				</div>
+				
+				<label aria-describedby="info_charge" for="location_{{$location->id}}[chargePrice]">{{trans('form.price_charge')}}</label>
+				<input type="number" class="tooltip-ui-e" value="{{isset(Session::get('adverts')['location_'.$location->id]) ? Session::get('adverts')['location_'.$location->id]['chargePrice'] : (isset($locationsData) ? $locationsData[$location->id][0]->charge_price : '')}}"  min="0" name="location_{{$location->id}}[chargePrice]" title="{{trans('form.price_charge')}} / {{trans('general.perMonth')}}" placeholder="{{trans('form.price_charge')}} / {{trans('general.perMonth')}}" id="location_{{$location->id}}[chargePrice]">
+				<div id="info_charge" class="informations">
 					{{trans('inscription.blank_charge_price')}}
 				</div>
 
 
-			</div> 
+			</fieldset> 
 			<div class="field">
-				<label for="location_{{$location->id}}[garantee]">{{trans('inscription.garantee')}}</label>
-				<input type="number" value="{{isset($locationsData) ? $locationsData[$location->id][0]->garantee : (isset(Session::get('adverts')['location_'.$location->id]) ? Session::get('adverts')['location_'.$location->id]['garantee'] : '')}}" name="location_{{$location->id}}[garantee]" id="location_{{$location->id}}[garantee]" placeholder="{{trans('inscription.garantee_placeholder')}}">
+				<label for="location_{{$location->id}}[garantee]">{{trans('inscription.garantee').trans('form.required')}} <span class="icon-required" aria-hidden="true"></span></label>
+				<input type="number" value="{{isset(Session::get('adverts')['location_'.$location->id]) ? Session::get('adverts')['location_'.$location->id]['garantee'] : (isset($locationsData) ? $locationsData[$location->id][0]->garantee : '')}}" name="location_{{$location->id}}[garantee]" id="location_{{$location->id}}[garantee]" placeholder="{{trans('inscription.garantee_placeholder')}}">
 			</div>
-			<div class="field checkbox">
-				<input type="checkbox" {{isset($locationsData) && $locationsData[$location->id][0]->available == 1 ? 'checked' :(isset(Session::get('adverts')['location_'.$location->id]) ? 'checked': '')}}  name="location_{{$location->id}}[available]" id="location_{{$location->id}}[available]">
+			<div class="field checkbox" {{isset(Session::get('adverts')['location_'.$location->id]['available']) ? 'checked' : (isset($locationsData) && $locationsData[$location->id][0]->available == 1 ? 'checked' : '')}}  name="location_{{$location->id}}[available]" id="location_{{$location->id}}[available]">
 				<label for="location_{{$location->id}}[available]">{{trans('form.isAvailableLocation')}}</label>
 
 			</div>
 
 			<div class="group date">
 				<div class="field">
-					{{Form::label('location_'.$location->id.'[start_date]', trans('form.start_date'),array('aria-hidden'=>'false'))}}
+					<label for="location_{{$location->id}}[start_date]">{{trans('form.start_date').trans('form.required')}}<span class="icon-required" aria-hidden="true"></span></label>
 					<div class="input-date icon-calendar68">
-						{{Form::text('location_'.$location->id.'[start_date]',isset($locationsData[$location->id][0]->start_date) ? Helpers::dateNaForm($locationsData[$location->id][0]->start_date) : (isset(Session::get('adverts')['location_'.$location->id]) ? Helpers::dateNaForm(Session::get('adverts')['location_'.$location->id]['start_date']) : '') ,array('class'=>'datepicker','title'=>trans('form.start_date'),'placeholder'=>trans('form.start_date2')))}}
+						{{Form::text('location_'.$location->id.'[start_date]',isset(Session::get('adverts')['location_'.$location->id]) ? Session::get('adverts')['location_'.$location->id]['start_date'] : (isset($locationsData) ? $locationsData[$location->id][0]->start_date : '') ,array('class'=>'datepicker','title'=>trans('form.start_date'),'placeholder'=>trans('form.start_date2')))}}
 					</div>
 				</div>
 				<div class="field">
-					{{Form::label('location_'.$location->id.'[end_date]', trans('form.end_date'),array('aria-hidden'=>'false'))}}
+					<label for="location_{{$location->id}}[end_date]">{{trans('form.end_date').trans('form.required')}}<span class="icon-required" aria-hidden="true"></span></label>
 					<div class="input-date icon-calendar68">
-						{{Form::text('location_'.$location->id.'[end_date]', isset($locationsData[$location->id][0]->end_date) ? Helpers::dateNaForm($locationsData[$location->id][0]->end_date) : (isset(Session::get('adverts')['location_'.$location->id]) ? Helpers::dateNaForm(Session::get('adverts')['location_'.$location->id]['end_date']) : '') ,array('class'=>'datepicker','title'=>trans('form.end_date'),'placeholder'=>trans('form.end_date2')))}}
+						{{Form::text('location_'.$location->id.'[end_date]', isset(Session::get('adverts')['location_'.$location->id]) ? Session::get('adverts')['location_'.$location->id]['end_date'] : (isset($locationsData) ? $locationsData[$location->id][0]->end_date : '') ,array('class'=>'datepicker','title'=>trans('form.end_date'),'placeholder'=>trans('form.end_date2')))}}
 					</div>
 				</div>
 			</div>
 
 			<div class="field checkbox">
-				<input type="checkbox" {{isset($locationsData) && $locationsData[$location->id][0]->comments_status == 1 ? 'checked' :(isset(Session::get('adverts')['location_'.$location->id]['comments']) ? 'checked' : '')}}  name="location_{{$location->id}}[comments]" id="location_{{$location->id}}[comments]">
+				<input type="checkbox" {{isset(Session::get('adverts')['location_'.$location->id]['comments']) ? 'checked' : (isset($locationsData) && $locationsData[$location->id][0]->comments_status == 1 ? 'checked' : '')}}  name="location_{{$location->id}}[comments]" id="location_{{$location->id}}[comments]">
 				<label for="location_{{$location->id}}[comments]">{{trans('form.allowingComments')}}</label>
 				<div class="informations">
 					{{trans('inscription.allow_comments_infos')}}
@@ -134,7 +160,7 @@
 			</div>
 
 			<div class="field checkbox">
-				<input type="checkbox" {{isset($locationsData) && $locationsData[$location->id][0]->accessible == 1 ? 'checked' :(isset(Session::get('adverts')['location_'.$location->id]['accessible']) ? 'checked' : '')}}  name="location_{{$location->id}}[accessible]" id="location_{{$location->id}}[accessible]">
+				<input type="checkbox" {{isset(Session::get('adverts')['location_'.$location->id]['accessible']) ? 'checked' : (isset($locationsData) && $locationsData[$location->id][0]->accessible == 1 ? 'checked' : '')}}  name="location_{{$location->id}}[accessible]" id="location_{{$location->id}}[accessible]">
 				<label for="location_{{$location->id}}[accessible]">{{trans('form.accessible')}}</label>
 				<div class="informations">
 					{{trans('inscription.accessible_infos')}}
@@ -148,7 +174,8 @@
 
 					@foreach($options as $option)
 					<div class="field listCheckbox">
-						<input type="checkbox" {{isset($locationsData) && isset($locationsData[$location->id][0]->option[$option->id]) ? 'checked' :(isset(Session::get('adverts')['location_'.$location->id]['option'][$option->id]) ? 'checked' : '')}}  name="location_{{$location->id}}[option][{{$option->id}}]" id="location_{{$location->id}}[option][{{$option->id}}]">
+						<input type="checkbox" {{isset(Session::get('adverts')['location_'.$location->id]['option'][$option->id]) ? 'checked' :
+						(isset($locationsData) && isset($locationsData[$location->id][0]->option[$option->id]) ? 'checked' : '')}}  name="location_{{$location->id}}[option][{{$option->id}}]" id="location_{{$location->id}}[option][{{$option->id}}]">
 						@if(isset($option->translation[0]))
 
 						<label for="location_{{$location->id}}[option][{{$option->id}}]">{{$option->translation[0]->value}}</label>
@@ -195,15 +222,15 @@
 
 				<div id="{{$lang}}-advert">
 					<div class="field">
-						<label for="location_{{$location->id}}[advert][{{$lang}}]">{{trans('inscription.advert_in',array('lang'=>trans('general.lang')[$lang]))}}</label>
+						<label for="location_{{$location->id}}[advert][{{$lang}}]">{{trans('inscription.advert_in',array('lang'=>trans('general.lang')[$lang])).trans('form.required')}} <span class="icon-required" aria-hidden="true"></span></label>
 						<textarea name="location_{{$location->id}}[advert][{{$lang}}]" id="location_{{$location->id}}[advert][{{$lang}}]" class="editor">{{isset($advertData[$langId]) ? $advertData[$langId] :( isset(Session::get('adverts')['location_'.$location->id]['advert']) ? Session::get('adverts')['location_'.$location->id]['advert'][$lang]:'')}}</textarea>
 					</div>
 				</div>
 				@endforeach
 			</div>
-			@endforeach
+			
 		</div>
-
+		@endforeach
 		<div class="field previous">
 			<a href="{{route('account_home', Auth::user()->slug)}}" title="{{trans('account.back_home')}}">{{trans('general.back')}}</a>
 		</div>

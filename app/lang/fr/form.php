@@ -91,7 +91,7 @@ return array(
 	'success_message'=>'<span class="b">Message bien envoyé !</span> Nous reviendrons vers vous par mail le plus rapidement possible.',
 	'search_location_keywords'=>'Recherche par mots clefs, référence d\'annonce',
 	'required_field'=>'Champs obligatoire',
-	'required'=>'<span class="section">(obligatoire)</span>',
+	'required'=>'<span class="section"> (obligatoire)</span>',
 	'titleAdvert'=>'Titre de l\'annonce en :lang',
 	'price'=>'Prix',
 	'size'=>'Dimensions',
@@ -114,6 +114,8 @@ return array(
 	'commenting'=>'Commenter',
 	'comment'=>'Commentaire',
 	'click'=>'Cliquer !',
+	'charge_inclusive'=>'Charges forfaitaire',
+	'charge_consumption'=>'Charges à la consommation',
 	
 
 );		
