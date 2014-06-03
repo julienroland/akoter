@@ -1,7 +1,8 @@
 <?php
 
 use Carbon\Carbon;
-
+use \DetectLanguage\DetectLanguage;
+DetectLanguage::setApiKey(Config::get('var.detect_key'));
 class Helpers {
 
 	public static function imgDir( $path, array $params){
@@ -57,14 +58,12 @@ class Helpers {
 	public static function translate($text, $from=null, $to){
 
 		$text = urlencode($text);
+
 		if(Helpers::isNotOk($from)){
 
-			$from = file_get_contents('http://api.microsofttranslator.com/V2/Ajax.svc/Detect?appid='.Config::get('var.bong_key').'&text=hello');
-			$from = str_replace('"', '', $from);
-			$from = Helpers::removeBOM(str_replace('"', '', $from));
+			$from = DetectLanguage::detect($text)[0]->language;
 		}
 
-		dd($from);
 		$ch = curl_init('https://api.datamarket.azure.com/Bing/MicrosoftTranslator/v1/Translate?Text=%27'.$text.'%27&From=%27'.$from.'%27&To=%27'.$to.'%27');
 		curl_setopt($ch, CURLOPT_USERPWD, Config::get('var.bing_key').':'.Config::get('var.bing_key'));
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);

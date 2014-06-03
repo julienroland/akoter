@@ -134,6 +134,7 @@ return array(
 	'email'=>'akoter@julien-roland.be',
 	'phone'=>'+32 (0)495 94 51 93',
 	'bing_key'=>'kRIUH8yaDz09Wx5S1D1sbuMC+RsFTqwRMjnQ0npngV8',
+	'detect_key'=>'288a16be6dd115efdb4c7e963c4e0eed',
 
 
 
