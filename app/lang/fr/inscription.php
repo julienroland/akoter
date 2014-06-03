@@ -105,4 +105,5 @@ return array(
 	'type_location2'=>'Définissez le nombre de logement de ce type que contient votre bien',
 	'type_location3'=>'Chaque annonce aura sa propre annonce',
 	'building_description_legend'=>'Cochez les cases qui correspondent aux critères de votre logement',
+	'transWontWork'=>'L\'auto traduction ne fonctionnera pas si le texte contient du HTML ou autres balisage particulier',
 	);

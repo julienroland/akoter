@@ -4,10 +4,10 @@
 @endif
 {{HTML::script('js/nprogress.js')}}
 <script>
-NProgress.start();
- $(window).bind("load", function() {
+  NProgress.start();
+  $(window).bind("load", function() {
    NProgress.done();
-});
+ });
 </script>
 
 @if(isset($widget) && in_array('gallery', $widget))
@@ -359,14 +359,19 @@ NProgress.start();
     plugins: [
     "lists charmap",
     "wordcount",
+    "paste"
     ],
+    paste_auto_cleanup_on_paste : true,
+    paste_remove_styles: true,
+    paste_remove_styles_if_webkit: true,
+    paste_strip_class_attributes: true,
     style_formats: [
     {
       title: 'Bold text', 
       inline: 'b',
     },
-    ]
-  });
+    ],
+});
 </script>
 @endif
 
@@ -381,7 +386,7 @@ NProgress.start();
 
 {{HTML::script('js/jquery.tipsy.js')}}
 <script>
-   $(function() {
+ $(function() {
    $('.tooltip-ui-e').tipsy({ aria: true, fade: true, gravity:'w', delayIn: 200, delayOut: 300, opacity: 0.9});
    $('.tooltip-ui-w').tipsy({ aria: true,fade: true, gravity:'e', delayIn: 200, delayOut: 300, opacity: 0.9});
    $('.tooltip-ui-s').tipsy({ aria: true,fade: true, gravity:'n', delayIn: 200, delayOut: 300, opacity: 0.9});

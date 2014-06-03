@@ -566,14 +566,15 @@ class InscriptionController extends AccountBaseController {
 
 		Session::put('adverts', $inputs);
 
-		foreach($inputs as $key => $input){
+		foreach($inputs as $keyInput => $input){
 
 			$validator = Validator::make($input, Location::$rules);
-			$validator->setAttributeNames(trans('validation.attributes'));
+
+			Helpers::attr( $validator );
 
 			if( $validator->passes() ){
 
-				$location_id = (int)explode('_',$key)[1];
+				$location_id = (int)explode('_',$keyInput)[1];
 
 				$location = Location::find($location_id);
 
@@ -591,7 +592,7 @@ class InscriptionController extends AccountBaseController {
 				$location->charge_type = isset($input['charge']) ? $input['charge'] : 0;
 				$location->accessible = isset($input['accessible']) ? 1 : 0;
 				$location->register_step = $location->register_step < 6 ? 6 : $location->register_step;
-
+				
 				if(isset($input['option']) && Helpers::isOk($input['option'])){
 
 					$location->option()->detach();
@@ -660,8 +661,8 @@ class InscriptionController extends AccountBaseController {
 
 				$adverts = array_filter($input['advert']);
 
-
 				$advert = reset($adverts);
+
 				$fromAdvert = key($adverts);
 
 				foreach($input['advert'] as $key => $text){
@@ -693,11 +694,10 @@ class InscriptionController extends AccountBaseController {
 
 							$translation = Translation::whereContentId($location_id)->whereContentType('Location')->whereKey('advert')->whereLanguageId(Config::get('var.langId')[$key])->first();
 						}
-
 						$translation->content_type = "Location";
 						$translation->content_id = $location_id;
 						$translation->key = 'advert';
-						$translation->value = ucfirst(Helpers::translate($advert, $fromAdvert, $key));
+						$translation->value = Helpers::translate($advert, null, $key);
 						$translation->language_id = Config::get('var.langId')[$key];
 					}
 
@@ -736,14 +736,6 @@ class InscriptionController extends AccountBaseController {
 
 
 
-				$building->register_step = 6;
-				$building->save();
-
-				Session::put('inscription.current', 6);
-
-				return Redirect::route('index_photo_advert', array(Auth::user()->slug, $building->id ))
-				->withSuccess(trans('validation.custom.inscription_adverts'));
-
 			}else{
 
 				$fields = $validator->failed();
@@ -754,6 +746,14 @@ class InscriptionController extends AccountBaseController {
 				->withErrors($validator);
 			}
 		}
+		
+		$building->register_step = 6;
+		$building->save();
+
+		Session::put('inscription.current', 6);
+
+		return Redirect::route('index_photo_advert', array(Auth::user()->slug, $building->id ))
+		->withSuccess(trans('validation.custom.inscription_adverts'));
 	}
 
 	public function indexPhotoAdvert($user_slug, $building){

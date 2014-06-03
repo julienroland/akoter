@@ -16,6 +16,13 @@ class Helpers {
 
 
 	}
+
+	public static function attr( $validator ){
+
+		return $validator->setAttributeNames(trans('validation.attributes'));
+
+	}
+
 	public static function transDecode($str) {
 		return preg_replace_callback("/\\\u([0-9a-f]{4})/i",
 			create_function('$matches',
@@ -59,6 +66,7 @@ class Helpers {
 
 		return Helpers::transDecode($translation[1]);
 	}
+
 	public static function curl($url,$params = array(),$is_coockie_set = false)
 	{
 
