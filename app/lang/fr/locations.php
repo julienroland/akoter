@@ -25,6 +25,7 @@ return array(
 'pictures'=> 'Photos',
 'title_description'=> 'Description de la location (:type à :city)',
 'tenant_since'=> 'Ce propriétaire est inscrit sur Akoter.be <strong>depuis :date</strong>.',
+'agence_since'=> 'Cette agence est inscrit sur Akoter.be <strong>depuis :date</strong>.',
 'profile_check'=> 'Son profile à également été vérifié par notre service.',
 'situation_title'=> 'Information supplémentaire sur le situation du bien',
 'more_situation_infos'=> 'Informations supplémentaires sur le bâtiment',
@@ -58,5 +59,6 @@ return array(
 'accroche_title'=>'<span class="b">Akoter</span> c\'est <span class="nb_locations">:number</span> locations',
 'accroche_content'=>'dans toute la Belgique. Trouvez le logement de vos rêves grâce à notre système de recherche !',
 'charges_conso'=>'<span class="little">Charges sur</span> consommation',
+'see_agence'=>'Voir le profile de l\'agence',
 
 );

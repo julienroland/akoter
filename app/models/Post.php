@@ -7,8 +7,6 @@ class Post extends Eloquent {
 	public static $rules = array(
 		'title'=>'required',
 		'text'=>'required',
-		'page'=>'required',
-		'position'=>'required',
 		);
 
 	public function user(){

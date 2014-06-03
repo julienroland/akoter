@@ -34,6 +34,79 @@ class Admin_ArticleController extends \Admin_AdminController
 		return View::make('admin.article.index')
 		->with(compact('articles'));
 	}
+
+	public function add(){
+		$postTypes = PostType::all()->lists('name','id');
+		return View::make('admin.article.add', array('widget'=>array('editor')))
+		->with(compact('postTypes'));
+	}
+	public function store(  ){
+		$input = Input::all();
+		
+		$validator = Validator::make($input, Post::$rules);
+
+		if($validator->passes()){
+
+			$post = new Post;
+			$post->content_type = $input['page'];
+			$post->content_position = $input['position'];
+
+			if(Input::hasFile('file')){
+/*
+				$post->img = ;
+				$post->width = ;
+				$post->height = ;*/
+			}
+
+			$post->publish = isset($input['publish']) ? true : false;
+			$post->user_id = Auth::user()->id;
+			$post->post_type_id = $input['type'];
+			$post->save();
+
+			foreach(Config::get('var.lang') as $id => $lang){
+
+				$title = new Translation;
+
+				$title->key = 'title';
+				$title->content_id = $post->id;
+				$title->content_type = 'Post';
+				$title->value = Helpers::translate($input['title'], null, $lang);
+				$title->language_id = $id;
+				$title->save();
+
+				$content = new Translation;
+
+				$content->key = 'content';
+				$content->content_id = $post->id;
+				$content->content_type = 'Post';
+				$content->value = Helpers::translate($input['text'], null, $lang);
+				$content->language_id = $id;
+				$content->save();
+
+				$slug = new Translation;
+
+				$slug->key = 'slug';
+				$slug->content_id = $post->id;
+				$slug->content_type = 'Post';
+				$slug->value = Str::slug(Helpers::translate($input['title'], null, $lang).' '.$post->id);
+				$slug->language_id = $id;
+				$slug->save();
+
+
+			}
+
+			return Redirect::back()
+			->withSucess('Article bien modifié');
+
+		}else{
+
+			return Redirect::back()
+			->withInput()
+			->withErrors($validator);
+
+		}
+		
+	}
 	public function edit( $post ){
 
 		return View::make('admin.article.show', array('widget'=>array('editor')))
@@ -56,7 +129,7 @@ class Admin_ArticleController extends \Admin_AdminController
 		return Redirect::back();
 	}
 
-	public function store( $post ){
+	public function update( $post ){
 		$input = Input::all();
 
 		$validator = Validator::make($input, Post::$rules);
@@ -68,15 +141,15 @@ class Admin_ArticleController extends \Admin_AdminController
 				$translation = $post->translations()->whereLanguage_id($id);
 
 				$title = $post->translations()->whereLanguage_id($id)->whereKey('title')->first();
-				$title->value = Helpers::translate($input['title'], 'fr', $lang);
+				$title->value = Helpers::translate($input['title'], null, $lang);
 				$title->save();
 
 				$content = $post->translations()->whereLanguage_id($id)->whereKey('content')->first();
-				$content->value = Helpers::translate($input['text'], 'fr', $lang);
+				$content->value = Helpers::translate($input['text'], null, $lang);
 				$content->save();
 
 				$slug = $post->translations()->whereLanguage_id($id)->whereKey('slug')->first();
-				$slug->value = Str::slug(Helpers::translate($input['title'], 'fr', $lang).' '.$post->id);
+				$slug->value = Str::slug(Helpers::translate($input['title'], null, $lang).' '.$post->id);
 				$slug->save();
 
 			}
@@ -85,8 +158,8 @@ class Admin_ArticleController extends \Admin_AdminController
 			$post->content_position = $input['position'];
 			$post->save();
 
-			return Redirect::back()
-			->withSucess('Article bien modifié');
+			return Redirect::to('admin/articles')
+			->withSucess('Article bien crée');
 
 		}else{
 

@@ -30,6 +30,13 @@ class AgenceController extends BaseController
 			));
 
 	}
+	public function indexProfile( $agence ){
+
+		$locations = $agence->location()->with('photo','request','translation','building')->get();
+
+		return View::make('agence.show', array('page'=>'agence'))
+		->with(compact('locations','agence'));
+	}
 	public function show( $user_slug, $agence ){
 
 		$locations = $agence->location()->with('photo','request','translation')->get();

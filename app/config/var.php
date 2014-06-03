@@ -68,8 +68,8 @@ return array(
 		
 		),
 	//agence logo
-	'agence_logo_width'=>200,
-	'agence_logo_height'=>130,
+	'agence_logo_width'=>64,
+	'agence_logo_height'=>64,
 //charges
 	'charges'=>array(
 		''=>trans('form.all'),
@@ -99,7 +99,7 @@ return array(
 		),
 	'articles_photo'=>array(
 		'width'=>300,
-		'height'=>200,
+		'height'=>64,
 		),
 	'steps'=>8,
 	'steps_names'=>array(
@@ -133,6 +133,7 @@ return array(
 	'country'=>'Belgique',
 	'email'=>'akoter@julien-roland.be',
 	'phone'=>'+32 (0)495 94 51 93',
+	'bing_key'=>'kRIUH8yaDz09Wx5S1D1sbuMC+RsFTqwRMjnQ0npngV8',
 
 
 

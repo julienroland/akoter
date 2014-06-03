@@ -3503,14 +3503,14 @@ $country-h: 100px;
 		margin-bottom: $gutter * 2;
 		.image{
 			float: left;
-			width: 200px;
-			@include abs-bot-left(-70px / 2, $gutter / 2);
+			width: 64px;
+			@include abs-bot-left(-40px / 2, $gutter / 2);
 		}
 		.name{
 			float: left;
 			font-size: $xx-large;
 			font-weight: bold;
-			@include abs-bot-left($gutter / 2, 210px + $gutter * 2);
+			@include abs-bot-left($gutter / 2, 64px + $gutter * 2);
 		}
 		.nb_employes{
 			@include abs-bot-right($gutter / 2, $gutter / 2);
@@ -7083,6 +7083,9 @@ div.wijmo-wijmenu .wijmo-wijmenu-child .wijmo-wijmenu-text {
 	.user{
 		@include c(12);
 		margin: $gutter / 2 0;
+		a{
+			@include c(12);
+		}
 		.user-picture{
 			@include c(12);
 			margin-bottom: $gutter / 2;

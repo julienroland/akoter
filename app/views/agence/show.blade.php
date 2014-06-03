@@ -47,9 +47,9 @@
 					</div>
 					<div class="infos">
 
-						@if(Helpers::isOk($building->address) && isset($location->translation[0]))
+						@if(Helpers::isOk($location->building->address) && isset($location->translation[0]))
 						<span class="title-location-account">{{$location->translation[0]->value}}</span>
-						<span class="address-location-account">{{$building->address}}</span>
+						<span class="address-location-account">{{$location->building->address}}</span>
 						@else 
 						<span class="building">{{trans('account.building_id',array('number'=>$building->id))}}</span>
 						<span class="location">{{trans('account.location_id',array('number'=>$location->id))}}</span>

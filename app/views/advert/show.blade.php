@@ -190,7 +190,7 @@
 				@if(Helpers::isOk($comments))
 				<div class="comments">
 
-				<?php $i=0; ?>
+					<?php $i=0; ?>
 					@foreach($comments as $comment)
 					<?php $translation = $comment->translation->lists('value','key'); ?>
 
@@ -270,10 +270,10 @@
 				<span class="number_rate">{{trans('locations.nb_rate',array('number'=>$location->nb_rate))}} </span>
 			</div>
 			<div class="favoris"><a href="{{route('addFavoris', $location->id)}}" class="icon icon-big61 tooltip-ui-s" title="{{trans('locations.favoris')}}"></a></div>
-			@if($agence->count() <= 0)
+			@if(Helpers::isOk($agence) && $agence->count() <= 0)
 			<div class="user">
 				<div class="user-picture">
-					<img class="thumbnail" width="{{Config::get('var.user_photo_width')}}" height="{{Config::get('var.user_photo_height')}}" src="{{'/'.Config::get('var.images_dir').Config::get('var.users_dir').$user->id.'/'.Config::get('var.profile_dir').$user->photo}}" alt="">
+					<img class="thumbnail" width="{{Config::get('var.user_photo_width')}}" height="{{Config::get('var.user_photo_height')}}" src="{{'/'.Config::get('var.images_dir').Config::get('var.users_dir').$user->id.'/'.Config::get('var.profile_dir').$user->photo}}" alt="{{$user->name}}">
 				</div>
 				<div class="user-info">
 					<span class="name">{{$user->first_name}} {{$user->name}}</span>
@@ -286,6 +286,22 @@
 				</div>
 			</div>
 			@else
+			<div class="user">
+				<a href="{{route('showAgence', $agence->slug)}}" class="tooltip-ui-e" title="{{trans('locations.see_agence')}}">
+					<div class="user-picture">
+						<img class="thumbnail" src="/{{Config::get('var.images_dir')}}{{Config::get('var.agences_dir')}}{{$agence->id}}/{{Config::get('var.logoAgence_dir')}}{{$agence->logo}}" width="{{Config::get('var.agence_logo_width')}}" height="{{Config::get('var.agence_logo_height')}}" alt="{trans('general.logo_of_agency', array('name'=>$agence->name))}}">
+					</div>
+					<div class="user-info">
+						<span class="name">{{$agence->name}}</span>
+						<p>
+							{{trans('locations.agence_since', array('date'=>$user->created_at->year))}}
+						</p>
+						<p>
+							{{trans('locations.profile_check')}}
+						</p>
+					</div>
+				</a>
+			</div>
 			@endif
 		</sidebar>
 	</div>

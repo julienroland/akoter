@@ -20,7 +20,7 @@
 			<div class="col-lg-4 right">
 				@include('admin.includes.sort')
 			</div>
-
+			<a href="{{url('admin/articles/add')}}">Ajouter un article</a>
 			<table class="table table-striped table-bordered">
 				<thead>
 					<tr>
