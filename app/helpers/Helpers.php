@@ -57,16 +57,33 @@ class Helpers {
 	public static function translate($text, $from=null, $to){
 
 		$text = urlencode($text);
+		if(Helpers::isNotOk($from)){
 
-		$url = "http://translate.google.com/translate_a/t?client=t&text=".$text."&hl=".$to."&sl=".$from."&tl=".$to."&ie=UTF-8&oe=UTF-8&multires=1&otf=1&pc=1&trs=1&ssel=3&tsel=6&sc=1";
+			$from = file_get_contents('http://api.microsofttranslator.com/V2/Ajax.svc/Detect?appid='.Config::get('var.bong_key').'&text=hello');
+			$from = str_replace('"', '', $from);
+			$from = Helpers::removeBOM(str_replace('"', '', $from));
+		}
 
-		$translation = Helpers::curl($url);
+		dd($from);
+		$ch = curl_init('https://api.datamarket.azure.com/Bing/MicrosoftTranslator/v1/Translate?Text=%27'.$text.'%27&From=%27'.$from.'%27&To=%27'.$to.'%27');
+		curl_setopt($ch, CURLOPT_USERPWD, Config::get('var.bing_key').':'.Config::get('var.bing_key'));
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
-		$translation = explode('"',$translation);
+		$result = curl_exec($ch);
+		$result = explode('<d:Text m:type="Edm.String">', $result);
 
-		return Helpers::transDecode($translation[1]);
+		$result = explode('</d:Text>', $result[1]);
+		$result = $result[0];
+		return $result;
+
+		/*return Helpers::transDecode($translation[1]);*/
 	}
-
+	public static function removeBOM($str = "") {
+		if (substr($str, 0, 3) == pack("CCC",0xef,0xbb,0xbf)) {
+			$str=substr($str, 3);
+		}
+		return $str;
+	}
 	public static function curl($url,$params = array(),$is_coockie_set = false)
 	{
 

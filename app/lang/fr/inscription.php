@@ -110,4 +110,5 @@ return array(
 	'you_have_no_agence'=>'Si disposez d\'une <strong>agence</strong>,',
 	'register_agency_advert'=>'inscrivez-votre entreprise !',
 	'choose_agence'=>'Choissisez une de vos agences',
+	'cgu'=>'Accepter les conditions générales d\'utilisation',
 	);

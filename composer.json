@@ -13,7 +13,8 @@
         "intervention/imagecache": "1.*",
         "barryvdh/laravel-ide-helper": "1.*",
         "barryvdh/laravel-translation-manager": "*",
-        "torann/geoip": "dev-master"
+        "torann/geoip": "dev-master",
+        "detectlanguage/detectlanguage": "*"
 
     },
     "autoload": {

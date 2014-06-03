@@ -84,6 +84,11 @@
 					<input id="password_ck" value="{{Session::has('inscription') ? Session::get('inscription')['password_ck']:''}}" type="password" name="password_ck" required  placeholder="{{trans('form.password-ck')}}" class="form-password {{isset(Session::get('fields')['password_ck']) ? 'form-error':''}}" id="">
 					<i class="icon-required" aria-hidden="true"></i>
 				</div>
+
+				<div class="field checkbox">
+					<label for="cgu">{{trans('inscription.cgu')}}</label>
+					<input type="checkbox" name="cgu" id="cgu">
+				</div>
 				{{Form::hidden('region',Session::has('inscription') ? Session::get('inscription')['region']:'',array('class'=>'autocomplete'))}}
 				{{Form::hidden('locality',Session::has('inscription') ? Session::get('inscription')['locality']:'',array('class'=>'autocomplete'))}}
 				{{Form::hidden('address',Session::has('inscription') ? Session::get('inscription')['address']:'',array('class'=>'autocomplete'))}}
