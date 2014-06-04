@@ -32,7 +32,7 @@
 	</div>
 	<div class="interaction">
 
-		<a href="javascript:void(0)" class="notDisplayThisTuto" data-name="map">Merci de plus afficher cette aide</a> <b>|</b>
+		<a href="javascript:void(0)" class="notDisplayThisTuto" data-name="map">Merci de ne plus afficher cette aide</a> <b>|</b>
 		<a href="javascript:void(0)" class="notDisplayAllTuto" data-name="tuto">Merci de ne plus afficher d'aide sur l'ensemble du site</a>
 	</div>
 

@@ -57,15 +57,11 @@
 								<div class="group date">
 									<div class="field">
 										{{Form::label('start_date', trans('form.start_date'),array('aria-hidden'=>'false'))}}
-										<div class="input-date icon-calendar68">
 											{{Form::text('start_date',isset($input['start_date']) ? $input['start_date'] :(isset(Session::get('filter')['start_date']) ? Session::get('filter')['start_date'] : '') ,array('class'=>'datepicker','title'=>trans('form.start_date'),'placeholder'=>trans('form.start_date2')))}}
-										</div>
 									</div>
 									<div class="field">
 										{{Form::label('end_date', trans('form.end_date'),array('aria-hidden'=>'false'))}}
-										<div class="input-date icon-calendar68">
 											{{Form::text('end_date',isset($input['end_date']) ? $input['end_date'] : (isset(Session::get('filter')['end_date']) ? Session::get('filter')['end_date'] : '') ,array('class'=>'datepicker','title'=>trans('form.end_date'),'placeholder'=>trans('form.end_date2')))}}
-										</div>
 									</div>
 								</div>
 							</div>
@@ -83,9 +79,7 @@
 										{{Form::select('charge', Config::get('var.charges'),isset($input['charge']) ? $input['min_price'] :(isset(Session::get('filter')['charge']) ? Session::get('filter')['charge'] : '') , array('class'=>'select selectCharge','data-placeholder'=>trans('form.charge')))}}
 									</div>
 									<div class="field">
-										<div class="input-price">
 											{{Form::input('number','price_charge',isset($input['price_charge']) ? $input['price_charge']:(isset(Session::get('filter')['price_charge']) ? Session::get('filter')['price_charge'] : '') ,array('id'=>'input-chargePrice','placeholder'=>trans('form.pricing')) )}}
-										</div>
 									</div>
 								</div>
 							</div>

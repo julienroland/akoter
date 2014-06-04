@@ -24,7 +24,7 @@ class Location extends Eloquent{
 	public static $comment_rules = array(
 		'title'=>'required|min:10',
 		'note'=>'required|numeric',
-		'text'=>'required|min:50',
+		'text'=>'required|min:10',
 		);
 
 	public function getTitleAttribute(){

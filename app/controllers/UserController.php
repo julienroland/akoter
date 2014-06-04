@@ -26,6 +26,16 @@ class UserController extends BaseController
 
 	}
 
+	public function removeFavoris( $location ){
+
+		Auth::user()->favoris()->delete();
+
+		return Redirect::back()
+		->withSuccess(trans('validation.custom.removedFavoris'));
+
+
+	}
+
 	public function sendEmailComfirm(  ){
 
 		$key = Auth::user()->key;

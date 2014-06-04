@@ -4,7 +4,7 @@
 */
 class LocationController extends BaseController
 {
-	public function voir( $location ){
+	public function show( $location ){
 
 		$building = $location->building()->first();
 
@@ -37,6 +37,8 @@ class LocationController extends BaseController
 		$comments = LocationComment::whereLocationId($location->id)->with('translation','user')->get();
 
 		$agence = $location->agence()->first();
+
+		$favoris = $user->favoris()->whereLocationId($location->id)->first();
 
 		$location->nb_views +=  1;
 		$location->save();
@@ -86,7 +88,8 @@ class LocationController extends BaseController
 			'optionLocation',
 			'particularities',
 			'comments',
-			'agence'
+			'agence',
+			'favoris'
 			));
 	}
 	public function addComment( $location ){
@@ -97,14 +100,14 @@ class LocationController extends BaseController
 
 		if($validator->passes()){
 
-			$comment =  new LocationComment;
+			$comment = new LocationComment;
 			$comment->rating = $input['note'];
 			$comment->location_id = $location->id;
 			$comment->user_id = Auth::user()->id;
 			$comment->save();
 
 			$location->nb_rate = $location->nb_rate + 1;
-			$location->rating = Helpers::isOk($location->rating) ? ($location->rating + $input['note'] ) / 2 : $input['note'] ;
+			$location->rating = $location->rating == 0 && $location->nb_rate == 0  ? $input['note']:(Helpers::isOk($location->rating) ? ($location->rating + $input['note'] ) / 2 : $input['note']) ;
 			$location->save();
 
 

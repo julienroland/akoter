@@ -87,7 +87,7 @@
 				</div>
 
 				<div class="field">
-					<label for="cgu">{{trans('inscription.cgu')}}</label>
+					<label for="cgu"><a href="{{route('showPost', $cgu->translation[0]->value)}}">{{trans('inscription.cgu')}}</a></label>
 					<input type="checkbox" name="cgu" id="cgu">
 				</div>
 				{{Form::hidden('region',Session::has('inscription') && isset(Session::get('inscription')['region']) ? Session::get('inscription')['region']:'',array('class'=>'autocomplete'))}}

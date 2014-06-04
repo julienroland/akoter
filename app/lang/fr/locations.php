@@ -60,5 +60,7 @@ return array(
 'accroche_content'=>'dans toute la Belgique. Trouvez le logement de vos rêves grâce à notre système de recherche !',
 'charges_conso'=>'<span class="little">Charges sur</span> consommation',
 'see_agence'=>'Voir le profile de l\'agence',
+'charge_conso'=>'Charges en fonction de la consommation',
+'removeFavoris'=>'Supprimer des favoris',
 
 );

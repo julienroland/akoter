@@ -17,12 +17,16 @@ class InscriptionController extends AccountBaseController {
 	}
 
 	public function index(){
+		$cgu = Post::whereId(4)->with(array('translation'=>function($query){
+			$query->whereKey('slug');
+		}))->first();
 
 		return View::make('inscription.index', array(
 			'title'=>trans('title.register'),
 			'description'=>trans('description.register'),
 			'page'=>'inscription',
-			'widget'=>array('select','validator','geoRegionLocality')));
+			'widget'=>array('select','validator','geoRegionLocality')))
+		->withCgu($cgu);
 
 	}
 	public function save(){
@@ -247,6 +251,12 @@ class InscriptionController extends AccountBaseController {
 		$number = array_filter($input['number']);
 		
 		$specifique = isset($input['global']) ? $input['global'] : null;
+
+		if(count(array_filter($input['number'])) == 0 ){
+
+			return Redirect::back()
+			->withErrors(array(trans('inscription.no_typeLocation')));
+		}
 
 		foreach($typeLocation as $key => $type){
 

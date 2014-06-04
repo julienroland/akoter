@@ -60,6 +60,7 @@ return array(
     'tenants'=>'locataires',
     'addFavoris'=>'ajout-de-favoris',
     'show_agence'=>'gerer-votre-agence',
+    'removeFavoris'=>'supprimer-le-favoris',
 
 );
 

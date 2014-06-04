@@ -692,7 +692,7 @@ class BuildingTableSeeder extends Seeder {
 				'status_type'=>1,
 				'user_id'=>rand(1,9),
 				'postal_id'=>rand(1,13),
-				"created_at"=>Carbon::create(rand(2014,2015), rand(8,10), rand(1,30), 12),/*$date->format('Y-m-d H:i:s'),*/
+				"created_at"=>Carbon::create(rand(2012,2013), rand(8,10), rand(1,30), 12),/*$date->format('Y-m-d H:i:s'),*/
 				));
 
 		}

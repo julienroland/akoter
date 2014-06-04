@@ -363,7 +363,7 @@
    **/
    
    sCenterCity = center;
-   console.log(place);
+
    window.setTimeout(function(){
    	$city.val(place.address_components[0].long_name);
    }, 10);
@@ -1168,7 +1168,6 @@ var getTraductions = function(  ) {
 		dataType: "json",
 		success:function( oData ){
 			oLang = oData;
-			console.log(oData);
 			return true;
 		}
 	});
@@ -1296,15 +1295,18 @@ var getLocations = function( nId ){
     url:"ajax/getLocations/"+nId,
     type:"get",
     success:function(oData){
-      console.log(oData);
+      
+      $slider.find('li').remove();
+      $listLocations.find('li').remove();
+
       $.each(oData.photo, function(i){
 
-        $slider.append('<li><img width="'+oData.photo[i].width+'" height="'+oData.photo[i].height+'" src='+getDir(sBuildingDir, {"building_id": oData.id, "user_id":oData.user_id})+beforeUrl(oData.photo[i].url,'-gallery')+'></li>');
+        $slider.append('<li><img width="'+oData.photo[i].width+'" height="'+oData.photo[i].height+'" src='+getDir(sBuildingDir, {"building_id": oData.id, "user_id":oData.user_id})+beforeUrl(oData.photo[i].url,'-mapslider')+'></li>');
 
       });
       $.each(oData.active_location, function(i){
 
-        $listLocations.append('<li><a href="'+oLang.routes.locations+'/'+oData.active_location[i].translation[0].value+'" class="tooltip-ui-w" title="'+oLang.locations.goLocation+'"><div class="type"><img src="'+getDir(sLocationDir, {"location_id": oData.active_location[i].id, "user_id":oData.user_id})+beforeUrl(oData.active_location[i].accroche[0].url,'-small')+'"><span class="number">'+oData.active_location[i].remaining_location+'</span></div><div class="price"><span class="expensive">'+Math.round(oData.active_location[i].price)+'€</span></div></a></li>'); //<div class="oneLocation"><ul><li><a href=""></a><div class="infosLocation"></div></li></ul></div>
+        $listLocations.append('<li><a href="'+oLang.routes.locations+'/'+oData.active_location[i].translation[0].value+'" class="tooltip-ui-w" title="'+oLang.locations.goLocation+'"><div class="type"><img classs="thumbnail" src="'+getDir(sLocationDir, {"location_id": oData.active_location[i].id, "user_id":oData.user_id})+beforeUrl(oData.active_location[i].accroche[0].url,'-small')+'"><span class="number">'+oData.active_location[i].remaining_location+'</span><span class="typeLocation">'+oData.active_location[i].type_location.translation[0].value+'</span></div><div class="price"><span class="expensive">'+Math.round(oData.active_location[i].price)+'€</span></div></a></li>'); //<div class="oneLocation"><ul><li><a href=""></a><div class="infosLocation"></div></li></ul></div>
 
       });
 
@@ -1319,9 +1321,11 @@ var getLocations = function( nId ){
       });
 
       $('.tooltip-ui-w').tipsy();
+
+      $listingBtn.click();
     }
   });
-$listingBtn.click();
+
 
 }
 var drawMarkerKot = function ( mPosition, sId, i)
@@ -1341,7 +1345,7 @@ var drawMarkerKot = function ( mPosition, sId, i)
 	google.maps.event.addListener(gMarkerKot, 'click', function() {
 		/*gMap.setZoom(17);*/
 		smoothZoom(gMap, 17, gMap.getZoom());
-		console.log(oKots[this.order]);
+
 
     getLocations(this.id)
     gMap.panTo(this.getPosition());
@@ -1369,31 +1373,31 @@ var drawMarkerSchool = function ( mPosition, sId , i)
 
  	bSchoolClick = true;
 
- gMap.setZoom(17);
+   gMap.setZoom(17);
 
- 	gMap.panTo(this.getPosition());
-  var oDataOneSchool = oSchools[this.id];
+   gMap.panTo(this.getPosition());
+   var oDataOneSchool = oSchools[this.id];
 
-  gCurrentPlace = this.getPosition();
-  var contentString = 
-  '<div class="school">'+
-  '<h3 aria-level="3" role="heading" class="titleSchool">'+
-  oDataOneSchool.name+
-  '</h3>'+
-  '<span class="address">'+
-  oDataOneSchool.street+', '+oDataOneSchool.locality.postal+' ('+oDataOneSchool.locality.name+' '+oDataOneSchool.region.translation[0].value +')'+
-  '</span>'+
-  '<div class="website">'+
-  oDataOneSchool.web+
-  '</div>'+
-  '</div>';
-  var infowindow = new google.maps.InfoWindow({
+   gCurrentPlace = this.getPosition();
+   var contentString = 
+   '<div class="school">'+
+   '<h3 aria-level="3" role="heading" class="titleSchool">'+
+   oDataOneSchool.name+
+   '</h3>'+
+   '<span class="address">'+
+   oDataOneSchool.street+', '+oDataOneSchool.locality.postal+' ('+oDataOneSchool.locality.name+' '+oDataOneSchool.region.translation[0].value +')'+
+   '</span>'+
+   '<div class="website">'+
+   oDataOneSchool.web+
+   '</div>'+
+   '</div>';
+   var infowindow = new google.maps.InfoWindow({
     content: contentString
   });
 
-  infowindow.open(gMap,gMarkerSchool);
+   infowindow.open(gMap,gMarkerSchool);
 
-});
+ });
 
 };
 var defineCircle = function(center, radius, sColor){
@@ -1433,7 +1437,7 @@ var inRange = function ( oCenter, nDistance, sType ) //obj Google / numeric
       gMarkerArrayKot[i].setOptions({visible: false});
 	     mc.redraw(); //TODO FAIRE FONCTIONNER CLUSTER AVEC DES MARKERS HIDDEN
 
-     }else{
+    }else{
 
 	    if(bShowAllKot){// JE LES LAISSES VISIBLES
 	    	gMarkerArrayKot[i].setMap(gMap);

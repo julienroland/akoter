@@ -26,23 +26,6 @@
 
     </ul>
     </div>
-   <!-- <ul id="slider-pager">
-      <li>
-        <a href="#">
-         <img src="http://placehold.it/50x30" alt="">
-       </a>
-     </li>
-      <li>
-        <a href="#">
-         <img src="http://placehold.it/50x30" alt="">
-       </a>
-     </li>
-      <li>
-        <a href="#">
-         <img src="http://placehold.it/50x30" alt="">
-       </a>
-     </li>
-   </ul>-->
    <div class="typeLocationList">
     <ul>
 

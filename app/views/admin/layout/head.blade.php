@@ -7,13 +7,19 @@
     <title>Document</title>
 
     @if(isset($widget) && Helpers::isOk($widget) && in_array('select', $widget))
-    {{HTML::style('css/chosen.css')}}
+    {{HTML::style('css/admin/chosen.css')}}
     @endif
 
     @if(isset($widget) && Helpers::isOk($widget) && in_array('upload', $widget))
     {{HTML::style('css/uploadfile.css')}}
     @endif
-    {{HTML::style('css/admin.css')}}
+    {{HTML::style('css/admin/admin.css')}}
     {{HTML::style('//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css')}}
-
+    <style>
+        .container{
+            min-height:100%;
+            margin-top:51px;
+            padding:3em 0;
+        }
+    </style>
 </head>

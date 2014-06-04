@@ -41,6 +41,8 @@ class Admin_BuildingController extends \Admin_AdminController
 		$building->status_type = 1;
 		$building->save();
 
+		Cache::forget('building_map');
+		
 		return Redirect::back()
 		->withSuccess('Building bien validaté');
 	}

@@ -29,7 +29,7 @@
 @endif
 
 @if(isset($widget) && in_array('map', $widget))
-
+boo
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCJSSKlpz3C7EwQd2kvgn1JRBd7Ojrl9dM&amp;sensor=false&amp;libraries=places,geometry"></script>
 
 <script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/markerclusterer/src/markerclusterer.js">
@@ -155,7 +155,7 @@
         }).disableSelection();
 
 
-    });
+});
 </script>
 @endif
 
@@ -191,9 +191,9 @@
             nextText: 'Suivant',
             currentText: 'Aujourd\'hui',
             monthNames: ['janvier', 'février', 'mars', 'avril', 'mai', 'juin',
-                'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'],
+            'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'],
             monthNamesShort: ['janv.', 'févr.', 'mars', 'avril', 'mai', 'juin',
-                'juil.', 'août', 'sept.', 'oct.', 'nov.', 'déc.'],
+            'juil.', 'août', 'sept.', 'oct.', 'nov.', 'déc.'],
             dayNames: ['dimanche', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi'],
             dayNamesShort: ['dim.', 'lun.', 'mar.', 'mer.', 'jeu.', 'ven.', 'sam.'],
             dayNamesMin: ['D','L','M','M','J','V','S'],
@@ -203,11 +203,11 @@
             isRTL: false,
             showMonthAfterYear: false,
             yearSuffix: ''};
-        datepicker.setDefaults(datepicker.regional['fr']);
+            datepicker.setDefaults(datepicker.regional['fr']);
 
-        return datepicker.regional['fr'];
+            return datepicker.regional['fr'];
 
-    }));
+        }));
 </script>
 
 @elseif(App::getLocale() ==='nl')
@@ -233,9 +233,9 @@
             nextText: '→',
             currentText: 'Vandaag',
             monthNames: ['januari', 'februari', 'maart', 'april', 'mei', 'juni',
-                'juli', 'augustus', 'september', 'oktober', 'november', 'december'],
+            'juli', 'augustus', 'september', 'oktober', 'november', 'december'],
             monthNamesShort: ['jan', 'feb', 'mrt', 'apr', 'mei', 'jun',
-                'jul', 'aug', 'sep', 'okt', 'nov', 'dec'],
+            'jul', 'aug', 'sep', 'okt', 'nov', 'dec'],
             dayNames: ['zondag', 'maandag', 'dinsdag', 'woensdag', 'donderdag', 'vrijdag', 'zaterdag'],
             dayNamesShort: ['zon', 'maa', 'din', 'woe', 'don', 'vri', 'zat'],
             dayNamesMin: ['zo', 'ma', 'di', 'wo', 'do', 'vr', 'za'],
@@ -245,11 +245,11 @@
             isRTL: false,
             showMonthAfterYear: false,
             yearSuffix: ''};
-        datepicker.setDefaults(datepicker.regional.nl);
+            datepicker.setDefaults(datepicker.regional.nl);
 
-        return datepicker.regional.nl;
+            return datepicker.regional.nl;
 
-    }));
+        }));
 
 
 </script>
@@ -290,14 +290,20 @@
         language_url : '/js/editor/fr.js',
         menubar: "tools edit",
         plugins: [
-            "lists charmap",
-            "wordcount",
+        "lists charmap",
+        "wordcount",
+        "paste",
+
         ],
+        paste_auto_cleanup_on_paste : true,
+        paste_remove_styles: true,
+        paste_remove_styles_if_webkit: true,
+        paste_strip_class_attributes: true,
         style_formats: [
-            {
-                title: 'Bold text',
-                inline: 'b',
-            },
+        {
+            title: 'Bold text',
+            inline: 'b',
+        },
         ]
     });
 </script>
@@ -317,9 +323,9 @@
 <script async>
     (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
         function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
-        e=o.createElement(i);r=o.getElementsByTagName(i)[0];
-        e.src='//www.google-analytics.com/analytics.js';
-        r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+    e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+    e.src='//www.google-analytics.com/analytics.js';
+    r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
     ga('create','UA-XXXXX-X');ga('send','pageview');
 </script>
 </body>

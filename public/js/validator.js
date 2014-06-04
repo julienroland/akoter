@@ -61,7 +61,7 @@
 			var sPath = sBasePath+'getOneValidation/' + sName + '/'+ sRule;
 
 		}
-		console.log(sPath)
+		/*console.log(sPath)*/
 		$.ajax({
 
 			url:sPath,

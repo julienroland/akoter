@@ -367,8 +367,7 @@ var getProprietePhoto = function( userId, proprieteId, sType ){
 			url: sBasePath+'ajax/getBuildingPhoto/'+sType+'/'+ proprieteId,
 			dataType: "json",
 			success:function( oData ){
-				console.log(oData);
-				console.log(sType);
+
 				if( oData ){
 
 					if($('#images[data-type="'+sType+'"]').length == 0){
@@ -524,13 +523,13 @@ settingsAdvertUpload = $(".mulitpleLocationfileuploader").each(function(){
 				alert(data.error);
 			}
 			$('#myform').submit();
-			console.log($(this));
+
 			getLocationPhoto( $that.parent().attr('data-userId'), $that.parent().attr('data-locationId'),$that.parent().attr('data-type') );
 		},
 
 		onError: function(files,status,errMsg)
 		{
-			console.log(files+'.'+status+'.'+errMsg);
+
 			$("#status").html("<font color='green'>Something Wrong</font>");
 		}
 
@@ -620,7 +619,7 @@ var getTraductions = function(  ) {
 		dataType: "json",
 		success:function( oData ){
 			oLang = oData;
-			console.log(oData);
+
 			return true;
 		}
 	});
@@ -969,7 +968,7 @@ var goTo = function( $selector ){
 			if(opt.handle === "") {
 				var $drag = $(this).addClass('draggable');
 			} else {
-				console.log($(this));
+
 				var $drag = $(this).addClass('active-handle');
 				$that.addClass('draggable');
 			}

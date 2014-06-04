@@ -16,7 +16,11 @@
         </li>
 
         <li {{Helpers::isActive('translations', Request::segment(2))}}>
-            <a href="{{url('admin/translations')}}">Traductions</a>
+            <a href="{{url('admin/translations')}}">Traductions statiques</a>
+        </li>
+
+        <li {{Helpers::isActive('translations2', Request::segment(2))}}>
+            <a href="{{url('admin/translations2')}}">Traductions dynamique</a>
         </li>
 
          <li {{Helpers::isActive('notices', Request::segment(2))}}>

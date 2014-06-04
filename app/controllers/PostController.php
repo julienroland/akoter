@@ -19,8 +19,13 @@ class PostController extends BaseController
 		$post = Post::whereId($id)->with('translation')->firstOrFail();
 
 		$otherPosts = Post::where('id','!=',$id)->article()->with('translation')->take(3)->get();
+		$translations = $post->translation->lists('value','key');
 
-		return View::make('posts.show', array('page'=>'articles'))
+		return View::make('posts.show', array(
+			'page'=>'articles',
+			'title'=>$translations['title'],
+			'description'=>substr(strip_tags(html_entity_decode($translations['content'])),0,170)
+			))
 		->withPost($post)
 		->with(compact('otherPosts'));
 	}

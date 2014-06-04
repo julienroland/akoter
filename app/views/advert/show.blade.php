@@ -12,7 +12,9 @@
 				<li><a class="" id="tabslocalisation" href="#localisation-tab">{{trans('locations.localisation')}}</a></li>
 				<li><a class="" id="tabspicture" href="#pictures-tab">{{trans('locations.pictures')}}</a></li>
 				<li><a class="" href="#equipment-tab">{{trans('locations.specificity')}}</a></li>
+				@if($location->comments_status == 1  )
 				<li><a class="" href="#comment-tab">{{trans('locations.comments')}}</a></li>
+				@endif
 			</ul>
 
 			<div id="description-tab" class="pannel">
@@ -70,7 +72,7 @@
 			<div id="pictures-tab" class="pannel">
 				@foreach($photosBuilding as $photo)
 				<div class="picture-gallery">
-					<img class="thumbnail" src="{{'/'.Config::get('var.images_dir').Config::get('var.users_dir').$user->id.'/'.Config::get('var.buildings_dir').$photo->building_id.'/'.$photo->type.'/'.Helpers::addBeforeExtension($photo->url, Config::get('var.img_gallery'))}}" width="{{$gallery['width']}}">
+					<img class="thumbnail" src="{{'/'.Config::get('var.images_dir').Config::get('var.users_dir').$user->id.'/'.Config::get('var.buildings_dir').$photo->building_id.'/'.Helpers::addBeforeExtension($photo->url, Config::get('var.img_gallery'))}}" width="{{$gallery['width']}}">
 				</div>	
 				@endforeach
 			</div>
@@ -120,7 +122,7 @@
 					</ul>
 				</div>
 			</div>
-
+			@if($location->comments_status == 1  )
 			<div id="comment-tab" class="pannel">
 
 				@if(Auth::check())
@@ -128,7 +130,18 @@
 				{{Form::open(array('route'=>array('addComments', $location->id),'class'=>'mainType rules','data-rules'=>json_encode(Location::$comment_rules)))}}
 				<div class="user">
 					<div class="user-photo">
+						@if(Helpers::isOk($user->photo))
 						<img  class="thumbnail" width="{{Config::get('var.user_photo_width')}}" height="{{Config::get('var.user_photo_height')}}" src="{{'/'.Config::get('var.images_dir').Config::get('var.users_dir').Auth::user()->id.'/'.Config::get('var.profile_dir').Auth::user()->photo}}">
+						@else
+						@if(Auth::user()->civility == 0)
+
+						<img class="thumbnail" src="{{Config::get('var.img_dir')}}{{Config::get('var.no_photoUserM')}}" alt="{{trans('account.imageProfile', array('name'=>Auth::user()->first_name. ' ' .Auth::user()->name))}}" width="{{Config::get('var.user_photo_width')}}" height="{{Config::get('var.user_photo_height')}}">
+
+						@else 
+
+						<img class="thumbnail" src="{{Config::get('var.img_dir')}}{{Config::get('var.no_photoUserF')}}" alt="{{trans('account.imageProfile', array('name'=>Auth::user()->first_name. ' ' .Auth::user()->name))}}" width="{{Config::get('var.user_photo_width')}}" height="{{Config::get('var.user_photo_height')}}">
+						@endif
+						@endif
 					</div>
 					<span class="name">{{Auth::user()->first_name. ' ' . Auth::user()->name}}</span>
 				</div>
@@ -197,7 +210,18 @@
 					<div class="comment {{$i !== 0 && $i%2 != 0 ? 'striped' : ''}}">
 						<div class="user">
 							<div class="photo">
+								@if(Helpers::isOk($comment->user->photo))
 								<img class="thumbnail" width="{{Config::get('var.user_photo_width')}}" height="{{Config::get('var.user_photo_height')}}" src="{{'/'.Config::get('var.images_dir').Config::get('var.users_dir').$comment->user->id.'/'.Config::get('var.profile_dir').$comment->user->photo}}" >
+								@else
+								@if(Auth::user()->civility == 0)
+
+								<img class="thumbnail" src="{{Config::get('var.img_dir')}}{{Config::get('var.no_photoUserM')}}" alt="{{trans('account.imageProfile', array('name'=>Auth::user()->first_name. ' ' .Auth::user()->name))}}" width="{{Config::get('var.user_photo_width')}}" height="{{Config::get('var.user_photo_height')}}">
+
+								@else 
+
+								<img class="thumbnail" src="{{Config::get('var.img_dir')}}{{Config::get('var.no_photoUserF')}}" alt="{{trans('account.imageProfile', array('name'=>Auth::user()->first_name. ' ' .Auth::user()->name))}}" width="{{Config::get('var.user_photo_width')}}" height="{{Config::get('var.user_photo_height')}}">
+								@endif
+								@endif
 							</div>
 							<span class="name">{{$comment->user->first_name.' '.$comment->user->name}}</span>
 							<span class="date">{{Helpers::beTime($comment->created_at)}}</span>
@@ -222,6 +246,7 @@
 				</div>
 				@endif
 			</div>
+			@endif
 		</div>
 		<sidebar class="advert-sidebar">
 			<div class="infos-master">
@@ -229,16 +254,17 @@
 				<span class="price">{{round($location->price)}}€</span>
 				<span class="perMonth">{{trans('general.perMonth')}}</span>
 				<span class="charge">{{trans('locations.charge')}} {{Config::get('var.charges')[$location->charge_type]}}</span>
-				@if($location->charge_type > 0)
+				@if($location->charge_type == 1)
 				<span class="chargePrice">{{$location->charge_price}}€</span>
+				@elseif($location->charge_type == 2)
+				{{trans('locations.charge_conso')}}
 				@endif
 				<span class="typeLocation">{{trans('locations.typeLocation',array('name'=>$typeLocation))}}</span>
 				<span class="nb_seat"><i class="icon icon-user3"></i>{{trans('locations.nb_seat',array('number'=>$location->remaining_room))}}</span>
 				<div class="date">
 					<span class="dt">{{trans('locations.start_at')}}: </span>
-					<i class="icon icon-calendar68"></i>
 					<span class="start fdate">{{Helpers::beTime(Helpers::createCarbonDate($location->start_date), '$d $nd $M $y')}}</span>
-					<span class="to">{{trans('general.to')}}</span>
+					<span class="to">{{trans('general.to_date')}}</span>
 					<span class="start fdate">{{Helpers::beTime(Helpers::createCarbonDate($location->end_date), '$d $nd $M $y')}}</span>
 				</div>
 				<span class="caution">{{trans('locations.garantee', array('number'=>$location->garantee))}} </span>
@@ -269,11 +295,26 @@
 
 				<span class="number_rate">{{trans('locations.nb_rate',array('number'=>$location->nb_rate))}} </span>
 			</div>
+			@if(Helpers::isOk($favoris) && $favoris->count())
+			<div class="favoris"><a href="{{route('removeFavoris', $location->id)}}" class="icon icon-big61 tooltip-ui-s" title="{{trans('locations.removeFavoris')}}"></a></div>
+			@else
 			<div class="favoris"><a href="{{route('addFavoris', $location->id)}}" class="icon icon-big61 tooltip-ui-s" title="{{trans('locations.favoris')}}"></a></div>
-			@if(Helpers::isOk($agence) && $agence->count() <= 0)
+			@endif
+			@if(Helpers::isNotOk($agence))
 			<div class="user">
 				<div class="user-picture">
+					@if(Helpers::isOk($user->photo))
 					<img class="thumbnail" width="{{Config::get('var.user_photo_width')}}" height="{{Config::get('var.user_photo_height')}}" src="{{'/'.Config::get('var.images_dir').Config::get('var.users_dir').$user->id.'/'.Config::get('var.profile_dir').$user->photo}}" alt="{{$user->name}}">
+					@else
+					@if(Auth::user()->civility == 0)
+
+					<img class="thumbnail" src="{{Config::get('var.img_dir')}}{{Config::get('var.no_photoUserM')}}" alt="{{trans('account.imageProfile', array('name'=>Auth::user()->first_name. ' ' .Auth::user()->name))}}" width="{{Config::get('var.user_photo_width')}}" height="{{Config::get('var.user_photo_height')}}">
+
+					@else 
+
+					<img class="thumbnail" src="{{Config::get('var.img_dir')}}{{Config::get('var.no_photoUserF')}}" alt="{{trans('account.imageProfile', array('name'=>Auth::user()->first_name. ' ' .Auth::user()->name))}}" width="{{Config::get('var.user_photo_width')}}" height="{{Config::get('var.user_photo_height')}}">
+					@endif
+					@endif
 				</div>
 				<div class="user-info">
 					<span class="name">{{$user->first_name}} {{$user->name}}</span>
@@ -287,6 +328,7 @@
 			</div>
 			@else
 			<div class="user">
+
 				<a href="{{route('showAgence', $agence->slug)}}" class="tooltip-ui-e" title="{{trans('locations.see_agence')}}">
 					<div class="user-picture">
 						<img class="thumbnail" src="/{{Config::get('var.images_dir')}}{{Config::get('var.agences_dir')}}{{$agence->id}}/{{Config::get('var.logoAgence_dir')}}{{$agence->logo}}" width="{{Config::get('var.agence_logo_width')}}" height="{{Config::get('var.agence_logo_height')}}" alt="{trans('general.logo_of_agency', array('name'=>$agence->name))}}">

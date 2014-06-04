@@ -110,5 +110,6 @@ return array (
     'title'=>'Voir l\'article :name en entier',
     ),
   'backTop'=>'Remonter en haut de la page',
+  'to_date'=>'au',
 
   );

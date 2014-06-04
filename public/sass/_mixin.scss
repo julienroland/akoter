@@ -771,6 +771,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#35a0c6', end
 	&:last-child{
 		margin-bottom: 0;
 	}
+	a{
+		color:$mc;
+	}
 
 	.informations{
 		float: left;

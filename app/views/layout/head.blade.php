@@ -36,8 +36,8 @@
 
   <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
-
-  {{HTML::style('css/screen.css')}}
+<!-- {{HTML::style('css/styles.css')}} -->
+   {{HTML::style('css/screen.css')}}
   @if(isset($widget) && Helpers::isOk($widget) && in_array('select', $widget))
   {{HTML::style('css/chosen-mk.css')}}
   @endif
@@ -48,9 +48,9 @@
   @endif
 
   @if(isset($widget) && Helpers::isOk($widget) && in_array('date', $widget))
-  {{HTML::style('css/jquery-ui.css')}}
+  <!-- {{HTML::style('css/jquery-ui.css')}}
   {{HTML::style('css/latoja.datepicker.css')}}
-  {{HTML::style('css/melon.datepicker.css')}}
+  {{HTML::style('css/melon.datepicker.css')}} -->
   @endif
 
   

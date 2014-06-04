@@ -236,7 +236,9 @@ var displayOrNotPrice = function( ){
 };
 var kotLoad = function(){
 
-	if((($('.kot:last').offset().top - (nkotHeight * 2))-$win.height() <= $win.scrollTop()) && bLoad==false ){
+	if($('.kot').length > 0){
+
+		if((($('.kot:last').offset().top - (nkotHeight * 2))-$win.height() <= $win.scrollTop()) && bLoad==false ){
 
 			// la valeur passe à vrai, on va charger
 			bLoad = true;
@@ -272,85 +274,86 @@ var kotLoad = function(){
 
 
 		}
-	};
-	
-	var loadCSS = function() {
-		var cssLink = $("<link rel='stylesheet' type='text/css' href='../css/screen.css'>");
-		$("head").append(cssLink); 
-	};
-	var getRating = function( rating ){
+	}
+};
 
-		return Math.round( rating ) / 2;
-	};
+var loadCSS = function() {
+	var cssLink = $("<link rel='stylesheet' type='text/css' href='../css/screen.css'>");
+	$("head").append(cssLink); 
+};
+var getRating = function( rating ){
 
-	var extractLatLng = function( latlng, type){
+	return Math.round( rating ) / 2;
+};
 
-		if( type === 'lat' ){
+var extractLatLng = function( latlng, type){
 
-			return latlng.split(',')[0];
+	if( type === 'lat' ){
 
-		}else{
+		return latlng.split(',')[0];
 
-			return latlng.split(',')[1];
+	}else{
 
-		}
+		return latlng.split(',')[1];
 
-	};
+	}
 
-	var trans = function( key, parameters ){
+};
 
-		if(typeof parameters !== "undefined"){
+var trans = function( key, parameters ){
 
-			if(typeof key === 'undefined'){
+	if(typeof parameters !== "undefined"){
 
-				var key  = oLang.key;
+		if(typeof key === 'undefined'){
 
-			}
-
-			var line = key;
-			if(typeof key !== 'undefined'){
-
-				$.each(parameters, function( key , value){
-
-					line = line.replace(':'+key, value );
-
-				});
-
-				return line;
-
-			}
-
-		}else{
-
-			if(typeof key === 'undefined'){
-
-				var key  = oLang.key;
-
-			}
-
-			var line = key;
-			if(typeof key !== 'undefined'){
-
-				return key;
-
-			}
+			var key  = oLang.key;
 
 		}
 
-	};
+		var line = key;
+		if(typeof key !== 'undefined'){
 
-	$.fn.clearForm = function() {
-		return this.each(function() {
-			var type = this.type, tag = this.tagName.toLowerCase();
-			if (tag == 'form')
-				return $(':input',this).clearForm();
-			if (type == 'text' || type == 'password' || tag == 'textarea')
-				this.value = '';
-			else if (type == 'checkbox' || type == 'radio')
-				this.checked = false;
-			else if (tag == 'select')
-				this.selectedIndex = -1;
-		});
-	};
+			$.each(parameters, function( key , value){
+
+				line = line.replace(':'+key, value );
+
+			});
+
+			return line;
+
+		}
+
+	}else{
+
+		if(typeof key === 'undefined'){
+
+			var key  = oLang.key;
+
+		}
+
+		var line = key;
+		if(typeof key !== 'undefined'){
+
+			return key;
+
+		}
+
+	}
+
+};
+
+$.fn.clearForm = function() {
+	return this.each(function() {
+		var type = this.type, tag = this.tagName.toLowerCase();
+		if (tag == 'form')
+			return $(':input',this).clearForm();
+		if (type == 'text' || type == 'password' || tag == 'textarea')
+			this.value = '';
+		else if (type == 'checkbox' || type == 'radio')
+			this.checked = false;
+		else if (tag == 'select')
+			this.selectedIndex = -1;
+	});
+};
 
 }).call( this, jQuery );

@@ -20,17 +20,11 @@
 
 	@else
 
-	@if( Session::has('inscription.building_id') )
-
-	{{Form::open(array('route'=>array('update_localisation_building', Auth::user()->slug),'method'=>'put','class'=>'mainType rules','data-rules'=>json_encode(Building::$inscription_rules)))}}
-
-	@else
-
 	{{Form::open(array('route'=>array('save_localisation_building', Auth::user()->slug),'class'=>'mainType rules','data-rules'=>json_encode(Building::$inscription_rules)))}}
 
 	@endif
 
-	@endif
+
 
 	<div class="requiredField"><span class="icon-required" aria-hidden="true"></span>{{trans('form.required_field')}}</div>
 
