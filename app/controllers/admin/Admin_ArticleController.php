@@ -197,6 +197,13 @@ class Admin_ArticleController extends \Admin_AdminController
 			->withSuccess('Image bien ajouté');
 		}
 	}
+	public function delete( $article ){
+
+		$article->delete();
+
+		return Redirect::back()
+		->withSuccess('Article correctement supprimé');
+	}
 
 	public function removePhoto( $post ){
 

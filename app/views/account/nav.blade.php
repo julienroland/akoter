@@ -2,7 +2,7 @@
 	<h2 aria-level="2" role="heading" class="section">{{trans('account.nav')}}</h2>
 	<ul>
 		<div class="profil">
-		
+
 			@include('account.includes.photoProfile')
 
 			<li><a href="{{route('account_home',Auth::user()->slug)}}" ><span class="icon icon-home63"></span>{{trans('account.home')}}</a></li>
@@ -15,11 +15,10 @@
 
 			<li class="opGroup">{{trans('account.manage')}}</li>
 
-			@if(Auth::user()->isOwner == 1)
 
 			<li><a href="{{route('index_localisation_building', Auth::user()->slug)}}"><span class="icon icon-new16"></span>{{trans('inscription.add_location')}}</a></li>
 
-			@endif
+
 
 			<li><a href=""><span class="icon icon-send5"></span>{{trans('account.mail')}}</a></li>
 
@@ -71,6 +70,12 @@
 
 				<a title="{{trans('account.check_settings')}}" class="tooltip-ui-s" href="{{route('account_params',Auth::user()->slug)}}" {{Helpers::isActive('account_params')}}>
 					<span class="icon icon-tools6"></span>{{trans('account.settings')}}
+					@if(Auth::user()->email_comfirm == 0)
+					<span class="warning-tick icon-shield35" aria-hidden="true"></span>
+					<div class="warning-tick-box">
+						{{trans('account.email_not_comfirm')}} 
+					</div>
+					@endif
 				</a>
 
 

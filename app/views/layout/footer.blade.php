@@ -31,7 +31,6 @@
 					<li><a href="{{route('showPost', $data['slug'])}}">{{$data['title']}}</a></li>
 					@endforeach
 					<li><a href="{{route('contact')}}">{{trans('footer.contact-us')}}</a></li>
-					<li><a href="{{route('contact')}}">{{trans('footer.who_are')}}</a></li>
 					<li><a href="{{route('contact')}}">{{trans('footer.mapSite')}}</a></li>
 					@if(Auth::check())
 					<li><a href="{{route('how_be_tenant', Auth::user()->slug)}}">{{trans('footer.become_tenant')}}</a></li>
@@ -45,7 +44,7 @@
 
 				<ul class="permalink">
 					<li><a href="{{route('indexPost')}}">{{trans('footer.actu')}}</a></li>
-					<li><a href="">{{trans('footer.add_location')}}</a></li>
+					<li><a href="{{Auth::check() ? route('index_localisation_building', Auth::user()->slug) : route('connection')}}">{{trans('footer.add_location')}}</a></li>
 					<li><a href="">{{trans('footer.add_schools')}}</a></li>
 					<li><a href="{{route('api')}}">{{trans('footer.api')}}</a></li>
 					@if(Auth::check() && Auth::user()->role_id < 3)

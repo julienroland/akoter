@@ -47,6 +47,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface, Slugg
 		'month'=>'required |numeric',
 		'year'=>'required |numeric|digits:4',
 		'password'=>'required |min:5|alpha_num',
+		'cgu'=>'accepted',
 		'password_ck'=>'required|same:password|min:5|alpha_num ',
 		
 		);

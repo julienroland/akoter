@@ -48,6 +48,7 @@
 						<td>
 							<a href="{{url('admin/articles/edit', $post->id)}}" class="btn btn-warning"><i class="glyphicon glyphicon-pencil"></i></a>
 							<a href="{{$post->publish == 0 ? url('admin/articles/publish', $post->id) : url('admin/articles/depublish', $post->id) }}" class="btn {{$post->publish == 0 ? 'btn-success' : 'btn-danger'}}"><i class="glyphicon glyphicon-eye-{{$post->publish == 0 ? 'open' : 'close'}}"></i></a>
+							<a href="{{url('admin/articles/delete', $post->id) }}" class="btn btn-danger"><i class="glyphicon glyphicon-remove"></i></a>
 
 						</td>
 					</tr>

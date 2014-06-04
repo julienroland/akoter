@@ -175,6 +175,7 @@ return array(
         "notice"=>'Avis',
         "nb_employer"=>'Nombre d\'employés',
         "locality"=>'Localité',
+        "cgu"=>'Conditions générales d\'utilisation',
     ),
 
 );

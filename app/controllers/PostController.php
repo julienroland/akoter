@@ -18,7 +18,7 @@ class PostController extends BaseController
 
 		$post = Post::whereId($id)->with('translation')->firstOrFail();
 
-		$otherPosts = Post::where('id','!=',$id)->with('translation')->take(3)->get();
+		$otherPosts = Post::where('id','!=',$id)->article()->with('translation')->take(3)->get();
 
 		return View::make('posts.show', array('page'=>'articles'))
 		->withPost($post)

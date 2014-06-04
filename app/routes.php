@@ -465,6 +465,8 @@ Route::group(array('prefix' => $lang), function () use ($lang) {
 
                     Route::get('articles/add', array('uses'=>'Admin_ArticleController@add'));
 
+                    Route::get('articles/delete/{article_id}', array('uses'=>'Admin_ArticleController@delete'));
+
                     Route::post('articles/store', array('uses'=>'Admin_ArticleController@store'));
                     
                     /**
