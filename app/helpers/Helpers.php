@@ -5,6 +5,16 @@ use \DetectLanguage\DetectLanguage;
 DetectLanguage::setApiKey(Config::get('var.detect_key'));
 class Helpers {
 
+	public static function title( $str ){
+
+		return substr($str, 0, 44);
+	}
+
+	public static function description( $str ){
+
+		return substr($str, 0, 165);
+	}
+
 	public static function footer(){
 
 		return Post::wherePostTypeId(2)->with('translation')->get();

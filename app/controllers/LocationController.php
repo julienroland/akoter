@@ -48,13 +48,13 @@ class LocationController extends BaseController
 				array(
 					'typeLocation'=>$typeLocation,
 					'region'=>$region,
-					'title'=>$translations['title'],
+					'title'=>Helpers::title($translations['title']),
 					)),
 			'description'=>trans('description.showLocation',array(
-				'description'=>strip_tags($translations['advert']),
+				'description'=>Helpers::description(strip_tags($translations['advert'])),
 				)),
 			'keywords'=>$translations['title'].','.$typeLocation.' '.$region.','.$user->first_name.' '.$user->name,
-			'ogImage'=>Config::get('var.url').'/'.Helpers::imgDir(Config::get('var.img_locations_replace') ,array(
+			'ogImage'=>Config::get('var.url').Helpers::imgDir(Config::get('var.img_locations_replace') ,array(
 				'user_id'=>$user->id,
 				'location_id'=>$location->id,
 				)).Helpers::addBeforeExtension($location->accroche()->pluck('url'), 'medium'),

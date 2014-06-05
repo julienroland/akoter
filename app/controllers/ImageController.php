@@ -151,14 +151,22 @@ public function postBuildingImage( $type='more', $id=null )
 
         $filename = Helpers::toSlug(Helpers::addTimestamp( $part->getClientOriginalName(),'-'.$type->name ,$type->extension , $timestamp));
 
+        if($type->name == Config::get('var.img_gallery') || $type->name == Config::get('var.img_small') || $type->name == Config::get('var.img_medium')){
+
+         $image->resize( $type->width, $type->height , true)->save( $destinationPath.$filename )->encode('jpg', Config::get('var.img_quality'));
+
+       }else{
+
         $image->grab( $type->width, $type->height )->save( $destinationPath.$filename )->encode('jpg', Config::get('var.img_quality'));
 
       }
 
-
-
     }
+
+
+
   }
+}
 else //single file
 {   
 
@@ -188,7 +196,15 @@ else //single file
 
     $filename = Helpers::toSlug(Helpers::addTimestamp( $file->getClientOriginalName(),'-'.$type->name ,$type->extension , $timestamp));
 
-    $image->grab( $type->width, $type->height )->save( $destinationPath.$filename )->encode('jpg', Config::get('var.img_quality'));
+    if($type->name == Config::get('var.img_gallery') || $type->name == Config::get('var.img_small') || $type->name == Config::get('var.img_medium')){
+
+      $image->resize( $type->width, $type->height, true )->save( $destinationPath.$filename )->encode('jpg', Config::get('var.img_quality'));
+
+    }else{
+
+      $image->grab( $type->width, $type->height )->save( $destinationPath.$filename )->encode('jpg', Config::get('var.img_quality'));
+
+    }
 
   }
 
@@ -224,8 +240,6 @@ public function postLocationImage( $type='location', $id=null )
   if(Helpers::isOk( $id ) && Helpers::isOk( $type )){
 
     $location = Location::find($id);
-
-    
 
 
 
@@ -293,7 +307,15 @@ public function postLocationImage( $type='location', $id=null )
 
         $filename = Helpers::toSlug(Helpers::addTimestamp( $part->getClientOriginalName(),'-'.$type->name ,$type->extension , $timestamp));
 
-        $image->grab( $type->width, $type->height )->save( $destinationPath.$filename )->encode('jpg', Config::get('var.img_quality'));
+        if($type->name == Config::get('var.img_gallery') || $type->name == Config::get('var.img_small') || $type->name == Config::get('var.img_medium')){
+
+          $image->resize( $type->width, $type->height, true )->save( $destinationPath.$filename )->encode('jpg', Config::get('var.img_quality'));
+
+        }else{
+
+          $image->grab( $type->width, $type->height )->save( $destinationPath.$filename )->encode('jpg', Config::get('var.img_quality'));
+
+        }
 
       }
     }
@@ -330,7 +352,15 @@ else //single file
 
     $filename = Helpers::toSlug(Helpers::addTimestamp( $file->getClientOriginalName(),'-'.$type->name ,$type->extension , $timestamp));
 
-    $image->grab( $type->width, $type->height )->save( $destinationPath.$filename )->encode('jpg', Config::get('var.img_quality'));
+    if($type->name == Config::get('var.img_gallery') || $type->name == Config::get('var.img_small') || $type->name == Config::get('var.img_medium')){
+
+      $image->resize( $type->width, $type->height, true )->save( $destinationPath.$filename )->encode('jpg', Config::get('var.img_quality'));
+
+    }else{
+
+      $image->grab( $type->width, $type->height )->save( $destinationPath.$filename )->encode('jpg', Config::get('var.img_quality'));
+
+    }
 
   }
 
@@ -559,7 +589,10 @@ if(File::exists( $destinationPath.$photo->url )){
   
   File::delete( $destinationPath.$photo->url );
 
-}
+}else{
+
+  return Response::json('error, not allowed', 400);
+} 
 
 /**
 *
@@ -630,7 +663,10 @@ if(File::exists( $destinationPath.$photo->url )){
   
   File::delete( $destinationPath.$photo->url );
 
-}
+}else{
+
+  return Response::json('error, not allowed', 400);
+} 
 
 /**
 *

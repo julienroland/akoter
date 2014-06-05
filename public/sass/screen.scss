@@ -377,10 +377,15 @@ strong {
 	text-align: left;
 	text-transform: uppercase;
 	font-size: $large;
+	color:$greyD;
 	overflow: hidden;
 	height: 1.3em;
+	font-weight: 300;
+	text-align: center;
 	white-space: nowrap;
 	text-overflow:ellipsis;
+	margin-bottom: 2em;
+	border-bottom: 1px solid $borange;
 }
 .sortTitle {
 	@extend .mainTitle;
@@ -2840,7 +2845,7 @@ $country-h: 100px;
 
 }
 .favoris{
-	margin: 1em 0;
+	margin: $gutter / 2 0;
 	text-align: center;
 	a{
 		color:red;
@@ -7078,17 +7083,26 @@ div.wijmo-wijmenu .wijmo-wijmenu-child .wijmo-wijmenu-text {
 	background-color: $greyL3;
 }
 .advert{
-	padding: 3em 1em;
-	background-color: white;
+	padding: 2em 0;
 	@include c(12);
+
 	.tabs{
 		@include cl(9);	
+		@include border-radius($gutter / 2);
 	}
-
+	.rslides li{
+		width: auto;
+	}
+	.ref{
+		color:$greyD;
+		margin-bottom: $gutter / 2;
+	}
 }
 .advert-sidebar{
 	@include cl(3);
-	padding:3em 1em;
+	padding:2em 1em;
+	border:2px solid lighten($borange,20%);
+	background-color: white;
 	.user{
 		@include c(12);
 		margin: $gutter / 2 0;
@@ -7128,8 +7142,8 @@ div.wijmo-wijmenu .wijmo-wijmenu-child .wijmo-wijmenu-text {
 	}
 	.infos-master{
 		.price{
-			font-weight: 500;
-			font-size: $xx-large;
+			font-weight: 700;
+			font-size: $xxx-large;
 			text-transform: uppercase;
 			text-align: center;
 			display: inline-block;
@@ -7142,29 +7156,92 @@ div.wijmo-wijmenu .wijmo-wijmenu-child .wijmo-wijmenu-text {
 			width: 100%;
 			margin-top: -0.5em;
 			color: $greyD;
-			margin-bottom: $gutter;
+			margin-bottom: $gutter / 2;
 
 		}
-
+		.charge{
+			display: block;
+			text-align: center;
+			color: $borange;
+			margin-bottom: $gutter / 2;
+		}
+		.typeLocation{
+			display: block;
+			margin-bottom: $gutter / 4;
+		}
+		.nb_seat{
+			display: block;
+			margin-bottom: $gutter / 4;
+		}
+		.remaining_location{
+			color: $greyD;
+			font-size: $small;
+		}
+		.caution{
+			display: block;
+			margin-bottom: $gutter / 4;
+			.icon:before{
+				font-size: $large;
+			}
+		}
 		.date{
+			display: block;
+			text-align: center;
 			.dt{
-				font-weight: bold;
-				display: inline-block;
-				width: 100%;
+				display: block;
+				margin: $gutter / 4 0;
+				.dt-d{
+					font-weight: bold;
+					font-size: $large;
+					text-align: center;
+					text-transform: uppercase;
+					color: white;
+					padding: $gutter / 4;
+					@include border-radius(50%);
+					background-color: $borange;
+					display: inline-block;
+				}
 			}
 			.fdate{
-				display: inline-block;
+				display: block;
+				color:$greyD;
+				font-style: italic;
 
 			}
 			.to{
 				font-weight: 300;
 				font-size: $small;
+				padding: 3px 5px;
+				background-color: $greyL2;
+				color:$tc;
+				@include border-radius(50%);
 				display: inline-block;
 			}
 		}
+
+	}
+	.rating{
+		display: block;
+		margin:$gutter / 2 auto;
+		.rating{
+			text-align: center;
+			margin: 0 auto;
+		}
+	}
+	.number_rate{
+		display: block;
+		text-align: center;
+		font-size: $small;
+		color:$greyD;
 	}
 }
 .ui-tabs{
+	background-color: white;
+	padding:2em 1em;
+	.ui-tabs-panel{
+		padding-left:0;
+		padding-right:0;
+	}
 	.pannel{
 		@include c(12);
 	}
@@ -7205,32 +7282,58 @@ div.wijmo-wijmenu .wijmo-wijmenu-child .wijmo-wijmenu-text {
 		margin-bottom: $gutter;
 		margin-left: - gutter() / 2;
 		margin-right: - gutter() / 2;
-
-		.ui-tabs-active{
+		border-bottom: 0;
+		li.ui-tabs-active{
 			
 			a{
 				color:white;
-				background-color: $mc;
-				border:1px solid darken($mc,10%);
+				background-color: $borange;
+				border: 2px solid darken($borange,10%);
+			}
+			&.ui-state-hover, .ui-state-focus{
 
+				a{
+					color:white;
+					margin-bottom: 2px solid $borange;
+				}
+			}
+		}
+		list-style-type: upper-roman;.ui-state-hover, .ui-state-focus{
+
+			a{
+				margin-bottom: 2px solid $borange;
 			}
 		}
 		li{
 			margin:0 $gutter / 5;
 			border:0px solid $greyL2;
+
 		}
 		a{
 			font-size: 1.1em;
+			border:2px solid $greyL2;
+			@include border-radius(0);
 			color:$tc;
 			font-weight: 400;
 			background-color: $greyL;
-			border:1px solid $greyL2;
+			&:hover,&:focus,&:active{
+				color:$borange;
+				border-bottom: 2px solid $greyL2;
+			}
 		}
 	}
 	.description{
 		color:$greyD;
 		margin-top: 2em;
+		font-size: $large;
+		padding:1em;
 		padding-bottom: 3em;
+		.title-description{
+			color:$borange;
+			margin-bottom: $gutter / 2;
+			display: inline-block;
+			font-weight: 400;
+		}
 	}
 	.title-description{
 		font-weight: 500;
@@ -7244,7 +7347,8 @@ div.wijmo-wijmenu .wijmo-wijmenu-child .wijmo-wijmenu-text {
 		margin-right:- gutter() / 2;
 		.picture-gallery{
 			@include cl(6);
-			width: 300px;
+			margin: 0;
+			width: auto;
 			margin-bottom:$gutter;
 		}
 
@@ -7264,7 +7368,7 @@ div.wijmo-wijmenu .wijmo-wijmenu-child .wijmo-wijmenu-text {
 	border:1px solid darken($borange,10%);
 	color: white;
 	display: block;
-	line-height: 40px;
+	line-height: 35px;
 	font-size: $medium;
 	font-weight: 500;
 	letter-spacing: 1px;
@@ -7293,12 +7397,11 @@ div.wijmo-wijmenu .wijmo-wijmenu-child .wijmo-wijmenu-text {
 	}
 	
 	#slider-pager{
-		margin-left: - gutter() / 2;
-		margin-right: - gutter() / 2;
+
 		li{
 			@include cl(3);
-			width: 63px;
-			height: 32px;
+			width: 67px;
+			height: 36px;
 			margin: gutter() /  5 gutter() / 5;
 			border:2px solid transparent;
 			a{
@@ -7306,7 +7409,7 @@ div.wijmo-wijmenu .wijmo-wijmenu-child .wijmo-wijmenu-text {
 				
 			}
 			&.transparent-btns_here{
-				border:2px solid $mc;
+				border:2px solid $borange;
 			}
 		}
 	}

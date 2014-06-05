@@ -1508,7 +1508,7 @@ var displayNumberResult = function( nNumber ){
 
 	if($l_range.html().indexOf('(') < 0){
 
-		$l_range.html( $l_range.html() + ' ('+ nNumber +')');
+		$l_range.html( $l_range.html() + ' ('+ nNumber +')'.oLang.locations.building);
 
 	}else{
 

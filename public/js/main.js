@@ -321,7 +321,6 @@ var deleteImage = function( $that ){
 
 	$.ajax({
 		type: "get", 
-		async:   false,
 		url: sBasePath + 'ajax/deleteImage/'+ $that.attr('data-id')+'/'+$that.attr('data-proprieteId')+'/'+$that.attr('data-type'),
 		dataType: "json",
 		success:function( oData ){
@@ -331,14 +330,15 @@ var deleteImage = function( $that ){
 					$(this).remove();   
 				});
 			}
+			
 		}
 	});
+
 }
 var deleteAdvertImage = function( $that ){
 
 	$.ajax({
 		type: "get", 
-		async:   false,
 		url: sBasePath + 'ajax/deleteAdvertImage/'+ $that.attr('data-id')+'/'+$that.attr('data-locationId'),
 		dataType: "json",
 		success:function( oData ){
@@ -348,8 +348,10 @@ var deleteAdvertImage = function( $that ){
 					$(this).remove();   
 				});
 			}
+			
 		}
 	});
+
 }
 var addBeforeExtension  = function( stringWithExt, string ){
 

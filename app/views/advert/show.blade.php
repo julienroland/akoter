@@ -7,6 +7,7 @@
 	<div class="advert">
 		<h1 aria-level="1" role="heading" class="advertTitle">{{$translations['title']}}</h1>
 		<div class="tabs">
+		<div class="ref">{{trans('locations.ref',array('ref'=>$location->id))}}</div>
 			<ul class="advert-tabs">
 				<li><a class="" href="#description-tab">{{trans('locations.description')}}</a></li>
 				<li><a class="" id="tabslocalisation" href="#localisation-tab">{{trans('locations.localisation')}}</a></li>
@@ -22,7 +23,7 @@
 					<div class="slide">
 						<div class="rslides" id="slider">
 							@foreach($photosLocation as $photo)
-							<li><a href="#"><img  src="{{'/'.Config::get('var.images_dir').Config::get('var.users_dir').$user->id.'/'.Config::get('var.locations_dir').$photo->location_id.'/'.Helpers::addBeforeExtension($photo->url, Config::get('var.img_lightbox'))}}" width="{{$lightbox['width']}}" height="{{$lightbox['height']}}"></a></li>
+							<li class="thumbnail"><a href="#"><img  src="{{'/'.Config::get('var.images_dir').Config::get('var.users_dir').$user->id.'/'.Config::get('var.locations_dir').$photo->location_id.'/'.Helpers::addBeforeExtension($photo->url, Config::get('var.img_lightbox'))}}" width="{{$lightbox['width']}}" height="{{$lightbox['height']}}"></a></li>
 							@endforeach
 
 						</div>
@@ -30,7 +31,7 @@
 					<!-- Slideshow 3 Pager -->
 					<ul id="slider-pager">
 						@foreach($photosLocation as $photo)
-						<li><a href="#"><img src="{{'/'.Config::get('var.images_dir').Config::get('var.users_dir').$user->id.'/'.Config::get('var.locations_dir').$photo->location_id.'/'.Helpers::addBeforeExtension($photo->url, Config::get('var.img_lightbox'))}}" width="{{$small['width']}}" height="{{$small['height']}}" ></a></li>
+						<li><a href="#"><img src="{{'/'.Config::get('var.images_dir').Config::get('var.users_dir').$user->id.'/'.Config::get('var.locations_dir').$photo->location_id.'/'.Helpers::addBeforeExtension($photo->url, Config::get('var.img_small'))}}" width="{{$small['width']}}" height="{{$small['height']}}" ></a></li>
 						@endforeach
 
 					</ul>
@@ -71,8 +72,8 @@
 
 			<div id="pictures-tab" class="pannel">
 				@foreach($photosBuilding as $photo)
-				<div class="picture-gallery">
-					<img class="thumbnail" src="{{'/'.Config::get('var.images_dir').Config::get('var.users_dir').$user->id.'/'.Config::get('var.buildings_dir').$photo->building_id.'/'.Helpers::addBeforeExtension($photo->url, Config::get('var.img_gallery'))}}" width="{{$gallery['width']}}">
+				<div class="picture-gallery thumbnail">
+					<img  src="{{'/'.Config::get('var.images_dir').Config::get('var.users_dir').$user->id.'/'.Config::get('var.buildings_dir').$photo->building_id.'/'.Helpers::addBeforeExtension($photo->url, Config::get('var.img_gallery'))}}" width="{{$gallery['width']}}">
 				</div>	
 				@endforeach
 			</div>
@@ -253,29 +254,32 @@
 
 				<span class="price">{{round($location->price)}}€</span>
 				<span class="perMonth">{{trans('general.perMonth')}}</span>
-				<span class="charge">{{trans('locations.charge')}} {{Config::get('var.charges')[$location->charge_type]}}</span>
+				<span class="charge">{{trans('locations.charge')}} {{Config::get('var.charges')[$location->charge_type]}} {{$location->charge_price > 0 ? '( '.$location->charge_price .')' : ''}}</span>
 				@if($location->charge_type == 1)
 				<span class="chargePrice">{{$location->charge_price}}€</span>
-				@elseif($location->charge_type == 2)
-				{{trans('locations.charge_conso')}}
 				@endif
-				<span class="typeLocation">{{trans('locations.typeLocation',array('name'=>$typeLocation))}}</span>
+				<span class="typeLocation"><i class="icon icon-longa"></i>{{$typeLocation}}	<span class="section">{{trans('locations.typeLocation',array('name'=>$typeLocation))}}</span></span>
 				<span class="nb_seat"><i class="icon icon-user3"></i>{{trans('locations.nb_seat',array('number'=>$location->remaining_room))}}</span>
+				@if(Helpers::isOk($location->start_date) && Helpers::isOk($location->end_date))
 				<div class="date">
-					<span class="dt">{{trans('locations.start_at')}}: </span>
+					<span class="dt"><span class="dt-d">{{trans('locations.start_at')}} </span></span>
 					<span class="start fdate">{{Helpers::beTime(Helpers::createCarbonDate($location->start_date), '$d $nd $M $y')}}</span>
-					<span class="to">{{trans('general.to_date')}}</span>
+					<span class="dt"><span class="to">{{trans('general.to_date')}}</span></span>
 					<span class="start fdate">{{Helpers::beTime(Helpers::createCarbonDate($location->end_date), '$d $nd $M $y')}}</span>
 				</div>
-				<span class="caution">{{trans('locations.garantee', array('number'=>$location->garantee))}} </span>
-				@if($location->advert_specific == 0)
-				{{trans('locations.remaining_location',array('number'=>$location->remaining_location))}}
 				@endif
+				<span class="caution"><i class="icon icon-piggy1"></i>	{{trans('locations.garantee', array('number'=>round($location->garantee)))}}</span>
+				<p class="remaining_location">
+					@if($location->advert_specific == 0)
+					{{trans('locations.remaining_location',array('number'=>$location->remaining_location,'type'=>$typeLocation))}}
+					@endif
+				</p>
+
 				@if(isset($location->start_date) && isset($location->end_date))
 				<span class="total-month">{{trans('locations.contrat_during',array('time'=>Helpers::createCarbonDate($location->start_date)->diffInMonths(Helpers::createCarbonDate($location->end_date))))}} <b></b></span>
 				@endif
 
-				<a href="{{route('reserved', $translations['slug'])}}" class="reserved {{Auth::check() && Helpers::isOk($location->user()->whereUserId(Auth::user()->id)->whereRequest(1)->first()) ?  $location->user()->whereUserId(Auth::user()->id)->whereRequest(1)->first()->count() ? 'waiting': '': ''}}">{{Auth::check() && Helpers::isOk($location->user()->whereUserId(Auth::user()->id)->whereRequest(1)->first()) ? $location->user()->whereUserId(Auth::user()->id)->whereRequest(1)->first()->count() ? trans('locations.waiting_reserved'):trans('locations.reserved') : trans('locations.reserved')}}</a>
+				<a href="{{route('reserved', $translations['slug'])}}" class="icon icon-key105 reserved {{Auth::check() && Helpers::isOk($location->user()->whereUserId(Auth::user()->id)->whereRequest(1)->first()) ?  $location->user()->whereUserId(Auth::user()->id)->whereRequest(1)->first()->count() ? 'waiting': '': ''}}">{{Auth::check() && Helpers::isOk($location->user()->whereUserId(Auth::user()->id)->whereRequest(1)->first()) ? $location->user()->whereUserId(Auth::user()->id)->whereRequest(1)->first()->count() ? trans('locations.waiting_reserved'):trans('locations.reserved') : trans('locations.reserved')}}</a>
 				@if(Auth::guest())
 				<div class="informations">{{trans('general.required_connected')}}</div>
 				@endif
@@ -284,7 +288,7 @@
 				
 			</div>
 			<div class="rating">
-				<div class="icons rating" >
+				<div class="icons rating tooltip-ui-w" title="{{Helpers::getRating($location->rating)}} {{Lang::get('locations.stars')}} {{trans('general.on')}} {{trans('locations.nb_vote',array('number'=>$location->nb_rate))}}">
 					<span class="section">{{Helpers::getRating($location->rating)}} {{Lang::get('locations.stars')}}</span>
 					<span class="icon {{Helpers::isStar( 1, $location->rating )}} " aria-hidden="true"></span>
 					<span class="icon {{Helpers::isStar( 2, $location->rating )}}" aria-hidden="true"></span>

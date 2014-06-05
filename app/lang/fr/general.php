@@ -111,5 +111,6 @@ return array (
     ),
   'backTop'=>'Remonter en haut de la page',
   'to_date'=>'au',
+  'on'=>'sur',
 
   );

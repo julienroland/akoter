@@ -297,6 +297,8 @@ public static function getLocationsMapList( $ids , $paginate,  $orderBy = 'creat
 	return $locations;
 }
 
+
+
 public static function getLocationsList( $nb_obj = null, $paginate = null, $orderBy = 'created_at'  , $orderWay = 'asc' , $lang_id = null ){
 
 	if(Helpers::isNotOk($nb_obj)){
@@ -465,7 +467,7 @@ $locations = $locations->with(
 
 if(isset($list) && Helpers::isOk($list)){
 
-	$locations->whereIn('locations.id', $list);
+	$locations->whereIn('buildings.id', $list);
 
 }
 
