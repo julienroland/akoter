@@ -761,7 +761,7 @@ var changeZoom = function(event, delta ){
 **/
 
 var switchStyleMap = function( style ){
-
+  NProgress.start();
 /**
 *
 * Define new style using map_style created on displayGoogleMap()
@@ -775,7 +775,7 @@ gMap.mapTypes.set('map_style', styledMap);
 
 gMap.setMapTypeId('map_style');
 
-
+NProgress.done();
 };
 
 /**
@@ -824,8 +824,8 @@ var toogleMapStyle = function( e ){
 **/
 
 var fitToAllMarkers = function( markers ) {
-
-	var bounds = new google.maps.LatLngBounds();
+  NProgress.start();
+  var bounds = new google.maps.LatLngBounds();
 
     /**
     *
@@ -877,7 +877,7 @@ var fitToAllMarkers = function( markers ) {
      
        **/
 
-
+       NProgress.done();
      };
 
 /**
@@ -887,14 +887,14 @@ var fitToAllMarkers = function( markers ) {
 **/
 
 var showAllMarkerKot = function( e ){
+  NProgress.start();
+  e.preventDefault();
 
-	e.preventDefault();
+  if(typeof bShowAllKot === 'undefined'){
 
-	if(typeof bShowAllKot === 'undefined'){
+    bShowAllKot = false;
 
-		bShowAllKot = false;
-
-	}
+  }
 
 /**
 *
@@ -939,7 +939,7 @@ if( bShowAllKot ){
 	bShowAllKot = true;
 
 }
-
+NProgress.done();
 };
 /**
 *
@@ -952,46 +952,47 @@ var eventInput = function()
 
   $filter.click(function(e){ ///CLICK
   	e.preventDefault();
-  	nDistanceValueOk = Number(sRange.value);
+    NProgress.start();
+    nDistanceValueOk = Number(sRange.value);
 
-  	if(!$.isNumeric(nDistanceValueOk))
-  	{
-  		var id = 5;
-  		var sMessage = oLang.map.range_required;
-  		var sIcon = sImgDir+"reseaux/fb.jpg";
+    if(!$.isNumeric(nDistanceValueOk))
+    {
+      var id = 5;
+      var sMessage = oLang.map.range_required;
+      var sIcon = sImgDir+"reseaux/fb.jpg";
 
-  		e_errorNotification(id, sMessage, sIcon );
-  	}   
+      e_errorNotification(id, sMessage, sIcon );
+    }   
 
-  	sCenterCity = sCity.value;
+    sCenterCity = sCity.value;
 
-  	bSchoolClick = false;
+    bSchoolClick = false;
 
-  	if(bSchoolClick)
-  	{
-  		actionEcoleClick( nDistanceValueOk );
-  	}
-  	else
-  	{
-  		getCity( sCenterCity , nDistanceValueOk , "geocoder", function( bType, sMessage ){
+    if(bSchoolClick)
+    {
+      actionEcoleClick( nDistanceValueOk );
+    }
+    else
+    {
+      getCity( sCenterCity , nDistanceValueOk , "geocoder", function( bType, sMessage ){
 
-  			if(bType){
+       if(bType){
 
-  				gCenterCity  = sMessage;
+        gCenterCity  = sMessage;
 
-  				processSubmit( $submit, 0 );
+        processSubmit( $submit, 0 );
 
-  				removeFormTuto($range, 'messageTuto');
+        removeFormTuto($range, 'messageTuto');
 
-  			}else{
+      }else{
 
-  				processSubmit( $submit, 0 );
+        processSubmit( $submit, 0 );
 
-  			}
-  		});
-  	}
-  	return false;
-
+      }
+    });
+    }
+    return false;
+    NProgress.done();
   }); 
 
   $city.change(cityForm);
@@ -1000,7 +1001,7 @@ var eventInput = function()
 
 };
 var rangeForm = function(){
-
+  NProgress.start();
   nDistanceValueOk = Number(sRange.value);
 
   if(!$.isNumeric(nDistanceValueOk))
@@ -1094,14 +1095,17 @@ var rangeForm = function(){
       });
 
     }
-    //actionChangeType ();
-    //ajaxAllKot();
+
+    NProgress.done();
   }
+
   var actionSchoolClick = function( nDistance ){
+    NProgress.start();
   //filtrer les kots en fonction d'un rayon
    //afficher le cercle
    
    drawCircle( 'ecole', gCurrentPlace , nDistance );
+   NProgress.done();
  }
  $.fn.extend({
    a_animate: function( animation){
@@ -1201,15 +1205,18 @@ var processSubmit = function(that, nType){
 };
 
 var ajaxAllKot = function(){
+
 	$.ajax({
 		dataType:"json",
 		url:"ajax/getKots",
 		type:"get",
-		success: function ( oData ){
-			oKots = oData;
-			createMarkerKot(oKots);
-		}
-	})
+    beforeSend:NProgress.start(),
+    success: function ( oData ){
+     oKots = oData;
+     createMarkerKot(oKots);
+     NProgress.done();
+   }
+ })
 }
 
 var ajaxAllSchool = function(){
@@ -1217,11 +1224,13 @@ var ajaxAllSchool = function(){
 		dataType: "json",
 		url:"ajax/getSchools",
 		type:"get",
-		success: function ( oResponse ){
-			oSchools = oResponse;
-			createMarkerSchool(oSchools);
-		}
-	})
+    beforeSend:NProgress.start(),
+    success: function ( oResponse ){
+     oSchools = oResponse;
+     createMarkerSchool(oSchools);
+     NProgress.done();
+   }
+ })
 }
 var getLatLng = function( value, type ){
 
@@ -1294,10 +1303,20 @@ var getLocations = function( nId ){
     dataType: "json",
     url:"ajax/getLocations/"+nId,
     type:"get",
+    beforeSend:NProgress.start(),
     success:function(oData){
-      
-      $slider.find('li').remove();
-      $listLocations.find('li').remove();
+
+      if($slider.find('li').length > 0){
+
+        $slider.find('li').remove();
+
+      }
+
+      if($listLocations.find('li').length > 0){
+
+        $listLocations.find('li').remove();
+
+      }
 
       $.each(oData.photo, function(i){
 
@@ -1322,7 +1341,8 @@ var getLocations = function( nId ){
 
       $('.tooltip-ui-w').tipsy();
 
-      $listingBtn.click();
+      $listingBtn.click();  
+      NProgress.done();    
     }
   });
 
@@ -1415,7 +1435,8 @@ var defineCircle = function(center, radius, sColor){
 }
 var inRange = function ( oCenter, nDistance, sType ) //obj Google / numeric
 {
-	if(nDistance > 1){
+  NProgress.start();
+  if(nDistance > 1){
 
    aKots = [];
    var options = defineCircle(oCenter, nDistance);
@@ -1437,7 +1458,7 @@ var inRange = function ( oCenter, nDistance, sType ) //obj Google / numeric
       gMarkerArrayKot[i].setOptions({visible: false});
 	     mc.redraw(); //TODO FAIRE FONCTIONNER CLUSTER AVEC DES MARKERS HIDDEN
 
-    }else{
+     }else{
 
 	    if(bShowAllKot){// JE LES LAISSES VISIBLES
 	    	gMarkerArrayKot[i].setMap(gMap);
@@ -1480,6 +1501,7 @@ var inRange = function ( oCenter, nDistance, sType ) //obj Google / numeric
 }*/
 
 $listKot.attr('value',JSON.stringify(aKots));
+NProgress.done();
 }
 };
 var displayNumberResult = function( nNumber ){
@@ -1541,20 +1563,22 @@ var toggleStreetView = function( e ) {
 
 			panorama.setPosition( gCurrentPlace );
 			panorama.setVisible( true );
+      $streetView.removeClass('active').addClass('active'); 
 
-		} else {
+    } else {
 
-			panorama.setPosition( gCurrentPlace );
-			panorama.setVisible( false );
+     panorama.setPosition( gCurrentPlace );
+     panorama.setVisible( false );
+     $streetView.removeClass('active');
 
-		}
-	}else{
+   }
+ }else{
 
-		var id  = 6
-		var sMessage = oLang.map.no_stop_targeted;
-		e_errorNotification(id, sMessage, sIcon );
+  var id  = 6
+  var sMessage = oLang.map.no_stop_targeted;
+  e_errorNotification(id, sMessage, sIcon );
 
-	}
+}
 
 };
 var displayStreetView = function( center ){

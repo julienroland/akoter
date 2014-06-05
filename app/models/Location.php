@@ -16,9 +16,9 @@ class Location extends Eloquent{
 		'start_date'=>'required_with:available | date ',
 		'end_date'=>'required_with:available,start_date | date',
 		'advert.en'=>'required_without_all:title.fr,title.nl',
-		'advert.en'=>'min:100 |max:2048',
-		'advert.fr'=>'min:100 |max:2048',
-		'advert.nl'=>'min:100 |max:2048',
+		'advert.en'=>'min:20 |max:2048',
+		'advert.fr'=>'min:20 |max:2048',
+		'advert.nl'=>'min:20 |max:2048',
 		);
 
 	public static $comment_rules = array(
@@ -465,7 +465,7 @@ $locations = $locations->with(
 
 if(isset($list) && Helpers::isOk($list)){
 
-	$locations->whereIn('id', $list);
+	$locations->whereIn('locations.id', $list);
 
 }
 
