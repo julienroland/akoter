@@ -57,6 +57,7 @@
   <!-- <link rel="stylesheet" href="css/range-slider.css"> -->
   {{HTML::script('js/vendor/modernizr-2.6.2.min.js')}}
 </head>
+ <?php flush(); ?>
 <body role="document" {{isset($page) || isset($tools) ? 'id= ': ''}} {{isset($page) ? $page : "" }}>
         <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>

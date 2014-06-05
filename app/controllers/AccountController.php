@@ -339,7 +339,15 @@ class AccountController extends AccountBaseController {
 
 	public function refuseRequest( $user_slug, $id_request){
 
-		dd($id_request);
+		$request = UserLocation::findOrFail($id_request);
+		$location = Location::findOrFail($request->location_id);
+
+		$request->status = 0;
+		$request->request = 0;
+		$request->save();
+
+		return Redirect::back()
+		->withSuccess(trans('validation.custom.rejectValidation'))
 	}
 
 	public function requestValidation( ){

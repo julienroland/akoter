@@ -761,7 +761,7 @@ var changeZoom = function(event, delta ){
 **/
 
 var switchStyleMap = function( style ){
-  NProgress.start();
+
 /**
 *
 * Define new style using map_style created on displayGoogleMap()
@@ -775,7 +775,7 @@ gMap.mapTypes.set('map_style', styledMap);
 
 gMap.setMapTypeId('map_style');
 
-NProgress.done();
+
 };
 
 /**
@@ -824,7 +824,7 @@ var toogleMapStyle = function( e ){
 **/
 
 var fitToAllMarkers = function( markers ) {
-  NProgress.start();
+
   var bounds = new google.maps.LatLngBounds();
 
     /**
@@ -877,7 +877,7 @@ var fitToAllMarkers = function( markers ) {
      
        **/
 
-       NProgress.done();
+
      };
 
 /**
@@ -887,7 +887,7 @@ var fitToAllMarkers = function( markers ) {
 **/
 
 var showAllMarkerKot = function( e ){
-  NProgress.start();
+
   e.preventDefault();
 
   if(typeof bShowAllKot === 'undefined'){
@@ -939,7 +939,7 @@ if( bShowAllKot ){
 	bShowAllKot = true;
 
 }
-NProgress.done();
+
 };
 /**
 *
@@ -952,7 +952,7 @@ var eventInput = function()
 
   $filter.click(function(e){ ///CLICK
   	e.preventDefault();
-    NProgress.start();
+
     nDistanceValueOk = Number(sRange.value);
 
     if(!$.isNumeric(nDistanceValueOk))
@@ -992,7 +992,7 @@ var eventInput = function()
     });
     }
     return false;
-    NProgress.done();
+
   }); 
 
   $city.change(cityForm);
@@ -1001,7 +1001,7 @@ var eventInput = function()
 
 };
 var rangeForm = function(){
-  NProgress.start();
+
   nDistanceValueOk = Number(sRange.value);
 
   if(!$.isNumeric(nDistanceValueOk))
@@ -1096,16 +1096,16 @@ var rangeForm = function(){
 
     }
 
-    NProgress.done();
+
   }
 
   var actionSchoolClick = function( nDistance ){
-    NProgress.start();
+
   //filtrer les kots en fonction d'un rayon
    //afficher le cercle
    
    drawCircle( 'ecole', gCurrentPlace , nDistance );
-   NProgress.done();
+
  }
  $.fn.extend({
    a_animate: function( animation){
@@ -1210,11 +1210,11 @@ var ajaxAllKot = function(){
 		dataType:"json",
 		url:"ajax/getKots",
 		type:"get",
-    beforeSend:NProgress.start(),
+
     success: function ( oData ){
      oKots = oData;
      createMarkerKot(oKots);
-     NProgress.done();
+
    }
  })
 }
@@ -1224,11 +1224,11 @@ var ajaxAllSchool = function(){
 		dataType: "json",
 		url:"ajax/getSchools",
 		type:"get",
-    beforeSend:NProgress.start(),
+
     success: function ( oResponse ){
      oSchools = oResponse;
      createMarkerSchool(oSchools);
-     NProgress.done();
+
    }
  })
 }
@@ -1303,7 +1303,7 @@ var getLocations = function( nId ){
     dataType: "json",
     url:"ajax/getLocations/"+nId,
     type:"get",
-    beforeSend:NProgress.start(),
+
     success:function(oData){
 
       if($slider.find('li').length > 0){
@@ -1342,7 +1342,7 @@ var getLocations = function( nId ){
       $('.tooltip-ui-w').tipsy();
 
       $listingBtn.click();  
-      NProgress.done();    
+
     }
   });
 
@@ -1435,7 +1435,7 @@ var defineCircle = function(center, radius, sColor){
 }
 var inRange = function ( oCenter, nDistance, sType ) //obj Google / numeric
 {
-  NProgress.start();
+
   if(nDistance > 1){
 
    aKots = [];
@@ -1501,7 +1501,7 @@ var inRange = function ( oCenter, nDistance, sType ) //obj Google / numeric
 }*/
 
 $listKot.attr('value',JSON.stringify(aKots));
-NProgress.done();
+
 }
 };
 var displayNumberResult = function( nNumber ){

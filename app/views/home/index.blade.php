@@ -43,7 +43,7 @@
 							<div class="photo" >
 
 								@if(Helpers::isOk($notice->photo))
-								<img itemprop="image" src="{{Config::get('var.img_users_dir').$notice->photo}}" alt="{{Lang::get('notices.alt_photoOf')}} {{$notice->first-name}} {{$notice->name}}">
+								<img src="{{Config::get('var.path').Config::get('var.images_dir').Config::get('var.users_dir').$notice->user_id.'/'.Config::get('var.profile_dir').$notice->photo}}" alt="{{trans('account.imageProfile', array('name'=>$notice->firstname. ' ' .$notice->name))}}" width="{{Config::get('var.user_photo_width')}}" height="{{Config::get('var.user_photo_height')}}">
 								@else
 								@if($notice->civility == 0)
 								<img itemprop="image" src="{{Config::get('var.img_dir').Config::get('var.no_photoUserM')}}" alt="{{Lang::get('errors.no_location_image_alt')}}">

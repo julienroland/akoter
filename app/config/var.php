@@ -38,8 +38,8 @@ return array(
 
 //empty item
 	'no_photoLocation'=>'noPhotoLocation.jpg',
-	'no_photoUserM'=>'noPhotoUserM.svg',
-	'no_photoUserF'=>'noPhotoUserF.svg',
+	'no_photoUserM'=>'noPhotoUserM.png',
+	'no_photoUserF'=>'noPhotoUserF.png',
 	'no_logoAgence'=>'no_logoAgence.jpg',
 
 	/** PREFIX TABLE **/

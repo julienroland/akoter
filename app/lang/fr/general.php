@@ -1,7 +1,7 @@
 <?php
 
 return array (
-  'titlePage'=>'Akoter, site de locations étudiant en Belgique',
+  'titlePage' => 'Akoter, site de locations étudiants en Belgique',
   'introuvable' => 'Page introuvable',
   'last_adverts' => '<span class="b">Les dernières</span> annonces',
   'search_locations' => '<span class="b">Recherche</span> de logements',
@@ -9,7 +9,7 @@ return array (
   'loading' => 'Chargement...',
   'map_search' => 'Recherche via la carte',
   'hide_panel' => 'masquer la fenêtre',
-  'how_work' => 'Comment ca fonctionne',
+  'how_work' => 'Comment ça fonctionne',
   'register' => 'Inscription',
   'goContent' => 'Passer directement au contenu',
   'yes' => 'Oui',
@@ -24,7 +24,7 @@ return array (
     'fr' => 'Français',
     'en' => 'Anglais',
     'nl' => 'Néerlandais',
-    ),
+  ),
   'days' => 
   array (
     0 => 'Dimanche',
@@ -34,7 +34,7 @@ return array (
     4 => 'Jeudi',
     5 => 'Vendredi',
     6 => 'Samedi',
-    ),
+  ),
   'month' => 
   array (
     1 => 'Janvier',
@@ -49,7 +49,7 @@ return array (
     10 => 'Octobre',
     11 => 'Novembre',
     12 => 'Décembre',
-    ),
+  ),
   'month_select' => 
   array (
     '' => '',
@@ -65,7 +65,7 @@ return array (
     10 => 'Octobre',
     11 => 'Novembre',
     12 => 'Décembre',
-    ),
+  ),
   'user_groups' => 
   array (
     1 => 'SuperAdmin',
@@ -73,13 +73,14 @@ return array (
     3 => 'Membre',
     4 => 'Prenium',
     5 => 'Beta',
-    ),
-  'civility'=>array(
-    0=>'Homme',
-    1=>'Femme',
-    ),
+  ),
+  'civility' => 
+  array (
+    0 => 'Homme',
+    1 => 'Femme',
+  ),
   'user_group' => 'Groupe utilisateur',
-  'created_at' => 'Crée le',
+  'created_at' => 'Créé le',
   'updated_at' => 'Mis à jour le',
   'connected_at' => 'Dernière connexion le',
   'first_day' => 'er',
@@ -94,23 +95,23 @@ return array (
   'none' => 'Aucune',
   'need_help_contact_us' => 'Besoin d\'aide ? Contactez-nous !',
   'contact_us' => 'Contactez-nous',
-  'contact_us_intro' => 'Contactez-nous pour diverse raisons, nous vous répondrons rapidement par e-mail.',
+  'contact_us_intro' => 'Contactez-nous pour diverse raisons, nous vous répondrons rapidement par email.',
   'dont_have_account' => 'Pas encore de compte?',
   'register_you' => 'Inscrivez-vous !',
   'perMonth' => 'par mois',
-  'contact_owner'=>'Contactez :first_name :name',
-  'contact_owner_intro'=>'Demandez des informations au propriétaire, celui-ci recevra un email et un message sur son profile',
-  'required_connected'=>'Vous devez être connecté !',
-  'reservation_owner'=>'Demande de location',
-  'reservation_owner_intro'=>'Faite votre demande pour louer ce bien, le propriétaire recevera un mail et un message sur son compte.',
-  'to'=>'à',
-  'newsletter'=>'Restez à jour en recevant les dernières informations via email.',
-  'post'=>array(
-    'more'=>'En savoir plus',
-    'title'=>'Voir l\'article :name en entier',
-    ),
-  'backTop'=>'Remonter en haut de la page',
-  'to_date'=>'au',
-  'on'=>'sur',
-
-  );
+  'contact_owner' => 'Contacter :first_name :name',
+  'contact_owner_intro' => 'Demander des informations au propriétaire, celui-ci recevra un email et un message sur son profil',
+  'required_connected' => 'Vous devez être connecté !',
+  'reservation_owner' => 'Demande de location',
+  'reservation_owner_intro' => 'Faites votre demande pour louer ce bien, le propriétaire recevra un email et un message sur son compte.',
+  'to' => 'à',
+  'newsletter' => 'Restez à jour en recevant les dernières informations via email.',
+  'post' => 
+  array (
+    'more' => 'En savoir plus',
+    'title' => 'Voir l\'article :name en entier',
+  ),
+  'backTop' => 'Remonter en haut de la page',
+  'to_date' => 'au',
+  'on' => 'sur',
+);

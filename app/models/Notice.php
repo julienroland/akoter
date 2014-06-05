@@ -6,7 +6,7 @@ class Notice extends Eloquent {
 	protected $guarded = array();
 
 	public static $rules = array(
-		'notice'=>'min:100 | required',
+		'notice'=>'min:50 | required',
 		);
 
 	public function user()
@@ -79,8 +79,9 @@ class Notice extends Eloquent {
 						$data['name'] = $notice->user->name;
 						$data['civility'] = $notice->user->civility;
 						$data['text'] = $notice->translation[0]->value;
-						$data['photo'] = $notice->photo;
+						$data['photo'] = $notice->user->photo;
 						$data['locality'] = $notice->user->locality->name;
+						$data['user_id'] = $notice->user->id;
 						$data['postal'] = $notice->user->locality->postal;
 
 						array_push($dataNotices['data'], (object)$data);
@@ -88,7 +89,7 @@ class Notice extends Eloquent {
 
 				}
 				$dataNotices['count'] =  count($notices);
-				
+
 				return (object)$dataNotices;
 
 			}else{

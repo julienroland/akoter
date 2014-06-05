@@ -38,7 +38,7 @@
 	</div>
 
 	<div class="field">
-		<label for="locality">{{trans('form.Locality').trans('form.required')}} <span class="icon-required" aria-hidden="true"></span></label>
+		<label for="locality">{{trans('form.locality').trans('form.required')}} <span class="icon-required" aria-hidden="true"></span></label>
 		{{Form::select('locality',$localities->data, isset($building->locality_id) ? $building->locality_id : (Session::has('inscription.localisation_input') ? Session::get('inscription.localisation_input')['locality'] : ''),array('class'=>'select autocomplete','data-placeholder'=>trans('form.locality'),'data-validator'=>'false'))}}
 	</div>
 

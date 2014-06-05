@@ -8,22 +8,26 @@
 		<div class="waiting-legend" aria-hidden="true">{{trans('account.waitingLocations')}}</div>
 		<div class="invalid-legend" aria-hidden="true">{{trans('account.invalidLocations')}}</div>
 	</div>
+
 	@if(Auth::user()->validate == 0 || Auth::user()->email_comfirm == 0)
+
 	<div class="informations">
 		@if(Auth::user()->validate == 0)
-			{{trans('account.account_not_validate')}}
+		{{trans('account.account_not_validate')}}
 
 		@endif
 		@if(Auth::user()->email_comfirm == 0)
-			{{trans('account.email_not_comfirm')}}
+		{{trans('account.email_not_comfirm')}}
 		@endif
 		@if(Auth::user()->validate == 0 || Auth::user()->email_comfirm == 0)
 		<div>
-		<a href="{{route('how_be_owner', Auth::user()->slug)}}">{{trans('account.seeSteps_owner')}}</a>
+			<a href="{{route('how_be_owner', Auth::user()->slug)}}">{{trans('account.seeSteps_owner')}}</a>
 		</div>
 		@endif
 	</div>
+	
 	@endif
+
 	<div class="content">
 
 		@if(isset($activeLocations->activeBuilding) && $activeLocations->activeBuilding->count())

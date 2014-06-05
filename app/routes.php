@@ -17,7 +17,13 @@
 =            TEST            =
 ============================*/
 Route::get('test', function () {
-
+  /*  Mailgun::send('emails.invite', array('user'=>Auth::user()), function($message){
+        $message->to('dominique.vilain@hepl.be','Dominique Vilain')
+        ->from('akoter@julien-roland.be')
+        ->subject('Avis de naissance');
+    });
+*/
+    return View::make('emails.invite')->withUser(Auth::user());
 });
 
 
@@ -398,13 +404,13 @@ Route::group(array('prefix' => $lang), function () use ($lang) {
 
                     Route::controller('translations', 'Barryvdh\TranslationManager\Controller');
 
-            		Route::get('translations2', array('uses'=>'Admin_TranslationController@index'));
+                    Route::get('translations2', array('uses'=>'Admin_TranslationController@index'));
 
-            		Route::get('/', array('as'=>'getIndexAdmin','uses'=>'Admin_AdminController@index'));
+                    Route::get('/', array('as'=>'getIndexAdmin','uses'=>'Admin_AdminController@index'));
 
-            		Route::get('disconnect', array('uses'=>'Admin_UserController@disconnect'));
+                    Route::get('disconnect', array('uses'=>'Admin_UserController@disconnect'));
 
-            		Route::get('leave', array('uses'=>'Admin_UserController@leave'));
+                    Route::get('leave', array('uses'=>'Admin_UserController@leave'));
 
                     /**
                     *
@@ -649,11 +655,11 @@ Route::group(array('prefix' => $lang), function () use ($lang) {
 
                 if(Auth::check()){
 
-                   return Location::whereId($value)->with(array('translation', 'building' => function ($query) {
-                      $query->whereUserId(Auth::user()->id);
-                  }))->firstOrFail();
-               }
-               else{
+                 return Location::whereId($value)->with(array('translation', 'building' => function ($query) {
+                  $query->whereUserId(Auth::user()->id);
+              }))->firstOrFail();
+             }
+             else{
 
                 return Location::whereId($value)->with(array('translation'))->firstOrFail();
             }

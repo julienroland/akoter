@@ -248,13 +248,13 @@
 
 </script>
 
-{{HTML::script('js/map.js')}}
+{{HTML::script('js/min/map.js')}}
 @endif
 
 
 
 @if(isset($widget) && in_array('listing', $widget))
-{{HTML::script('js/min/moreListing.js')}}
+{{HTML::script('js/min/morelisting.js')}}
 @endif
 
 
@@ -307,7 +307,7 @@
 </script>
 @endif
 @if(isset($widget) && in_array('slideshow', $widget))
-{{HTML::script('js/min/responsiveSlides.js')}}
+{{HTML::script('js/min/responsiveslides.js')}}
 <script>
   $(function () {
     $("#slider").responsiveSlides({
@@ -384,7 +384,7 @@
 
 {{HTML::script('js/min/retina.js')}}
 
-{{HTML::script('js/jquery.tipsy.js')}}
+{{HTML::script('js/min/jquery.tipsy.js')}}
 <script>
  $(function() {
    $('.tooltip-ui-e').tipsy({ aria: true, fade: true, gravity:'w', delayIn: 200, delayOut: 300, opacity: 0.9});

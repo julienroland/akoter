@@ -2899,7 +2899,7 @@ $country-h: 100px;
 			font-weight: 400;
 			height: 30px;
 			line-height: 30px;
-			font-size: 1em;
+			font-size: $small;
 			text-align: center;
 			display: inline-block;
 			pointer-events: auto;
@@ -7072,6 +7072,62 @@ div.wijmo-wijmenu .wijmo-wijmenu-child .wijmo-wijmenu-text {
 /*DAshboard*/
 .dashboard {
 	padding: 1em;
+	.oneLocation{
+		@include c(12);
+		padding:3em 1em;
+		position: relative;
+		.header{
+			@include c(12);
+		}
+		.image{
+			width: 200px;
+			display: block;
+			float: left;
+		}
+		.infos{
+			float: left;
+			color:$greyD;
+		}
+		.titleDashboard{
+			font-size: $medium;
+			margin-top: 70px;
+			text-transform: uppercase;
+		}
+		.actions{
+			@include c(12);
+			margin-top:$gutter / 2;
+			div{
+				@include cl(2);
+				width:48px;
+				height:32px;
+				float:right;
+				a{
+					display:block;
+					height:100%;
+					width:100%;
+					color:white;
+					text-decoration:none;
+					&:before{
+						font-size:$large;
+						text-align:center;
+						display:block;
+						margin:0;
+						line-height:30px;
+					}
+				}
+			}
+			.edit{
+				background-color:darken($yellow,10%);
+				border:2px solid darken($yellow,30%);
+
+			}
+
+			.desactivate{
+				background-color:$bred;
+				border:2px solid darken($bred,20%);
+			}
+		}
+	}
 }
 
 /**
@@ -8004,6 +8060,22 @@ only screen and (min-device-pixel-ratio: 1.5){
 	}
 }
 
+/**
+*
+* Emails
+*
+**/
+
+#email-form{
+	@include c(12);
+	.header_email{
+		height: 100px;
+		background-color: $borange;
+	}
+	.email{
+		padding:3em 1em;
+	}
+}
 /**
 *
 * Chosen

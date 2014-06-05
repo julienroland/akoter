@@ -8,7 +8,7 @@
       <h3 aria-level="3" role="heading" class="title">{{trans('general.how_work')}}</h3>
       <!--ajouter dans page cms-->
       <p>
-        Vous pouvez indiquer une <strong>localitée</strong> dans le formulaire et paramétrer la largeur du filtre. 
+        Vous pouvez indiquer une <strong>localité</strong> dans le formulaire et paramétrer la largeur du filtre. 
 
         Vous pouvez également cliquer sur les <strong>icônes</strong> de la carte pour cibler une location.
 
