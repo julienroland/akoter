@@ -65,5 +65,8 @@ return array(
 'building'=>'bâtiments',
 'nb_vote'=>':number vote(s)',
 'ref'=>'Référence: :ref',
+'no_comments_allow'=>'Il n\'y a pas de commentaire, soyez le premier à en ajouter !',
+'no_comments'=>'Il n\'y a pas de commentaire',
+'comment_publish'=>'Commentaire écrit le :date',
 
 );

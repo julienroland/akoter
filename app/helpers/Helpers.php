@@ -311,7 +311,7 @@ class Helpers {
 		return $timestamp->formatLocalized('%e %B %Y %k:%M:%S');
 	}
 	public static function createCarbonTimestamp( $timestamp, $type='us',  $separator = '-' ){
-		dd($timestamp);
+
 		Helpers::toHumanTimestamp($timestamp);
 
 	}

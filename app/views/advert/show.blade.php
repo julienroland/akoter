@@ -4,10 +4,14 @@
 
 <div class="wrapper">
 
-	<div class="advert">
-		<h1 aria-level="1" role="heading" class="advertTitle">{{$translations['title']}}</h1>
+	<div class="advert" itemscope itemtype="http://schema.org/Residence">
+		<div class="section" itemprop="geo" itemtype="GeoCoordinates">
+			<meta content="{{Helpers::extractLatLng($location->building->latlng, 'lat')}}" itemprop="latitude">
+			<meta content="{{Helpers::extractLatLng($location->building->latlng, 'lng')}}" itemprop="longitude">
+		</div>
+		<h1 aria-level="1" role="heading" itemprop="name" class="advertTitle">{{$translations['title']}}</h1>
 		<div class="tabs">
-		<div class="ref">{{trans('locations.ref',array('ref'=>$location->id))}}</div>
+			<div class="ref">{{trans('locations.ref',array('ref'=>$location->id))}}</div>
 			<ul class="advert-tabs">
 				<li><a class="" href="#description-tab">{{trans('locations.description')}}</a></li>
 				<li><a class="" id="tabslocalisation" href="#localisation-tab">{{trans('locations.localisation')}}</a></li>
@@ -23,7 +27,7 @@
 					<div class="slide">
 						<div class="rslides" id="slider">
 							@foreach($photosLocation as $photo)
-							<li class="thumbnail"><a href="#"><img  src="{{'/'.Config::get('var.images_dir').Config::get('var.users_dir').$user->id.'/'.Config::get('var.locations_dir').$photo->location_id.'/'.Helpers::addBeforeExtension($photo->url, Config::get('var.img_lightbox'))}}" width="{{$lightbox['width']}}" height="{{$lightbox['height']}}"></a></li>
+							<li class="thumbnail"><a href="#"><img itemprop="image" src="{{'/'.Config::get('var.images_dir').Config::get('var.users_dir').$user->id.'/'.Config::get('var.locations_dir').$photo->location_id.'/'.Helpers::addBeforeExtension($photo->url, Config::get('var.img_lightbox'))}}" width="{{$lightbox['width']}}" height="{{$lightbox['height']}}"></a></li>
 							@endforeach
 
 						</div>
@@ -37,7 +41,7 @@
 					</ul>
 				</div>
 
-				<div class="description">
+				<div class="description" itemprop="description">
 					<span class="title-description">{{trans('locations.title_description', array('type'=>$typeLocation,'city'=>$location->building->locality->name))}}</span>
 
 					{{$translations['advert']}}
@@ -49,31 +53,35 @@
 				<div class="thumbnail showmap">
 					<div  id="showMap" data-location="{{$building->latlng}}"></div>
 				</div>
-				<address class="address">
-					<span class="street">{{$location->building->address}}</span> <span class="number">{{$location->building->number}}</span>
-					<span class="postal">{{$location->building->postal}}</span> <span class="region section">{{$region}}</span> <span class="locality">{{$location->building->locality->name}}</span>
-				</address>
-				<div class="informations-situation">
+				<div class="localisation">
 
-					<span class="title-situation">
-						{{trans('locations.situation_title')}}
-					</span>
-					<p>
-						{{$building_translations['situations']}}
-					</p>
-					<span class="title-situation">
-						{{trans('locations.more_situation_infos')}}
-					</span>
-					<p>
-						{{$building_translations['advert']}}
-					</p>
+					<address itemscope itemprop="address" class="address">
+						<div class="line"><span class="number">{{$location->building->number}}</span> <span itemprop="streetAddress" class="street">{{$location->building->address}}</span></div>
+						<div class="line"><span class="postal" itemprop="postal">{{$location->building->postal}}</span>  <span itemprop="addressRegion" class="locality">{{$location->building->locality->name}}</span> (<span class="region">{{$region}}</span>)</div>
+						<meta content="BE" itemprop="addressCountry">
+					</address>
+					<div class="informations-situation">
+
+						<span class="title-situation">
+							{{trans('locations.situation_title')}}
+						</span>
+						<p>
+							{{$building_translations['situations']}}
+						</p>
+						<span class="title-situation">
+							{{trans('locations.more_situation_infos')}}
+						</span>
+						<p>
+							{{$building_translations['advert']}}
+						</p>
+					</div>
 				</div>
 			</div>
 
 			<div id="pictures-tab" class="pannel">
 				@foreach($photosBuilding as $photo)
 				<div class="picture-gallery thumbnail">
-					<img  src="{{'/'.Config::get('var.images_dir').Config::get('var.users_dir').$user->id.'/'.Config::get('var.buildings_dir').$photo->building_id.'/'.Helpers::addBeforeExtension($photo->url, Config::get('var.img_gallery'))}}" width="{{$gallery['width']}}">
+					<img  itemprop="image" src="{{'/'.Config::get('var.images_dir').Config::get('var.users_dir').$user->id.'/'.Config::get('var.buildings_dir').$photo->building_id.'/'.Helpers::addBeforeExtension($photo->url, Config::get('var.img_gallery'))}}" width="{{$gallery['width']}}">
 				</div>	
 				@endforeach
 			</div>
@@ -125,129 +133,166 @@
 			</div>
 			@if($location->comments_status == 1  )
 			<div id="comment-tab" class="pannel">
+				<div class="comments_location">
 
-				@if(Auth::check())
+					@if(Helpers::isOk($comments))
+					<div class="comments">
 
-				{{Form::open(array('route'=>array('addComments', $location->id),'class'=>'mainType rules','data-rules'=>json_encode(Location::$comment_rules)))}}
-				<div class="user">
-					<div class="user-photo">
-						@if(Helpers::isOk($user->photo))
-						<img  class="thumbnail" width="{{Config::get('var.user_photo_width')}}" height="{{Config::get('var.user_photo_height')}}" src="{{'/'.Config::get('var.images_dir').Config::get('var.users_dir').Auth::user()->id.'/'.Config::get('var.profile_dir').Auth::user()->photo}}">
-						@else
-						@if(Auth::user()->civility == 0)
+						<?php $i=0; ?>
+						@foreach($comments as $comment)
+						<?php $translation = $comment->translation->lists('value','key'); ?>
 
-						<img class="thumbnail" src="{{Config::get('var.img_dir')}}{{Config::get('var.no_photoUserM')}}" alt="{{trans('account.imageProfile', array('name'=>Auth::user()->first_name. ' ' .Auth::user()->name))}}" width="{{Config::get('var.user_photo_width')}}" height="{{Config::get('var.user_photo_height')}}">
+						<div class="comment {{$i !== 0 && $i%2 != 0 ? 'striped' : ''}}">
+							<div class="user vcard" id="hcard-{{$comment->user->first_name}}-{{$comment->user->name}}">
+								<div class="photo">
+									@if(Helpers::isOk($comment->user->photo))
+									<img class="thumbnail" width="{{Config::get('var.user_photo_width')}}" height="{{Config::get('var.user_photo_height')}}" src="{{'/'.Config::get('var.images_dir').Config::get('var.users_dir').$comment->user->id.'/'.Config::get('var.profile_dir').$comment->user->photo}}" >
+									@else
+									@if(Auth::user()->civility == 0)
 
-						@else 
+									<img class="thumbnail" src="{{Config::get('var.img_dir')}}{{Config::get('var.no_photoUserM')}}" alt="{{trans('account.imageProfile', array('name'=>Auth::user()->first_name. ' ' .Auth::user()->name))}}" width="{{Config::get('var.user_photo_width')}}" height="{{Config::get('var.user_photo_height')}}">
 
-						<img class="thumbnail" src="{{Config::get('var.img_dir')}}{{Config::get('var.no_photoUserF')}}" alt="{{trans('account.imageProfile', array('name'=>Auth::user()->first_name. ' ' .Auth::user()->name))}}" width="{{Config::get('var.user_photo_width')}}" height="{{Config::get('var.user_photo_height')}}">
-						@endif
-						@endif
-					</div>
-					<span class="name">{{Auth::user()->first_name. ' ' . Auth::user()->name}}</span>
-				</div>
+									@else 
 
-				<div class="field">
-					<label for="title">{{trans('form.title')}}</label>
-					<input type="text" name="title" id="title" placeholder="{{trans('form.title')}}">
-				</div>
+									<img class="thumbnail" src="{{Config::get('var.img_dir')}}{{Config::get('var.no_photoUserF')}}" alt="{{trans('account.imageProfile', array('name'=>Auth::user()->first_name. ' ' .Auth::user()->name))}}" width="{{Config::get('var.user_photo_width')}}" height="{{Config::get('var.user_photo_height')}}">
+									@endif
+									@endif
+								</div>
+								<span class="fn n name"><span class="given-name">{{$comment->user->first_name}}</span> <span class="family-name">{{$comment->user->name}}</span></span>
+								<a class="email section" href="mailto:{{$comment->user->email}}">{{$comment->user->email}}</a>
+								<div class="adr section">
+									<div class="street-address">{{$comment->user->address}}</div>
+									<span class="locality">{{$comment->user->locality}}</span>
 
-				<div class="field">
-					{{Form::label('note',trans('form.rate'). ' ('.trans('form.click-rating').')')}}
-					<div class="note_propriete">
+									<span class="region">{{$comment->user->region->translation[0]->value}}</span>
+									
+									<span class="postal-code">{{$comment->user->postal}}</span>
 
-						<label for="note1" >
+								</div>
 
-							{{Form::radio('note','1',array('id'=>'note1'))}}	
-
-						</label>
-
-						<label for="note2" >
-
-							{{Form::radio('note','2',array('id'=>'note2'))}}	
-
-						</label>	
-
-						<label for="note3">
-
-							{{Form::radio('note','3',array('id'=>'3note3'))}}	
-
-						</label>
-
-						<label for="note4">
-
-							{{Form::radio('note','4',array('id'=>'note4'))}}	
-
-						</label>
-
-						<label for="note5">
-
-							{{Form::radio('note','5',array('id'=>'note5'))}}	
-
-						</label>
-
-					</div>
-				</div>
-
-				<label for="text">{{trans('form.comment')}}</label>
-				<textarea name="text" id="text"></textarea>
-				
-				{{Form::submit(trans('form.commenting'))}}
-				{{Form::close()}}
-
-				@else
-
-				<p>{{trans('locations.connect_comment')}} <a href="{{route('connection')}}">{{trans('locations.connection')}}</a>.</p>
-
-				@endif
-
-				@if(Helpers::isOk($comments))
-				<div class="comments">
-
-					<?php $i=0; ?>
-					@foreach($comments as $comment)
-					<?php $translation = $comment->translation->lists('value','key'); ?>
-
-					<div class="comment {{$i !== 0 && $i%2 != 0 ? 'striped' : ''}}">
-						<div class="user">
-							<div class="photo">
-								@if(Helpers::isOk($comment->user->photo))
-								<img class="thumbnail" width="{{Config::get('var.user_photo_width')}}" height="{{Config::get('var.user_photo_height')}}" src="{{'/'.Config::get('var.images_dir').Config::get('var.users_dir').$comment->user->id.'/'.Config::get('var.profile_dir').$comment->user->photo}}" >
-								@else
-								@if(Auth::user()->civility == 0)
-
-								<img class="thumbnail" src="{{Config::get('var.img_dir')}}{{Config::get('var.no_photoUserM')}}" alt="{{trans('account.imageProfile', array('name'=>Auth::user()->first_name. ' ' .Auth::user()->name))}}" width="{{Config::get('var.user_photo_width')}}" height="{{Config::get('var.user_photo_height')}}">
-
-								@else 
-
-								<img class="thumbnail" src="{{Config::get('var.img_dir')}}{{Config::get('var.no_photoUserF')}}" alt="{{trans('account.imageProfile', array('name'=>Auth::user()->first_name. ' ' .Auth::user()->name))}}" width="{{Config::get('var.user_photo_width')}}" height="{{Config::get('var.user_photo_height')}}">
-								@endif
-								@endif
 							</div>
-							<span class="name">{{$comment->user->first_name.' '.$comment->user->name}}</span>
-							<span class="date">{{Helpers::beTime($comment->created_at)}}</span>
+							<span class="date">{{trans('locations.comment_publish',array('date'=>Helpers::beTime($comment->created_at)))}}</span>
+							<div class="icons rating" >
+								<span class="section">{{Helpers::getRating($comment->rating)}} {{Lang::get('locations.stars')}}</span>
+								<span class="icon {{Helpers::isStar( 1, $comment->rating )}} " aria-hidden="true"></span>
+								<span class="icon {{Helpers::isStar( 2, $comment->rating )}}" aria-hidden="true"></span>
+								<span class="icon {{Helpers::isStar( 3, $comment->rating )}}" aria-hidden="true"></span>
+								<span class="icon {{Helpers::isStar( 4, $comment->rating )}}" aria-hidden="true"></span>
+								<span class="icon {{Helpers::isStar( 5, $comment->rating )}}" aria-hidden="true"></span>
+							</div>
+							<span class="title">{{$translation['title']}}</span>
+							<p>
+								{{$translation['text']}}
+							</p>
 						</div>
-						<div class="icons rating" >
-							<span class="section">{{Helpers::getRating($comment->rating)}} {{Lang::get('locations.stars')}}</span>
-							<span class="icon {{Helpers::isStar( 1, $comment->rating )}} " aria-hidden="true"></span>
-							<span class="icon {{Helpers::isStar( 2, $comment->rating )}}" aria-hidden="true"></span>
-							<span class="icon {{Helpers::isStar( 3, $comment->rating )}}" aria-hidden="true"></span>
-							<span class="icon {{Helpers::isStar( 4, $comment->rating )}}" aria-hidden="true"></span>
-							<span class="icon {{Helpers::isStar( 5, $comment->rating )}}" aria-hidden="true"></span>
+
+						<?php $i++; ?>
+						@endforeach
+
+					</div>
+					@else
+
+					@if(Auth::user()->location()->whereLocationId($location->id)->count())
+
+					<p class="no_comment">{{trans('locations.no_comments_allow')}}</p>
+
+					@else
+
+					<p class="no_comment">{{trans('locations.no_comments')}}</p>
+
+					@endif
+
+					@endif
+
+
+					@if(Auth::check())
+
+					@if(Auth::user()->location()->whereLocationId($location->id)->count())
+
+					{{Form::open(array('route'=>array('addComments', $location->id),'class'=>'mainType rules','data-rules'=>json_encode(Location::$comment_rules)))}}
+					<div class="user">
+						<div class="user-photo">
+							@if(Helpers::isOk($user->photo))
+							<img  class="thumbnail" width="{{Config::get('var.user_photo_width')}}" height="{{Config::get('var.user_photo_height')}}" src="{{'/'.Config::get('var.images_dir').Config::get('var.users_dir').Auth::user()->id.'/'.Config::get('var.profile_dir').Auth::user()->photo}}">
+							@else
+							@if(Auth::user()->civility == 0)
+
+							<img class="thumbnail" src="{{Config::get('var.img_dir')}}{{Config::get('var.no_photoUserM')}}" alt="{{trans('account.imageProfile', array('name'=>Auth::user()->first_name. ' ' .Auth::user()->name))}}" width="{{Config::get('var.user_photo_width')}}" height="{{Config::get('var.user_photo_height')}}">
+
+							@else 
+
+							<img class="thumbnail" src="{{Config::get('var.img_dir')}}{{Config::get('var.no_photoUserF')}}" alt="{{trans('account.imageProfile', array('name'=>Auth::user()->first_name. ' ' .Auth::user()->name))}}" width="{{Config::get('var.user_photo_width')}}" height="{{Config::get('var.user_photo_height')}}">
+							@endif
+							@endif
 						</div>
-						<span class="title">{{$translation['title']}}</span>
-						<p>
-							{{$translation['text']}}
-						</p>
+						<span class="name">{{Auth::user()->first_name. ' ' . Auth::user()->name}}</span>
+						<!-- <div class="date">
+
+							<span class="start">{{Helpers::dateNaForm(Auth::user()->location()->get()->last()->pivot->begin)}}</span>
+							<span class="end">{{Helpers::dateNaForm(Auth::user()->location()->get()->last()->pivot->end)}}</span>
+						</div> -->
+
 					</div>
 
-					<?php $i++; ?>
-					@endforeach
+					<div class="form">
+						<div class="field">
+							<label for="title">{{trans('form.title')}}</label>
+							<input type="text" name="title" id="title" placeholder="{{trans('form.title')}}">
+						</div>
+
+						<div class="field">
+							{{Form::label('note',trans('form.rate'). ' ('.trans('form.click-rating').')')}}
+							<div class="note_propriete">
+
+								<label for="note1" >
+
+									{{Form::radio('note','1',array('id'=>'note1'))}}	
+
+								</label>
+
+								<label for="note2" >
+
+									{{Form::radio('note','2',array('id'=>'note2'))}}	
+
+								</label>	
+
+								<label for="note3">
+
+									{{Form::radio('note','3',array('id'=>'3note3'))}}	
+
+								</label>
+
+								<label for="note4">
+
+									{{Form::radio('note','4',array('id'=>'note4'))}}	
+
+								</label>
+
+								<label for="note5">
+
+									{{Form::radio('note','5',array('id'=>'note5'))}}	
+
+								</label>
+
+							</div>
+						</div>
+
+						<label for="text">{{trans('form.comment')}}</label>
+						<textarea name="text" id="text"></textarea>
+
+						{{Form::submit(trans('form.commenting'))}}
+						{{Form::close()}}
+					</div>
+					@endif
+					@else
+
+					<p>{{trans('locations.connect_comment')}} <a href="{{route('connection')}}">{{trans('locations.connection')}}</a>.</p>
+
+					@endif
 
 				</div>
 				@endif
-			</div>
-			@endif
+			</div>		
 		</div>
 		<sidebar class="advert-sidebar">
 			<div class="infos-master">
@@ -305,23 +350,34 @@
 			<div class="favoris"><a href="{{route('addFavoris', $location->id)}}" class="icon icon-big61 tooltip-ui-s" title="{{trans('locations.favoris')}}"></a></div>
 			@endif
 			@if(Helpers::isNotOk($agence))
-			<div class="user">
+			<div class="user vcard" id="hcard-{{$user->first_name}}-{{$user->name}}">
 				<div class="user-picture">
 					@if(Helpers::isOk($user->photo))
-					<img class="thumbnail" width="{{Config::get('var.user_photo_width')}}" height="{{Config::get('var.user_photo_height')}}" src="{{'/'.Config::get('var.images_dir').Config::get('var.users_dir').$user->id.'/'.Config::get('var.profile_dir').$user->photo}}" alt="{{$user->name}}">
+					<img class="thumbnail photo" width="{{Config::get('var.user_photo_width')}}" height="{{Config::get('var.user_photo_height')}}" src="{{'/'.Config::get('var.images_dir').Config::get('var.users_dir').$user->id.'/'.Config::get('var.profile_dir').$user->photo}}" alt="{{$user->name}}">
 					@else
 					@if(Auth::user()->civility == 0)
 
-					<img class="thumbnail" src="{{Config::get('var.img_dir')}}{{Config::get('var.no_photoUserM')}}" alt="{{trans('account.imageProfile', array('name'=>Auth::user()->first_name. ' ' .Auth::user()->name))}}" width="{{Config::get('var.user_photo_width')}}" height="{{Config::get('var.user_photo_height')}}">
+					<img class="thumbnail photo" src="{{Config::get('var.img_dir')}}{{Config::get('var.no_photoUserM')}}" alt="{{trans('account.imageProfile', array('name'=>Auth::user()->first_name. ' ' .Auth::user()->name))}}" width="{{Config::get('var.user_photo_width')}}" height="{{Config::get('var.user_photo_height')}}">
 
 					@else 
 
-					<img class="thumbnail" src="{{Config::get('var.img_dir')}}{{Config::get('var.no_photoUserF')}}" alt="{{trans('account.imageProfile', array('name'=>Auth::user()->first_name. ' ' .Auth::user()->name))}}" width="{{Config::get('var.user_photo_width')}}" height="{{Config::get('var.user_photo_height')}}">
+					<img class="thumbnail photo" src="{{Config::get('var.img_dir')}}{{Config::get('var.no_photoUserF')}}" alt="{{trans('account.imageProfile', array('name'=>Auth::user()->first_name. ' ' .Auth::user()->name))}}" width="{{Config::get('var.user_photo_width')}}" height="{{Config::get('var.user_photo_height')}}">
 					@endif
 					@endif
 				</div>
 				<div class="user-info">
-					<span class="name">{{$user->first_name}} {{$user->name}}</span>
+					<span class="fn n name"><span class="given-name">{{$user->first_name}}</span><span class="family-name">{{$user->name}}</span></span>
+					<a class="email section" href="mailto:{{$user->email}}">{{$user->email}}</a>
+					<div class="adr section">
+					<div class="street-address">{{$user->address}}</div>
+					 <a class="url fn section" href="{{$user->web}}">{{$user->first_name}} {{$user->name}}</a>
+					<span class="locality">{{$user->locality->name}}</span>
+
+					<span class="region">{{$user->region->translation[0]->value}}</span>
+
+					<span class="postal-code">{{$user->postal}}</span>
+
+					</div>
 					<p>
 						{{trans('locations.tenant_since', array('date'=>$user->created_at->year))}}
 					</p>

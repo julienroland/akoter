@@ -7085,10 +7085,10 @@ div.wijmo-wijmenu .wijmo-wijmenu-child .wijmo-wijmenu-text {
 .advert{
 	padding: 2em 0;
 	@include c(12);
-
 	.tabs{
 		@include cl(9);	
-		@include border-radius($gutter / 2);
+		@include border-radius($gutter / 4);
+		@include box-shadow($greyL 0 2px 1px 2px);
 	}
 	.rslides li{
 		width: auto;
@@ -7097,6 +7097,10 @@ div.wijmo-wijmenu .wijmo-wijmenu-child .wijmo-wijmenu-text {
 		color:$greyD;
 		margin-bottom: $gutter / 2;
 	}
+	#equipment-tab{
+		padding:1em;
+	}
+
 }
 .advert-sidebar{
 	@include cl(3);
@@ -7246,9 +7250,9 @@ div.wijmo-wijmenu .wijmo-wijmenu-child .wijmo-wijmenu-text {
 		@include c(12);
 	}
 	.title-situation{
-		font-weight:500;
-		font-size:$medium;
+		font-weight:400;
 		margin-bottom:$gutter / 2;
+		color:$borange;
 	}
 	.showmap{
 		position: relative;
@@ -7261,10 +7265,87 @@ div.wijmo-wijmenu .wijmo-wijmenu-child .wijmo-wijmenu-text {
 			pointer-events:none;
 		}
 	}
+	.comments_location{
+		padding:1em;
+		@include c(12);
+		.no_comment{
+			
+		}
+		.comments{
+			.comment{
+				@include c(12);
+				padding:1em 0;
+				.photo{
+					widows: 74px;
+					margin-bottom: $gutter / 4;
+				}
+				.date{
+					color:$greyD;
+					font-size: $small;
+				}
+				.name{
+					display: block;
+				}
+				.rating{
+					color:$borange;
+				}
+				.title{
+					margin: $gutter / 4 0;
+					display: block;
+				}
+				p{
+					color:$greyD;
+				}
+			}
+		}
+		form{
+			padding-top: 1em;
+			border-top: 1px solid $greyL;
+		}
+		.user{
+			@include cl(3);
+			width: 150px;
+			.user-photo{
+				width: 74px;
+				margin-bottom: $gutter / 4;
+			}
+			.name{
+				font-size: $small;
+			}
+		}
+		.form{
+			@include cl(9);
+			width: auto;
+			max-width: 400px;
+			padding:1em;
+			background-color: $greyL;
+			position: relative;
+			&:before{
+				@include triangle-left( 20px, $greyL);
+				bottom:60%;
+			}
+
+		}
+	}
 	#showMap,.showmap{
-		width: 100%;
+
 		height: 400px;
 		display: block;
+	}
+	.localisation{
+		padding:2em 1em;
+		font-size: $large;
+		color:$greyD;
+		.address{
+			padding:1em;
+			margin-bottom: $gutter;
+			background-color: $greyL;
+			span{
+				font-size: $small;
+			}
+
+		}
+		
 	}
 	#equipment-tab{
 		ul{

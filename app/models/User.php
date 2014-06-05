@@ -195,6 +195,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface, Slugg
 
 	public function location(){
 		return $this->belongsToMany('Location','user_location')
+		->withPivot('status','begin','end')
 		->withTimestamps(); 
 	}
 	public function allLocations()

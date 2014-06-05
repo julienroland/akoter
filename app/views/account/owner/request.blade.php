@@ -3,7 +3,6 @@
 @section('account')
 
 @include('includes.errors')
-@include('includes.success')
 
 @foreach( $requests as $building)
 
