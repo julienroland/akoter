@@ -23,7 +23,9 @@ Route::get('test', function () {
         ->subject('Avis de naissance');
     });
 */
-    return View::make('emails.invite')->withUser(Auth::user());
+    return View::make('emails.requestLike')
+    ->with('user', Auth::user())
+    ->with('location',Location::whereId(1338)->with('translation')->first());
 });
 
 
@@ -684,16 +686,9 @@ Route::group(array('prefix' => $lang), function () use ($lang) {
 
             Route::get(trans('routes.account') . '/{user_slug}/' . trans('routes.dashboard') . '/{location_id}/'. trans('routes.activate'), array('as' => 'dashboard_activateLocation', 'uses' => 'LocationDashboardController@activateLocation'));
 
-            /**
-             *
-             * Edit location
-             */
+            Route::get(trans('routes.account') . '/{user_slug}/' . trans('routes.dashboard') . '/{location_id}/'. trans('routes.requestLike'), array('as' => 'requestLike', 'uses' => 'LocationDashboardController@requestLike'));
 
-            /**
-            *
-            * Tenant
-            *
-            **/
+            Route::get(trans('routes.account') . '/{user_slug}/' . trans('routes.dashboard') . '/{location_id}/'. trans('routes.likes'), array('as' => 'dashboard_likes', 'uses' => 'LocationDashboardController@likes'));
 
             Route::get(trans('routes.account') . '/{user_slug}/' . trans('routes.dashboard') . '/{location_id}/'.trans('routes.tenants'), array('as' => 'dashboard_tenants', 'uses' => 'LocationDashboardController@indexTenants'));
             

@@ -89,6 +89,7 @@ return array (
     'rejectValidation'=>'Demande bien refusée !',
     'locationWellDesactivate'=>'Location désactivée !',
     'locationWellActivate'=>'Location activée !',
+    'requestLikeSend'=>'Demande d\'appréciation envoyé !',
   ),
   'attributes' => 
   array (

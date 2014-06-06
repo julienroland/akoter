@@ -323,8 +323,13 @@
 				@if(isset($location->start_date) && isset($location->end_date))
 				<span class="total-month">{{trans('locations.contrat_during',array('time'=>Helpers::createCarbonDate($location->start_date)->diffInMonths(Helpers::createCarbonDate($location->end_date))))}} <b></b></span>
 				@endif
+				@if($location->user()->whereUserId(Auth::user()->id)->whereStatus(1)->get()->count())
+				
+				<a href="" class="icon icon-key105 reserved">{{trans('locations.activeTenant')}}</a>
 
+				@else
 				<a href="{{route('reserved', $translations['slug'])}}" class="icon icon-key105 reserved {{Auth::check() && Helpers::isOk($location->user()->whereUserId(Auth::user()->id)->whereRequest(1)->first()) ?  $location->user()->whereUserId(Auth::user()->id)->whereRequest(1)->first()->count() ? 'waiting': '': ''}}">{{Auth::check() && Helpers::isOk($location->user()->whereUserId(Auth::user()->id)->whereRequest(1)->first()) ? $location->user()->whereUserId(Auth::user()->id)->whereRequest(1)->first()->count() ? trans('locations.waiting_reserved'):trans('locations.reserved') : trans('locations.reserved')}}</a>
+				@endif
 				@if(Auth::guest())
 				<div class="informations">{{trans('general.required_connected')}}</div>
 				@endif
@@ -369,13 +374,13 @@
 					<span class="fn n name"><span class="given-name">{{$user->first_name}}</span><span class="family-name">{{$user->name}}</span></span>
 					<a class="email section" href="mailto:{{$user->email}}">{{$user->email}}</a>
 					<div class="adr section">
-					<div class="street-address">{{$user->address}}</div>
-					 <a class="url fn section" href="{{$user->web}}">{{$user->first_name}} {{$user->name}}</a>
-					<span class="locality">{{$user->locality->name}}</span>
+						<div class="street-address">{{$user->address}}</div>
+						<a class="url fn section" href="{{$user->web}}">{{$user->first_name}} {{$user->name}}</a>
+						<span class="locality">{{$user->locality->name}}</span>
 
-					<span class="region">{{$user->region->translation[0]->value}}</span>
+						<span class="region">{{$user->region->translation[0]->value}}</span>
 
-					<span class="postal-code">{{$user->postal}}</span>
+						<span class="postal-code">{{$user->postal}}</span>
 
 					</div>
 					<p>

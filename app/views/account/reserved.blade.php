@@ -16,20 +16,20 @@
 		@include('includes.success')
 		@include('includes.errors')
 		<?php User::$reserved_rules['seat'] = 'required|numeric|min:1|max:'.$location->remaining_room ;?>
-		<?php User::$reserved_rules['nb_locations'] = 'required|numeric|min:1|max:'.$location->remaining_location ;?>
+		<?php User::$reserved_rules['nb_locations'] = 'required|numeric|min:0|max:'.$location->remaining_location ;?>
 		{{Form::open(array('route'=>array('reserved_location', Route::current()->parameter('location_slug')->translation()->whereKey('slug')->pluck('value')),'class'=>'mainType rules','data-rules'=>json_encode(User::$reserved_rules)))}}
 		
 		<div class="field">
 
 			<label for="seat">{{trans('form.nb_seat')}} *</label>
-			<input type="number" min="1" max="{{$location->remaining_room}}" name="seat" id="seat" required value="" placeholder="{{trans('form.nb_max',array('number'=>$location->remaining_room))}}">
+			<input type="number" min="1" max="{{$location->remaining_room}}" name="seat" id="seat" required value="1" placeholder="{{trans('form.nb_max',array('number'=>$location->remaining_room))}}">
 			<div class="informations">{{trans('form.info_nb_seat')}}</div>
 		</div>
 
 		<div class="field">
 			
 			<label for="nb_locations">{{trans('form.nb_locations')}} *</label>
-			<input type="number" min="1" max="{{$location->remaining_location}}" name="nb_locations" id="nb_locations" required value="1" placeholder="{{trans('form.nb_max',array('number'=>$location->remaining_location))}}">
+			<input type="number"  max="{{$location->remaining_location}}" name="nb_locations" id="nb_locations" required value="0" placeholder="{{trans('form.nb_max',array('number'=>$location->remaining_location))}}">
 			<div class="informations">{{trans('form.info_nb_location')}}</div>
 		</div>
 		

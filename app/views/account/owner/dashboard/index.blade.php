@@ -45,5 +45,49 @@
             @endif
         </div>
     </div>
+    <div class="content">
+        <div class="infosUsefull">
+            <div class="reservation">
+                <span class="icon icon-arrow"></span>
+                @if($nb_requestMonth > 0)
+                {{trans('dashboard.request', array('number'=>$nb_requestMonth))}}
+                @else
+                {{trans('dashboard.no_request')}}
+                @endif
+            </div>
+            <div class="waitingTenantSoon">
+                <span class="icon icon-calendar68"></span>
+                @if($nb_tenantsMonth > 0)
+
+                {{trans('dashboard.waitingTenant', array('number'=>$nb_tenantsMonth))}}
+
+                @else
+
+                {{trans('dashboard.noWaitingTenant')}}
+
+                @endif 
+            </div>
+            <div class="requestLike">
+                <span class="icon icon-speech76"></span>
+                @if($nb_oldTenants <= 0 )
+
+                {{trans('dashboard.neverTenants')}}
+
+                @else 
+
+                @if($nb_comments > 0)
+
+                {{trans('dashboard.numberCommRequest',array('number'=>$nb_comments,'url'=>route('requestLike', array(Auth::user()->slug, $location->id))))}}
+
+                @else
+
+                {{trans('dashboard.noCommentYet',array('url'=>route('requestLike', array(Auth::user()->slug, $location->id))))}}
+
+                @endif
+                @endif
+
+            </div>
+        </div>
+    </div>
 </div>
 @stop

@@ -107,7 +107,14 @@ public function request(){
 	->whereRequest(1)
 	->withTimestamps(); 
 }
+public function oldTenants(){
 
+	return $this->belongsToMany('User','user_location')
+	->withPivot('status','begin','end')
+	->whereStatus(0)
+	->whereRequest(0)
+	->withTimestamps(); 
+}
 public function option(){
 
 	return $this->belongsToMany('Option'); 

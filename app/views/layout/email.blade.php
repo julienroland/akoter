@@ -23,13 +23,18 @@ border-spacing:0;
 height: 180px;
 display: block;
 ">
-<td style="display:block;margin:auto;">
-	<img style="display:block;margin:auto;" src="http://julien-roland.be/header-invite.png" alt="">
+
+<td style="display:block;margin:auto;height:100%;">
+<a style="display:block;width:100%;height:100%;" href="{{Request::root()}}" title="Akoter, site de kots en Belgique">
+		<img style="display:block;margin:auto;" src="{{public_path().Config::get('var.img_dir').'email-header.png'}}" alt="Akoter">
+	</a>
 </td>
 </tr>
-
-@yield('content')
-
+<tr style="width: 500px;display:block;margin:auto;">
+	<td >
+		@yield('content')
+	</td>
+</tr>
 </table>
 </body>
 </html>			

@@ -69,4 +69,5 @@ return array (
   'desactivate_location' => 'Désactiver votre location (elle ne sera plus visible par les autres membres',
   'activate_location'=>'Activer votre location',
   'edit_location' => 'Modifier votre location',
+  'activeTenant' => 'Locataire',
 );

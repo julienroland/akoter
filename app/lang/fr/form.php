@@ -104,7 +104,7 @@ return array (
   'nb_locations' => 'Nombre logements',
   'change_start_date' => 'Date d\'arrivée (jj-mm-aaaa)',
   'info_nb_seat' => 'Le nombre de place ne concernent que les logements de type appartement, duplex, maison.',
-  'info_nb_location' => 'Ex: 2 kots, car vous avez deux enfants qui vont étudier dans la même région.',
+  'info_nb_location' => 'Ex: 2 kots, car vous avez deux enfants qui vont étudier dans la même région.<br> Indiquez 0 si vous souhaitez uniquement occuper des places.',
   'info_message_location' => 'Ajoutez un commentaire par rapport à votre demande.',
   'title' => 'Titre',
   'click-rating' => 'Cliquez pour noter',

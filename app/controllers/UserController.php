@@ -150,29 +150,32 @@ class UserController extends BaseController
 
 		$input = Input::all();
 		User::$reserved_rules['seat'] = 'required|numeric|min:1|max:'.$location->remaining_room;
-		User::$reserved_rules['nb_locations'] = 'required|numeric|min:1|max:'.$location->remaining_location;
+		User::$reserved_rules['nb_locations'] = 'required|numeric|max:'.$location->remaining_location;
 		$validator = Validator::make( $input, User::$reserved_rules );
 
 		if($validator->passes()){
 
 			$user = $location->building->user()->firstOrFail();
 
-			if(isset($input['translate'])){ 
+			if(!$location->user()->whereUserId(Auth::user()->id)->whereStatus(1)->get()->count()){
 
-				$input['text'] = Helpers::translate($input['text'], Config::get('var.lang')[$user->language_id], Config::get('var.lang')[$user->language_id]);
+				if(isset($input['translate'])){ 
+
+					$input['text'] = Helpers::translate($input['text'], Config::get('var.lang')[$user->language_id], Config::get('var.lang')[$user->language_id]);
+				}
+
+				$input['subject'] = Helpers::translate('Demande de réservation de votre bien n°:'.$location->id, 'fr', Config::get('var.lang')[$user->language_id]);
+
+				Mailgun::send('emails.reservation_location', array('input'=>$input,'user'=>$user,'location'=>$location,'sender'=>Auth::user()), function($message) use($input, $user)
+				{
+
+					$message
+					->from(Auth::user()->email, Auth::user()->first_name.' '.Auth::user()->name)
+					->to($user->email, $user->first_name.' '.$user->name)
+					->subject($input['subject']);
+
+				});
 			}
-
-			$input['subject'] = Helpers::translate('Demande de réservation de votre bien n°:'.$location->id, 'fr', Config::get('var.lang')[$user->language_id]);
-
-			Mailgun::send('emails.reservation_location', array('input'=>$input,'user'=>$user,'location'=>$location,'sender'=>Auth::user()), function($message) use($input, $user)
-			{
-
-				$message
-				->from(Auth::user()->email, Auth::user()->first_name.' '.Auth::user()->name)
-				->to($user->email, $user->first_name.' '.$user->name)
-				->subject($input['subject']);
-
-			});
 
 			if(!$location->user()->whereUserId(Auth::user()->id)->whereStatus(1)->get()->count()){
 
@@ -198,7 +201,7 @@ class UserController extends BaseController
 
 			return Redirect::back()
 			->withInput()
-			->withError($validator);
+			->withErrors($validator);
 		}
 	}
 

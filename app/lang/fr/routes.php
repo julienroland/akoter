@@ -53,4 +53,6 @@ return array (
   'removeFavoris' => 'supprimer-le-favoris',
   'desactivate' => 'desactiver',
   'activate' => 'activer',
+  'requestLike' => 'demande-d-appreciation',
+  'likes' => 'appreciations',
 );

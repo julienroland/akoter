@@ -3073,7 +3073,7 @@ $country-h: 100px;
 		min-height: 100%;
 		background-color: white;
 		max-width: ($mw - 150px) - $gutter * 2;
-		
+		@include box-shadow(darken($greyL,3%) 0 1px 2px 1px);
 		
 	}
 	.account-container {
@@ -7098,6 +7098,7 @@ div.wijmo-wijmenu .wijmo-wijmenu-child .wijmo-wijmenu-text {
 		.actions{
 			@include c(12);
 			margin-top:$gutter / 2;
+			margin-bottom:$gutter / 2;
 			div{
 				@include cl(2);
 				width:48px;
@@ -7129,8 +7130,44 @@ div.wijmo-wijmenu .wijmo-wijmenu-child .wijmo-wijmenu-text {
 				border:2px solid darken($bred,20%);
 			}
 			.activate{
-				background-color:$success;
-				border:2px solid darken($success,20%);
+				background-color:$bgreen;
+				border:2px solid darken($bgreen,20%);
+			}
+		}
+	}
+	.content{
+		@include c(12);
+		padding:2em 1em;
+		.infosUsefull{
+
+			background-color: $greyL;
+			padding:1em;
+			font-size: $medium;
+			color:$greyD;
+			.icon{
+				margin-right: $gutter / 2;
+				&:before{
+					font-size: $x-large;
+					color:$tc;
+				}
+			}
+			.reservation{
+				min-height: 40px;
+				border-bottom: 1px solid $greyL2;
+				margin-bottom: $gutter / 4;
+				padding-bottom: $gutter / 4;
+
+			}
+			.waitingTenantSoon{
+				min-height: 40px;
+				border-bottom: 1px solid $greyL2;
+				margin-bottom: $gutter / 4;
+				padding-bottom: $gutter / 4;
+			}
+			.requestLike{
+				min-height: 40px;
+				margin-bottom: $gutter / 4;
+				padding-bottom: $gutter / 4;
 			}
 		}
 	}

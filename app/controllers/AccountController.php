@@ -342,9 +342,7 @@ class AccountController extends AccountBaseController {
 		$request = UserLocation::findOrFail($id_request);
 		$location = Location::findOrFail($request->location_id);
 
-		$request->status = 0;
-		$request->request = 0;
-		$request->save();
+		$request->delete();
 
 		return Redirect::back()
 		->withSuccess(trans('validation.custom.rejectValidation'));
