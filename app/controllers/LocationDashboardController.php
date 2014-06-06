@@ -33,6 +33,37 @@ class LocationDashboardController extends AccountBaseController {
 		->with(compact('photo','nb_requestMonth','nb_tenantsMonth','nb_oldTenants','nb_comments'));
 	}
 
+	public function desactiveComment( $user_slug, $location, $comment_id){
+
+		$comment = LocationComment::findOrFail($comment_id);
+		$comment->validate = 0;
+		$comment->save();
+
+		return Redirect::back()
+		->withSuccess(trans('validation.custom.desactivedComment'));
+
+	}
+
+	public function deleteComment( $user_slug, $location, $comment_id){
+
+		$comment = LocationComment::findOrFail($comment_id);
+		$comment->delete();
+
+		return Redirect::back()
+		->withSuccess(trans('validation.custom.deletedComment'));
+
+	}
+
+	public function activeComment( $user_slug, $location, $comment_id){
+
+		$comment = LocationComment::findOrFail($comment_id);
+		$comment->validate = 1;
+		$comment->save();
+
+		return Redirect::back()
+		->withSuccess(trans('validation.custom.activedComment'));
+
+	}
 	public function likes( $user_slug, $location ){
 
 		$comments = $location->comment()->get();
@@ -64,31 +95,33 @@ class LocationDashboardController extends AccountBaseController {
 		return Redirect::back()
 		->withSuccess(trans('validation.custom.requestLikeSend'));
 
-}
-public function indexTenants( $user_slug, $location ){
+	}
+	public function indexTenants( $user_slug, $location ){
 
-	$tenants = $location->tenants()->get();
+		$tenants = $location->tenants()->get();
 
-	return View::make('account.owner.dashboard.tenants',array('page'=>'dashboard'))
-	->with(compact('tenants'));
-}
+		$all = $location->AllTenants()->orderBy('begin')->get();
 
-public function desactivateLocation( $user_slug, $location ){
+		return View::make('account.owner.dashboard.tenants',array('page'=>'dashboard'))
+		->with(compact('tenants','all'));
+	}
 
-	$location->available = 0;
-	$location->save();
+	public function desactivateLocation( $user_slug, $location ){
 
-	return Redirect::back()
-	->withSuccess(trans('validation.custom.locationWellDesactivate'));
-}
+		$location->available = 0;
+		$location->save();
 
-public function activateLocation( $user_slug, $location ){
+		return Redirect::back()
+		->withSuccess(trans('validation.custom.locationWellDesactivate'));
+	}
 
-	$location->available = 1;
-	$location->save();
+	public function activateLocation( $user_slug, $location ){
 
-	return Redirect::back()
-	->withSuccess(trans('validation.custom.locationWellActivate'));
-}
+		$location->available = 1;
+		$location->save();
+
+		return Redirect::back()
+		->withSuccess(trans('validation.custom.locationWellActivate'));
+	}
 
 }

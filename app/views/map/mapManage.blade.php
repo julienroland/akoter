@@ -1,10 +1,10 @@
 <div class="mapManage">
-  <div class="switchView">
+  <div class="switchView" data-intro='Changez de vue !' data-step="5">
       <a  class="researchBtn" href="">{{ucfirst(trans('form.search'))}}</a>
       <a class="ListingBtn active" href="">{{trans('form.listing')}}</a>
     </div>
   <div class="research">
-    <div class="text">
+    <div class="text" >
       <h3 aria-level="3" role="heading" class="title">{{trans('general.how_work')}}</h3>
       <!--ajouter dans page cms-->
       <p>
@@ -16,7 +16,8 @@
       </p>
     </div>
 
-    {{Form::submit(ucfirst(trans('form.search')),array('class'=>'bigSubmit','tabindex'=>'6'))}}
+    {{Form::submit(ucfirst(trans('form.search')),array('data-intro'=>'Recherchez!','data-step'=>"4",'class'=>'bigSubmit','tabindex'=>'6'))}}
+    
   </div>
   <div class="oneBuilding">
 

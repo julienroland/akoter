@@ -8,10 +8,10 @@
      <span class="loadingText">{{trans('general.loading')}}</span>
    </div>
 
-   {{Form::text('','',array('id'=>'zoom','data-min'=>'7','data-max'=>'15','data-step'=>'1','autocomplete'=>'off','class'=>'tooltip-ui-s','title'=>trans('title.map.scroll')))}}
+   {{Form::text('','',array('data-intro'=>'Zoomez!','data-step'=>"3", 'id'=>'zoom','data-min'=>'7','data-max'=>'15','data-step'=>'1','autocomplete'=>'off','class'=>'tooltip-ui-s','title'=>trans('title.map.scroll')))}}
 
    <div class="mapItem">
-     <div class="accordeon">
+     <div class="accordeon" data-intro='Filtrez!' data-step="1">
       <div class="handle icon icon-move6"></div>
       <div class="search stuff">
        <div class="head fastSearch">
@@ -40,7 +40,7 @@
   </div>
 </div>
 
-<div class="mapControls">
+<div class="mapControls" data-intro='Intéragisez!' data-step="2">
  <div class="tab">
    <a aria-label="{{trans('general.hide_panel')}}" role="button" href="javascript:void(0)" title="{{trans('general.hide_panel')}}" aria-hidden="true">
      <span aria-hidden="true" class="icon icon-prohibited1"></span>

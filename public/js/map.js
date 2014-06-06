@@ -427,6 +427,7 @@
 
 
 /* END FORM*/
+introJs().start();
 
 };
 

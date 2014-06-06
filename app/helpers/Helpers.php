@@ -456,7 +456,7 @@ class Helpers {
 	}
 	public static function getRating ( $rating ){
 
-		return round( $rating ) / 2;
+		return round( $rating * 10 ) / 10;
 
 	}
 	public static function extractLatLng( $latlng , $type ){

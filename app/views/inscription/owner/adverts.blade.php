@@ -244,6 +244,7 @@
 		</div>
 		@endif
 		@endforeach
+
 		<div class="field previous">
 			<a href="{{route('account_home', Auth::user()->slug)}}" title="{{trans('account.back_home')}}">{{trans('general.back')}}</a>
 		</div>

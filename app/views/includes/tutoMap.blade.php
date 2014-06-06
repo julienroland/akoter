@@ -4,7 +4,7 @@
 			<h2 aria-level="2" role="heading" class="mainTitle">Comment utiliser la carte</h2>
 			
 	<div class="showIt">
-		<div class="tutoItem toolbar left-top-position">
+		<div  class="tutoItem toolbar left-top-position">
 			{{trans('tuto.map_research')}}
 		</div>
 		<div class="tutoItem searchbar left-top-position">

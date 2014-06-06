@@ -23,9 +23,9 @@ Route::get('test', function () {
         ->subject('Avis de naissance');
     });
 */
-    return View::make('emails.requestLike')
-    ->with('user', Auth::user())
-    ->with('location',Location::whereId(1338)->with('translation')->first());
+return View::make('emails.requestLike')
+->with('user', Auth::user())
+->with('location',Location::whereId(1338)->with('translation')->first());
 });
 
 
@@ -605,8 +605,16 @@ Route::group(array('prefix' => $lang), function () use ($lang) {
              * Home
              *
              **/
-
+            
             Route::get(trans('routes.account') . '/{user_slug}/', array('as' => 'account_home', 'uses' => 'AccountController@index'));
+
+            /**
+            *
+            * Favorites
+            *
+            **/
+
+            Route::get( trans('routes.addFavoris').'/{location_id}', array('as'=>'addFavoris','uses'=>'UserController@addFavoris'));
 
             /**
              *
@@ -657,11 +665,11 @@ Route::group(array('prefix' => $lang), function () use ($lang) {
 
                 if(Auth::check()){
 
-                 return Location::whereId($value)->with(array('translation', 'building' => function ($query) {
-                  $query->whereUserId(Auth::user()->id);
-              }))->firstOrFail();
-             }
-             else{
+                   return Location::whereId($value)->with(array('translation', 'building' => function ($query) {
+                      $query->whereUserId(Auth::user()->id);
+                  }))->firstOrFail();
+               }
+               else{
 
                 return Location::whereId($value)->with(array('translation'))->firstOrFail();
             }
@@ -691,6 +699,12 @@ Route::group(array('prefix' => $lang), function () use ($lang) {
             Route::get(trans('routes.account') . '/{user_slug}/' . trans('routes.dashboard') . '/{location_id}/'. trans('routes.likes'), array('as' => 'dashboard_likes', 'uses' => 'LocationDashboardController@likes'));
 
             Route::get(trans('routes.account') . '/{user_slug}/' . trans('routes.dashboard') . '/{location_id}/'.trans('routes.tenants'), array('as' => 'dashboard_tenants', 'uses' => 'LocationDashboardController@indexTenants'));
+
+            Route::get(trans('routes.account') . '/{user_slug}/' . trans('routes.dashboard') . '/{location_id}/'.trans('routes.likes').'/'.trans('routes.desactivate').'/{comment_id}', array('as' => 'dashboard_desactiveComment', 'uses' => 'LocationDashboardController@desactiveComment'));
+
+            Route::get(trans('routes.account') . '/{user_slug}/' . trans('routes.dashboard') . '/{location_id}/'.trans('routes.likes').'/'.trans('routes.activate').'/{comment_id}', array('as' => 'dashboard_activeComment', 'uses' => 'LocationDashboardController@activeComment'));
+
+            Route::get(trans('routes.account') . '/{user_slug}/' . trans('routes.dashboard') . '/{location_id}/'.trans('routes.likes').'/'.trans('routes.delete').'/{comment_id}', array('as' => 'dashboard_deleteComment', 'uses' => 'LocationDashboardController@deleteComment'));
             
             /**
             *

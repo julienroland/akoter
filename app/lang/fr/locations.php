@@ -70,4 +70,5 @@ return array (
   'activate_location'=>'Activer votre location',
   'edit_location' => 'Modifier votre location',
   'activeTenant' => 'Locataire',
+  'views' => 'Nombre de vues: :number',
 );

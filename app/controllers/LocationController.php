@@ -34,7 +34,7 @@ class LocationController extends BaseController
 
 		$translations = $location->translation()->get()->lists('value','key');
 
-		$comments = LocationComment::whereLocationId($location->id)->with('translation','user')->get();
+		$comments = LocationComment::valid()->whereLocationId($location->id)->with('translation','user')->get();
 
 		$agence = $location->agence()->first();
 
@@ -104,6 +104,7 @@ class LocationController extends BaseController
 			$comment->rating = $input['note'];
 			$comment->location_id = $location->id;
 			$comment->user_id = Auth::user()->id;
+			$comment->validate = 1;
 			$comment->save();
 
 			$location->nb_rate = $location->nb_rate + 1;
@@ -139,7 +140,7 @@ class LocationController extends BaseController
 		}
 		else{
 
-			return Redirect::back()
+			return Redirect::back('#comment-tab')
 			->withInput()
 			->withErrors($validator);
 		}

@@ -26,7 +26,10 @@
         <div class="infos">
             <h3 aria-level="3" role="heading" class="titleDashboard">{{$location->translation->lists('value','key')['title']}}</h3>
             <span>{{$location->building->address}}</span>
+            <span>{{trans('locations.ref', array('ref'=>$location->ref))}}</span>
         </div>
+
+
     </div>
     <div class="actions">
        <!--  <div class="edit">
@@ -86,6 +89,19 @@
                 @endif
                 @endif
 
+            </div>
+            <div class="view">
+                <span class="icon icon-view6">{{trans('locations.views', array('number'=>$location->nb_views))}}</span>
+            </div>
+            <div class="rating">
+                    <div class="icons rating tooltip-ui-w" title="{{Helpers::getRating($location->rating)}} {{Lang::get('locations.stars')}} {{trans('general.on')}} {{trans('locations.nb_vote',array('number'=>$location->nb_rate))}}">
+                        <span class="section">{{Helpers::getRating($location->rating)}} {{Lang::get('locations.stars')}}</span>
+                        <span class="icon {{Helpers::isStar( 1, $location->rating )}} " aria-hidden="true"></span>
+                        <span class="icon {{Helpers::isStar( 2, $location->rating )}}" aria-hidden="true"></span>
+                        <span class="icon {{Helpers::isStar( 3, $location->rating )}}" aria-hidden="true"></span>
+                        <span class="icon {{Helpers::isStar( 4, $location->rating )}}" aria-hidden="true"></span>
+                        <span class="icon {{Helpers::isStar( 5, $location->rating )}}" aria-hidden="true"></span>
+                    </div>
             </div>
         </div>
     </div>

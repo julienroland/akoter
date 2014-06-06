@@ -13,5 +13,9 @@ array(
 'numberCommRequest'=>'Votre annonce dispose de :number commentaire(s), <a href=":url">Demandez à vos anciens locataires de vous donner une appréciation</a>',
 'neverTenants'=>'Vous n\'avez encore jamais eu de locataire, informez-vous grâce à nos conseils destinés aux propriétaires !',
 'noCommentYet'=>'Votre annonce ne dispose d\'aucun commentaire,<a href=":url">Demandez à vos anciens locataires de vous donner une appréciation</a>',
-
+'currentTenant'=>'Locataire actuel',
+'allTenant'=>'Tous vos locataire d\'avant et de maintenant',
+'desactivateComment'=>'Désactiver le commentaire (il ne sera plus visible sur votre annonce)',
+'activateComment'=>'Activer le commentaire (il sera visible sur votre annonce)',
+'deleteComment'=>'Supprimer définitivement le commentaire',
 	);

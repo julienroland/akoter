@@ -90,6 +90,9 @@ return array (
     'locationWellDesactivate'=>'Location désactivée !',
     'locationWellActivate'=>'Location activée !',
     'requestLikeSend'=>'Demande d\'appréciation envoyé !',
+    'desactivedComment'=>'Commentaire désactivé !',
+    'activedComment'=>'Commentaire activé !',
+    'deletedComment'=>'Commentaire supprimé !',
   ),
   'attributes' => 
   array (
