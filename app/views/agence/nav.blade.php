@@ -11,5 +11,10 @@
 			{{trans('agence.add')}}
 			</a>
 		</li>
+		<li {{Helpers::isActive( 'edit_agence' )}}>
+			<a href="{{route('edit_agence',Auth::user()->slug)}}">
+			{{trans('agence.edit')}}
+			</a>
+		</li>
 	</ul>
 </div>

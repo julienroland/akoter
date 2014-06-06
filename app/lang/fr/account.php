@@ -82,4 +82,6 @@ return array (
   'account_not_validate' => 'Votre compte n\'a pas encore été validé',
   'email_not_comfirm' => 'Vous n\'avez pas validé votre email',
   'seeSteps_owner' => 'plus d\'informations',
+  'check_bookmark' => 'Voir la liste de vos favoris',
+  'your_favoris' => 'Liste vos favoris',
 );

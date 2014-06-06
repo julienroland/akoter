@@ -5,6 +5,8 @@ return array (
   'agence' => 'Ajouter votre agence',
   'created' => 'Créé le',
   'add' => 'Ajouter',
+  'edit' => 'Editer',
+  'delete' => 'Supprimer',
   'home' => 'Vos agences',
   'name' => 'Nom de votre entreprise',
   'nb_employe' => 'Nombre d\'employé(s)',

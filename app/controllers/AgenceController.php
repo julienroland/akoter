@@ -59,6 +59,12 @@ class AgenceController extends BaseController
 		return View::make('agence.add', array( 'page'=>'agence', 'widget'=>array('select','validator','city_autocomplete')));
 
 	}
+
+	public function edit(){
+
+		return View::make('agence.edit', array( 'page'=>'agence', 'widget'=>array('select','validator','city_autocomplete')));
+
+	}
 	public function store( ){
 
 		$input = Input::all();

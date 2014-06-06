@@ -614,7 +614,7 @@ Route::group(array('prefix' => $lang), function () use ($lang) {
             *
             **/
 
-            Route::get( trans('routes.addFavoris').'/{location_id}', array('as'=>'addFavoris','uses'=>'UserController@addFavoris'));
+            Route::get( trans('routes.account') . '/{user_slug}/' . trans('routes.favoris'), array('as'=>'indexFavoris','uses'=>'AccountController@indexFavoris'));
 
             /**
              *
@@ -665,11 +665,11 @@ Route::group(array('prefix' => $lang), function () use ($lang) {
 
                 if(Auth::check()){
 
-                   return Location::whereId($value)->with(array('translation', 'building' => function ($query) {
-                      $query->whereUserId(Auth::user()->id);
-                  }))->firstOrFail();
-               }
-               else{
+                 return Location::whereId($value)->with(array('translation', 'building' => function ($query) {
+                  $query->whereUserId(Auth::user()->id);
+              }))->firstOrFail();
+             }
+             else{
 
                 return Location::whereId($value)->with(array('translation'))->firstOrFail();
             }
@@ -729,6 +729,8 @@ Route::group(array('prefix' => $lang), function () use ($lang) {
             Route::get(trans('routes.account') . '/{user_slug}/' .trans('routes.your_agences').'/'. trans('routes.add_agence'), array('as' => 'add_agence', 'uses' => 'AgenceController@add'));
 
             Route::post(trans('routes.account') . '/{user_slug}/' .trans('routes.your_agences').'/'. trans('routes.add_agence'), array('as' => 'store_agence', 'uses' => 'AgenceController@store'));
+
+            Route::get(trans('routes.account') . '/{user_slug}/' .trans('routes.your_agences').'/'. trans('routes.edit_agence'), array('as' => 'edit_agence', 'uses' => 'AgenceController@edit'));
 
             Route::get(trans('routes.account') . '/{user_slug}/' .trans('routes.your_agences').'/'. trans('routes.show_agence') .'/{agence_slug}', array('as' => 'show_agence', 'uses' => 'AgenceController@show'));
 

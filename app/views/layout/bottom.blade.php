@@ -1,4 +1,5 @@
 
+
 @if(isset($widget) && !in_array('nojs', $widget) || !isset($widget))
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 @endif
@@ -260,16 +261,16 @@
 
 
 @if(isset($widget) && in_array('grid', $widget))
-{{HTML::script('js/min/grid.js')}}
+{{HTML::script('js/grid.js')}}
 
 <script>
-
+console.log('ok');
   var $container = $('#container');
 
   $container.masonry({
     itemSelector: '.kot',
     "isOriginLeft": true,
-    isFitWidth: false,
+    isFitWidth: true,
   });
 
 </script>

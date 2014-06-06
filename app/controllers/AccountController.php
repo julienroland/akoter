@@ -33,6 +33,38 @@ class AccountController extends AccountBaseController {
 		return View::make('account.index', array('page'=>'account'));
 
 	}
+	public function indexFavoris(){
+		$favorisList = Auth::user()->favoris()->lists('location_id');
+
+			$locations = Location::with('translation');
+			$locations = $locations
+			->join('buildings','locations.building_id','=','buildings.id')
+			->join('users','buildings.user_id','=','users.id')
+			->where('users.validate','=',1)
+			->where('users.email_comfirm','=',1)
+			->where('buildings.status_type','=',1)
+			->select('buildings.id as bu','users.id as uu','locations.*');
+
+			$locations = $locations->with(
+				array(
+					'translation',
+					'accroche',
+					'building.region.translation',
+					'building.user',
+					'building.locality',
+					'typeLocation.translation',
+					'particularity.translation',
+					))
+			->where( 'locations.'.Config::get( 'var.l_validateCol' ) , 1 )
+			->where( 'locations.'.Config::get( 'var.l_availableCol' ) , 1 )
+			->whereIn( 'locations.id', $favorisList)
+			->where( Config::get( 'var.l_placesCol' ) ,'>', 0 )
+			->distinct('building')
+			->get( );
+
+		return View::make('account.favoris', array('page'=>'bookmark','widget'=>array('grid')))
+		->with(compact('locations'));
+	}
 	public function indexAdverts(){
 
 		if(Auth::user()->isOwner == 1){

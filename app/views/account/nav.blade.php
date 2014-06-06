@@ -28,7 +28,7 @@
 
 			@endif
 
-			<li><a href="" ><span class="icon icon-big61"></span>{{trans('account.bookmark')}}</a></li>
+			<li><a href="{{route('indexFavoris', array(Auth::user()->slug))}}" class="tooltip-ui-s" title="{{trans('account.check_bookmark')}}"><span class="icon icon-big61"></span>{{trans('account.bookmark')}}</a></li>
 
 			<li><a href="" ><span class="icon icon-medal30"></span>{{trans('account.likes')}}</a></li>
 

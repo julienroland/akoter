@@ -1481,6 +1481,7 @@ input[type="checkbox"]:checked + label {
   //width: $mw / 3.4;
   .kot {
   	@include cl(3);
+  	width:210px;
   	border: 1px solid $bblue;
   	height: 403px;
     /*height:452px;*/
@@ -2845,10 +2846,16 @@ $country-h: 100px;
 
 }
 .favoris{
-	margin: $gutter / 2 0;
+	padding:3em 1em;
 	text-align: center;
 	a{
 		color:red;
+	}
+	.kots{
+		#container{
+			margin-left: 0;
+			margin-right: 0;
+		}
 	}
 }
 
@@ -3093,19 +3100,15 @@ $country-h: 100px;
 		.title-account{
 			font-size: $large;
 			color:white;
+			text-align: left;
+			font-weight: bold;
+			color:white;
+			margin-bottom: $gutter;
 		}
 	}
 
 }
 .home-location{
-
-	.title-account{
-		font-size: $xx-large;
-		text-align: left;
-		font-weight: bold;
-		color:white;
-		margin-bottom: $gutter;
-	}
 
 	.undertitle-account{
 		font-size: $large;
