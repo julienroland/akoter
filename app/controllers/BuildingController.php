@@ -8,8 +8,13 @@ class BuildingController extends BaseController
 	public function gmGetBuilding()
 	{
 
-		$locations = Helpers::cache(Building::where('status_type', 1)
-		->get( ),'building_map');
+		$locations = Building::where('status_type', 1)
+			->whereHas('location', function( $query ){
+				$query->where(Config::get('var.l_validateCol'), 1)
+				->where(Config::get('var.l_availableCol'), 1)
+				->where(Config::get('var.l_placesCol'),'>', 0);
+			})
+			->get( );
 
 		return Response::json($locations, 200);
 	}

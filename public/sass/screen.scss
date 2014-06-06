@@ -7078,7 +7078,7 @@ div.wijmo-wijmenu .wijmo-wijmenu-child .wijmo-wijmenu-text {
 		position: relative;
 		.header{
 			@include c(12);
-			background-color: $greyL;
+			background-color: $greyL3;
 			padding:2em 1em;
 		}
 		.image{
@@ -7110,7 +7110,7 @@ div.wijmo-wijmenu .wijmo-wijmenu-child .wijmo-wijmenu-text {
 					color:white;
 					text-decoration:none;
 					&:before{
-						font-size:$large;
+						font-size:$medium;
 						text-align:center;
 						display:block;
 						margin:0;
@@ -7127,6 +7127,10 @@ div.wijmo-wijmenu .wijmo-wijmenu-child .wijmo-wijmenu-text {
 			.desactivate{
 				background-color:$bred;
 				border:2px solid darken($bred,20%);
+			}
+			.activate{
+				background-color:$success;
+				border:2px solid darken($success,20%);
 			}
 		}
 	}

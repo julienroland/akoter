@@ -1303,7 +1303,6 @@ var getLocations = function( nId ){
     dataType: "json",
     url:"ajax/getLocations/"+nId,
     type:"get",
-
     success:function(oData){
 
       if($slider.find('li').length > 0){

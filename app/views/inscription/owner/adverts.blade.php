@@ -14,7 +14,7 @@
 	
 	@include('includes.steps')
 
-	{{Form::open(array('route'=>array('save_inscription_adverts', Auth::user()->slug, $building->id),'class'=>'mainType'))}}
+	{{Form::open(array('route'=>array('save_inscription_adverts', Auth::user()->slug, $building->id, Helpers::isOK($currentLocation) ? $currentLocation->id : ''),'class'=>'mainType'))}}
 
 
 	<div class="requiredField"><span class="icon-required" aria-hidden="true"></span>{{trans('form.required_field')}}</div>
@@ -26,12 +26,15 @@
 	<div class="tabs">
 		<ul>
 			@foreach($locations as $location)
-			
+			@if(Helpers::isOK($currentLocation) && $currentLocation->id == $location->id)
+
 			<li><a href="#{{$location->id}}-advert">{{$location->typeLocation->translation[0]->value}} {{$location->id}}</a></li>
+			@endif
 			@endforeach
 		</ul>
 
 		@foreach($locations as $location)
+		@if(Helpers::isOK($currentLocation) && $currentLocation->id == $location->id)
 		<div id="{{$location->id}}-advert">
 			
 			@if($location->nb_locations > 1)
@@ -239,6 +242,7 @@
 			</div>
 			
 		</div>
+		@endif
 		@endforeach
 		<div class="field previous">
 			<a href="{{route('account_home', Auth::user()->slug)}}" title="{{trans('account.back_home')}}">{{trans('general.back')}}</a>

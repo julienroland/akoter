@@ -347,7 +347,7 @@ class AccountController extends AccountBaseController {
 		$request->save();
 
 		return Redirect::back()
-		->withSuccess(trans('validation.custom.rejectValidation'))
+		->withSuccess(trans('validation.custom.rejectValidation'));
 	}
 
 	public function requestValidation( ){

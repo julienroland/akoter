@@ -254,7 +254,9 @@ class LocationController extends BaseController
 			'grid',
 			'listing',
 			'map',
-			'slider')))
+			'slider',
+			'slideshow',
+			)))
 		->with(compact('locations','typeLocation','particularity','input'));
 	}
 

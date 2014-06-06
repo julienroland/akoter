@@ -21,13 +21,14 @@
 	<div class="tabs">
 		<ul>
 			@foreach($locations as $location)
-			
+			@if(Helpers::isOK($currentLocation) && $currentLocation->id == $location->id)
 			<li><a href="#{{$location->id}}-advert">{{$location->typeLocation->translation[0]->value}} {{$location->id}}</a></li>
+			@endif
 			@endforeach
 		</ul>
 
 		@foreach($locations as $location)
-
+		@if(Helpers::isOK($currentLocation) && $currentLocation->id == $location->id)
 		@if($location->nb_locations > 1)
 		<div class="informations">{{trans('inscription.groupAdvert',array('number'=>$location->nb_locations,'type'=>strtolower($location->typeLocation->translation[0]->value)))}} </div>
 		@endif
@@ -79,6 +80,7 @@
 				@endif
 			</div>
 		</div>
+		@endif
 		@endforeach
 
 
@@ -87,7 +89,7 @@
 
 		<div class="field previous">
 
-			<a href="{{route(Config::get('var.steps_routes.6'), array(Auth::user()->slug, $building->id))}}" title="{{trans('account.back_previous_step')}}">{{trans('general.back')}}</a>
+			<a href="{{route(Config::get('var.steps_routes.6'), array(Auth::user()->slug, $building->id , Helpers::isOk($currentLocation) ? $currentLocation->id: ''))}}" title="{{trans('account.back_previous_step')}}">{{trans('general.back')}}</a>
 
 		</div>
 		<div class="field next">

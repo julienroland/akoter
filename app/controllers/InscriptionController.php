@@ -108,7 +108,7 @@ class InscriptionController extends AccountBaseController {
 	*
 	**/
 	
-	public function indexLocalisation( $user_slug, $building = null){
+	public function indexLocalisation( $user_slug, $building = null, $currentLocation=null){
 
 		$regions = Region::getList();
 
@@ -117,14 +117,14 @@ class InscriptionController extends AccountBaseController {
 		if(Helpers::isOk($building)){
 
 			return View::make('inscription.owner.localisation', array('page'=>'inscription_localisation','widget'=>array('validator','select','city_autocomplete')))
-			->with(compact('regions','localities','building'));
+			->with(compact('regions','localities','building','currentLocation'));
 		}
 
 		return View::make('inscription.owner.localisation', array('page'=>'inscription_localisation','widget'=>array('validator','select','city_autocomplete')))
-		->with(compact('regions','localities'));
+		->with(compact('regions','localities','currentLocation'));
 	}
 
-	public function saveLocalisation($user_slug, $building = null){
+	public function saveLocalisation($user_slug, $building = null, $currentLocation=null){
 
 		$input = Input::all();
 
@@ -158,7 +158,7 @@ class InscriptionController extends AccountBaseController {
 
 			Session::put('inscription.current', 1);
 
-			return Redirect::route('index_types_locations', array(Auth::user()->slug, $building->id))
+			return Redirect::route('index_types_locations', array(Auth::user()->slug, $building->id, Helpers::isOk($currentLocation) ? $currentLocation->id : ''))
 			->withSuccess(trans('validation.custom.inscription_localisation'));
 
 		}else{
@@ -172,7 +172,7 @@ class InscriptionController extends AccountBaseController {
 
 		}
 	}
-	public function updateLocalisation($user_slug, $building = null){
+	public function updateLocalisation($user_slug, $building = null, $currentLocation=null){
 
 		$input = Input::all();
 
@@ -206,7 +206,7 @@ class InscriptionController extends AccountBaseController {
 
 			}
 
-			return Redirect::route('index_types_locations', array(Auth::user()->slug, $building->id))
+			return Redirect::route('index_types_locations', array(Auth::user()->slug, $building->id, Helpers::isOk($currentLocation) ? $currentLocation->id : ''))
 			->withSuccess(trans('validation.custom.inscription_update_localisation'));
 
 		}else{
@@ -227,7 +227,7 @@ class InscriptionController extends AccountBaseController {
 	*
 	**/
 	
-	public function indexTypesLocations( $user_slug, $building ){
+	public function indexTypesLocations( $user_slug, $building , $currentLocation=null){
 
 		$typeLocation = TypeLocation::getList(trans('general.none'));
 		
@@ -237,10 +237,10 @@ class InscriptionController extends AccountBaseController {
 
 		return View::make('inscription.owner.typeLocation', array('page'=>'inscription','widget'=>array('select')))
 		->withSuccess(Session::get('success'))
-		->with(compact('typeLocation','building','typesLocations'));
+		->with(compact('typeLocation','building','typesLocations','currentLocation'));
 	}
 
-	public function saveTypesLocations( $user_slug, $building ){
+	public function saveTypesLocations( $user_slug, $building ,$currentLocation=null){
 
 		$input = Input::all();
 
@@ -262,7 +262,7 @@ class InscriptionController extends AccountBaseController {
 
 			if(isset($number[$key])){
 
-				if($typesLocations[$key]['number'] !== (int)$number[$key]){
+				if((int)$typesLocations[$key]['number'] !== (int)$number[$key]){
 
 					if(Helpers::isOk($typesLocations[$key]['number']) || $typesLocations[$key]['number'] != 0){
 
@@ -286,7 +286,8 @@ class InscriptionController extends AccountBaseController {
 
 							$location->type_location_id = $type; 
 							$location->building_id = $building->id;
-							$location->advert_specific = 1; 
+							$location->advert_specific = 1;
+							$location->available = 1; 
 
 							$location->save();
 
@@ -301,6 +302,7 @@ class InscriptionController extends AccountBaseController {
 						$location->advert_specific = 0; 
 						$location->nb_locations = $number[$key]; 
 						$location->remaining_location = $number[$key]; 
+						$location->available = 1;
 
 						$location->save();
 					}
@@ -321,12 +323,12 @@ class InscriptionController extends AccountBaseController {
 
 		if( count($typeLocation) > 1 || count($number) > 1 ){
 
-			return Redirect::route('index_inscription_building', array(Auth::user()->slug, $building->id ))
+			return Redirect::route('index_inscription_building', array(Auth::user()->slug, $building->id, Helpers::isOk($currentLocation) ? $currentLocation->id : '' ))
 			->withSuccess(trans('validation.custom.inscription_types_locations_multiple'));
 
 		}else{
 
-			return Redirect::route('index_inscription_building',  array(Auth::user()->slug, $building->id ))
+			return Redirect::route('index_inscription_building',  array(Auth::user()->slug, $building->id, Helpers::isOk($currentLocation) ? $currentLocation->id : '' ))
 			->withSuccess(trans('validation.custom.inscription_types_locations_single'));
 		}
 	}
@@ -337,7 +339,7 @@ class InscriptionController extends AccountBaseController {
 	*
 	**/
 	
-	public function indexBuilding($user_slug, $building){
+	public function indexBuilding($user_slug, $building, $currentLocation = null){
 
 		$optionId = TypeOption::name('building')->remember(Config::get('var.remember'), 'typeOption.building.id')->pluck('id');
 
@@ -348,16 +350,16 @@ class InscriptionController extends AccountBaseController {
 		if(count($currentOptions) > 0){
 
 			return View::make('inscription.owner.building_description', array('page'=>'inscription'))
-			->with(compact('building','options','currentOptions'));
+			->with(compact('building','options','currentOptions','currentLocation'));
 
 		}else{
 
 			return View::make('inscription.owner.building_description', array('page'=>'inscription'))
-			->with(compact('building','options'));
+			->with(compact('building','options','currentLocation'));
 		}
 	}
 
-	public function saveBuilding($user_slug, $building){
+	public function saveBuilding($user_slug, $building, $currentLocation = null){
 
 		$input = Input::get('building');
 
@@ -380,7 +382,7 @@ class InscriptionController extends AccountBaseController {
 
 	}
 
-	public function updateBuilding($user_slug, $building){
+	public function updateBuilding($user_slug, $building, $currentLocation = null){
 
 		$input = Input::get('building');
 
@@ -407,7 +409,7 @@ class InscriptionController extends AccountBaseController {
 	**/
 
 
-	public function indexInfosGeneral( $user_slug, $building ){
+	public function indexInfosGeneral( $user_slug, $building , $currentLocation = null){
 		
 
 
@@ -420,11 +422,11 @@ class InscriptionController extends AccountBaseController {
 		$adverts = $building->translations()->whereKey('advert')->get();
 
 		return View::make('inscription.owner.infos_general', array('page'=>'inscription','widget'=>array('validator','ui','tabs','editor')))
-		->with(compact('building','options','situations','adverts'));
+		->with(compact('building','options','situations','adverts','currentLocation'));
 
 	}
 
-	public function saveInfosGeneral( $user_slug, $building ){
+	public function saveInfosGeneral( $user_slug, $building , $currentLocation = null){
 
 		$input = Input::all();
 
@@ -545,15 +547,15 @@ class InscriptionController extends AccountBaseController {
 
 	}
 
-	public function indexPhotoBuilding($user_slug, $building){
+	public function indexPhotoBuilding($user_slug, $building, $currentLocation = null){
 
 		$photos = $building->photo()->orderBy('order')->get()->groupBy('type');
 
 		return View::make('inscription.owner.photo_building', array('page'=>'inscription','widget'=>array('upload','ui','sort')))
-		->with(compact('building','photos'));
+		->with(compact('building','photos','currentLocation'));
 	}
 
-	public function indexAdverts($user_slug, $building){
+	public function indexAdverts($user_slug, $building, $currentLocation = null){
 
 		$locations = $building->location()->with(array('typeLocation.translation'))->get();
 
@@ -569,10 +571,10 @@ class InscriptionController extends AccountBaseController {
 		$agency = User::agenceList();
 		
 		return View::make('inscription.owner.adverts', array('page'=>'inscription','widget'=>array('ui','tabs','editor','datepicker','select')))
-		->with(compact('building','locations','options','particularities','locationsData','agency'));
+		->with(compact('building','locations','options','particularities','locationsData','agency','currentLocation'));
 	}
 
-	public function saveAdverts( $user_slug, $building ){
+	public function saveAdverts( $user_slug, $building, $currentLocation = null ){
 
 		$inputs = Input::except('_token');
 
@@ -766,11 +768,11 @@ class InscriptionController extends AccountBaseController {
 
 		Session::put('inscription.current', 6);
 
-		return Redirect::route('index_photo_advert', array(Auth::user()->slug, $building->id ))
+		return Redirect::route('index_photo_advert', array(Auth::user()->slug, $building->id, Helpers::isOk($currentLocation) ? $currentLocation->id : '' ))
 		->withSuccess(trans('validation.custom.inscription_adverts'));
 	}
 
-	public function indexPhotoAdvert($user_slug, $building){
+	public function indexPhotoAdvert($user_slug, $building , $currentLocation = null){
 
 		$locations = $building->location()->with(array('typeLocation.translation'))->get();
 
@@ -779,7 +781,7 @@ class InscriptionController extends AccountBaseController {
 		}))->get()->groupBy('id');
 
 		return View::make('inscription.owner.photo_advert', array('page'=>'inscription','widget'=>array('upload','ui','sort','tabs')))
-		->with(compact('building','locations','photos'));
+		->with(compact('building','locations','photos','currentLocation'));
 
 	}
 

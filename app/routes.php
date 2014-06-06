@@ -680,6 +680,10 @@ Route::group(array('prefix' => $lang), function () use ($lang) {
 
             Route::get(trans('routes.account') . '/{user_slug}/' . trans('routes.dashboard') . '/{location_id}', array('as' => 'dashboard_location', 'uses' => 'LocationDashboardController@index'));
 
+            Route::get(trans('routes.account') . '/{user_slug}/' . trans('routes.dashboard') . '/{location_id}/'. trans('routes.desactivate'), array('as' => 'dashboard_desactivateLocation', 'uses' => 'LocationDashboardController@desactivateLocation'));
+
+            Route::get(trans('routes.account') . '/{user_slug}/' . trans('routes.dashboard') . '/{location_id}/'. trans('routes.activate'), array('as' => 'dashboard_activateLocation', 'uses' => 'LocationDashboardController@activateLocation'));
+
             /**
              *
              * Edit location
@@ -754,43 +758,45 @@ Route::group(array('prefix' => $lang), function () use ($lang) {
 
                 });
                 /* Localisation */
-                Route::get(trans('routes.account') . '/{user_slug}/' . trans('routes.add_location') . '/' . trans('routes.inscription_step1') . '/{building_id?}/', array('as' => 'index_localisation_building', 'uses' => 'InscriptionController@indexLocalisation'));
+                Route::get(trans('routes.account') . '/{user_slug}/' . trans('routes.add_location') . '/' . trans('routes.inscription_step1') . '/{building_id?}/{location_id?}', array('as' => 'index_localisation_building', 'uses' => 'InscriptionController@indexLocalisation'));
 
-                Route::post(trans('routes.account') . '/{user_slug}/' . trans('routes.add_location') . '/' . trans('routes.inscription_step1') . '/{building_id?}/', array('as' => 'save_localisation_building', 'uses' => 'InscriptionController@saveLocalisation'));
+                Route::post(trans('routes.account') . '/{user_slug}/' . trans('routes.add_location') . '/' . trans('routes.inscription_step1') . '/{building_id?}/{location_id?}', array('as' => 'save_localisation_building', 'uses' => 'InscriptionController@saveLocalisation'));
 
-                Route::put(trans('routes.account') . '/{user_slug}/' . trans('routes.add_location') . '/' . trans('routes.inscription_step1') . '/{building_id?}/', array('as' => 'update_localisation_building', 'uses' => 'InscriptionController@updateLocalisation'));
+                Route::put(trans('routes.account') . '/{user_slug}/' . trans('routes.add_location') . '/' . trans('routes.inscription_step1') . '/{building_id?}/{location_id?}', array('as' => 'update_localisation_building', 'uses' => 'InscriptionController@updateLocalisation'));
 
                 /* Type of location*/
-                Route::get(trans('routes.account') . '/{user_slug}/' . trans('routes.add_location') . '/{user_building_id}/' . trans('routes.inscription_step2'), array('as' => 'index_types_locations', 'uses' => 'InscriptionController@indexTypesLocations'));
+                Route::get(trans('routes.account') . '/{user_slug}/' . trans('routes.add_location') . '/{user_building_id}/' . trans('routes.inscription_step2'). '/{location_id?}', array('as' => 'index_types_locations', 'uses' => 'InscriptionController@indexTypesLocations'));
 
-                Route::post(trans('routes.account') . '/{user_slug}/' . trans('routes.add_location') . '/{user_building_id}/' . trans('routes.inscription_step2'), array('as' => 'save_types_locations', 'uses' => 'InscriptionController@saveTypesLocations'));
+                Route::post(trans('routes.account') . '/{user_slug}/' . trans('routes.add_location') . '/{user_building_id}/' . trans('routes.inscription_step2'). '/{location_id?}', array('as' => 'save_types_locations', 'uses' => 'InscriptionController@saveTypesLocations'));
 
                 /* Building */
-                Route::get(trans('routes.account') . '/{user_slug}/' . trans('routes.add_location') . '/{user_building_id}/' . trans('routes.inscription_step3'), array('as' => 'index_inscription_building', 'uses' => 'InscriptionController@indexBuilding'));
+                Route::get(trans('routes.account') . '/{user_slug}/' . trans('routes.add_location') . '/{user_building_id}/' . trans('routes.inscription_step3'). '/{location_id?}', array('as' => 'index_inscription_building', 'uses' => 'InscriptionController@indexBuilding'));
 
-                Route::post(trans('routes.account') . '/{user_slug}/' . trans('routes.add_location') . '/{user_building_id}/' . trans('routes.inscription_step3'), array('as' => 'save_inscription_building', 'uses' => 'InscriptionController@saveBuilding'));
+                Route::post(trans('routes.account') . '/{user_slug}/' . trans('routes.add_location') . '/{user_building_id}/' . trans('routes.inscription_step3'). '/{location_id?}', array('as' => 'save_inscription_building', 'uses' => 'InscriptionController@saveBuilding'));
 
-                Route::put(trans('routes.account') . '/{user_slug}/' . trans('routes.add_location') . '/{user_building_id}/' . trans('routes.inscription_step3'), array('as' => 'update_inscription_building', 'uses' => 'InscriptionController@updateBuilding'));
+                Route::put(trans('routes.account') . '/{user_slug}/' . trans('routes.add_location') . '/{user_building_id}/' . trans('routes.inscription_step3'). '/{location_id?}', array('as' => 'update_inscription_building', 'uses' => 'InscriptionController@updateBuilding'));
 
                 /* Description */
-                Route::get(trans('routes.account') . '/{user_slug}/' . trans('routes.add_location') . '/{user_building_id}/' . trans('routes.inscription_step4'), array('as' => 'index_inscription_general', 'uses' => 'InscriptionController@indexInfosGeneral'));
+                Route::get(trans('routes.account') . '/{user_slug}/' . trans('routes.add_location') . '/{user_building_id}/' . trans('routes.inscription_step4'). '/{location_id?}', array('as' => 'index_inscription_general', 'uses' => 'InscriptionController@indexInfosGeneral'));
 
-                Route::post(trans('routes.account') . '/{user_slug}/' . trans('routes.add_location') . '/{user_building_id}/' . trans('routes.inscription_step4'), array('as' => 'save_inscription_general', 'uses' => 'InscriptionController@saveInfosGeneral'));
+                Route::post(trans('routes.account') . '/{user_slug}/' . trans('routes.add_location') . '/{user_building_id}/' . trans('routes.inscription_step4'). '/{location_id?}', array('as' => 'save_inscription_general', 'uses' => 'InscriptionController@saveInfosGeneral'));
 
                 /* Photo building */
-                Route::get(trans('routes.account') . '/{user_slug}/' . trans('routes.add_location') . '/{user_building_id}/' . trans('routes.inscription_step5'), array('as' => 'index_photo_building', 'uses' => 'InscriptionController@indexPhotoBuilding'));
+                Route::get(trans('routes.account') . '/{user_slug}/' . trans('routes.add_location') . '/{user_building_id}/' . trans('routes.inscription_step5'). '/{location_id?}', array('as' => 'index_photo_building', 'uses' => 'InscriptionController@indexPhotoBuilding'));
 
                 /* Adverts for each locations */
-                Route::get(trans('routes.account') . '/{user_slug}/' . trans('routes.add_location') . '/{user_building_id}/' . trans('routes.inscription_step6'), array('as' => 'index_inscription_adverts', 'uses' => 'InscriptionController@indexAdverts'));
+                Route::get(trans('routes.account') . '/{user_slug}/' . trans('routes.add_location') . '/{user_building_id}/' . trans('routes.inscription_step6') . '/{location_id?}', array('as' => 'index_inscription_adverts', 'uses' => 'InscriptionController@indexAdverts'));
 
-                Route::post(trans('routes.account') . '/{user_slug}/' . trans('routes.add_location') . '/{user_building_id}/' . trans('routes.inscription_step6'), array('as' => 'save_inscription_adverts', 'uses' => 'InscriptionController@saveAdverts'));
+                Route::post(trans('routes.account') . '/{user_slug}/' . trans('routes.add_location') . '/{user_building_id}/' . trans('routes.inscription_step6'). '/{location_id?}', array('as' => 'save_inscription_adverts', 'uses' => 'InscriptionController@saveAdverts'));
 
-                Route::get(trans('routes.account') . '/{user_slug}/' . trans('routes.add_location') . '/{user_building_id}/' . trans('routes.inscription_step7'), array('as' => 'index_photo_advert', 'uses' => 'InscriptionController@indexPhotoAdvert'));
+                /* PHOTO advert*/
+
+                Route::get(trans('routes.account') . '/{user_slug}/' . trans('routes.add_location') . '/{user_building_id}/' . trans('routes.inscription_step7'). '/{location_id?}', array('as' => 'index_photo_advert', 'uses' => 'InscriptionController@indexPhotoAdvert'));
 
                 /* contact*/
-                Route::get(trans('routes.account') . '/{user_slug}/' . trans('routes.add_location') . '/{user_building_id}/' . trans('routes.inscription_step8'), array('as' => 'index_inscription_contact', 'uses' => 'InscriptionController@indexContact'));
+                Route::get(trans('routes.account') . '/{user_slug}/' . trans('routes.add_location') . '/{user_building_id}/' . trans('routes.inscription_step8'). '/{location_id?}', array('as' => 'index_inscription_contact', 'uses' => 'InscriptionController@indexContact'));
 
-                Route::post(trans('routes.account') . '/{user_slug}/' . trans('routes.add_location') . '/{user_building_id}/' . trans('routes.inscription_step8'), array('as' => 'save_inscription_contact', 'uses' => 'InscriptionController@saveContact'));
+                Route::post(trans('routes.account') . '/{user_slug}/' . trans('routes.add_location') . '/{user_building_id}/' . trans('routes.inscription_step8'). '/{location_id?}', array('as' => 'save_inscription_contact', 'uses' => 'InscriptionController@saveContact'));
 
                 Route::get(trans('routes.account') . '/{user_slug}/' . trans('routes.add_location') . '/{user_building_id}/' . trans('routes.inscription_comfirm'), array('as' => 'index_validate_inscription_owner', 'uses' => 'InscriptionController@indexComfirm'));
             });

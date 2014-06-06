@@ -51,4 +51,6 @@ return array (
   'addFavoris' => 'ajout-de-favoris',
   'show_agence' => 'gerer-votre-agence',
   'removeFavoris' => 'supprimer-le-favoris',
+  'desactivate' => 'desactiver',
+  'activate' => 'activer',
 );

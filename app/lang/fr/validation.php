@@ -87,6 +87,8 @@ return array (
     'userPhotoEdit' => 'Photo de profil bien modifié !',
     'removedFavoris' => 'Favoris bien supprimé',
     'rejectValidation'=>'Demande bien refusée !',
+    'locationWellDesactivate'=>'Location désactivée !',
+    'locationWellActivate'=>'Location activée !',
   ),
   'attributes' => 
   array (

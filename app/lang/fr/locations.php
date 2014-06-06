@@ -67,5 +67,6 @@ return array (
   'no_comments' => 'Il n\'y a pas de commentaire',
   'comment_publish' => 'Commentaire écrit le :date',
   'desactivate_location' => 'Désactiver votre location (elle ne sera plus visible par les autres membres',
+  'activate_location'=>'Activer votre location',
   'edit_location' => 'Modifier votre location',
 );

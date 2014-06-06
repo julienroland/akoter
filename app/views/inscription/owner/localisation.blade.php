@@ -16,7 +16,7 @@
 	
 	@if( isset($building) && Helpers::isOk($building) )
 
-	{{Form::open(array('route'=>array('update_localisation_building', Auth::user()->slug, $building->id) ,'method'=>'put','class'=>'mainType rules','data-rules'=>json_encode(Building::$inscription_rules)))}}
+	{{Form::open(array('route'=>array('update_localisation_building', Auth::user()->slug, $building->id, Helpers::isOK($currentLocation) ? $currentLocation->id : '') ,'method'=>'put','class'=>'mainType rules','data-rules'=>json_encode(Building::$inscription_rules)))}}
 
 	@else
 

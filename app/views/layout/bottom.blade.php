@@ -248,7 +248,7 @@
 
 </script>
 
-{{HTML::script('js/min/map.js')}}
+{{HTML::script('js/map.js')}}
 @endif
 
 

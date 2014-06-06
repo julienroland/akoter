@@ -31,4 +31,22 @@ class LocationDashboardController extends AccountBaseController {
 		->with(compact('tenants'));
 	}
 
+	public function desactivateLocation( $user_slug, $location ){
+
+		$location->available = 0;
+		$location->save();
+
+		return Redirect::back()
+		->withSuccess(trans('validation.custom.locationWellDesactivate'));
+	}
+
+	public function activateLocation( $user_slug, $location ){
+
+		$location->available = 1;
+		$location->save();
+
+		return Redirect::back()
+		->withSuccess(trans('validation.custom.locationWellActivate'));
+	}
+
 }

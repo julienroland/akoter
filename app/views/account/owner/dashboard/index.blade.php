@@ -29,15 +29,20 @@
         </div>
     </div>
     <div class="actions">
-        <div class="edit">
+       <!--  <div class="edit">
             <a class="icon icon-tools6 tooltip-ui-s" title="{{trans('locations.edit_location')}}" href="">
 
             </a>
-        </div>
-        <div class="desactivate">
-        <a class="icon icon-remove13 tooltip-ui-s" title="{{trans('locations.desactivate_location')}}" href="">
+        </div> -->
+        <div class="{{$location->available == 1 ? 'activate' : 'desactivate'}}">
+            @if($location->available == 1)
+            <a class="icon icon-approve tooltip-ui-s" title="{{trans('locations.desactivate_location')}}" href="{{route('dashboard_desactivateLocation', array(Auth::user()->slug, $location->id))}}">
+            </a>
+            @else
+            <a class="icon icon-remove11 tooltip-ui-s" title="{{trans('locations.activate_location')}}" href="{{route('dashboard_activateLocation', array(Auth::user()->slug, $location->id))}}">
 
             </a>
+            @endif
         </div>
     </div>
 </div>

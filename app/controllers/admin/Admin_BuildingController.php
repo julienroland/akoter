@@ -49,6 +49,7 @@ class Admin_BuildingController extends \Admin_AdminController
 
 
 	public function contact( $building ){
+		
 		$user = $building->user()->first();
 
 		return View::make('admin.building.contact', array('page'=>'admin','widget'=>array('editor')))
