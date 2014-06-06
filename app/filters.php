@@ -43,6 +43,22 @@ App::error(function(ModelNotFoundException $e)
 });
 
 /**
+*
+* Filter agence boss
+*
+**/
+
+Route::filter('agenceBoss', function(){
+
+	$agence = Route::current()->parameters()['agence_slug'];
+
+	if(Auth::user()->id !== $agence->user_id){
+
+		return Redirect::back();
+	}
+
+});
+/**
  * Filter admin
  */
 

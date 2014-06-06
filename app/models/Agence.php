@@ -25,10 +25,29 @@ class Agence extends Eloquent implements SluggableInterface {
 		'month'=>'required|integer|digits_between:1,2',
 		'year'=>'required|integer|digits:4',
 		);
+	public static $rules_update = array(
+		'name'=>'required',
+		'address'=>'required',
+		'nb_employer'=>'integer',
+		'region'=>'required | alpha_dash',
+		'locality'=>'required | alpha_dash',
+		'postal'=>'required | numeric',
+		'logo'=>'image | mimes:jpeg,jpg,gif,png',
+		'password_ck'=>'same:password',
+		'language'=>'required',
+		'day'=>'required|integer|digits_between:1,2',
+		'month'=>'required|integer|digits_between:1,2',
+		'year'=>'required|integer|digits:4',
+		);
+
+	public static $join_rules = array(
+		'login'=>'required ',
+		'password_agence'=>'required',
+		);
 
 	public function boss()
 	{
-		return $this->belongsTo('User');
+		return $this->belongsTo('User','user_id');
 	}
 
 	public function user()
@@ -54,7 +73,7 @@ class Agence extends Eloquent implements SluggableInterface {
 
 	public function region()
 	{
-		return $this->belongsTo('Agence');
+		return $this->belongsTo('Region');
 	}
 
 

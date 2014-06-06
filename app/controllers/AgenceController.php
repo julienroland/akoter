@@ -30,6 +30,112 @@ class AgenceController extends BaseController
 			));
 
 	}
+	public function indexJoin( $user_slug ){
+
+		return View::make('agence.join', array('page'=>'agence'));
+
+	}
+
+
+
+	public function update($user_slug, $agence){
+
+		$input = Input::all();
+		Agence::$rules_update['login']  = 'required | unique:agences,login,'.$agence->id;
+		$validator  = Validator::make($input, Agence::$rules_update);
+
+		if($validator->passes()){
+
+			$agence->name = ucfirst($input['name']);
+			$agence->login = $input['login'];
+
+			if(Helpers::isOk($input['password'])){
+
+				$agence->password = Hash::make($input['password']);
+			}
+
+			$agence->created = $input['year'].'-'.$input['month'].'-'.$input['day'];
+			$agence->language_id = Config::get('var.langId')[$input['language']];
+			$agence->user_id = Auth::user()->id;
+			$agence->address = $input['address'];
+			$agence->locality_id = Locality::where('name','like', $input['locality'])->pluck('id');
+			$agence->region_id = Translation::whereContentType('Region')->whereKey('name')->where('value','like', $input['region'])->pluck('content_id');
+			$agence->postal = $input['postal'];
+			$agence->validate = 1;
+			$agence->visible = 1;
+
+			if(Input::hasFile('logo')){
+
+				$agence->logo = $this->image->updateLogoAgence( $agence );
+			}
+
+			$agence->save();
+
+			$fields = $validator->failed();
+			return Redirect::back()
+			->withInput()
+			->with(compact('fields'))
+			->withErrors($validator);
+
+		}else{
+
+			$fields = $validator->failed();
+			return Redirect::back()
+			->withInput()
+			->with(compact('fields'))
+			->withErrors($validator);
+		}
+
+
+	}
+	public function join( $user_slug ){
+
+		$input = Input::all();
+
+		$validator = Validator::make($input, Agence::$join_rules);
+
+		Session::put('agence_join', $input);
+
+		if($validator->passes()){
+
+			$agence = Agence::whereLogin($input['login'])->first();
+
+			if(Helpers::isOk($agence) && Hash::check($input['password_agence'], $agence->password )){
+
+				if(Helpers::isOk($agence)){
+
+					if($agence->user()->whereUserId(Auth::user()->id)->count() > 0){
+
+						$agence->user()->detach(Auth::user()->id);
+					}
+
+					$agence->user()->attach(Auth::user()->id);
+
+
+					return Redirect::route('index_agence', Auth::user()->slug);
+
+
+				}else{
+
+					return Redirect::back()
+					->withInput()
+					->withErrors(array('error'=>trans('validation.custom.agence_join')));
+				}
+
+			}else{
+
+				return Redirect::back()
+				->withInput()
+				->withErrors(array('error'=>trans('validation.custom.agence_join')));
+			}
+		}else{
+
+			return Redirect::back()
+			->withInput()
+			->withErrors($validator);
+		}
+
+	}
 	public function indexProfile( $agence ){
 
 		$locations = $agence->location()->with('photo','request','translation','building')->get();
@@ -37,6 +143,16 @@ class AgenceController extends BaseController
 		return View::make('agence.show', array('page'=>'agence'))
 		->with(compact('locations','agence'));
 	}
+
+	public function members( $user_slug, $agence ){
+
+		$members = $agence->user()->get();
+		$boss = $agence->boss()->first();
+
+		return View::make('agence.members', array('page'=>'agence'))
+		->with(compact('members','agence','boss'));
+	}
+
 	public function show( $user_slug, $agence ){
 
 		$locations = $agence->location()->with('photo','request','translation')->get();
@@ -47,7 +163,7 @@ class AgenceController extends BaseController
 
 	public function index(){
 
-		$agences = Auth::user()->agence()->remember(Config::get('var.remember'), 'agences'.Auth::user()->id)->get();
+		$agences = Auth::user()->agence()->get();
 
 		return View::make('agence.index', array( 'page'=>'agence'))
 		->with(compact('agences'));
@@ -60,15 +176,19 @@ class AgenceController extends BaseController
 
 	}
 
-	public function edit(){
+	public function edit($user_slug, $agence){
 
-		return View::make('agence.edit', array( 'page'=>'agence', 'widget'=>array('select','validator','city_autocomplete')));
+		$region = $agence->region->translation()->pluck('value');
+		$locality = $agence->locality()->pluck('name');
+
+		return View::make('agence.edit', array( 'page'=>'agence', 'widget'=>array('select','validator','city_autocomplete')))
+		->with(compact('agence','region','locality'));
 
 	}
 	public function store( ){
 
 		$input = Input::all();
-		
+
 		$validator  = Validator::make($input, Agence::$rules);
 
 		if($validator->passes()){
@@ -86,6 +206,8 @@ class AgenceController extends BaseController
 			$agence->locality_id = Locality::where('name','like', $input['locality'])->pluck('id');
 			$agence->region_id = Translation::whereContentType('Region')->whereKey('name')->where('value','like', $input['region'])->pluck('content_id');
 			$agence->postal = $input['postal'];
+			$agence->validate = 1;
+			$agence->visible = 1;
 
 			$agence->save();
 
@@ -95,7 +217,6 @@ class AgenceController extends BaseController
 
 			Auth::user()->agence()->attach($agence->id);
 
-			Cache::forget('agences'.Auth::user()->id);
 
 			if($agence){
 
@@ -112,7 +233,7 @@ class AgenceController extends BaseController
 
 		}else{
 
-			
+
 			$fields = $validator->failed();
 			return Redirect::back()
 			->withInput()
@@ -123,5 +244,5 @@ class AgenceController extends BaseController
 	}
 
 
-	
+
 }

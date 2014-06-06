@@ -17,12 +17,7 @@
     {{Form::text('name','',array('placeholder'=>trans('agence.name'),'required', 'class'=>isset(Session::get('field')['name']) ? 'form-error':''))}}
     <i class="icon-required" aria-hidden="true"></i>
   </div>
-
-  <div class="field">
-    {{Form::label('nb_employer',trans('agence.nb_employe'))}}
-    {{Form::input('numeric','nb_employer','',array('placeholder'=>trans('agence.nb_employe'),'required', 'class'=>isset(Session::get('field')['nb_employe']) ? 'form-error':''))}}
-  </div>
-
+  
   <div class="field">
     {{Form::label('logo',trans('agence.logo'))}}
     {{Form::file('logo',array('placeholder'=>trans('agence.logo'),'required', 'class'=>isset(Session::get('field')['logo']) ? 'form-error':''))}}

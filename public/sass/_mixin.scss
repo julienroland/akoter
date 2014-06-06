@@ -107,14 +107,26 @@
 	}
 	.bigInfo{
 		min-height: 200px;
-		padding:$gutter / 2;
+		padding:2em 1em;
 		background-color: $greyL3;
 		font-size: 1.3em;
 		font-weight: bold;
-		a{
-			
-			@extend .btn;
+		.main-title{
+			text-align: center;
 			display: block;
+			font-size: $large;
+			margin-bottom: $gutter * 2;	
+		}
+		.links{
+			a{
+				width: 100%;
+				text-align: center;
+				display: block;
+				color:$borange;
+				font-size: $medium;
+				font-weight: 400;
+				margin-bottom: $gutter;
+			}
 		}
 	}
 	h1{

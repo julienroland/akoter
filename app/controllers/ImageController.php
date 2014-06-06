@@ -77,6 +77,32 @@ public function logoAgence( $agence_id ){
   }
 
 }
+public function updateLogoAgence( $agence ){
+
+ $logo = Input::file('logo');
+
+ if(isset($agence) && Helpers::isOk($agence)){
+
+  $destinationPath = Config::get('var.images_dir').Config::get('var.agences_dir').$agence.'/'.Config::get('var.logoAgence_dir');
+
+  if(File::exists( $destinationPath.$agence->logo )){
+
+    File::delete( $destinationPath.$agence->logo );
+
+  }
+
+  $timestamp = Carbon::now()->timestamp;
+
+  File::exists( $destinationPath ) or File::makeDirectory( $destinationPath , 0777, true, true);
+
+  $filename = sha1($timestamp).'.jpg';
+
+  $image = Image::make( $logo )->grab( Config::get('var.agence_logo_width') , Config::get('var.agence_logo_height') )->save($destinationPath.$filename)->encode('jpg', Config::get('var.img_quality'));
+
+  return $filename;
+
+}
+}
 
 public function postBuildingImage( $type='more', $id=null )
 { 

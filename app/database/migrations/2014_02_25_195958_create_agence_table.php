@@ -21,7 +21,6 @@ class CreateAgenceTable extends Migration {
 			$table->boolean('validate');
 			$table->boolean('visible');
 			$table->date('created');
-			$table->integer('nb_employes');
 			$table->integer('user_id')->unsigned();
 			$table->foreign('user_id')->references('id')->on('users');
 			$table->string('address');

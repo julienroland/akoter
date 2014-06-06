@@ -371,7 +371,7 @@
 					@endif
 				</div>
 				<div class="user-info">
-					<span class="fn n name"><span class="given-name">{{$user->first_name}}</span><span class="family-name">{{$user->name}}</span></span>
+					<span class="fn n name"><span class="given-name">{{$user->first_name}}</span> <span class="family-name">{{$user->name}}</span></span>
 					<a class="email section" href="mailto:{{$user->email}}">{{$user->email}}</a>
 					<div class="adr section">
 						<div class="street-address">{{$user->address}}</div>

@@ -25,4 +25,15 @@ return array (
   'show' => 'Voir l\'agence et la gérer',
   'nos_locations' => 'L\'agence :name n\'a pas encore de location',
   'nb_employes' => 'Il y a <strong>:number</strong> employé(s)',
-);
+  'locations' => 'Locations',
+  'members' => 'Membres',
+  'informations' => 'Informations',
+  'boss' => 'Chef de l\'entreprise',
+  'join_agence' => 'Rejoindre votre agence',
+  'join' => 'Rejoindre',
+  'login' => 'Identifiant de l\'agence',
+  'password' => 'Mot de passe de l\'agence',
+  'joined' => 'Rejoignez ',
+  'joined_intro' => 'Rejoindre votre agence vous permet en tant qu\'employé de pouvoir également louer des biens au noms de celle-ci',
+  'edit'=>'Modifier votre agence',
+  );

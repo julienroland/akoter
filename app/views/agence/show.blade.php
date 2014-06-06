@@ -2,31 +2,7 @@
 
 @section('agence')
 
-<div class="agence-profile">
-	<div class="header">
-		<div class="image thumbnail">
-			<img src="/{{Config::get('var.images_dir')}}{{Config::get('var.agences_dir')}}{{$agence->id}}/{{Config::get('var.logoAgence_dir')}}{{$agence->logo}}" alt="{{$agence->name}}">
-		</div>
-		<span class="name">
-			{{$agence->name}}
-		</span>
-		<span class="nb_employes">
-			{{trans('agence.nb_employes',array('number'=>$agence->nb_employes))}}
-		</span>		
-	</div>
-	<nav class="menu-agence-profile">
-		<ul>
-			<li >
-				<a class="active" href="">Locations</a>
-			</li>
-			<li >
-				<a class="active" href="">Membres</a>
-			</li>
-			<li >
-				<a class="active" href="">Informations</a>
-			</li>
-		</ul>
-	</nav>
+@include('agence.top')
 	<div class="locations">
 		<ul>
 		@if($locations->count() > 0)
@@ -37,7 +13,7 @@
 
 						@if(isset($location->accroche[0]))
 
-						<img class="thumbnail small-img" src="{{'/'.Config::get('var.images_dir').Config::get('var.users_dir').Auth::user()->id.'/'.Config::get('var.locations_dir').$location->id.'/'.Helpers::addBeforeExtension($location->accroche[0]->url, Config::get('var.img_small'))}}"  width="{{$location->accroche[0]->width}}" height="{{$location->accroche[0]->height}}">
+						<img class="thumbnail small-img" src="{{'/'.Config::get('var.images_dir').Config::get('var.users_dir').$agence->user_id.'/'.Config::get('var.locations_dir').$location->id.'/'.Helpers::addBeforeExtension($location->accroche[0]->url, Config::get('var.img_small'))}}"  width="{{$location->accroche[0]->width}}" height="{{$location->accroche[0]->height}}">
 
 						@else 
 

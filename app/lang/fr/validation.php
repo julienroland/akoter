@@ -93,6 +93,7 @@ return array (
     'desactivedComment'=>'Commentaire désactivé !',
     'activedComment'=>'Commentaire activé !',
     'deletedComment'=>'Commentaire supprimé !',
+    'agence_join'=>'Le login ou le mot de passe est incorrect',
   ),
   'attributes' => 
   array (

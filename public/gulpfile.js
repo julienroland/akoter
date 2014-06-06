@@ -10,6 +10,7 @@ changed = require('gulp-changed'),
 livereload = require('gulp-livereload');
 concat = require('gulp-concat');
 concatCss = require('gulp-concat-css');
+htmlhint = require("gulp-htmlhint");
 ;
 
 gulp.task('css', function() {
@@ -29,6 +30,14 @@ gulp.task('css', function() {
 	.pipe(gulp.dest('css'))
 	.pipe(notify({ message: 'SASS bien compilé maître Julien !' }))
 	.pipe(livereload());
+});
+
+gulp.task('html', function(){
+
+	gulp.src("./src/*.html")
+	.pipe(htmlhint())
+	.pipe(htmlhint.reporter());
+
 });
 
 gulp.task('js', function() {
@@ -51,9 +60,14 @@ gulp.task('default' , function() {
 	
 	gulp.run('css');
 	gulp.run('js');
+	gulp.run('html');
 
 	gulp.watch('sass/**/*.scss', function() {
 		gulp.run('css');
+	});
+
+	gulp.watch('../app/view/**/*.php', function() {
+		gulp.run('html');
 	});
 
 	gulp.watch('js/**/*.js', function() {

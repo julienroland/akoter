@@ -3504,20 +3504,77 @@ $country-h: 100px;
 
 .agence-container{
 	@include c(12);
+	width: auto;
 	padding:3em 1em;
 	.intro{
 		color:$greyD;
 		text-align: center;
 	}
+	.members{
+		@include c(12);
+		padding:3em 0;
+		.member{
+			@include cl(4);
+			width: 120px;
+			text-align: center;
+			.user-picture{
+				padding:1em 5px;
+			}
+			.member-photo{
+				@include border-radius(50%);
+				display: block;
+				margin: auto;
+				margin-bottom: $gutter / 4;
+			}
+			.user-info{
+				color:$greyD;
+				font-size: $small;
+			}
+			&.boss{
+				
+				.user-picture{
+					position: relative;
+					padding:1em 5px;
+					&:before{
+						content:"";
+						visibility: visible;
+						@include abs();
+						background-image: image-url('boss.png');
+						background-repeat: no-repeat;
+						background-position: 50% 0;
+						overflow: visible;
+					}
+				}
+			}
+		}
+	}
 }
+.menu-agence-profile{
+	@include c(12);
+	width: auto;
+	display: inline-block;
+	float: right;
+	margin-bottom: $gutter * 2;
+	margin-left: 100px;
+	li{
+		display: inline-block;
+		margin-right: $gutter / 4;
+		&.active{
+			a{
+				color:$borange;
+			}
+		}
+	}
+}
+
 .agence-profile{
 	.header{
-		height: 200px;
+		height: 150px;
 		@include c(12);
 		position: relative;
 		padding:1em;
 		background-color: $greyL3;
-		margin-bottom: $gutter * 2;
+		margin-bottom: $gutter / 2;
 		.image{
 			float: left;
 			width: 64px;
@@ -3555,6 +3612,7 @@ $country-h: 100px;
 		}
 
 	}
+
 }
 
 /**

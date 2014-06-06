@@ -730,11 +730,23 @@ Route::group(array('prefix' => $lang), function () use ($lang) {
 
             Route::post(trans('routes.account') . '/{user_slug}/' .trans('routes.your_agences').'/'. trans('routes.add_agence'), array('as' => 'store_agence', 'uses' => 'AgenceController@store'));
 
-            Route::get(trans('routes.account') . '/{user_slug}/' .trans('routes.your_agences').'/'. trans('routes.edit_agence'), array('as' => 'edit_agence', 'uses' => 'AgenceController@edit'));
+            Route::group( array('before'=>'agenceBoss') , function(){
 
-            Route::get(trans('routes.account') . '/{user_slug}/' .trans('routes.your_agences').'/'. trans('routes.show_agence') .'/{agence_slug}', array('as' => 'show_agence', 'uses' => 'AgenceController@show'));
+                Route::post(trans('routes.account') . '/{user_slug}/' .trans('routes.your_agences').'/{agence_slug}/'. trans('routes.update_agence') , array('as' => 'update_agence', 'uses' => 'AgenceController@update'));
+
+                Route::get(trans('routes.account') . '/{user_slug}/' .trans('routes.your_agences').'/{agence_slug}/'. trans('routes.edit_agence'), array('as' => 'edit_agence', 'uses' => 'AgenceController@edit'));
+
+            });
+
+            Route::get(trans('routes.account') . '/{user_slug}/' .trans('routes.your_agences') .'/{agence_slug}/'. trans('routes.show_agence'), array('as' => 'show_agence', 'uses' => 'AgenceController@show'));
+
+            Route::get(trans('routes.account') . '/{user_slug}/' .trans('routes.your_agences') .'/{agence_slug}/'. trans('routes.members_agence'), array('as' => 'agence_members', 'uses' => 'AgenceController@members'));
 
             Route::get(trans('routes.agences').'/{agence_slug}', array('as'=>'showAgence','uses'=>'AgenceController@indexProfile'));
+
+            Route::get(trans('routes.account') . '/{user_slug}/' .trans('routes.join_agences') , array('as'=>'join_agence','uses'=>'AgenceController@indexJoin'));
+
+            Route::post(trans('routes.account') . '/{user_slug}/' .trans('routes.join_agences') , array('as'=>'join','uses'=>'AgenceController@join'));
 
 
 
