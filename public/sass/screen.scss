@@ -7071,13 +7071,15 @@ div.wijmo-wijmenu .wijmo-wijmenu-child .wijmo-wijmenu-text {
 
 /*DAshboard*/
 .dashboard {
-	padding: 1em;
+	padding: 1em 0;
 	.oneLocation{
 		@include c(12);
-		padding:3em 1em;
+		padding:3em 0;
 		position: relative;
 		.header{
 			@include c(12);
+			background-color: $greyL;
+			padding:2em 1em;
 		}
 		.image{
 			width: 200px;

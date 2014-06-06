@@ -230,7 +230,7 @@ Route::filter('isOwner', function(){
 Route::filter('auth', function()
 {	
 
-	if(Auth::guest() && Cookie::has('login')) Auth::attempt( array( 'email'=> Cookie::get('login')['email_co'], 'password'=>Cookie::get('login')['password_co'] ), isset(Cookie::get('login')['remember']) ? true : false );
+	/*if(Auth::guest() && Cookie::has('login')) Auth::attempt( array( 'email'=> Cookie::get('login')['email_co'], 'password'=>Cookie::get('login')['password_co'] ), isset(Cookie::get('login')['remember']) ? true : false );*/
 	if(Auth::guest()) return Redirect::guest(trans('routes.connection'));
 	if(Auth::user()->suspend == 1) return Redirect::route('connection');
 	if(Auth::user()->delete == 1) return Redirect::route('connection');
