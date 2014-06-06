@@ -85,7 +85,7 @@
 
 
 
-		{{Form::open(array('method'=>'get','route'=>array('index_inscription_contact', Auth::user()->slug, $building->id),'class'=>'mainType '))}}
+		{{Form::open(array('method'=>'get','route'=>array('index_inscription_contact', Auth::user()->slug, $building->id, Helpers::isOk($currentLocation) ? $currentLocation->id: ''),'class'=>'mainType '))}}
 
 		<div class="field previous">
 

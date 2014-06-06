@@ -15,7 +15,7 @@
 	@include('includes.steps')
 	
 
-	{{Form::open(array('route'=>array('save_types_locations',Auth::user()->slug, $building->id),'class'=>'mainType'))}}
+	{{Form::open(array('route'=>array('save_types_locations',Auth::user()->slug, $building->id, Helpers::isOk($currentLocation) ? $currentLocation->id:''),'class'=>'mainType'))}}
 
 	@include('includes.errors')
 	

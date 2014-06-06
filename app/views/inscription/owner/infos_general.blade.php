@@ -15,7 +15,7 @@
 
 	@include('includes.steps')
 
-	{{Form::open(array('route'=>array('save_inscription_general', Auth::user()->slug, $building->id ),'class'=>'mainType rules','data-rules'=>json_encode(Building::$infos_general_rules)))}}
+	{{Form::open(array('route'=>array('save_inscription_general', Auth::user()->slug, $building->id , Helpers::isOk($currentLocation) ? $currentLocation->id:''),'class'=>'mainType rules','data-rules'=>json_encode(Building::$infos_general_rules)))}}
 
 	@include('includes.errors')
 

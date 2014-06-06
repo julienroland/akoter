@@ -377,7 +377,7 @@ class InscriptionController extends AccountBaseController {
 		$building->save();
 		Session::put('inscription.current', 3);
 
-		return Redirect::route('index_inscription_general', array(Auth::user()->slug, $building->id ))
+		return Redirect::route('index_inscription_general', array(Auth::user()->slug, $building->id , Helpers::isOk($currentLocation) ? $currentLocation->id:''))
 		->withSuccess(trans('validation.custom.inscription_description_batiment'));
 
 	}
@@ -397,7 +397,7 @@ class InscriptionController extends AccountBaseController {
 			}
 		}
 
-		return Redirect::route('index_inscription_general', array(Auth::user()->slug, $building->id ))
+		return Redirect::route('index_inscription_general', array(Auth::user()->slug, $building->id, Helpers::isOk($currentLocation) ? $currentLocation->id:'' ))
 		->withSuccess(trans('validation.custom.inscription_description_batiment'));
 
 	}
@@ -535,7 +535,7 @@ class InscriptionController extends AccountBaseController {
 
 			Session::put('inscription.current', 4);
 
-			return Redirect::route('index_photo_building', array(Auth::user()->slug, $building->id ))
+			return Redirect::route('index_photo_building', array(Auth::user()->slug, $building->id, Helpers::isOk($currentLocation) ? $currentLocation->id :'' ))
 			->withSuccess(trans('validation.custom.inscription_infos_general'));
 
 		}else{
@@ -579,7 +579,7 @@ class InscriptionController extends AccountBaseController {
 		$inputs = Input::except('_token');
 
 		Session::put('adverts', $inputs);
-
+		
 		foreach($inputs as $keyInput => $input){
 
 			$validator = Validator::make($input, Location::$rules);
@@ -785,18 +785,18 @@ class InscriptionController extends AccountBaseController {
 
 	}
 
-	public function indexContact( $user_slug, $building){
+	public function indexContact( $user_slug, $building, $currentLocation=null){
 
 		$regions = Region::getList();
 		$localities = Locality::getList();
 
 		return View::make('inscription.owner.contact',array('page'=>'inscription','widget'=>array('select','validator')))
-		->with(compact('building','localities','regions'));
+		->with(compact('building','localities','regions','currentLocation'));
 
 
 	}
 
-	public function saveContact($user_slug, $building){
+	public function saveContact($user_slug, $building, $currentLocation = null){
 
 		$input = Input::all();
 
@@ -822,7 +822,7 @@ class InscriptionController extends AccountBaseController {
 			$building->register_step = 8;
 			$building->save();
 
-			return Redirect::route('index_validate_inscription_owner', array(Auth::user()->slug , $building->id))
+			return Redirect::route('index_validate_inscription_owner', array(Auth::user()->slug , $building->id, Helpers::isOk($currentLocation) ? $currentLocation->id:''))
 			->withSuccess(trans('validation.custom.success_inscription_steps'));
 
 		}else{

@@ -17,11 +17,11 @@
 	
 	@if(isset($currentOptions))
 	
-	{{Form::open(array('method'=>'put','route'=>array('update_inscription_building', Auth::user()->slug, $building->id ),'class'=>'mainType'))}}	
+	{{Form::open(array('method'=>'put','route'=>array('update_inscription_building', Auth::user()->slug, $building->id, Helpers::isOk($currentLocation) ? $currentLocation->id:'' ),'class'=>'mainType'))}}	
 
 	@else
 
-	{{Form::open(array('route'=>array('save_inscription_building', Auth::user()->slug, $building->id ),'class'=>'mainType'))}}
+	{{Form::open(array('route'=>array('save_inscription_building', Auth::user()->slug, $building->id, Helpers::isOk($currentLocation) ? $currentLocation->id:'' ),'class'=>'mainType'))}}
 
 	@endif
 	@include('includes.errors')

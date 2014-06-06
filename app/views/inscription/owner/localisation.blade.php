@@ -20,7 +20,7 @@
 
 	@else
 
-	{{Form::open(array('route'=>array('save_localisation_building', Auth::user()->slug),'class'=>'mainType rules','data-rules'=>json_encode(Building::$inscription_rules)))}}
+	{{Form::open(array('route'=>array('save_localisation_building', Auth::user()->slug, Helpers::isOk($currentLocation) ? $currentLocation->id:''),'class'=>'mainType rules','data-rules'=>json_encode(Building::$inscription_rules)))}}
 
 	@endif
 
