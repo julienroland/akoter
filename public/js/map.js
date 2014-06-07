@@ -427,7 +427,7 @@
 
 
 /* END FORM*/
-introJs().start();
+/*introJs().start();*/
 
 };
 
@@ -462,11 +462,13 @@ if(bErrorsTabStatus === 1 ){
 	bErrorsTabStatus = 0;
 }
 };
+
 /**
 *
 * Range Append for data
 *
 **/
+
 var displayDataRange = function(){
     /**
     *
@@ -1325,7 +1327,7 @@ var getLocations = function( nId ){
       });
       $.each(oData.active_location, function(i){
 
-        $listLocations.append('<li><a href="'+oLang.routes.locations+'/'+oData.active_location[i].translation[0].value+'" class="tooltip-ui-w" title="'+oLang.locations.goLocation+'"><div class="type"><img classs="thumbnail" src="'+getDir(sLocationDir, {"location_id": oData.active_location[i].id, "user_id":oData.user_id})+beforeUrl(oData.active_location[i].accroche[0].url,'-small')+'"><span class="number">'+oData.active_location[i].remaining_location+'</span><span class="typeLocation">'+oData.active_location[i].type_location.translation[0].value+'</span></div><div class="price"><span class="expensive">'+Math.round(oData.active_location[i].price)+'€</span></div></a></li>'); //<div class="oneLocation"><ul><li><a href=""></a><div class="infosLocation"></div></li></ul></div>
+        $listLocations.append('<li><a href="'+oLang.routes.locations+'/'+oData.active_location[i].translation[0].value+'" class="tooltip-ui-w" title="'+oLang.locations.goLocation+'"><div class="type"><img classs="thumbnail" src="'+getDir(sLocationDir, {"location_id": oData.active_location[i].id, "user_id":oData.user_id})+beforeUrl(oData.active_location[i].accroche[0].url,'-small')+'"><span class="number" title="'+oLang.locations.remaining_room+'">'+oData.active_location[i].remaining_room+'</span><span class="typeLocation">'+oData.active_location[i].type_location.translation[0].value+'</span></div><div class="price"><span class="expensive">'+Math.round(oData.active_location[i].price)+'€</span></div></a></li>'); //<div class="oneLocation"><ul><li><a href=""></a><div class="infosLocation"></div></li></ul></div>
 
       });
 
@@ -1507,8 +1509,8 @@ $listKot.attr('value',JSON.stringify(aKots));
 var displayNumberResult = function( nNumber ){
 
 	if($l_range.html().indexOf('(') < 0){
-
-		$l_range.html( $l_range.html() + ' ('+ nNumber +')'.oLang.locations.building);
+    console.log(oLang);
+		$l_range.html( $l_range.html() + ' ('+ nNumber +')');
 
 	}else{
 

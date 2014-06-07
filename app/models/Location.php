@@ -408,16 +408,14 @@ public static function getLocationsFilter( $input = null, $nb_obj = null, $pagin
 		//[img, title, type_location, city, short-description, rating, room_remaining, owner, charge[price,type]]
 		$locations = Location::with('translation');
 
-		if(isset($input['city']) && Helpers::isOk( $input['city'] ) && (!isset($input['list']) || Helpers::isNotOk($input['list']))){
+		if(isset($input['city']) && Helpers::isOk( $input['city'] ) && (!isset($input['list']) || Helpers::isNotOk($input['list']) || $input['list'] == '[]')){
 
+			$region_id = Translation::whereKey('name')->whereContentType('Region')->where('value','like','%'.$input['city'].'%')->pluck('content_id');
+			
 			$region = ucfirst(Helpers::cleanString($input['city']));
 			$locations = $locations
-			->join('buildings','locations.building_id','=','buildings.id')
-			->join('regions','buildings.region_id','=','regions.id')
-			->join('translations as j1','regions.id','=',DB::raw('j1.content_id AND j1.content_type = "Region" AND j1.language_id = '.Session::get('langId')))
-			->where('j1.value','like','%'.$region.'%')
-			->distinct()
-			->select('j1.id as city_id','locations.*');
+			->join('buildings as region_B','locations.building_id','=','region_B.id')
+			->where('region_B.region_id',$region_id);
 		}
 		/*if(isset($input['city']) && Helpers::isOk( $input['city'] ) && (!isset($input['list']) || Helpers::isNotOk($input['list']))){
 			$locality = ucfirst(Helpers::cleanString($input['city']));
@@ -611,7 +609,7 @@ if(isset($list) && Helpers::isOk($list)){
 
 
 		/*$locations = $locations->take(30)->get();
-		Helpers::getQuery();
+
 		dd($locations);*/
 		$locations = $locations->paginate( $paginate );
 		return $locations;

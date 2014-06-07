@@ -323,7 +323,7 @@
 				@if(isset($location->start_date) && isset($location->end_date))
 				<span class="total-month">{{trans('locations.contrat_during',array('time'=>Helpers::createCarbonDate($location->start_date)->diffInMonths(Helpers::createCarbonDate($location->end_date))))}} <b></b></span>
 				@endif
-				@if($location->user()->whereUserId(Auth::user()->id)->whereStatus(1)->get()->count())
+				@if(Auth::check() && $location->user()->whereUserId(Auth::user()->id)->whereStatus(1)->count() > 0)
 				
 				<a href="" class="icon icon-key105 reserved">{{trans('locations.activeTenant')}}</a>
 

@@ -373,6 +373,14 @@ Route::group(array('prefix' => $lang), function () use ($lang) {
 
         Route::get('createCookie/{name}', array('uses' => 'AjaxController@createCookie'));
 
+        /**
+        *
+        * Agence
+        *
+        **/
+        
+        Route::get(trans('routes.agences').'/{agence_slug}', array('as'=>'showAgence','uses'=>'AgenceController@indexProfile'));
+
         /*
         *
         *	IF LOGIN
@@ -721,7 +729,7 @@ Route::group(array('prefix' => $lang), function () use ($lang) {
              **/
             Route::bind('agence_slug', function($value, $route){
 
-                return Auth::user()->agence()->whereSlug($value)->firstOrFail();
+                return Agence::whereSlug($value)->firstOrFail();
             });
 
             Route::get(trans('routes.account') . '/{user_slug}/' . trans('routes.your_agences'), array('as' => 'index_agence', 'uses' => 'AgenceController@index'));
@@ -738,12 +746,11 @@ Route::group(array('prefix' => $lang), function () use ($lang) {
 
             });
 
+
             Route::get(trans('routes.account') . '/{user_slug}/' .trans('routes.your_agences') .'/{agence_slug}/'. trans('routes.show_agence'), array('as' => 'show_agence', 'uses' => 'AgenceController@show'));
 
             Route::get(trans('routes.account') . '/{user_slug}/' .trans('routes.your_agences') .'/{agence_slug}/'. trans('routes.members_agence'), array('as' => 'agence_members', 'uses' => 'AgenceController@members'));
-
-            Route::get(trans('routes.agences').'/{agence_slug}', array('as'=>'showAgence','uses'=>'AgenceController@indexProfile'));
-
+            
             Route::get(trans('routes.account') . '/{user_slug}/' .trans('routes.join_agences') , array('as'=>'join_agence','uses'=>'AgenceController@indexJoin'));
 
             Route::post(trans('routes.account') . '/{user_slug}/' .trans('routes.join_agences') , array('as'=>'join','uses'=>'AgenceController@join'));

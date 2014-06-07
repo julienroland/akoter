@@ -20,7 +20,6 @@
 	</div>
 </div>
 @endforeach
-
 @else
 
 <div class="bigInfo">

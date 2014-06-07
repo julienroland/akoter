@@ -2713,140 +2713,140 @@ $country-h: 100px;
 	top: $hm;
 	background-color: $bblue;
 	color: white;
-  /* font-weight: 500; */
-  z-index: 50;
-  padding: $gutter / 2 0;
-  @include box-shadow(rgba(0, 0, 0, 0.3) 0 0 3px 0);
+	
+	z-index: 50;
+	padding: $gutter / 2 0;
+	@include box-shadow(rgba(0, 0, 0, 0.3) 0 0 3px 0);
 
-  .wrapper {
-  	overflow: visible;
-  	-webkit-backface-visibility: hidden;
-  	z-index: 10;
-  }
-  .formSearch {
-  	@include cl(10);
-  	.searchBar {
-  		@include c(12);
-  		height: 50px;
-  	}
-  	.fieldsSearch {
-  		@include c(12);
-  		height: 50px;
-  	}
-  }
-  .btn.clear {
-  	@include c(12);
-  	margin-top: 5px;
-  }
-  .searchSubmit {
-  	padding: 3px 0;
-  	@include cl(2);
-  	.clearAll {
-  		margin-top: 5px;
-  	}
-  	input[type="submit"] {
-  		margin-top: 0;
-  	}
-  	.pannel {
-  		.toogleMap, .toogleList {
-  			margin-top: 5px;
-  			@include cl-nm(6);
-  			height: 30px;
-  			background-color: $greyL;
-  			border: 1px solid $greyL2;
-  			color: $tc;
-  			font-weight: 400;
-  			padding: 5px;
-  			text-align: center;
-  			@include border-radius(3px);
-  			@include box-shadow($greyL2 0 0 2px 0 inset);
-  			@include transition(all 0.3s ease-in-out);
-  			&:hover, &:focus, &:active, &.active {
-  				text-decoration: none;
-  				background-color: $borange;
-  				color: white;
-  				border: 1px solid darken($borange, 10%);
-  				@include transition(all 0.3s ease-in-out);
-  			}
+	.wrapper {
+		overflow: visible;
+		-webkit-backface-visibility: hidden;
 
-  		}
-  	}
-  }
-  select {
-  	height: 40px;
-  	background: none;
-  	border: 0;
-  	text-overflow: ellipsis;
-  	overflow: hidden;
-  	white-space: nowrap;
-  	display: block;
-  	color: white;
-  	font-size: 1em;
-  	padding-left: 5px;
-  	font-family: $ff;
-  	line-height: 40px;
-  	font-weight: 400;
-  	-webkit-appearance: none;
-  	&:focus {
-  		outline: 0;
-  	}
-  }
-  .orderBy {
-  	width: 100px;
+	}
+	.formSearch {
+		@include cl(10);
+		.searchBar {
+			@include c(12);
+			height: 50px;
+		}
+		.fieldsSearch {
+			@include c(12);
+			height: 50px;
+		}
+	}
+	.btn.clear {
+		@include c(12);
+		margin-top: 5px;
+	}
+	.searchSubmit {
+		padding: 3px 0;
+		@include cl(2);
+		.clearAll {
+			margin-top: 5px;
+		}
+		input[type="submit"] {
+			margin-top: 0;
+		}
+		.pannel {
+			.toogleMap, .toogleList {
+				margin-top: 5px;
+				@include cl-nm(6);
+				height: 30px;
+				background-color: $greyL;
+				border: 1px solid $greyL2;
+				color: $tc;
+				font-weight: 400;
+				padding: 5px;
+				text-align: center;
+				@include border-radius(3px);
+				@include box-shadow($greyL2 0 0 2px 0 inset);
+				@include transition(all 0.3s ease-in-out);
+				&:hover, &:focus, &:active, &.active {
+					text-decoration: none;
+					background-color: $borange;
+					color: white;
+					border: 1px solid darken($borange, 10%);
+					@include transition(all 0.3s ease-in-out);
+				}
 
-  	.classify {
-  		width: 80px;
-  		overflow: hidden;
-  		-ms-text-overflow: ellipsis;
-  	}
-  }
-  .title {
-  	color: white;
-  	font-weight: 400;
-  	padding: $gutter / 2 0;
-  	font-size: 1em;
-  	float: left;
-  	font-weight: bold;
-  	margin-bottom: 0;
-  }
-  .filterType {
-  	margin-left: $gutter;
-  	float: left;
-  	.filterItem {
-  		display: inline-block;
-  		height: 100%;
-  		position: relative;
-  		font-weight: 400;
-  		font-size: 1em;
-  		line-height: 40px;
-  		margin-right: $gutter;
-  		select {
-  			font-size: 16px;
-  			border-color: #999;
-  		}
-  		.chosen-container {
-  			display: block;
-  		}
-  	}
-  }
+			}
+		}
+	}
+	select {
+		height: 40px;
+		background: none;
+		border: 0;
+		text-overflow: ellipsis;
+		overflow: hidden;
+		white-space: nowrap;
+		display: block;
+		color: white;
+		font-size: 1em;
+		padding-left: 5px;
+		font-family: $ff;
+		line-height: 40px;
+		font-weight: 400;
+		-webkit-appearance: none;
+		&:focus {
+			outline: 0;
+		}
+	}
+	.orderBy {
+		width: 100px;
 
-  .right {
-  	float: right;
-  }
-  .left {
-  	float: left;
+		.classify {
+			width: 80px;
+			overflow: hidden;
+			-ms-text-overflow: ellipsis;
+		}
+	}
+	.title {
+		color: white;
+		font-weight: 400;
+		padding: $gutter / 2 0;
+		font-size: 1em;
+		float: left;
+		font-weight: bold;
+		margin-bottom: 0;
+	}
+	.filterType {
+		margin-left: $gutter;
+		float: left;
+		.filterItem {
+			display: inline-block;
+			height: 100%;
+			position: relative;
+			font-weight: 400;
+			font-size: 1em;
+			line-height: 40px;
+			margin-right: $gutter;
+			select {
+				font-size: 16px;
+				border-color: #999;
+			}
+			.chosen-container {
+				display: block;
+			}
+		}
+	}
 
-  }
-  a {
-  	text-decoration: none;
-  	&:hover, &:focus, &:active {
-  		text-decoration: underline;
-  	}
-  }
+	.right {
+		float: right;
+	}
+	.left {
+		float: left;
+
+	}
+	a {
+		text-decoration: none;
+		&:hover, &:focus, &:active {
+			text-decoration: underline;
+		}
+	}
 
 }
 .favoris{
-	padding:3em 1em;
+	padding:1em 1em;
 	text-align: center;
 	a{
 		color:red;
@@ -3572,9 +3572,13 @@ $country-h: 100px;
 		height: 150px;
 		@include c(12);
 		position: relative;
-		padding:1em;
 		background-color: $greyL3;
 		margin-bottom: $gutter / 2;
+		.wrapper{
+			position: relative;
+			height: 100%;
+			padding:1em;
+		}
 		.image{
 			float: left;
 			width: 64px;

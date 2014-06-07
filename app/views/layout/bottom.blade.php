@@ -4,7 +4,6 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 @endif
 {{HTML::script('js/nprogress.js')}}
-{{HTML::script('js/intro.min.js')}}
 <script>
   NProgress.start();
   $(window).bind("load", function() {

@@ -1,14 +1,15 @@
 @extends('agence.layout')
 
 @section('agence')
-
-@include('agence.top')
+	@include('agence.top')
 	<div class="locations">
 		<ul>
-		@if($locations->count() > 0)
-		@foreach($locations as $location)
+			@if($locations->count() > 0)
+			@foreach($locations as $location)
+			<?php $slug = $location->translations->lists('value','key')['slug']; ?>
+			<?php $title = $location->translations->lists('value','key')['title'];?>
 			<li class="location-account success">
-				<a href="{{route('dashboard_location', array(Auth::user()->slug,$location->id))}}">	
+				<a @if(Auth::check()) href="{{route('dashboard_location', array(Auth::user()->slug,$location->id))}}" @else href="{{route('showLocation', $slug)}}" title="{{trans('locations.goTo',array('title'=>$title))}}" @endif>	
 					<div class="image">
 
 						@if(isset($location->accroche[0]))
@@ -69,5 +70,6 @@
 			@endif
 		</ul>
 	</div>
+</div>
 </div>
 @stop

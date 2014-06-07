@@ -50,6 +50,12 @@ class Agence extends Eloquent implements SluggableInterface {
 		return $this->belongsTo('User','user_id');
 	}
 
+
+	public function scopeValid($query)
+	{
+		return $query->whereValidate(1)->whereVisible(1);
+	}
+
 	public function user()
 	{
 		return $this->belongsToMany('User')

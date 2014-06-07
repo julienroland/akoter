@@ -1,3 +1,4 @@
+@if(Auth::check())
 <div class="menu-agence account-submenu">
 	<ul>
 
@@ -25,3 +26,4 @@
 		</li>
 	</ul>
 </div>
+@endif

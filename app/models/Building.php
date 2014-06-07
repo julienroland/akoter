@@ -59,7 +59,9 @@ class Building extends Eloquent {
 	public function activeLocation()
 	{
 		return $this->hasMany('Location')
-		->whereValidate( 1 );
+		->whereValidate( 1 )
+		->whereAvailable( 1 )
+		->where('remaining_room', '>', 0);
 	}
 
 	public function postal()

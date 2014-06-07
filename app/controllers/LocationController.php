@@ -36,7 +36,7 @@ class LocationController extends BaseController
 
 		$comments = LocationComment::valid()->whereLocationId($location->id)->with('translation','user')->get();
 
-		$agence = $location->agence()->first();
+		$agence = $location->agence()->valid()->first();
 
 		$favoris = $user->favoris()->whereLocationId($location->id)->first();
 

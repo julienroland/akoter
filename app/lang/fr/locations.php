@@ -71,4 +71,5 @@ return array (
   'edit_location' => 'Modifier votre location',
   'activeTenant' => 'Locataire',
   'views' => 'Nombre de vues: :number',
+  'remaining_room' => 'Nombre de place(s)',
 );
