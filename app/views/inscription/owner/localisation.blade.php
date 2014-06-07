@@ -26,6 +26,41 @@
 
 	<div class="requiredField"><span class="icon-required" aria-hidden="true"></span>{{trans('form.required_field')}}</div>
 
+	@if($buildings->count() > 0)
+
+	<div class="field">
+
+		<label for="building">{{trans('inscription.building_created')}}</label>
+		{{Form::select('building', $buildings,'',array('data-placeholder'=>trans('inscription.choose_building'),'class'=>'select'))}}
+	</div>
+	
+	<div class="typeLocation-building">
+		
+		<div class="field type_location col">
+			<div class="th-1 tooltip-ui-s" title="{{trans('inscription.type_location1')}}"> {{trans('inscription.type_location')}}</div>
+			<div class="th-2 tooltip-ui-s" title="{{trans('inscription.type_location2')}}"> {{trans('inscription.number_location')}}</div>
+			<div class="th-3 tooltip-ui-s" title="{{trans('inscription.type_location3')}}"> {{trans('inscription.spe_advert')}}</div>
+		</div>
+
+		@for($i = 1; $i < count($typeLocation); $i++ )
+
+		<div class="field type_location col">
+			{{Form::select('type_location['.$i.']',$typeLocation,
+			'',array('class'=>'select','title'=>trans('inscription.type_location')))}}
+
+			<input type="number_location" min="0" class="number" title="{{trans('inscription.number_location')}}" placeholder="{{trans('form.numberLocations')}}" value="" name="number_location[{{$i}}]">
+			<input type="checkbox" class="yesornot"  id="global" name="global[{{$i}}]" class="global" id="">
+			<label for="global"><span class="ui" data-yes="{{trans('general.yes')}}" data-not="{{trans('general.no')}}"></span><span class="section">{{trans('inscription.spe_advert')}}</span></label>
+		</div>
+
+		@endfor
+	</div>
+
+	<span class="or">{{strtolower(trans('connections.or'))}}</span>
+
+	@endif
+	
+
 	@include('includes.errors')
 
 	@include('includes.success')

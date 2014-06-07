@@ -56,11 +56,17 @@ class Building extends Eloquent {
 		->where('register_step','<', 7 );
 	}
 
+	public function waitingLocation()
+	{
+		return $this->hasMany('Location')
+		->where('validate', 0 )
+		->where('register_step', '>', 6 );
+	}
+
 	public function activeLocation()
 	{
 		return $this->hasMany('Location')
 		->whereValidate( 1 )
-		->whereAvailable( 1 )
 		->where( 'register_step','>', 6 );
 	}
 

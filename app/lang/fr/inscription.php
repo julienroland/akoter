@@ -111,4 +111,6 @@ return array (
   'choose_agence' => 'Choissisez une de vos agences',
   'cgu' => 'Accepter les conditions générales d\'utilisation',
   'no_typeLocation' => 'Vous devez au moins ajouter une location à votre bâtiment',
+  'building_created' => 'Utiliser un bâtiment déjà crée',
+  'choose_building' => 'Choisissez ou laisser vide',
 );

@@ -3448,6 +3448,34 @@ $country-h: 100px;
 
 /**
 *
+* Request
+*
+**/
+
+.requests{
+	padding:2em 1em;
+	.request{
+		.title-location{
+			margin-bottom: $gutter / 4;
+			display: inline-block;
+		}
+		.user{
+			@include c(12);
+			.image{
+				width: 80px;
+				float: left;
+				margin-right: $gutter / 2;
+			}
+			.user-name{
+				float: left;
+				margin-top: 40px;
+				color:$greyD;
+			}
+		}
+	}
+}
+/**
+*
 * Menu account sub
 *
 **/

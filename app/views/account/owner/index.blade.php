@@ -124,7 +124,7 @@
 
 			<ul>
 				@foreach( $waitingLocations->building as $building)
-				@foreach($building->location as $location)
+				@foreach($building->waitingLocation as $location)
 
 				<li class="location-account waiting">
 					<a href="{{route('dashboard_location', array(Auth::user()->slug,$location->id))}}">	

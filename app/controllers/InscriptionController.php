@@ -114,62 +114,140 @@ class InscriptionController extends AccountBaseController {
 
 		$localities = Locality::getList();
 
+		$buildings = Collection::make(Auth::user()->building()->lists('address','id'));
+
+		$buildings->put('',trans('form.none'));
+
+		$typeLocation = TypeLocation::getList(trans('general.none'));
+
 		if(Helpers::isOk($building)){
 
 			return View::make('inscription.owner.localisation', array('page'=>'inscription_localisation','widget'=>array('validator','select','city_autocomplete')))
-			->with(compact('regions','localities','building','currentLocation'));
+			->with(compact('regions','localities','building','currentLocation','buildings','typeLocation'));
 		}
 
 		return View::make('inscription.owner.localisation', array('page'=>'inscription_localisation','widget'=>array('validator','select','city_autocomplete')))
-		->with(compact('regions','localities','currentLocation'));
+		->with(compact('regions','localities','currentLocation','buildings','typeLocation'));
 	}
 
 	public function saveLocalisation($user_slug, $building = null, $currentLocation=null){
 
 		$input = Input::all();
-
+		
 		$validator = Validator::make($input, Building::$inscription_rules);
 
 		Session::put('inscription.localisation_input', $input );
 
-		if( $validator->passes() ){
+		if(Helpers::isNotOk($input['building'])){
 
-			$postal_id = Postal::where('start','like', $input['postal'][0].'%')->where('end','>',$input['postal'])->pluck('id');
+			if( $validator->passes() ){
 
-			$building = new Building;
 
-			$building->latlng = $input['latlng'];
-			$building->region_id = $input['region'];
-			$building->locality_id = $input['locality'];
-			$building->address = $input['address'];
-			$building->postal = $input['postal'];
-			$building->postal_id = $postal_id;
-			$building->number = $input['number'];
-			$building->user_id = Auth::user()->id;
-			$building->register_step = 1;
+				$postal_id = Postal::where('start','like', $input['postal'][0].'%')->where('end','>',$input['postal'])->pluck('id');
 
-			$building->save();
+				$building = new Building;
 
-			$user = Auth::user();
-			$user->isOwner = 1;
-			$user->save();
-			
-			Session::put('inscription.building_id', $building->id);
+				$building->latlng = $input['latlng'];
+				$building->region_id = $input['region'];
+				$building->locality_id = $input['locality'];
+				$building->address = $input['address'];
+				$building->postal = $input['postal'];
+				$building->postal_id = $postal_id;
+				$building->number = $input['number'];
+				$building->user_id = Auth::user()->id;
+				$building->register_step = 1;
 
-			Session::put('inscription.current', 1);
+				$building->save();
 
-			return Redirect::route('index_types_locations', array(Auth::user()->slug, $building->id, Helpers::isOk($currentLocation) ? $currentLocation->id : ''))
-			->withSuccess(trans('validation.custom.inscription_localisation'));
+				$user = Auth::user();
+				$user->isOwner = 1;
+				$user->save();
 
+				Session::put('inscription.building_id', $building->id);
+
+				Session::put('inscription.current', 1);
+
+				return Redirect::route('index_types_locations', array(Auth::user()->slug, $building->id, Helpers::isOk($currentLocation) ? $currentLocation->id : ''))
+				->withSuccess(trans('validation.custom.inscription_localisation'));
+
+			}else{
+
+				$fields = $validator->failed();
+
+				return Redirect::route('index_localisation')
+				->withInput()
+				->withErrors($validator)
+				->withFields($fields);
+
+			}
 		}else{
 
-			$fields = $validator->failed();
+			$building = Building::findOrFail($input['building']);
 
-			return Redirect::route('index_localisation')
-			->withInput()
-			->withErrors($validator)
-			->withFields($fields);
+			$typeLocation = array_filter($input['type_location']);
 
+			$typesLocations = Location::getLocationByType( $building );
+
+			$number = array_filter($input['number_location']);
+
+			$specifique = isset($input['global']) ? $input['global'] : null;
+
+			if(count(array_filter($input['number_location'])) == 0 ){
+
+				return Redirect::back()
+				->withErrors(array(trans('inscription.no_typeLocation')));
+			}
+
+			foreach($typeLocation as $key => $type){
+
+				if(isset($number[$key])){
+
+					if(isset($specifique[$key]) && Helpers::isOk($specifique)){
+
+						for($i = 1; $i <= (int)$number[$key]; $i++){
+
+							$location  =  new Location;
+
+							if($type = 1){
+
+								$location->nb_room = 1;
+								$location->remaining_room = 1;
+								$location->nb_locations = 1; 
+								$location->remaining_location = 1; 
+							}
+
+							$location->type_location_id = $type; 
+							$location->building_id = $building->id;
+							$location->advert_specific = 1;
+							$location->available = 1; 
+							$location->register_step = 5; 
+
+							$location->save();
+
+						}
+
+					}else{
+
+						$location  =  new Location;
+
+						$location->building_id = $building->id;
+						$location->type_location_id = $type; 
+						$location->advert_specific = 0; 
+						$location->nb_locations = $number[$key]; 
+						$location->remaining_location = $number[$key]; 
+						$location->available = 1;
+						$location->register_step = 5; 
+
+						$location->save();
+					}
+
+					$building->register_step = $building->register_step < 2 ? 2 : $building->register_step;
+					$building->save();
+
+					return Redirect::route('index_inscription_adverts', array(Auth::user()->slug, $building->id, Helpers::isOk($currentLocation) ? $currentLocation->id : ''))
+					->withSuccess('Locations bien ajoutées !');
+				}
+			}
 		}
 	}
 	public function updateLocalisation($user_slug, $building = null, $currentLocation=null){

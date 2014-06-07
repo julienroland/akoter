@@ -300,16 +300,13 @@ class User extends Eloquent implements UserInterface, RemindableInterface, Slugg
 
 	public static function getWaitingLocations( $user ){
 
-		return User::with(array('building',
-			'building.location'=>function( $query ) use($user){
-
-				$query->whereValidate(0);
-
-			},
-			'building.location.translation'=>function($query){
+		return User::with(array(
+			'building',
+			'building.waitingLocation',
+			'building.waitingLocation.translation'=>function($query){
 				$query->whereKey('title');
 			},
-			'building.location.accroche'
+			'building.waitingLocation.accroche'
 			))
 		->whereId($user->id)->first();
 	}
@@ -317,8 +314,8 @@ class User extends Eloquent implements UserInterface, RemindableInterface, Slugg
 	public static function getInvalidLocations( $user ){
 
 		return User::with(array(
-			'activeBuilding',
-			'activeBuilding.invalidLocation'))->whereId($user->id)->first();
+			'building',
+			'building.invalidLocation'))->whereId($user->id)->first();
 
 	}
 	/**
