@@ -381,6 +381,8 @@ Route::group(array('prefix' => $lang), function () use ($lang) {
         
         Route::get(trans('routes.agences').'/{agence_slug}', array('as'=>'showAgence','uses'=>'AgenceController@indexProfile'));
 
+        Route::get(trans('routes.agences').'/{agence_slug}', array('as' => 'show_agenceProfile', 'uses' => 'AgenceController@showProfile'));
+
         /*
         *
         *	IF LOGIN
@@ -673,11 +675,11 @@ Route::group(array('prefix' => $lang), function () use ($lang) {
 
                 if(Auth::check()){
 
-                 return Location::whereId($value)->with(array('translation', 'building' => function ($query) {
-                  $query->whereUserId(Auth::user()->id);
-              }))->firstOrFail();
-             }
-             else{
+                   return Location::whereId($value)->with(array('translation', 'building' => function ($query) {
+                      $query->whereUserId(Auth::user()->id);
+                  }))->firstOrFail();
+               }
+               else{
 
                 return Location::whereId($value)->with(array('translation'))->firstOrFail();
             }

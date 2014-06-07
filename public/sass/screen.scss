@@ -3185,7 +3185,6 @@ $country-h: 100px;
 		a{
 
 			background-color: $bgreen;
-
 			border-bottom: 1px solid darken($bgreen,10%);
 		}
 	}
@@ -3601,6 +3600,9 @@ $country-h: 100px;
 			a{
 				color:$borange;
 			}
+		}
+		a{
+			color:$mc;
 		}
 	}
 }

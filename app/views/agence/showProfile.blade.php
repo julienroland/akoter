@@ -1,7 +1,7 @@
 @extends('layout.layout')
 
 @section('container')
-@include('agence.top')
+@include('agence.topProfile')
 <div class="locations">
 	<ul>
 		@if($locations->count() > 0)

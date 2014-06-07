@@ -12,16 +12,17 @@
 	</div>
 	<div class="wrapper">
 		<nav class="menu-agence-profile">
+
 			<ul>
 				<li {{Helpers::isActive('show_agence') ? 'class="active"' :''}}>
-					<a  href="{{route('show_agence',  array(Auth::user()->slug,$agence->slug))}}">{{trans('agence.locations')}}</a>
+					<a  href="{{route('show_agence',  array($agence->slug,Auth::user()->slug))}}">{{trans('agence.locations')}}</a>
 				</li>
 				<li {{Helpers::isActive('agence_members') ? 'class="active"' :''}}>
-					<a  href="{{route('agence_members',  array(Auth::user()->slug,$agence->slug))}}">{{trans('agence.members')}}</a>
+					<a  href="{{route('agence_members',  array(Auth::check() ? Auth::user()->slug:'', $agence->slug))}}">{{trans('agence.members')}}</a>
 				</li>
 				@if(Auth::check() && $agence->user_id == Auth::user()->id)
 				<li {{Helpers::isActive('edit_agence') ? 'class="active"' :''}}>
-					<a  href="{{route('edit_agence', array(Auth::user()->slug, $agence->slug))}}">{{trans('agence.informations')}}</a>
+					<a  href="{{route('edit_agence', array(Auth::check() ? Auth::user()->slug:'', $agence->slug))}}">{{trans('agence.informations')}}</a>
 				</li>
 				@endif
 			</ul>

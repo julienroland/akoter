@@ -168,6 +168,14 @@ class AgenceController extends BaseController
 		->with(compact('locations','agence'));
 	}
 
+	public function showProfile( $agence ){
+
+		$locations = $agence->location()->with('photo','request','translation')->get();
+
+		return View::make('agence.showProfile', array('page'=>'agence'))
+		->with(compact('locations','agence'));
+	}
+
 	public function index(){
 
 		$agences = Auth::user()->agence()->get();
