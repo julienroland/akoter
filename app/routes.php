@@ -746,6 +746,8 @@ Route::group(array('prefix' => $lang), function () use ($lang) {
 
                 Route::get(trans('routes.account') . '/{user_slug}/' .trans('routes.your_agences').'/{agence_slug}/'. trans('routes.edit_agence'), array('as' => 'edit_agence', 'uses' => 'AgenceController@edit'));
 
+                Route::get(trans('routes.account') . '/{user_slug}/' .trans('routes.your_agences').'/{agence_slug}/'. trans('routes.remove_member_agence').'/{member_id}', array('as' => 'remove_member_agence', 'uses' => 'AgenceController@deleteMember'));
+
             });
 
 

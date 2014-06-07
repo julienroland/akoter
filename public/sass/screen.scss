@@ -3181,8 +3181,11 @@ $country-h: 100px;
 	padding:0;
 	@include border-radius(0);
 	&.success{
+		border:0;
 		a{
+
 			background-color: $bgreen;
+
 			border-bottom: 1px solid darken($bgreen,10%);
 		}
 	}

@@ -38,6 +38,11 @@
 
 			</div>
 		</div>
+		@if(Auth::user()->id == $agence->user_id)
+		<div class="actions">
+		<a onclick="alert({{trans('form.are_you_sure')}})" href="{{route('remove_member_agence', array(Auth::user()->slug, $agence->slug,$member->id))}}">{{trans('form.delete')}}</a>
+		</div>
+		@endif
 	</div>
 
 	@endforeach

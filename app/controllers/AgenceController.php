@@ -71,9 +71,7 @@ class AgenceController extends BaseController
 
 			$fields = $validator->failed();
 			return Redirect::back()
-			->withInput()
-			->with(compact('fields'))
-			->withErrors($validator);
+			->withSuccess(trans('validation.custom.agenceUpdate'));
 
 		}else{
 
@@ -84,6 +82,17 @@ class AgenceController extends BaseController
 			->withErrors($validator);
 		}
 
+
+	}
+
+	public function deleteMember( $user_slug, $agence, $member_id ){
+
+		$user = User::find($member_id);
+		$member = $agence->user()->whereUser_id($member_id)->first();
+
+		$agence->user()->detach($member->id);
+
+		return Redirect::back();
 
 	}
 	public function join( $user_slug ){

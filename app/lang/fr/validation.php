@@ -94,6 +94,7 @@ return array (
     'activedComment'=>'Commentaire activé !',
     'deletedComment'=>'Commentaire supprimé !',
     'agence_join'=>'Le login ou le mot de passe est incorrect',
+    'agenceUpdate'=>'Informations de votre agence correctement mises à jour',
   ),
   'attributes' => 
   array (

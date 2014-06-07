@@ -83,7 +83,7 @@ public function updateLogoAgence( $agence ){
 
  if(isset($agence) && Helpers::isOk($agence)){
 
-  $destinationPath = Config::get('var.images_dir').Config::get('var.agences_dir').$agence.'/'.Config::get('var.logoAgence_dir');
+  $destinationPath = Config::get('var.images_dir').Config::get('var.agences_dir').$agence->id.'/'.Config::get('var.logoAgence_dir');
 
   if(File::exists( $destinationPath.$agence->logo )){
 

@@ -60,4 +60,5 @@ return array (
   'members_agence' => 'membres-de-l-agence',
   'join_agences' => 'rejoindre-votre-agence',
   'update_agence'=>'modifier-votre-agence',
+  'remove_member_agence'=>'supprimer-le-membre',
 );
