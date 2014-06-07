@@ -53,7 +53,7 @@ class Building extends Eloquent {
 	public function invalidLocation()
 	{
 		return $this->hasMany('Location')
-		->whereValidate( 0 );
+		->where('register_step','<', 7 );
 	}
 
 	public function activeLocation()
@@ -61,7 +61,7 @@ class Building extends Eloquent {
 		return $this->hasMany('Location')
 		->whereValidate( 1 )
 		->whereAvailable( 1 )
-		->where('remaining_room', '>', 0);
+		->where( 'register_step','>', 6 );
 	}
 
 	public function postal()

@@ -837,10 +837,10 @@ class InscriptionController extends AccountBaseController {
 
 	}
 
-	public function indexComfirm( $user_slug, $building){
+	public function indexComfirm( $user_slug, $building, $currentLocation = null){
 
 		return View::make('inscription.owner.comfirm', array('page'=>'inscription'))
-		->with(compact('building'));
+		->with(compact('building','currentLocation'));
 	}
 
 	/*-----  End of INSCRIPTION OWNER  ------*/

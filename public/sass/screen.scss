@@ -3196,6 +3196,12 @@ $country-h: 100px;
 			
 		}
 	}
+	&.invalid{
+		a{
+			background-color:$bred;
+			border-bottom: 1px solid darken($bred,10%);
+		}
+	}
 	.title-location-account{
 		font-weight: 500;
 		display: block;
@@ -3475,6 +3481,7 @@ $country-h: 100px;
 			@include transition(all 0.2s ease-in-out 0.1s);
 		}
 	}
+
 	ul {
 		@include horizontal-list();
 		height: 100%;

@@ -316,16 +316,9 @@ class User extends Eloquent implements UserInterface, RemindableInterface, Slugg
 
 	public static function getInvalidLocations( $user ){
 
-		return User::with(array('activeBuilding'=>function($query) use($user){
-
-			$query->remember(Config::get('var.remember'), 'activeBuilding'.$user->id);
-
-		},
-		'activeBuilding.invalidLocation'=>function($query) use($user){
-
-			$query->remember(Config::get('var.remember'), 'invalidLocation'.$user->id);
-
-		}))->whereId($user->id)->remember(Config::get('var.remember'), 'user->id'.$user->id)->first();
+		return User::with(array(
+			'activeBuilding',
+			'activeBuilding.invalidLocation'))->whereId($user->id)->first();
 
 	}
 	/**

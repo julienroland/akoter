@@ -30,7 +30,7 @@
 </div>
 @endforeach
 @else
-	<p>{{trans('account.no_request_location',array('number'=>$location->id))}}</p>
+	<p class="informations">{{trans('account.no_request_location',array('number'=>$location->id))}}</p>
 @endif
 @endforeach
 

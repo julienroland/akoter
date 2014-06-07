@@ -32,7 +32,15 @@ class LocationDashboardController extends AccountBaseController {
 		return View::make('account.owner.dashboard.index',array('page'=>'dashboard'))
 		->with(compact('photo','nb_requestMonth','nb_tenantsMonth','nb_oldTenants','nb_comments'));
 	}
+	public function requests( $user_slug, $location ){
 
+		$requests = $location->with(array('request','translation'=>function($query){
+			$query->whereKey('title');
+		}))->get();
+
+		return View::make('account.owner.dashboard.requests', array('page'=>'dashboard'))
+		->with(compact('requests'));
+	}	
 	public function desactiveComment( $user_slug, $location, $comment_id){
 
 		$comment = LocationComment::findOrFail($comment_id);

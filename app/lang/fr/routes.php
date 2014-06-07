@@ -40,7 +40,7 @@ return array (
   'contact-owner' => 'contacter-le-proprietaire',
   'on-location' => 'a-propos-de-sa-location-numero',
   'reserved' => 'reservation-pour-ce-logement',
-  'request' => 'demande-de-location',
+  'request' => 'demandes-de-locations',
   'requestValidation' => 'accelerer-la-validation',
   'newsletter' => 'ajout-a-la-newsletter',
   'add_notice' => 'ajout-un-avis-sur-akoter',

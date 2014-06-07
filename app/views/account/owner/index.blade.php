@@ -209,7 +209,9 @@
 
 				@foreach( $invalidLocations->activeBuilding as $invalidLocation)
 
-				<li class="location-account success">
+				@foreach( $invalidLocation->invalidLocation as $location)
+				
+				<li class="location-account invalid">
 					<a href="{{route('dashboard_location', array(Auth::user()->slug,$location->id))}}">	
 						<div class="image">
 
@@ -266,6 +268,7 @@
 
 					</a>
 				</li>
+				@endforeach
 				@endforeach
 
 			</ul>

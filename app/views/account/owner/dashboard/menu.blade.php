@@ -13,5 +13,10 @@
         <li {{Helpers::isActive( 'dashboard_likes' )}}>
             <a class="tooltip-ui-s" title="{{trans('dashboard.title_likes')}}" href="{{route('dashboard_likes',array(Auth::user()->slug, $location->id))}}">{{trans('general.likes')}}</a>
         </li>
+
+        <li {{Helpers::isActive( 'dashboard_request' )}}><a href="{{route('dashboard_request', array(Auth::user()->slug, $location->id))}}" title="{{trans('account.number_request')}}" class="tooltip-ui-s">{{trans('account.request')}}
+            @if($request > 0 )<sup>{{$request}}</sup></span>
+            @endif
+        </a></li>
     </ul>
 </div>

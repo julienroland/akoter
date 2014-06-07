@@ -15,7 +15,7 @@
 	@include('includes.steps')
 	
 
-	{{Form::open(array('route'=>array('save_inscription_contact', Auth::user()->slug, $building->id),'class'=>'mainType rules','data-rules'=>json_encode(User::$contact_rules)))}}
+	{{Form::open(array('route'=>array('save_inscription_contact', Auth::user()->slug, $building->id, Helpers::isOk($currentLocation) ? $currentLocation->id:'' ),'class'=>'mainType rules','data-rules'=>json_encode(User::$contact_rules)))}}
 
 	<div class="requiredField"><span class="icon-required" aria-hidden="true"></span>{{trans('form.required_field')}}</div>
 

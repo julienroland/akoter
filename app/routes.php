@@ -713,6 +713,8 @@ Route::group(array('prefix' => $lang), function () use ($lang) {
             Route::get(trans('routes.account') . '/{user_slug}/' . trans('routes.dashboard') . '/{location_id}/'.trans('routes.likes').'/'.trans('routes.activate').'/{comment_id}', array('as' => 'dashboard_activeComment', 'uses' => 'LocationDashboardController@activeComment'));
 
             Route::get(trans('routes.account') . '/{user_slug}/' . trans('routes.dashboard') . '/{location_id}/'.trans('routes.likes').'/'.trans('routes.delete').'/{comment_id}', array('as' => 'dashboard_deleteComment', 'uses' => 'LocationDashboardController@deleteComment'));
+
+            Route::get(trans('routes.account') . '/{user_slug}/' . trans('routes.dashboard') . '/{location_id}/'.trans('routes.request'), array('as' => 'dashboard_request', 'uses' => 'LocationDashboardController@requests'));
             
             /**
             *
@@ -828,7 +830,7 @@ Route::group(array('prefix' => $lang), function () use ($lang) {
 
                 Route::post(trans('routes.account') . '/{user_slug}/' . trans('routes.add_location') . '/{user_building_id}/' . trans('routes.inscription_step8'). '/{location_id?}', array('as' => 'save_inscription_contact', 'uses' => 'InscriptionController@saveContact'));
 
-                Route::get(trans('routes.account') . '/{user_slug}/' . trans('routes.add_location') . '/{user_building_id}/' . trans('routes.inscription_comfirm'), array('as' => 'index_validate_inscription_owner', 'uses' => 'InscriptionController@indexComfirm'));
+                Route::get(trans('routes.account') . '/{user_slug}/' . trans('routes.add_location') . '/{user_building_id}/' . trans('routes.inscription_comfirm'). '/{location_id?}', array('as' => 'index_validate_inscription_owner', 'uses' => 'InscriptionController@indexComfirm'));
             });
 
 
