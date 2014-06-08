@@ -255,6 +255,12 @@ class AgenceController extends BaseController
 
 			if($agence){
 
+				if(input::has('from')){
+
+					return Redirect::to(Input::get('from'));
+
+				}
+
 				return Redirect::route('index_agence', Auth::user()->slug);
 
 			}else{

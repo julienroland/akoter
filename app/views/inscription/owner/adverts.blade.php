@@ -13,6 +13,7 @@
 <div class="formContainer large">
 	
 	@include('includes.steps')
+{{Session::forget('adverts')}}
 
 	{{Form::open(array('route'=>array('save_inscription_adverts', Auth::user()->slug, $building->id, Helpers::isOK($currentLocation) ? $currentLocation->id : ''),'class'=>'mainType'))}}
 
@@ -28,11 +29,11 @@
 			@foreach($locations as $location)
 			@if(Helpers::isOK($currentLocation) && $currentLocation->id == $location->id)
 
-			<li><a href="#{{$location->id}}-advert">{{$location->typeLocation->translation[0]->value}} {{$location->id}}</a></li>
+			<li><a href="#{{$location->id}}-advert">{{$location->typeLocation->translation[0]->value}}, Ref: {{$location->id}}</a></li>
 
 			@elseif(Helpers::isNotOk($currentLocation))
 
-			<li><a href="#{{$location->id}}-advert">{{$location->typeLocation->translation[0]->value}} {{$location->id}}</a></li>
+			<li><a href="#{{$location->id}}-advert">{{$location->typeLocation->translation[0]->value}}, Ref: {{$location->id}}</a></li>
 
 			@endif
 			@endforeach
@@ -40,6 +41,7 @@
 
 		@foreach($locations as $location)
 		@if(Helpers::isOK($currentLocation) && $currentLocation->id == $location->id)
+
 		<div id="{{$location->id}}-advert">
 			
 			@if($location->nb_locations > 1)
@@ -48,14 +50,15 @@
 			<div class="informations">{{trans('inscription.specificAdvert',array('type'=>strtolower($location->typeLocation->translation[0]->value)))}} </div>
 			@endif
 			
-			@if(count($agency) > 0)
+			@if(count($agency) < 1)
 			<div class="field">
 				<label for="location_{{$location->id}}[agency]">{{trans('inscription.location_of_agency')}}</label>
 				{{Form::select('location_'.$location->id.'[agency]', $agency, $location->agence_id, array('data-placeholder'=>trans('inscription.choose_agence'),'class'=>'select'))}}
 			</div>
 			@else
-			<div class="informations">{{trans('inscription.you_have_no_agence')}} <a href="{{route('add_agence', Auth::user()->slug)}}">{{trans('inscription.register_agency_advert')}}</a></div>
+			<div class="informations">{{trans('inscription.you_have_no_agence')}} <a href="{{route('add_agence', array(Auth::user()->slug, 'f='.Route::current()->uri() ))}}">{{trans('inscription.register_agency_advert')}}</a></div>
 			@endif
+
 			<div class="tabs">
 				<ul>
 					@foreach(Config::get('var.langId') as $lang => $langId)
@@ -154,15 +157,16 @@
 
 			<div class="group date">
 				<div class="field">
+				
 					<label for="location_{{$location->id}}[start_date]">{{trans('form.start_date').trans('form.required')}}<span class="icon-required" aria-hidden="true"></span></label>
 					<div class="input-date icon-calendar68">
-						{{Form::text('location_'.$location->id.'[start_date]',isset(Session::get('adverts')['location_'.$location->id]) ? Session::get('adverts')['location_'.$location->id]['start_date'] : (isset($locationsData) ? $locationsData[$location->id][0]->start_date : '') ,array('class'=>'datepicker','title'=>trans('form.start_date'),'placeholder'=>trans('form.start_date2')))}}
+						{{Form::text('location_'.$location->id.'[start_date]',isset(Session::get('adverts')['location_'.$location->id]) ? Session::get('adverts')['location_'.$location->id]['start_date'] : (isset($locationsData) && Helpers::dateNotEmpty($locationsData[$location->id][0]->start_date ) ? $locationsData[$location->id][0]->start_date : '') ,array('class'=>'datepicker','title'=>trans('form.start_date'),'placeholder'=>trans('form.start_date2')))}}
 					</div>
 				</div>
 				<div class="field">
 					<label for="location_{{$location->id}}[end_date]">{{trans('form.end_date').trans('form.required')}}<span class="icon-required" aria-hidden="true"></span></label>
 					<div class="input-date icon-calendar68">
-						{{Form::text('location_'.$location->id.'[end_date]', isset(Session::get('adverts')['location_'.$location->id]) ? Session::get('adverts')['location_'.$location->id]['end_date'] : (isset($locationsData) ? $locationsData[$location->id][0]->end_date : '') ,array('class'=>'datepicker','title'=>trans('form.end_date'),'placeholder'=>trans('form.end_date2')))}}
+						{{Form::text('location_'.$location->id.'[end_date]', isset(Session::get('adverts')['location_'.$location->id]) ? Session::get('adverts')['location_'.$location->id]['end_date'] : (isset($locationsData) && Helpers::dateNotEmpty($locationsData[$location->id][0]->end_date ) ? $locationsData[$location->id][0]->end_date : '') ,array('class'=>'datepicker','title'=>trans('form.end_date'),'placeholder'=>trans('form.end_date2')))}}
 					</div>
 				</div>
 			</div>
@@ -256,13 +260,13 @@
 			<div class="informations">{{trans('inscription.specificAdvert',array('type'=>strtolower($location->typeLocation->translation[0]->value)))}} </div>
 			@endif
 			
-			@if(count($agency) > 0)
+			@if(count($agency) > 1)
 			<div class="field">
 				<label for="location_{{$location->id}}[agency]">{{trans('inscription.location_of_agency')}}</label>
 				{{Form::select('location_'.$location->id.'[agency]', $agency, $location->agence_id, array('data-placeholder'=>trans('inscription.choose_agence'),'class'=>'select'))}}
 			</div>
 			@else
-			<div class="informations">{{trans('inscription.you_have_no_agence')}} <a href="{{route('add_agence', Auth::user()->slug)}}">{{trans('inscription.register_agency_advert')}}</a></div>
+			<div class="informations">{{trans('inscription.you_have_no_agence')}} <a href="{{route('add_agence',  array(Auth::user()->slug, 'f='.Request::url() ))}}">{{trans('inscription.register_agency_advert')}}</a></div>
 			@endif
 			<div class="tabs">
 				<ul>
@@ -364,13 +368,13 @@
 				<div class="field">
 					<label for="location_{{$location->id}}[start_date]">{{trans('form.start_date').trans('form.required')}}<span class="icon-required" aria-hidden="true"></span></label>
 					<div class="input-date icon-calendar68">
-						{{Form::text('location_'.$location->id.'[start_date]',isset(Session::get('adverts')['location_'.$location->id]) ? Session::get('adverts')['location_'.$location->id]['start_date'] : (isset($locationsData) ? $locationsData[$location->id][0]->start_date : '') ,array('class'=>'datepicker','title'=>trans('form.start_date'),'placeholder'=>trans('form.start_date2')))}}
+						{{Form::text('location_'.$location->id.'[start_date]',isset(Session::get('adverts')['location_'.$location->id]) ? Session::get('adverts')['location_'.$location->id]['start_date'] : (isset($locationsData) && Helpers::dateNotEmpty($locationsData[$location->id][0]->start_date )? $locationsData[$location->id][0]->start_date : '') ,array('class'=>'datepicker','title'=>trans('form.start_date'),'placeholder'=>trans('form.start_date2')))}}
 					</div>
 				</div>
 				<div class="field">
 					<label for="location_{{$location->id}}[end_date]">{{trans('form.end_date').trans('form.required')}}<span class="icon-required" aria-hidden="true"></span></label>
 					<div class="input-date icon-calendar68">
-						{{Form::text('location_'.$location->id.'[end_date]', isset(Session::get('adverts')['location_'.$location->id]) ? Session::get('adverts')['location_'.$location->id]['end_date'] : (isset($locationsData) ? $locationsData[$location->id][0]->end_date : '') ,array('class'=>'datepicker','title'=>trans('form.end_date'),'placeholder'=>trans('form.end_date2')))}}
+						{{Form::text('location_'.$location->id.'[end_date]', isset(Session::get('adverts')['location_'.$location->id]) ? Session::get('adverts')['location_'.$location->id]['end_date'] : (isset($locationsData) && Helpers::dateNotEmpty($locationsData[$location->id][0]->end_date )? $locationsData[$location->id][0]->end_date : '') ,array('class'=>'datepicker','title'=>trans('form.end_date'),'placeholder'=>trans('form.end_date2')))}}
 					</div>
 				</div>
 			</div>

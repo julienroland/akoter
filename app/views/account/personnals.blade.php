@@ -73,16 +73,16 @@
 			{{Form::text('address',isset($user->address) && !empty($user->address) ? $user->address :(Session::has('account_personnal') ? Session::get('account_personnal')['address'] :''),array('class'=>'autocomplete','placeholder'=>'Basse-Montagne','required'))}}
 			<i class="icon-required" aria-hidden="true"></i>
 		</div>
-
-		<div class="field">
-			{{Form::label('locality',ucfirst(trans('form.city')))}}
-			{{Form::text('locality',isset($user->locality->name) && !empty($user->locality->name) ? $user->locality->name :(Session::has('account_personnal') ? Session::get('account_personnal')['locality'] :''),array('class'=>'autocomplete','placeholder'=>'Ciney','required'))}}
-			<i class="icon-required" aria-hidden="true"></i>
-		</div>
-
+		
 		<div class="field">
 			{{Form::label('region',trans('form.region'))}}
-			{{Form::text('region',isset($user->region->translation[0]->value) && !empty($user->region->translation[0]->value) ? $user->region->translation[0]->value :(Session::has('account-personnal') ? Session::get('account-personnal')['region'] :''),array('class'=>'autocomplete','placeholder'=>'Namur','required'))}}
+			{{Form::select('region',$regionList,'',array('class'=>'select','data-placeholder'=>trans('form.region'),'id'=>'region','data-validator'=>'false'))}}
+			<i class="icon-required" aria-hidden="true"></i>
+		</div>
+		
+		<div class="field">
+			{{Form::label('locality',ucfirst(trans('form.city')))}}
+			{{Form::select('locality',$localityList,'',array('class'=>'select','data-placeholder'=>trans('form.city'),'id'=>'locality','data-validator'=>'false'))}}
 			<i class="icon-required" aria-hidden="true"></i>
 		</div>
 
@@ -93,9 +93,9 @@
 		</div>
 
 	</fieldset>
-
+	{{Form::hidden('from', Input::has('f')  ? Input::get('f') : '')}}
 	<div class="field">
-	{{Form::submit(trans('form.save'),array('data-disabled'=>'Sauvegarde en cours ...'))}}
+		{{Form::submit(trans('form.save'),array('data-disabled'=>'Sauvegarde en cours ...'))}}
 	</div>
 	{{Form::close()}}
 

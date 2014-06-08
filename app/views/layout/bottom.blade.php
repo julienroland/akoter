@@ -57,7 +57,7 @@
 @if(isset($widget) && Helpers::isOk($widget) && in_array('sort', $widget))
 <script>
   $(function(){
-    $("#sortable").sortable({
+    $(".sortable").sortable({
       stop: function(event, ui) {
         var data = {};
 

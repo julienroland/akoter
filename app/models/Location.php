@@ -7,15 +7,13 @@ class Location extends Eloquent{
 	protected $guarded = array();
 	
 	public static $rules = array(
-		'price'=>'required | numeric',
-		'title.en'=>'required_without_all:title.fr,title.nl',
-		'size'=>'required | numeric',
-		'floor'=>'required | numeric',
-		'room'=>'required | numeric',
+		'price'=>' numeric',
+		'size'=>' numeric',
+		'floor'=>' numeric',
+		'room'=>' numeric',
 		'chargePrice'=>'required_with:charge | numeric',
 		'start_date'=>'required_with:available | date ',
 		'end_date'=>'required_with:available,start_date | date',
-		'advert.en'=>'required_without_all:title.fr,title.nl',
 		'advert.en'=>'min:20 |max:2048',
 		'advert.fr'=>'min:20 |max:2048',
 		'advert.nl'=>'min:20 |max:2048',

@@ -690,6 +690,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#35a0c6', end
 				vertical-align: sub;
 			}
 		}
+		a{
+			color: $mc;
+		}
 
 		.messageError{
 			float: left;
@@ -1192,10 +1195,19 @@ input[type="submit"]{
 }
 .inlineType{
 	@extend .mainType;
+	label + select + .chosen-container{
+		width: 300px!important;
+	}
 	.chosen-container{
 		margin-left: $gutter ;
 		width: auto!important;
+		a{
+		margin-left: 0;
+	}
 		
+	}
+	a{
+		margin-left: 180px + $gutter;
 	}
 	.field{
 		@include c(12);

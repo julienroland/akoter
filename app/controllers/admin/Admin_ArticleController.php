@@ -95,7 +95,7 @@ class Admin_ArticleController extends \Admin_AdminController
 
 			}
 
-			return Redirect::back()
+			return Redirect::to('admin/articles')
 			->withSucess('Article bien modifié');
 
 		}else{

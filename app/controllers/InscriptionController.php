@@ -138,7 +138,7 @@ class InscriptionController extends AccountBaseController {
 
 		Session::put('inscription.localisation_input', $input );
 
-		if(Helpers::isNotOk($input['building'])){
+		if(!isset($input['building']) || Helpers::isNotOk($input['building'])){
 
 			if( $validator->passes() ){
 
@@ -633,6 +633,50 @@ class InscriptionController extends AccountBaseController {
 		->with(compact('building','photos','currentLocation'));
 	}
 
+	public function savePhotoBuilding($user_slug, $building, $currentLocation = null){
+
+		$photos = $building->photo()->orderBy('order')->get()->groupBy('type');
+
+		if( isset($photos['building']) && count($photos['building']) > 0 && isset($photos['common']) && count($photos['common']) > 0){
+
+			if($building->register_step < 5){
+
+				$building->register_step = 5;  
+				$building->save();
+			}
+
+			return Redirect::route('index_inscription_adverts', array(Auth::user()->slug, $building->id, Helpers::isOk($currentLocation) ? $currentLocation->id : '' ))
+		->withSuccess(trans('validation.custom.inscription_photoBuilding'));
+
+		}else{
+
+			$errors = array( );
+			if($photos->count() < 1){
+
+				$errors['global'] = trans('validation.custom.globalImageBuilding');
+
+			}else{
+
+				if(!isset($photos['building']) || count($photos['building']) < 1){
+
+					$errors['building'] = trans('validation.custom.builidngImageBuilding');
+
+				}
+
+				if(!isset($photos['common']) || count($photos['common']) < 1 ){
+
+					$errors['common'] = trans('validation.custom.commonImageBuilding');
+
+				}
+			}
+			$errors = Collection::make($errors);
+
+			return Redirect::back()
+			->withErrors($errors);
+
+		}
+	}
+
 	public function indexAdverts($user_slug, $building, $currentLocation = null){
 
 		$locations = $building->location()->with(array('typeLocation.translation'))->get();
@@ -709,7 +753,6 @@ class InscriptionController extends AccountBaseController {
 				}
 				$titles = array_filter($input['title']);
 
-
 				$title = reset($titles);
 				$fromTitle = key($titles);
 
@@ -746,7 +789,7 @@ class InscriptionController extends AccountBaseController {
 						$translation->content_type = "Location";
 						$translation->content_id = $location_id;
 						$translation->key = 'title';
-						$translation->value = ucfirst(Helpers::translate($title, $fromTitle, $key));
+						$translation->value = Helpers::isOk($title) ? ucfirst(Helpers::translate($title, $fromTitle, $key)) : '' ;
 						$translation->language_id = Config::get('var.langId')[$key];
 					}
 
@@ -788,10 +831,11 @@ class InscriptionController extends AccountBaseController {
 
 							$translation = Translation::whereContentId($location_id)->whereContentType('Location')->whereKey('advert')->whereLanguageId(Config::get('var.langId')[$key])->first();
 						}
+
 						$translation->content_type = "Location";
 						$translation->content_id = $location_id;
 						$translation->key = 'advert';
-						$translation->value = Helpers::translate($advert, null, $key);
+						$translation->value = Helpers::isOk($advert) ? Helpers::translate($advert, $fromAdvert, $key) : '';
 						$translation->language_id = Config::get('var.langId')[$key];
 					}
 

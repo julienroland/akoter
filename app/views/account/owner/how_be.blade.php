@@ -20,7 +20,7 @@
 				@endif
 			</p>
 			@if($personnal)
-			<a href="{{route('account_personnal', Auth::user()->slug)}}" class="btn-inscription">{{trans('account.completeProfileBtn')}}</a>
+			<a href="{{route('account_personnal', array(Auth::user()->slug,'f'=>'p'))}}" class="btn-inscription">{{trans('account.completeProfileBtn')}}</a>
 			@endif
 		</div>
 		<div class="how_be_step {{Auth::user()->email_comfirm == 0 ? 'notdone' : 'done'}}">

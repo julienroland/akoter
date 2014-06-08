@@ -29,38 +29,39 @@ class AccountController extends AccountBaseController {
 			->with(compact(array('activeLocations','waitingLocations','invalidLocations','inactiveBuilding','numberRequest')));
 
 		}
-
+		/*$notices = Notice::valid()*/
 		return View::make('account.index', array('page'=>'account'));
 
 	}
 	public function indexFavoris(){
+
 		$favorisList = Auth::user()->favoris()->lists('location_id');
 
-			$locations = Location::with('translation');
-			$locations = $locations
-			->join('buildings','locations.building_id','=','buildings.id')
-			->join('users','buildings.user_id','=','users.id')
-			->where('users.validate','=',1)
-			->where('users.email_comfirm','=',1)
-			->where('buildings.status_type','=',1)
-			->select('buildings.id as bu','users.id as uu','locations.*');
+		$locations = Location::with('translation');
+		$locations = $locations
+		->join('buildings','locations.building_id','=','buildings.id')
+		->join('users','buildings.user_id','=','users.id')
+		->where('users.validate','=',1)
+		->where('users.email_comfirm','=',1)
+		->where('buildings.status_type','=',1)
+		->select('buildings.id as bu','users.id as uu','locations.*');
 
-			$locations = $locations->with(
-				array(
-					'translation',
-					'accroche',
-					'building.region.translation',
-					'building.user',
-					'building.locality',
-					'typeLocation.translation',
-					'particularity.translation',
-					))
-			->where( 'locations.'.Config::get( 'var.l_validateCol' ) , 1 )
-			->where( 'locations.'.Config::get( 'var.l_availableCol' ) , 1 )
-			->whereIn( 'locations.id', $favorisList)
-			->where( Config::get( 'var.l_placesCol' ) ,'>', 0 )
-			->distinct('building')
-			->get( );
+		$locations = $locations->with(
+			array(
+				'translation',
+				'accroche',
+				'building.region.translation',
+				'building.user',
+				'building.locality',
+				'typeLocation.translation',
+				'particularity.translation',
+				))
+		->where( 'locations.'.Config::get( 'var.l_validateCol' ) , 1 )
+		->where( 'locations.'.Config::get( 'var.l_availableCol' ) , 1 )
+		->whereIn( 'locations.id', $favorisList)
+		->where( Config::get( 'var.l_placesCol' ) ,'>', 0 )
+		->distinct('building')
+		->get( );
 
 		return View::make('account.favoris', array('page'=>'bookmark','widget'=>array('grid')))
 		->with(compact('locations'));
@@ -94,8 +95,11 @@ class AccountController extends AccountBaseController {
 		->remember(Config::get('var.remember'), 'user'.Auth::user()->id)
 		->first();
 
+		$regionList = Region::getList();
+		$localityList = Locality::getList();
+
 		return View::make('account.personnals',array('page'=>'account', 'widget'=>array('city_autocomplete','validator','select')))
-		->with(compact('user'));
+		->with(compact('user','localityList','regionList'));
 	}
 
 	public function savePersonnalData(){
@@ -110,8 +114,6 @@ class AccountController extends AccountBaseController {
 
 		if($validator->passes()){
 
-			$locality_id = Locality::where('name','like', $input['locality'] )->pluck('id');
-			$region_id = Translation::whereKey('name')->where('content_type','Region')->where('value','like','%'. $input['region'] .'%')->pluck('content_id');
 			$user = Auth::user();
 
 			$user->first_name = $input['first_name'];
@@ -124,8 +126,8 @@ class AccountController extends AccountBaseController {
 			$user->address = $input['address'];
 			$user->postal = $input['postal'];
 			$user->first_name = $input['first_name'];
-			$user->region_id = $region_id;
-			$user->locality_id = $locality_id;
+			$user->region_id = $input['region'];
+			$user->locality_id =  $input['locality'];
 
 			$user->save();
 
@@ -136,7 +138,18 @@ class AccountController extends AccountBaseController {
 			Cache::forget('user_region_trad'.$user->id);
 			Cache::forget('user_locality'.$user->id);
 
+			if( Input::has('from') ){
+
+				if( Input::get('from') == 'p'){
+
+						return Redirect::route('index_localisation_building', Auth::user()->slug);
+
+				}else{
+
+				}
+			}
 			return Redirect::route('account_home', Auth::user()->slug);
+
 
 		}else{
 

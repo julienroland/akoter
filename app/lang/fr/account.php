@@ -59,7 +59,7 @@ return array (
   'requests_location' => '<strong>:number</strong> demandes de location',
   'number_request' => 'Voir les demandes de location',
   'check_advert' => 'Voir la liste de vos annonces',
-  'check_locations' => 'Voir la liste de vos locataires, d\'avant et de maintenant',
+  'check_locations' => 'Voir la liste de vos locations',
   'check_personnal_informations' => 'Modifier vos informations personnelles',
   'check_settings' => 'Modifier vos paramètres, valider votre email',
   'nav' => 'Rubriques de gestion du compte',

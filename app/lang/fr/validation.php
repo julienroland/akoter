@@ -73,6 +73,7 @@ return array (
     'inscription_localisation' => 'La localisation de votre bâtiment à bien été enregistrée !',
     'inscription_description_batiment' => 'La description de votre bâtiment à bien été enregistrée',
     'inscription_update_localisation' => 'La localisation de votre bâtiment à bien été mise à jour !',
+    'inscription_photoBuilding' => 'Images du bâtiment bien ajouté !',
     'inscription_types_locations_multiple' => 'Vos logements pour ce bâtiment ont bien été enregistrés !',
     'inscription_types_locations_single' => 'Votre logement pour ce bâtiment à bien été créé !',
     'inscription_infos_general' => 'Les informations concernant votre bâtiment ont bien été enregistrées',
@@ -96,6 +97,9 @@ return array (
     'agence_join'=>'Le login ou le mot de passe est incorrect',
     'agenceUpdate'=>'Informations de votre agence correctement mises à jour',
     'ecoleAdded'=>'Merci, l\'école à bien été ajouté, elle sera visible après vérification de notre part.',
+    'globalImageBuilding'=>'Images manquantes dans plusieurs catégories',
+    'builidngImageBuilding'=>'Images manquantes concernant le bâtiment dans son ensemble',
+    'commonImageBuilding'=>'Images manquantes concernant les pièces communes',
   ),
   'attributes' => 
   array (

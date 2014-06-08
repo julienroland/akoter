@@ -19,6 +19,21 @@ class Helpers {
 
 		return false;
 	}
+
+	public static function dateNotEmpty( $date ){
+
+		if(!is_object($date)){
+
+			$date = Helpers::createCarbonDate($date)->toDateString();
+		}
+
+		if($date == '-0001-11-30'){
+
+			return false;
+		}
+
+		return true;
+	}
 	public static function title( $str ){
 
 		return substr($str, 0, 44);

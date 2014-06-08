@@ -854,6 +854,8 @@ Route::group(array('prefix' => $lang), function () use ($lang) {
                 /* Photo building */
                 Route::get(trans('routes.account') . '/{user_slug}/' . trans('routes.add_location') . '/{user_building_id}/' . trans('routes.inscription_step5'). '/{location_id?}', array('as' => 'index_photo_building', 'uses' => 'InscriptionController@indexPhotoBuilding'));
 
+                Route::post(trans('routes.account') . '/{user_slug}/' . trans('routes.add_location') . '/{user_building_id}/' . trans('routes.inscription_step5'). '/{location_id?}', array('as' => 'save_photo_building', 'uses' => 'InscriptionController@savePhotoBuilding'));
+
                 /* Adverts for each locations */
                 Route::get(trans('routes.account') . '/{user_slug}/' . trans('routes.add_location') . '/{user_building_id}/' . trans('routes.inscription_step6') . '/{location_id?}', array('as' => 'index_inscription_adverts', 'uses' => 'InscriptionController@indexAdverts'));
 

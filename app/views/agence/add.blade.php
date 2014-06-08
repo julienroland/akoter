@@ -93,7 +93,9 @@
     {{Form::text('postal','', array('class'=>'autocomplete','placeholder'=>'5100','required'))}}
     <i class="icon-required" aria-hidden="true"></i>
   </div>
+  {{Form::hidden('from',Input::has('f') ? Input::get('f'): '')}}
   <div class="field">
+
     {{Form::submit(trans('form.add'))}}
   </div>
   {{Form::close()}}

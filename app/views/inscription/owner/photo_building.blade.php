@@ -40,7 +40,7 @@
 			{{trans('inscription.about_image_sort')}}
 		</div>
 		<div id="images" data-type="building" >
-			<ul id="sortable" data-type="building">
+			<ul class="sortable" data-type="building">
 				@if(isset($photos['building']) && Helpers::isOk( $photos['building']))
 				@foreach( $photos['building'] as $photo)
 
@@ -83,7 +83,7 @@
 			{{trans('inscription.about_image_sort')}}
 		</div>
 		<div id="images" data-type="common" >
-			<ul id="sortable" data-type="building">
+			<ul class="sortable" data-type="building">
 				@if(isset($photos['common']) && Helpers::isOk( $photos['common']))
 				@foreach( $photos['common'] as $photo)
 
@@ -126,7 +126,7 @@
 			{{trans('inscription.about_image_sort')}}
 		</div>
 		<div id="images" data-type="more">
-			<ul id="sortable" data-type="more">
+			<ul class="sortable" data-type="more">
 				@if(isset($photos['more']) && Helpers::isOk( $photos['more']))
 				@foreach( $photos['more'] as $photo)
 
@@ -149,7 +149,7 @@
 	</div>
 	
 
-	{{Form::open(array('method'=>'get','route'=>array('index_inscription_adverts', Auth::user()->slug, $building->id, Helpers::isOk($currentLocation) ? $currentLocation->id:''),'class'=>'mainType '))}}
+	{{Form::open(array('route'=>array('save_photo_building', Auth::user()->slug, $building->id, Helpers::isOk($currentLocation) ? $currentLocation->id:''),'class'=>'mainType '))}}
 
 	<div class="field previous">
 

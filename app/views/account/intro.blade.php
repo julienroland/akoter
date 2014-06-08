@@ -109,7 +109,7 @@
 			<h3 aria-level="3" role="heading" class="section">{{trans('general.need_help_contact_us')}}</h3>
 			
 			<span class="icon-opened4 hero-icon"></span>
-			<span class="titleContact">Besoin d'informations ?</span>
+			<span class="titleContact">Besoin d'informations&nbsp;?</span>
 			<p><a class="btn-inscription" href="{{route('contact_us')}}">Contactez-nous</a></p>
 		</sidebar>
 

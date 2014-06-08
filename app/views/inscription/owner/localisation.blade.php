@@ -26,7 +26,7 @@
 
 	<div class="requiredField"><span class="icon-required" aria-hidden="true"></span>{{trans('form.required_field')}}</div>
 
-	@if($buildings->count() > 0)
+	@if($buildings->count() > 1)
 
 	<div class="field">
 

@@ -87,9 +87,10 @@
 				</div>
 
 				<div class="field">
-					<label for="cgu"><a href="{{route('showPost', $cgu->translation[0]->value)}}">{{trans('inscription.cgu')}}</a></label>
+					<label for="cgu">{{trans('inscription.cgu_accept')}}</label>
 					<input type="checkbox" name="cgu" id="cgu">
 				</div>
+				<a href="{{route('showPost', $cgu->translation[0]->value)}}" targer="_blank">{{trans('inscription.cgu')}}</a>
 				{{Form::hidden('region',Session::has('inscription') && isset(Session::get('inscription')['region']) ? Session::get('inscription')['region']:'',array('class'=>'autocomplete'))}}
 				{{Form::hidden('locality',Session::has('inscription') && isset(Session::get('inscription')['locality']) ? Session::get('inscription')['locality']:'',array('class'=>'autocomplete'))}}
 				{{Form::hidden('address',Session::has('inscription') && isset(Session::get('inscription')['address']) ? Session::get('inscription')['address']:'',array('class'=>'autocomplete'))}}

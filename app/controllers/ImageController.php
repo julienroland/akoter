@@ -240,14 +240,6 @@ else //single file
 
 if( Helpers::isOk($image) ) {
 
-  $building = Building::find($id);
-
-  if($building->register_step < 5){
-
-    $building->register_step = 5;  
-    $building->save();
-  }
-
   return Response::json('success', 200);
 
 } else {
