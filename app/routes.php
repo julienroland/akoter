@@ -16,6 +16,7 @@
 /*============================
 =            TEST            =
 ============================*/
+
 Route::get('test', function () {
   /*  Mailgun::send('emails.invite', array('user'=>Auth::user()), function($message){
         $message->to('dominique.vilain@hepl.be','Dominique Vilain')
@@ -243,6 +244,14 @@ Route::group(array('prefix' => $lang), function () use ($lang) {
 
         Route::post(trans('routes.newsletter'), array('as'=>'newsletter','uses'=>'NewsletterController@add'));
         
+        /**
+        *
+        * Schools
+        *
+        **/
+        Route::get(trans('routes.add_schools'), array('as'=>'addSchools','uses'=>'SchoolController@add'));
+
+        Route::post(trans('routes.add_schools'), array('as'=>'addSchools','uses'=>'SchoolController@store'));
 
         /**
          *
@@ -383,6 +392,10 @@ Route::group(array('prefix' => $lang), function () use ($lang) {
 
         Route::get(trans('routes.agences').'/{agence_slug}', array('as' => 'show_agenceProfile', 'uses' => 'AgenceController@showProfile'));
 
+        Route::get(trans('routes.agences').'/{agence_slug}/'.trans('routes.members_agence'), array('as' => 'member_agenceProfile', 'uses' => 'AgenceController@memberProfile'));
+
+        Route::get(trans('routes.agences').'/{agence_slug}/'.trans('routes.info_agence'), array('as' => 'info_agence', 'uses' => 'AgenceController@infoProfile'));
+
         /*
         *
         *	IF LOGIN
@@ -508,6 +521,26 @@ Route::group(array('prefix' => $lang), function () use ($lang) {
 
                     Route::get('users/devalidate/{user_id}', array('uses'=>'Admin_UserController@devalidate'));
 
+                     /**
+                    *
+                    * Schools
+                    *
+                    **/
+
+                    Route::bind('school_id', function ($value, $route) {
+
+                        return School::findOrFail($value);
+
+                    });
+
+                    Route::get('schools', array('uses'=>'Admin_SchoolController@index'));
+
+                    Route::get('schools/validate/{school_id}', array('uses'=>'Admin_SchoolController@validate'));
+
+                    Route::get('schools/devalidate/{school_id}', array('uses'=>'Admin_SchoolController@devalidate'));
+
+                    Route::get('schools/delete/{school_id}', array('uses'=>'Admin_SchoolController@delete'));
+                        
                     /**
                     *
                     * Notice

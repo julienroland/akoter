@@ -3547,40 +3547,41 @@ $country-h: 100px;
 		color:$greyD;
 		text-align: center;
 	}
-	.members{
-		@include c(12);
-		padding:3em 0;
-		.member{
-			@include cl(4);
-			width: 120px;
-			text-align: center;
+	
+}
+.members{
+	@include c(12);
+	padding:3em 0;
+	.member{
+		@include cl(4);
+		width: 120px;
+		text-align: center;
+		.user-picture{
+			padding:1em 5px;
+		}
+		.member-photo{
+			@include border-radius(50%);
+			display: block;
+			margin: auto;
+			margin-bottom: $gutter / 4;
+		}
+		.user-info{
+			color:$greyD;
+			font-size: $small;
+		}
+		&.boss{
+			
 			.user-picture{
+				position: relative;
 				padding:1em 5px;
-			}
-			.member-photo{
-				@include border-radius(50%);
-				display: block;
-				margin: auto;
-				margin-bottom: $gutter / 4;
-			}
-			.user-info{
-				color:$greyD;
-				font-size: $small;
-			}
-			&.boss{
-				
-				.user-picture{
-					position: relative;
-					padding:1em 5px;
-					&:before{
-						content:"";
-						visibility: visible;
-						@include abs();
-						background-image: image-url('boss.png');
-						background-repeat: no-repeat;
-						background-position: 50% 0;
-						overflow: visible;
-					}
+				&:before{
+					content:"";
+					visibility: visible;
+					@include abs();
+					background-image: image-url('boss.png');
+					background-repeat: no-repeat;
+					background-position: 50% 0;
+					overflow: visible;
 				}
 			}
 		}
@@ -8310,6 +8311,25 @@ only screen and (min-device-pixel-ratio: 1.5){
 	}
 	.email{
 		padding:3em 1em;
+	}
+}
+/**
+*
+* School
+*
+**/
+.addSchool{
+	@include c(12);
+	padding:3em 1em;
+
+	#sMap{
+		display: block;
+		width: 400px;
+		height: 400px;
+		@include cl(6);
+	}
+	.school-form{
+		@include cl(6);
 	}
 }
 /**

@@ -95,6 +95,7 @@ return array (
     'deletedComment'=>'Commentaire supprimé !',
     'agence_join'=>'Le login ou le mot de passe est incorrect',
     'agenceUpdate'=>'Informations de votre agence correctement mises à jour',
+    'ecoleAdded'=>'Merci, l\'école à bien été ajouté, elle sera visible après vérification de notre part.',
   ),
   'attributes' => 
   array (

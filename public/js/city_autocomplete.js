@@ -4,7 +4,7 @@
   $.each($fields, function(index){
 
     var autocomplete = new google.maps.places.Autocomplete($fields[index], {types: ['geocode'], componentRestrictions: {'country':'be'}});
-
+console.log(autocomplete); 
     google.maps.event.addListener(autocomplete, 'place_changed', function() {
 
       var place = autocomplete.getPlace();

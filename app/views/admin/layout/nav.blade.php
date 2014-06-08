@@ -15,6 +15,10 @@
             <a href="{{url('admin/users')}}">Utilisateurs</a>
         </li>
 
+        <li {{Helpers::isActive('schools', Request::segment(2))}}>
+            <a href="{{url('admin/schools')}}">Ecole</a>
+        </li>
+
         <li {{Helpers::isActive('translations', Request::segment(2))}}>
             <a href="{{url('admin/translations')}}">Traductions statiques</a>
         </li>

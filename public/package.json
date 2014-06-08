@@ -6,10 +6,14 @@
     "gulp-compass": "^1.1.9",
     "gulp-concat-css": "^0.1.4",
     "gulp-htmlhint": "0.0.7",
+    "gulp-imagemin": "^0.6.0",
     "gulp-livereload": "^1.5.0",
     "gulp-notify": "^1.2.5",
     "gulp-ruby-sass": "^0.4.3",
-    "gulp-uglify": "^0.3.0"
+    "gulp-uglify": "^0.3.0",
+    "gulp-webp": "^0.1.2",
+    "imagemin-pngcrush": "^0.1.0",
+    "psi": "0.0.2"
   },
   "dependencies": {
     "gulp-minify-css": "^0.3.4"

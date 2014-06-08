@@ -35,6 +35,12 @@
 </script>
 @endif
 
+@if( isset($widget) && Helpers::isOk($widget) && in_array('schoolMap', $widget)  )
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCJSSKlpz3C7EwQd2kvgn1JRBd7Ojrl9dM&sensor=false"></script>
+{{HTML::script('js/schoolMap.js')}}
+
+@endif
+
 @if( isset($widget) && Helpers::isOk($widget) && in_array('showMap', $widget)  )
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCJSSKlpz3C7EwQd2kvgn1JRBd7Ojrl9dM&sensor=false"></script>
 {{HTML::script('js/showMap.js')}}

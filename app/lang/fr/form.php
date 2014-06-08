@@ -114,4 +114,6 @@ return array (
   'charge_inclusive' => 'Charges forfaitaires',
   'charge_consumption' => 'Charges à la consommation',
   'are_you_sure' => 'Etes vous sur ?',
+  'shortname' => 'initial',
+  'web' => 'Site web',
 );

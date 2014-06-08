@@ -160,6 +160,16 @@ class AgenceController extends BaseController
 		->with(compact('members','agence','boss'));
 	}
 
+	public function memberProfile( $agence ){
+
+		$members = $agence->user()->get();
+		$boss = $agence->boss()->first();
+
+		return View::make('agence.membersProfile', array('page'=>'agence'))
+		->with(compact('members','agence','boss'));
+
+	}
+
 	public function show( $user_slug, $agence ){
 
 		$locations = $agence->location()->with('photo','request','translation')->get();
@@ -197,6 +207,15 @@ class AgenceController extends BaseController
 		$locality = $agence->locality()->pluck('name');
 
 		return View::make('agence.edit', array( 'page'=>'agence', 'widget'=>array('select','validator','city_autocomplete')))
+		->with(compact('agence','region','locality'));
+
+	}
+	public function infoProfile( $agence){
+
+		$region = $agence->region->translation()->pluck('value');
+		$locality = $agence->locality()->pluck('name');
+
+		return View::make('agence.infos', array( 'page'=>'agence'))
 		->with(compact('agence','region','locality'));
 
 	}

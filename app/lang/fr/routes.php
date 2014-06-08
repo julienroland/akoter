@@ -20,6 +20,7 @@ return array (
   'inscription' => 'inscription',
   'add_agence' => 'ajouter-votre-agence',
   'edit_agence' => 'editer-votre-agence',
+  'info_agence' => 'information-de-l-agence',
   'your_agences' => 'vos-agences',
   'agences' => 'agences',
   'contact_us' => 'contact',
@@ -61,4 +62,5 @@ return array (
   'join_agences' => 'rejoindre-votre-agence',
   'update_agence'=>'modifier-votre-agence',
   'remove_member_agence'=>'supprimer-le-membre',
+  'add_schools'=>'ajouter-des-ecoles',
 );

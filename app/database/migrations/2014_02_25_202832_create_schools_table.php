@@ -22,6 +22,8 @@ class CreateSchoolsTable extends Migration {
 			$table->integer('status_type');
 			$table->integer('postal_id')->unsigned();
 			$table->foreign('postal_id')->references('id')->on('postal');
+			$table->integer('user_id')->unsigned()->nullable();
+			$table->foreign('user_id')->references('id')->on('users');
 			$table->integer('region_id')->unsigned();
 			$table->foreign('region_id')->references('id')->on('regions');
 			$table->integer('locality_id')->unsigned();
