@@ -18,6 +18,8 @@ class CreateAgenceTable extends Migration {
 			$table->string('name');
 			$table->string('logo');
 			$table->string('slug');
+			$table->string('email');
+			$table->string('url');
 			$table->boolean('validate');
 			$table->boolean('visible');
 			$table->date('created');

@@ -230,7 +230,6 @@ class AgenceController extends BaseController
 			$agence = new Agence;
 
 			$agence->name = ucfirst($input['name']);
-			$agence->nb_employes = $input['nb_employer'];
 			$agence->login = $input['login'];
 			$agence->password = Hash::make($input['password']);
 			$agence->created = $input['year'].'-'.$input['month'].'-'.$input['day'];
@@ -240,6 +239,8 @@ class AgenceController extends BaseController
 			$agence->locality_id = Locality::where('name','like', $input['locality'])->pluck('id');
 			$agence->region_id = Translation::whereContentType('Region')->whereKey('name')->where('value','like', $input['region'])->pluck('content_id');
 			$agence->postal = $input['postal'];
+			$agence->email = $input['email'];
+			$agence->web = $input['web'];
 			$agence->validate = 1;
 			$agence->visible = 1;
 

@@ -5,6 +5,20 @@ use \DetectLanguage\DetectLanguage;
 DetectLanguage::setApiKey(Config::get('var.detect_key'));
 class Helpers {
 
+	public static function dateEmpty( $date ){
+
+		if(!is_object($date)){
+
+			$date = Helpers::createCarbonDate($date)->toDateString();
+		}
+
+		if($date == '-0001-11-30'){
+
+			return true;
+		}
+
+		return false;
+	}
 	public static function title( $str ){
 
 		return substr($str, 0, 44);

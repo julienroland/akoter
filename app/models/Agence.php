@@ -18,6 +18,8 @@ class Agence extends Eloquent implements SluggableInterface {
 		'postal'=>'required | numeric',
 		'login'=>'required | unique:agences,login',
 		'logo'=>'image | mimes:jpeg,jpg,gif,png',
+		'web'=>'url',
+		'email'=>'email',
 		'password'=>'required',
 		'password_ck'=>'required|same:password',
 		'language'=>'required',
@@ -62,6 +64,11 @@ class Agence extends Eloquent implements SluggableInterface {
 		->withTimestamps();
 	}
 
+/*	public function location()
+	{
+		return $this->belongsToMany('Location');
+	}
+*/
 	public function language()
 	{
 		return $this->hasMany('Language');

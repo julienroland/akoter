@@ -3549,6 +3549,20 @@ $country-h: 100px;
 	}
 	
 }
+.agence-info{
+	margin:2em auto;
+	padding:2em;
+	max-width: 400px;
+	background-color: $greyL;
+	span{
+		display: block;
+		line-height: 1.5;
+		&.name{
+			font-weight: 700;
+			font-size: $large;
+		}
+	}
+}
 .members{
 	@include c(12);
 	padding:3em 0;

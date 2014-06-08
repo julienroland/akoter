@@ -159,6 +159,11 @@ public function agence(){
 	return $this->belongsTo('Agence');
 }
 
+/*public function agence()
+{
+	return $this->belongsToMany('Agence');
+}*/
+
 public function photo(){
 
 	return $this->hasMany('PhotoLocation'); 

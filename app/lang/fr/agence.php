@@ -37,4 +37,8 @@ return array (
   'joined_intro' => 'Rejoindre votre agence vous permet en tant qu\'employé de pouvoir également louer des biens au noms de celle-ci',
   'edit'=>'Modifier votre agence',
   'infos'=>'Informations de l\'agence',
+  'web'=>'Site web de l\'agence',
+  'email'=>'Email de l\'agence',
+  'locality'=>'Localitée de l\'agence',
+  'email_contact'=>'Adresse de contact',
   );

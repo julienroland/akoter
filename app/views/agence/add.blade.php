@@ -23,6 +23,18 @@
     {{Form::file('logo',array('placeholder'=>trans('agence.logo'),'required', 'class'=>isset(Session::get('field')['logo']) ? 'form-error':''))}}
     <i class="icon-required" aria-hidden="true"></i>
   </div> 
+  
+   <div class="field">
+    {{Form::label('email',trans('agence.email'))}}
+    {{Form::input('email','email','',array('placeholder'=>trans('agence.email'), 'class'=>isset(Session::get('field')['email']) ? 'form-error':''))}}
+    <i class="icon-required" aria-hidden="true"></i>
+  </div>
+
+   <div class="field">
+    {{Form::label('web',trans('agence.web'))}}
+    {{Form::input('url','web','',array('placeholder'=>trans('agence.web'), 'class'=>isset(Session::get('field')['web']) ? 'form-error':''))}}
+    <i class="icon-required" aria-hidden="true"></i>
+  </div>
 
   <div class="field">
     {{Form::label('login',trans('agence.login'))}}

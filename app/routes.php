@@ -221,7 +221,8 @@ Route::group(array('prefix' => $lang), function () use ($lang) {
 
 	Route::group(array('before' => 'lang'), function () {
 
-		App::setLocale(Session::get('lang'));
+		App::setLocale(Helpers::isOk(Session::get('lang')) ? Session::get('lang') : Config::get('app.locale'));
+
 
         /**
          *

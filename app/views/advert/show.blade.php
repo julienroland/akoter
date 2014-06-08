@@ -148,13 +148,13 @@
 									@if(Helpers::isOk($comment->user->photo))
 									<img class="thumbnail" width="{{Config::get('var.user_photo_width')}}" height="{{Config::get('var.user_photo_height')}}" src="{{'/'.Config::get('var.images_dir').Config::get('var.users_dir').$comment->user->id.'/'.Config::get('var.profile_dir').$comment->user->photo}}" >
 									@else
-									@if(Auth::user()->civility == 0)
+									@if($comment->user->civility == 0)
 
-									<img class="thumbnail" src="{{Config::get('var.img_dir')}}{{Config::get('var.no_photoUserM')}}" alt="{{trans('account.imageProfile', array('name'=>Auth::user()->first_name. ' ' .Auth::user()->name))}}" width="{{Config::get('var.user_photo_width')}}" height="{{Config::get('var.user_photo_height')}}">
+									<img class="thumbnail" src="{{Config::get('var.img_dir')}}{{Config::get('var.no_photoUserM')}}" alt="{{trans('account.imageProfile', array('name'=>$comment->user->first_name. ' ' .$comment->user->name))}}" width="{{Config::get('var.user_photo_width')}}" height="{{Config::get('var.user_photo_height')}}">
 
 									@else 
 
-									<img class="thumbnail" src="{{Config::get('var.img_dir')}}{{Config::get('var.no_photoUserF')}}" alt="{{trans('account.imageProfile', array('name'=>Auth::user()->first_name. ' ' .Auth::user()->name))}}" width="{{Config::get('var.user_photo_width')}}" height="{{Config::get('var.user_photo_height')}}">
+									<img class="thumbnail" src="{{Config::get('var.img_dir')}}{{Config::get('var.no_photoUserF')}}" alt="{{trans('account.imageProfile', array('name'=>$comment->user->first_name. ' ' .$comment->user->name))}}" width="{{Config::get('var.user_photo_width')}}" height="{{Config::get('var.user_photo_height')}}">
 									@endif
 									@endif
 								</div>
@@ -299,13 +299,14 @@
 
 				<span class="price">{{round($location->price)}}€</span>
 				<span class="perMonth">{{trans('general.perMonth')}}</span>
-				<span class="charge">{{trans('locations.charge')}} {{Config::get('var.charges')[$location->charge_type]}} {{$location->charge_price > 0 ? '( '.$location->charge_price .')' : ''}}</span>
+				<span class="charge">{{trans('locations.charge')}} {{Config::get('var.charges')[$location->charge_type]}} {{$location->charge_price > 0 ? '&nbsp;('.round($location->charge_price) .'€)' : ''}}</span>
 				@if($location->charge_type == 1)
 				<span class="chargePrice">{{$location->charge_price}}€</span>
 				@endif
 				<span class="typeLocation"><i class="icon icon-longa"></i>{{$typeLocation}}	<span class="section">{{trans('locations.typeLocation',array('name'=>$typeLocation))}}</span></span>
 				<span class="nb_seat"><i class="icon icon-user3"></i>{{trans('locations.nb_seat',array('number'=>$location->remaining_room))}}</span>
-				@if(Helpers::isOk($location->start_date) && Helpers::isOk($location->end_date))
+
+				@if(!Helpers::dateEmpty($location->start_date) && !Helpers::dateEmpty($location->end_date))
 				<div class="date">
 					<span class="dt"><span class="dt-d">{{trans('locations.start_at')}} </span></span>
 					<span class="start fdate">{{Helpers::beTime(Helpers::createCarbonDate($location->start_date), '$d $nd $M $y')}}</span>
@@ -396,7 +397,7 @@
 
 				<a href="{{route('showAgence', $agence->slug)}}" class="tooltip-ui-e" title="{{trans('locations.see_agence')}}">
 					<div class="user-picture">
-						<img class="thumbnail" src="/{{Config::get('var.images_dir')}}{{Config::get('var.agences_dir')}}{{$agence->id}}/{{Config::get('var.logoAgence_dir')}}{{$agence->logo}}" width="{{Config::get('var.agence_logo_width')}}" height="{{Config::get('var.agence_logo_height')}}" alt="{trans('general.logo_of_agency', array('name'=>$agence->name))}}">
+						<img class="thumbnail" src="/{{Config::get('var.images_dir')}}{{Config::get('var.agences_dir')}}{{$agence->id}}/{{Config::get('var.logoAgence_dir')}}{{$agence->logo}}" width="{{Config::get('var.agence_logo_width')}}" height="{{Config::get('var.agence_logo_height')}}" alt="{{trans('general.logo_of_agency', array('name'=>$agence->name))}}">
 					</div>
 					<div class="user-info">
 						<span class="name">{{$agence->name}}</span>

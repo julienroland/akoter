@@ -3,10 +3,10 @@
 @section('agence')
 
 @if( $agences->count() )
-
-@foreach( $agences as $agence)
-
 <div class="row">
+	@foreach( $agences as $agence)
+
+
 	<div class="agence">
 		<a class="thumbnail" title="{{trans('agence.show')}}" href="{{route('show_agence', array(Auth::user()->slug, $agence->slug))}}">
 			@if(Helpers::isOk($agence->logo))
@@ -18,8 +18,9 @@
 			@endif
 		</a>
 	</div>
+
+	@endforeach
 </div>
-@endforeach
 @else
 
 <div class="bigInfo">
@@ -28,9 +29,9 @@
 	</span>
 	<div class="links">
 
-	<a href="{{route('add_agence', Auth::user()->slug )}}"> {{trans('agence.create_agence')}} </a>
+		<a href="{{route('add_agence', Auth::user()->slug )}}"> {{trans('agence.create_agence')}} </a>
 
-	<a href="{{route('join_agence', Auth::user()->slug )}}"> {{trans('agence.join_agence')}} </a>
+		<a href="{{route('join_agence', Auth::user()->slug )}}"> {{trans('agence.join_agence')}} </a>
 
 	</div>
 </div>

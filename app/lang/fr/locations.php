@@ -38,7 +38,7 @@ return array (
   'particularity-title' => 'Particularités du logement',
   'building-equipment-title' => 'Equipements du bâtiment (pièces communes, ...)',
   'location-equipment-title' => 'Equipements du logement (pièce privé, ...)',
-  'specificity' => 'Spécificité',
+  'specificity' => 'Spécificités',
   'size' => 'Dimension',
   'floor' => 'Etage',
   'accessible' => 'Accessible aux handicapés',
