@@ -14,7 +14,7 @@
 	<code>
 
 		$.ajax({
-			url:"http://akoter/api/location/all",
+			url:"http://akoter.julien-roland.be/api/location/all",
 			dataType: "json",
 			type:"get",
 			success:function(oData){
@@ -35,7 +35,7 @@
 	<code>
 		var jsonData = [1,3,4,423,432];
 			$.ajax({
-				url:"http://akoter/api/location/in",
+				url:"http://akoter.julien-roland.be/api/location/in",
 				dataType: "json",
 				data:{locationsArray : jsonData},
 				type:"get",
@@ -62,7 +62,7 @@
 		 **/
 
 		$.ajax({
-			url:"http://akoter/api/location/get/20",
+			url:"http://akoter.julien-roland.be/api/location/get/20",
 			dataType: "json",
 			type:"get",
 			success:function(oData){

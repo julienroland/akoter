@@ -6,7 +6,7 @@
 
 @include('includes.errors')
 <div class="account-container">
-		<h3 aria-level="3" role="heading" class="titlePopup">Informations personnels</h3>
+		<h3 aria-level="3" role="heading" class="titlePopup">{{trans('account.infos_perso_title')}}</h3>
 
 	{{Form::open(array('route'=>array('save_personnal',Auth::user()->slug),'method'=>'put','class'=>'inlineType rules', 'data-rules'=>json_encode(User::$personnals_rules)))}}
 	<fieldset>

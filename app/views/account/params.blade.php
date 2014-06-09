@@ -3,6 +3,8 @@
 @section('account')
 @if($user->count())
 <div class="account-container">
+
+<h3 aria-level="3" role="heading" class="titlePopup">{{trans('account.settings_title')}}</h3>
 	<div class="account-dates">
 		<?php setlocale(LC_TIME, Config::get('app.setLocale')[App::getLocale()]); ?> 
 		<ul>

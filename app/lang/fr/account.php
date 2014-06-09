@@ -84,4 +84,6 @@ return array (
   'seeSteps_owner' => 'plus d\'informations',
   'check_bookmark' => 'Voir la liste de vos favoris',
   'your_favoris' => 'Liste vos favoris',
+  'infos_perso_title' => 'Informations personnels',
+  'settings_title' => 'Paramètre du compte',
 );

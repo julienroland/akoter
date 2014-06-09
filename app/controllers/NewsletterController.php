@@ -15,6 +15,13 @@ class NewsletterController extends BaseController {
 				$newsletter->email = $input['newsletter'];
 				$newsletter->save();
 
+				Mailgun::send('emails.newsletter', array('input'=>$input), function($message) use($input){
+
+					$message
+					->to($input['newsletter'])
+					->subject(Helpers::translation('Confirmation d\'ajout à la newsletter','fr', Auth::check() ? Config::get('var.lang')[Auth::user()->language_id] : App::getLocale() ));
+				});
+
 				return Redirect::back()
 				->withSuccessNewsletter(trans('validaton.custom.newsletter'));
 
