@@ -14,7 +14,9 @@
         "barryvdh/laravel-ide-helper": "1.*",
         "barryvdh/laravel-translation-manager": "*",
         "torann/geoip": "dev-master",
-        "detectlanguage/detectlanguage": "*"
+        "detectlanguage/detectlanguage": "*",
+        "anahkiasen/rocketeer": "dev-master"
+
 
     },
     "autoload": {

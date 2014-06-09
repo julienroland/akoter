@@ -131,6 +131,7 @@ return array(
 		'Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider',
 		'Barryvdh\TranslationManager\ManagerServiceProvider',
 		'Torann\GeoIP\GeoIPServiceProvider',
+		'Rocketeer\RocketeerServiceProvider',
 
 
 		),
@@ -204,6 +205,7 @@ return array(
 		'Mailgun' 		  => 'Bogardo\Mailgun\Facades\Mailgun',
 		'Collection'      => 'Illuminate\Database\Eloquent\Collection',
 		'GeoIP' 		  => 'Torann\GeoIP\GeoIPFacade',
+		'Rocketeer'       => 'Rocketeer\Facades\Rocketeer',
 
 		),
 

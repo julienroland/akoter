@@ -27,7 +27,7 @@ return array(
 	*/
 
 	'connections' => array(
-
+ 
 		'production' => array(
 			'host'      => '',
 			'username'  => '',
