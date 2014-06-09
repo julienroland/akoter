@@ -18,6 +18,7 @@
 			</div>
 		</div>
 	</article>
+	@if($otherPosts->count())
 	<div class="wrapper">
 		<div class="otherPosts">
 			<h4 aria-level="4" itemprop="headline" role="heading" class="titleOtherPost">{{trans('posts.morePost')}}</h4>
@@ -39,6 +40,7 @@
 			</div>
 		</div>
 	</div>
+	@endif
 </div>
 
 @stop

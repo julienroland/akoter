@@ -246,7 +246,7 @@
 		@include box-sizing( border-box );
 		min-width: 100px;
 		padding:0.6em 0.8em;
-		line-height: 22px;
+		line-height: 25px;
 		text-transform: uppercase;
 		font-size: 0.85em;
 		text-decoration: none;
@@ -416,8 +416,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#35a0c6', end
 		padding: 2em 1em;
 		margin-bottom: $gutter;
 		legend{
-			font-weight: bold;
+			font-weight: 300;
 			font-style: italic;
+			color:$greyD;
 			margin-left: $gutter / 2;
 		}
 		&.field{
@@ -607,8 +608,12 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#35a0c6', end
 			padding: 0;
 		}
 	}
+	.informations-row{
+		padding:1em;
+	}
 	.informations{
 		display:block;
+		@include c(12);
 		padding:$gutter / 2;
 		border: 1px solid darken($infosBackground, 5%);
 		background-color: $infosBackground;
@@ -620,6 +625,14 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#35a0c6', end
 		margin:0 auto;
 		margin-bottom: $gutter / 2;
 		margin-top: $gutter / 4;
+		.circle-text{
+			float: left;
+			margin-left: 50px;
+		}
+		.circle{
+			float: left;
+			margin-right: $gutter / 4;
+		}
 		strong{
 			background-color: transparent;
 			padding: 0;
@@ -705,6 +718,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#35a0c6', end
 			text-align: right;
 			font-size: 0.9em;
 			font-style: italic;
+			margin-bottom: $gutter / 2;
 			.icon-required{
 				&:before{
 					margin-top: 0;

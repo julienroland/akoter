@@ -102,6 +102,7 @@ return array(
 		'height'=>64,
 		),
 	'steps'=>8,
+	'stepsAdvert'=>2,
 	'steps_names'=>array(
 		1=>trans('inscription.steps.1'),
 		2=>trans('inscription.steps.2'),
@@ -121,6 +122,15 @@ return array(
 		6=>'index_inscription_adverts',
 		7=>'index_photo_advert',
 		8=>'index_inscription_contact',
+
+		),
+	'stepsOwner_names'=>array(
+		1=>trans('inscription.steps.6'),
+		2=>trans('inscription.steps.7'),
+		),
+	'stepsOwner_routes'=>array(
+		1=>'index_inscription_adverts',
+		2=>'index_photo_advert',
 
 		),
 	'img_quality'=>90,

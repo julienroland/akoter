@@ -15,4 +15,5 @@ return array (
   'api' => 'API pour les développeurs',
   'admin' => 'Administration du site',
   'copyright' => 'Copyright © 2014 www.akoter.julien-roland.be - Tous droits réservés.',
+  'helpOwner' => 'Conseils propriétaires',
 );

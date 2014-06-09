@@ -100,6 +100,8 @@ return array (
     'globalImageBuilding'=>'Images manquantes dans plusieurs catégories',
     'builidngImageBuilding'=>'Images manquantes concernant le bâtiment dans son ensemble',
     'commonImageBuilding'=>'Images manquantes concernant les pièces communes',
+    'inscription_advertsPhoto'=>'Images bien enregistrés !',
+    'notAvailableNotice'=>'Vous devez avoir fait vérifier votre email pour pouvoir donner votre avis',
   ),
   'attributes' => 
   array (

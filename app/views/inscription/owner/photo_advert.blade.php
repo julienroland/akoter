@@ -24,7 +24,7 @@
 			@foreach($locations as $location)
 			@if(Helpers::isOK($currentLocation) && $currentLocation->id == $location->id)
 			<li><a href="#{{$location->id}}-advert">{{$location->typeLocation->translation[0]->value}} {{$location->id}}</a></li>
-			@else
+			@elseif(Helpers::isNotOk($currentLocation))
 			<li><a href="#{{$location->id}}-advert">{{$location->typeLocation->translation[0]->value}} {{$location->id}}</a></li>
 			@endif
 			@endforeach
@@ -88,7 +88,7 @@
 				@endif
 			</div>
 		</div>
-		@else 
+		@elseif(Helpers::isNotOk($currentLocation)) 
 		@if($location->nb_locations > 1)
 
 		<div class="informations">{{trans('inscription.groupAdvert',array('number'=>$location->nb_locations,'type'=>strtolower($location->typeLocation->translation[0]->value)))}} </div>
@@ -147,8 +147,10 @@
 
 
 
-		{{Form::open(array('method'=>'get','route'=>array('index_inscription_contact', Auth::user()->slug, $building->id, Helpers::isOk($currentLocation) ? $currentLocation->id: ''),'class'=>'mainType '))}}
-
+		{{Form::open(array('route'=>array('save_photo_advert', Auth::user()->slug, $building->id, Helpers::isOk($currentLocation) ? $currentLocation->id: ''),'class'=>'mainType '))}}
+		@foreach($locations as $location)
+		{{Form::hidden('location['.$location->id.']')}}
+		@endforeach
 		<div class="field previous">
 
 			<a href="{{route(Config::get('var.steps_routes.6'), array(Auth::user()->slug, $building->id , Helpers::isOk($currentLocation) ? $currentLocation->id: ''))}}" title="{{trans('account.back_previous_step')}}">{{trans('general.back')}}</a>

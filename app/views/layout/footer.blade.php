@@ -44,6 +44,7 @@
 
 				<ul class="permalink">
 					<li><a href="{{route('indexPost')}}">{{trans('footer.actu')}}</a></li>
+					<li><a href="{{route('indexPostOwner')}}">{{trans('footer.helpOwner')}}</a></li>
 					<li><a href="{{Auth::check() ? route('index_localisation_building', Auth::user()->slug) : route('connection')}}">{{trans('footer.add_location')}}</a></li>
 					<li><a href="{{route('addSchools')}}">{{trans('footer.add_schools')}}</a></li>
 					<li><a href="{{route('api')}}">{{trans('footer.api')}}</a></li>

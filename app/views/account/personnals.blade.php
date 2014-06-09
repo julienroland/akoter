@@ -6,6 +6,8 @@
 
 @include('includes.errors')
 <div class="account-container">
+		<h3 aria-level="3" role="heading" class="titlePopup">Informations personnels</h3>
+
 	{{Form::open(array('route'=>array('save_personnal',Auth::user()->slug),'method'=>'put','class'=>'inlineType rules', 'data-rules'=>json_encode(User::$personnals_rules)))}}
 	<fieldset>
 		<legend>{{trans('account.infos_contact')}}</legend>
@@ -73,13 +75,13 @@
 			{{Form::text('address',isset($user->address) && !empty($user->address) ? $user->address :(Session::has('account_personnal') ? Session::get('account_personnal')['address'] :''),array('class'=>'autocomplete','placeholder'=>'Basse-Montagne','required'))}}
 			<i class="icon-required" aria-hidden="true"></i>
 		</div>
-		
+
 		<div class="field">
 			{{Form::label('region',trans('form.region'))}}
 			{{Form::select('region',$regionList,'',array('class'=>'select','data-placeholder'=>trans('form.region'),'id'=>'region','data-validator'=>'false'))}}
 			<i class="icon-required" aria-hidden="true"></i>
 		</div>
-		
+
 		<div class="field">
 			{{Form::label('locality',ucfirst(trans('form.city')))}}
 			{{Form::select('locality',$localityList,'',array('class'=>'select','data-placeholder'=>trans('form.city'),'id'=>'locality','data-validator'=>'false'))}}

@@ -409,7 +409,7 @@ strong {
 	text-align: center;
 	line-height: 1;
 	font-weight: 700;
-	margin-bottom: $gutter / 4;
+	margin-bottom: $gutter / 2;
 }
 
 .titleKot {
@@ -2968,12 +2968,40 @@ $country-h: 100px;
 *
 **/
 
-.account {
+.account{
 	@include c(12);
 	background-color: $greyL;
 	min-height: 100%;
 	padding: 3em 0;
-
+	.account-dates{
+		@include c(12);
+		background-color:$greyL;
+		padding:2em;
+		color:$greyD;
+		margin:1em 0;
+		.title{
+			color:$borange;
+			font-size:$medium;
+			font-weight:400;
+		}
+	}
+	.account-actions{
+		@include c(12);
+		margin-top:5em;
+		text-align: center;
+		ul{
+			display: inline-block;
+		}
+		li{
+			a{
+				color:darken($greyL2,5%);	
+			}
+			
+			font-size: $small;
+			float: left;
+			margin:1 $gutter;
+		}
+	}
 	.wrapper {
 		overflow: visible;
 	}
@@ -2981,18 +3009,10 @@ $country-h: 100px;
 		color: $mc;
 	}
 	.checkEmail {
-		background-color: $mc;
-		color: white;
-		line-height: 44px;
-		vertical-align: middle;
-		text-align: center;
-		text-decoration: none;
-		text-transform: uppercase;
-		font-weight: 500;
-		height: 44px;
+		
 		width: 200px;
 		display: block;
-		margin: auto;
+		margin:2em auto;
 	}
 	.nav-account {
 		@include cl(2.5);
@@ -8226,6 +8246,7 @@ only screen and (min-device-pixel-ratio: 1.5){
 		text-align: center;
 		color:$tc;
 		margin-top: 1em;
+		margin-bottom: $gutter / 4;
 	}
 	.date_publish{
 		display: block;
@@ -8243,6 +8264,26 @@ only screen and (min-device-pixel-ratio: 1.5){
 		border-bottom: 3px solid $borange;
 		a{
 			color:$borange;
+		}
+	}
+	ol,ul{
+		display: list-item;
+		padding-left: $gutter;
+
+	}
+	ol{
+		li{
+			list-style-type: decimal;
+		}
+	}
+	ul{
+		li{
+			list-style-type: disc;
+		}
+	}
+	dl{
+		li{
+			list-style-type: disc;
 		}
 	}
 	.otherPosts{
@@ -8346,6 +8387,30 @@ only screen and (min-device-pixel-ratio: 1.5){
 		@include cl(6);
 	}
 }
+
+/**
+*
+* Validation email
+*
+**/
+
+.validation-email{
+	background-color: $greyL;
+	font-size: $xxx-large;
+	margin: 1em auto;
+	padding: 2em;
+	color:$greyD;
+	p{
+		margin-bottom: $gutter / 2;
+		line-height: 1;
+	}
+	a{
+		color:$borange;
+		font-size: $xx-small;
+	}
+
+}
+
 /**
 *
 * Chosen

@@ -38,8 +38,8 @@
 		$typesLocations[$i]['id'],array('class'=>'select','title'=>trans('inscription.type_location')))}}
 
 		<input type="number" min="0" class="number" title="{{trans('inscription.number_location')}}" placeholder="{{trans('form.numberLocations')}}" value="{{$typesLocations[$i]['number']}}" name="number[{{$i}}]">
-		<input type="checkbox" class="yesornot" {{$typesLocations[$i]['advert'] == 1 ? 'checked' : '' }} id="global" name="global[{{$i}}]" class="global" id="">
-		<label for="global"><span class="ui" data-yes="{{trans('general.yes')}}" data-not="{{trans('general.no')}}"></span><span class="section">{{trans('inscription.spe_advert')}}</span></label>
+		<input type="checkbox" class="yesornot" {{$typesLocations[$i]['advert'] == 1 ? 'checked' : '' }} id="global[{{$i}}]" name="global[{{$i}}]" class="global" id="">
+		<label for="global[{{$i}}]"><span class="ui" data-yes="{{trans('general.yes')}}" data-not="{{trans('general.no')}}"></span><span class="section">{{trans('inscription.spe_advert')}}</span></label>
 	</div>
 
 	@endfor

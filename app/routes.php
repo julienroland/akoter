@@ -274,6 +274,16 @@ Route::group(array('prefix' => $lang), function () use ($lang) {
         
         /**
         *
+        * Articles owner
+        *
+        **/
+        
+        Route::get(trans('routes.posts_owner'), array('as'=>'indexPostOwner','uses'=>'PostController@indexOwner'));
+
+        Route::get(trans('routes.posts_owner').'/{post_slug}', array('as'=>'showPostOwner','uses'=>'PostController@showOwner'));
+
+        /**
+        *
         * Contact owner
         *
         **/
@@ -864,6 +874,8 @@ Route::group(array('prefix' => $lang), function () use ($lang) {
                 /* PHOTO advert*/
 
                 Route::get(trans('routes.account') . '/{user_slug}/' . trans('routes.add_location') . '/{user_building_id}/' . trans('routes.inscription_step7'). '/{location_id?}', array('as' => 'index_photo_advert', 'uses' => 'InscriptionController@indexPhotoAdvert'));
+
+                Route::post(trans('routes.account') . '/{user_slug}/' . trans('routes.add_location') . '/{user_building_id}/' . trans('routes.inscription_step7'). '/{location_id?}', array('as' => 'save_photo_advert', 'uses' => 'InscriptionController@savePhotoAdvert'));
 
                 /* contact*/
                 Route::get(trans('routes.account') . '/{user_slug}/' . trans('routes.add_location') . '/{user_building_id}/' . trans('routes.inscription_step8'). '/{location_id?}', array('as' => 'index_inscription_contact', 'uses' => 'InscriptionController@indexContact'));

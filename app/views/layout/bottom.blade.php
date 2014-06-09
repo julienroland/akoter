@@ -11,6 +11,29 @@
  });
 </script>
 
+@if(isset($widget) && in_array('circles', $widget))
+
+{{HTML::script('js/circles.js')}}
+
+<script>
+  var myCircle = Circles.create({
+    id:         'circles-1',
+    radius:     30,
+    value:      $('#circles-1').attr('data-percent'),
+    maxValue:   100,
+    width:      5,
+    text:       function(value){
+      return value
+    },
+    colors:     ['#D3B6C6', '#298AE8'],
+    duration:   400,
+    wrpClass:   'circles-wrp',
+    textClass:  'circles-text'
+  });
+</script>
+
+@endif
+
 @if(isset($widget) && in_array('gallery', $widget))
 
 {{HTML::script('js/min/grid.js')}}
@@ -108,6 +131,8 @@
 });
 </script>
 @endif
+
+
 
 @if(isset($widget) && (in_array('date', $widget) || in_array('datepicker', $widget)))
 
@@ -269,7 +294,7 @@
 {{HTML::script('js/grid.js')}}
 
 <script>
-console.log('ok');
+  console.log('ok');
   var $container = $('#container');
 
   $container.masonry({
@@ -378,7 +403,7 @@ console.log('ok');
       inline: 'b',
     },
     ],
-});
+  });
 </script>
 @endif
 

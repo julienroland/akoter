@@ -39,7 +39,13 @@ class Location extends Eloquent{
 			}
 		}
 	}
-	
+	public static function getPercentComplete( $location ){
+
+		//TODO tester la location dans le validator et compter le nombre de champs erronés
+		//faire la même avec le building de la location.
+		//validlocatgion doivent obtenir 100%, sinon pas affiché sur le site
+
+	}
 	public static function getLocationByType( $building ){
 
 		$kots = $building->location()->whereTypeLocationId(1)->get();

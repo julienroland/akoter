@@ -19,6 +19,7 @@ return array (
   'goNav' => 'Revenir à la navigation',
   'tenants' => 'Locataires',
   'home' => 'Accueil',
+  'ty' => 'Merci',
   'lang' => 
   array (
     'fr' => 'Français',

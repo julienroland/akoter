@@ -40,6 +40,7 @@
 		</ul>
 
 		@foreach($locations as $location)
+		
 		@if(Helpers::isOK($currentLocation) && $currentLocation->id == $location->id)
 
 		<div id="{{$location->id}}-advert">

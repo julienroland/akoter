@@ -167,7 +167,7 @@ class AccountController extends AccountBaseController {
 
 		$user = User::find(Auth::user()->id);
 
-		return View::make('account.params',array('page'=>'account','widget'=>array('validator')))
+		return View::make('account.params',array('page'=>'account','widget'=>array('validator','select')))
 		->with(compact('user'));
 
 	}

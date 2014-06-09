@@ -29,7 +29,9 @@ class LocationDashboardController extends AccountBaseController {
 
 		$nb_comments = $location->comment()->count();
 
-		return View::make('account.owner.dashboard.index',array('page'=>'dashboard'))
+		$percent = Location::getPercentComplete( $location );
+
+		return View::make('account.owner.dashboard.index',array('page'=>'dashboard','widget'=>array('circles')))
 		->with(compact('photo','nb_requestMonth','nb_tenantsMonth','nb_oldTenants','nb_comments'));
 	}
 	public function requests( $user_slug, $location ){

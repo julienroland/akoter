@@ -4,11 +4,19 @@
 
 @if($location->building->register_step >= Config::get('var.steps'))
 @if($location->validate == 0)
-<div class="informations">{{trans('account.location_waiting_validation')}}</div>
+<div class="informations-row">
+    <div class="informations">{{trans('account.location_waiting_validation')}}</div>
+</div>
 @endif
 @else
-<div class="informations">
-    {{trans('account.location_notcomplete',array('percent'=>Helpers::toPercent($location->building->register_step, Config::get('var.steps'))))}}
+<div class="informations-row">
+    <div class="informations">
+        <div class="circle" id="circles-1" data-percent="{{Helpers::toPercent($location->building->register_step, Config::get('var.steps'))}}"></div>
+        <div class="circle-text">
+            {{trans('account.location_notcomplete',array('url'=>route('index_inscription_adverts',array(Auth::user()->slug, $location->building->id, $location->id)),'percent'=>
+            Helpers::toPercent($location->building->register_step, Config::get('var.steps'))))}}
+        </div>
+    </div>
 </div>
 @endif
 
@@ -24,9 +32,10 @@
             @endif
         </div>
         <div class="infos">
-            <h3 aria-level="3" role="heading" class="titleDashboard">{{$location->translation->lists('value','key')['title']}}</h3>
+
+            <h3 aria-level="3" role="heading" class="titleDashboard">{{$location->translation->count() > 0 ? $location->translation->lists('value','key')['title']:trans('dashboard.no_title')}}</h3>
             <span>{{$location->building->address}}</span>
-            <span>{{trans('locations.ref', array('ref'=>$location->ref))}}</span>
+            <span>{{trans('locations.ref', array('ref'=>$location->id))}}</span>
         </div>
 
 
@@ -71,13 +80,13 @@
                 @endif 
             </div>
             <div class="requestLike">
-                <span class="icon icon-speech76"></span>
-                @if($nb_oldTenants <= 0 )
 
-                {{trans('dashboard.neverTenants')}}
+                @if($nb_oldTenants <= 0 )
+                <span class="icon icon-key105"></span>
+                {{trans('dashboard.neverTenants', array('url'=>route('indexPostOwner')))}}
 
                 @else 
-
+                <span class="icon icon-speech76"></span>
                 @if($nb_comments > 0)
 
                 {{trans('dashboard.numberCommRequest',array('number'=>$nb_comments,'url'=>route('requestLike', array(Auth::user()->slug, $location->id))))}}
@@ -94,14 +103,14 @@
                 <span class="icon icon-view6">{{trans('locations.views', array('number'=>$location->nb_views))}}</span>
             </div>
             <div class="rating">
-                    <div class="icons rating tooltip-ui-w" title="{{Helpers::getRating($location->rating)}} {{Lang::get('locations.stars')}} {{trans('general.on')}} {{trans('locations.nb_vote',array('number'=>$location->nb_rate))}}">
-                        <span class="section">{{Helpers::getRating($location->rating)}} {{Lang::get('locations.stars')}}</span>
-                        <span class="icon {{Helpers::isStar( 1, $location->rating )}} " aria-hidden="true"></span>
-                        <span class="icon {{Helpers::isStar( 2, $location->rating )}}" aria-hidden="true"></span>
-                        <span class="icon {{Helpers::isStar( 3, $location->rating )}}" aria-hidden="true"></span>
-                        <span class="icon {{Helpers::isStar( 4, $location->rating )}}" aria-hidden="true"></span>
-                        <span class="icon {{Helpers::isStar( 5, $location->rating )}}" aria-hidden="true"></span>
-                    </div>
+                <div class="icons rating tooltip-ui-w" title="{{Helpers::getRating($location->rating)}} {{Lang::get('locations.stars')}} {{trans('general.on')}} {{trans('locations.nb_vote',array('number'=>$location->nb_rate))}}">
+                    <span class="section">{{Helpers::getRating($location->rating)}} {{Lang::get('locations.stars')}}</span>
+                    <span class="icon {{Helpers::isStar( 1, $location->rating )}} " aria-hidden="true"></span>
+                    <span class="icon {{Helpers::isStar( 2, $location->rating )}}" aria-hidden="true"></span>
+                    <span class="icon {{Helpers::isStar( 3, $location->rating )}}" aria-hidden="true"></span>
+                    <span class="icon {{Helpers::isStar( 4, $location->rating )}}" aria-hidden="true"></span>
+                    <span class="icon {{Helpers::isStar( 5, $location->rating )}}" aria-hidden="true"></span>
+                </div>
             </div>
         </div>
     </div>

@@ -9,7 +9,16 @@ class Helpers {
 
 		if(!is_object($date)){
 
-			$date = Helpers::createCarbonDate($date)->toDateString();
+			$date = Helpers::createCarbonDate($date);
+
+			if(is_object($date)){
+
+				$date = $date->toDateString();
+
+			}else{
+
+				return true;
+			}
 		}
 
 		if($date == '-0001-11-30'){
@@ -24,7 +33,16 @@ class Helpers {
 
 		if(!is_object($date)){
 
-			$date = Helpers::createCarbonDate($date)->toDateString();
+			$date = Helpers::createCarbonDate($date);
+
+			if(is_object($date)){
+
+				$date = $date->toDateString();
+
+			}else{
+
+				return false;
+			}
 		}
 
 		if($date == '-0001-11-30'){

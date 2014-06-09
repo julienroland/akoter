@@ -63,4 +63,5 @@ return array (
   'update_agence'=>'modifier-votre-agence',
   'remove_member_agence'=>'supprimer-le-membre',
   'add_schools'=>'ajouter-des-ecoles',
+  'posts_owner'=>'articles-pour-les-proprietaires',
 );

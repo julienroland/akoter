@@ -39,7 +39,7 @@ App::after(function($request, $response)
 App::error(function(ModelNotFoundException $e)
 {
 
-	return Response::make(Lang::get('general.introuvable'), 404);
+	/*return Response::make(Lang::get('general.introuvable'), 404);*/
 });
 
 /**
@@ -65,18 +65,18 @@ Route::filter('agenceBoss', function(){
 Route::filter('admin', function()
 {
 
-    if(Auth::check()){
+	if(Auth::check()){
 
-        if(Auth::user()->role_id > 2){
+		if(Auth::user()->role_id > 2){
 
-            return Redirect::back('/');
-        }
+			return Redirect::back('/');
+		}
 
-    }else{
+	}else{
 
-        return View::make('admin.login',array('page'=>'admin'));
+		return View::make('admin.login',array('page'=>'admin'));
 
-    }
+	}
 
 });
 /**
@@ -227,7 +227,8 @@ Route::filter('isOwner', function(){
 
 	if(Auth::user()->isOwner != 1 || Auth::user()->active != 1 || Auth::user()->email_comfirm != 1){
 
-		return Redirect::back(route('account_home', Auth::user()->slug) );
+		return Redirect::back()
+		->withErrors(trans('validation.custom.notAvailableNotice'));
 	}
 
 });

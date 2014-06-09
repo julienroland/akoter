@@ -20,7 +20,7 @@
 			@include('includes.steps')
 			@include('includes.success')
 	<div class="field">
-			<a class="btn large" href="{{route('account_home',Auth::user()->slug)}}">{{trans('inscription.inscription_done_go_account')}}</a>
+			<a class="btn large" href="{{route('account_home',Auth::user()->slug)}}">{{trans('inscription.inscription_done')}}</a>
 			</div>
 		</div>
 	</div>
