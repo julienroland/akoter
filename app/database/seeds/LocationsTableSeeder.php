@@ -695,6 +695,7 @@ for($i = 1;$i < count($street)*2; $i++){
 		"charge_type"=>rand(0,1),
 		"validate"=>1,
 		"comments_status"=>rand(0,1),
+		"register_step"=>7,
 		"nb_views"=>rand(0,10000),
 		"rating"=>rand(0,10),
 		"nb_rate"=>rand(0,1000),

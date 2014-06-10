@@ -18,6 +18,7 @@ class HomeController extends BaseController {
 	public function index(){
 
 		$locations = Location::getLocationsList( 12, null, 'created_at' , 'desc');
+		
 		$notices = Notice::getHomeNotices( 3 );
 
 		$posts = Post::getPosts( 'home' );

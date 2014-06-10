@@ -35,7 +35,7 @@ class CreateLocationsTable extends Migration {
 			$table->integer('nb_rate');
 			$table->float('garantee');	
 			$table->tinyInteger('charge_type');
-			$table->integer('agence_id')->unsigned();
+			$table->integer('agence_id')->unsigned()->nullable();
 			$table->foreign('agence_id')->references('id')->on('agences');
 			$table->integer('type_location_id')->unsigned();
 			$table->foreign('type_location_id')->references('id')->on('types_locations');

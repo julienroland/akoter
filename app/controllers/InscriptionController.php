@@ -645,12 +645,10 @@ class InscriptionController extends AccountBaseController {
 				$building->save();
 			}
 
-			
-		}
-		return Redirect::route('index_inscription_adverts', array(Auth::user()->slug, $building->id, Helpers::isOk($currentLocation) ? $currentLocation->id : '' ))
+				return Redirect::route('index_inscription_adverts', array(Auth::user()->slug, $building->id, Helpers::isOk($currentLocation) ? $currentLocation->id : '' ))
 		->withSuccess(trans('validation.custom.inscription_photoBuilding'));
 
-		/*else{
+		}else{
 
 			$errors = array( );
 			if($photos->count() < 1){
@@ -676,7 +674,7 @@ class InscriptionController extends AccountBaseController {
 			return Redirect::back()
 			->withErrors($errors);
 
-		}*/
+		}
 	}
 
 	public function indexAdverts($user_slug, $building, $currentLocation = null){
@@ -733,7 +731,6 @@ class InscriptionController extends AccountBaseController {
 				$location->accessible = isset($input['accessible']) ? 1 : 0;
 				$location->register_step = $location->register_step < 6 && $location->register_step == 5 ? 6 : $location->register_step;
 				
-				if(isset($input['option']) && Helpers::isOk($input['option'])){
 
 					$location->option()->detach();
 					
@@ -742,7 +739,7 @@ class InscriptionController extends AccountBaseController {
 
 						$location->option()->attach($key);
 					}
-				}
+
 				if(isset($input['particularity']) && Helpers::isOk($input['particularity'])){
 
 					$location->particularity()->detach();
@@ -887,7 +884,7 @@ class InscriptionController extends AccountBaseController {
 			}
 		}
 		
-		$building->register_step = $building->register_step < 6 && $location->register_step == 5 ? 6 : $building->register_step;
+		$building->register_step = $building->register_step < 6 && $building->register_step == 5 ? 6 : $building->register_step;
 		$building->save();
 
 		Session::put('inscription.current', 6);

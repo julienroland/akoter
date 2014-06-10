@@ -44,7 +44,6 @@
     var $container = $('#pictures-tab');
     $("#tabspicture").on("click",function(){
 
-      console.log('ok');
       $container.masonry({
         itemSelector: '.picture-gallery',
         "isOriginLeft": true,
@@ -294,7 +293,7 @@
 {{HTML::script('js/grid.js')}}
 
 <script>
-  console.log('ok');
+
   var $container = $('#container');
 
   $container.masonry({
@@ -419,9 +418,10 @@
 {{HTML::script('js/min/jquery.tipsy.js')}}
 <script>
  $(function() {
-   $('.tooltip-ui-e').tipsy({ aria: true, fade: true, gravity:'w', delayIn: 200, delayOut: 300, opacity: 0.9});
+   $('.tooltip-ui-e').tipsy({ aria: true,fade: true, gravity:'w', delayIn: 200, delayOut: 300, opacity: 0.9});
    $('.tooltip-ui-w').tipsy({ aria: true,fade: true, gravity:'e', delayIn: 200, delayOut: 300, opacity: 0.9});
    $('.tooltip-ui-s').tipsy({ aria: true,fade: true, gravity:'n', delayIn: 200, delayOut: 300, opacity: 0.9});
+   $('.tooltip-ui').tipsy({ aria: true,fade: true, gravity:'n', delayIn: 200, delayOut: 300, opacity: 0.9});
    $('.tooltip-ui-n').tipsy({ aria: true,fade: true, gravity:'s', delayIn: 200, delayOut: 300, opacity: 0.9});
  });
 </script>

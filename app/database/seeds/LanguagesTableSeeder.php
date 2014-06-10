@@ -17,7 +17,7 @@ class LanguagesTableSeeder extends Seeder {
 				'short'=>'en'
 				),
 			array(
-				'name'=>'Nederlands',
+				'name'=>'Néederlands',
 				'short'=>'nl'
 				),
 			);

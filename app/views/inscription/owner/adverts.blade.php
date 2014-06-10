@@ -10,6 +10,7 @@
 		</div>
 	</div>
 </div>
+
 <div class="formContainer large">
 	
 	@include('includes.steps')
@@ -40,7 +41,18 @@
 		</ul>
 
 		@foreach($locations as $location)
-		
+
+		@if(isset($locationsData) && isset($locationsData[$location->id][0]->option))
+		<?php $optionList = $locationsData[$location->id][0]->option->groupBy('id'); ?>
+		@else
+		<?php $optionList = array(''); ?>
+		@endif
+
+		@if(isset($locationsData) && isset($locationsData[$location->id][0]->particularity))
+		<?php $particularityList = $locationsData[$location->id][0]->particularity->groupBy('id'); ?>
+		@else
+		<?php $particularityList = array(''); ?>
+		@endif
 		@if(Helpers::isOK($currentLocation) && $currentLocation->id == $location->id)
 
 		<div id="{{$location->id}}-advert">
@@ -158,7 +170,7 @@
 
 			<div class="group date">
 				<div class="field">
-				
+
 					<label for="location_{{$location->id}}[start_date]">{{trans('form.start_date').trans('form.required')}}<span class="icon-required" aria-hidden="true"></span></label>
 					<div class="input-date icon-calendar68">
 						{{Form::text('location_'.$location->id.'[start_date]',isset(Session::get('adverts')['location_'.$location->id]) ? Session::get('adverts')['location_'.$location->id]['start_date'] : (isset($locationsData) && Helpers::dateNotEmpty($locationsData[$location->id][0]->start_date ) ? $locationsData[$location->id][0]->start_date : '') ,array('class'=>'datepicker','title'=>trans('form.start_date'),'placeholder'=>trans('form.start_date2')))}}
@@ -193,11 +205,12 @@
 			<div class="group">
 				<div class="label">{{trans('form.options')}}:</div>
 				<div class="row">
+					<?php $optionList = $locationsData[$location->id][0]->option->groupBy('id'); ?>
 
 					@foreach($options as $option)
 					<div class="field listCheckbox">
 						<input type="checkbox" {{isset(Session::get('adverts')['location_'.$location->id]['option'][$option->id]) ? 'checked' :
-						(isset($locationsData) && isset($locationsData[$location->id][0]->option[$option->id]) ? 'checked' : '')}}  name="location_{{$location->id}}[option][{{$option->id}}]" id="location_{{$location->id}}[option][{{$option->id}}]">
+						(isset($optionList) && isset($optionList[$option->id]) ? 'checked' : '')}}  name="location_{{$location->id}}[option][{{$option->id}}]" id="location_{{$location->id}}[option][{{$option->id}}]">
 						@if(isset($option->translation[0]))
 
 						<label for="location_{{$location->id}}[option][{{$option->id}}]">{{$option->translation[0]->value}}</label>
@@ -219,7 +232,7 @@
 					@foreach($particularities as $particularity)
 
 					<div class="field listCheckbox">
-						<input type="checkbox" {{isset($locationsData) && isset($locationsData[$location->id][0]->particularity[$particularity->id]) ? 'checked' :(isset(Session::get('adverts')['location_'.$location->id]['particularity'][$particularity->id]) ? 'checked' : '')}}  name="location_{{$location->id}}[particularity][{{$particularity->id}}]" id="location_{{$location->id}}[particularity][{{$particularity->id}}]">
+						<input type="checkbox" {{isset($particularityList) && isset($particularityList[$particularity->id]) ? 'checked' :(isset(Session::get('adverts')['location_'.$location->id]['particularity'][$particularity->id]) ? 'checked' : '')}}  name="location_{{$location->id}}[particularity][{{$particularity->id}}]" id="location_{{$location->id}}[particularity][{{$particularity->id}}]">
 						@if(isset($particularity->translation[0]))
 
 						<label for="location_{{$location->id}}[particularity][{{$particularity->id}}]">{{$particularity->translation[0]->value}}</label>
@@ -401,11 +414,12 @@
 			<div class="group">
 				<div class="label">{{trans('form.options')}}:</div>
 				<div class="row">
+				<?php $locationsData[$location->id][0]->option->groupBy('id'); ?>
 
 					@foreach($options as $option)
 					<div class="field listCheckbox">
 						<input type="checkbox" {{isset(Session::get('adverts')['location_'.$location->id]['option'][$option->id]) ? 'checked' :
-						(isset($locationsData) && isset($locationsData[$location->id][0]->option[$option->id]) ? 'checked' : '')}}  name="location_{{$location->id}}[option][{{$option->id}}]" id="location_{{$location->id}}[option][{{$option->id}}]">
+						(isset($optionList) && isset($optionList[$option->id]) ? 'checked' : '')}}  name="location_{{$location->id}}[option][{{$option->id}}]" id="location_{{$location->id}}[option][{{$option->id}}]">
 						@if(isset($option->translation[0]))
 
 						<label for="location_{{$location->id}}[option][{{$option->id}}]">{{$option->translation[0]->value}}</label>
@@ -427,7 +441,7 @@
 					@foreach($particularities as $particularity)
 
 					<div class="field listCheckbox">
-						<input type="checkbox" {{isset($locationsData) && isset($locationsData[$location->id][0]->particularity[$particularity->id]) ? 'checked' :(isset(Session::get('adverts')['location_'.$location->id]['particularity'][$particularity->id]) ? 'checked' : '')}}  name="location_{{$location->id}}[particularity][{{$particularity->id}}]" id="location_{{$location->id}}[particularity][{{$particularity->id}}]">
+						<input type="checkbox" {{isset($particularityList) && isset($particularityList[$particularity->id]) ? 'checked' :(isset(Session::get('adverts')['location_'.$location->id]['particularity'][$particularity->id]) ? 'checked' : '')}}  name="location_{{$location->id}}[particularity][{{$particularity->id}}]" id="location_{{$location->id}}[particularity][{{$particularity->id}}]">
 						@if(isset($particularity->translation[0]))
 
 						<label for="location_{{$location->id}}[particularity][{{$particularity->id}}]">{{$particularity->translation[0]->value}}</label>

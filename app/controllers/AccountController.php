@@ -37,6 +37,11 @@ class AccountController extends AccountBaseController {
 
 		$favorisList = Auth::user()->favoris()->lists('location_id');
 
+		if(count($favorisList) <= 0){
+
+			$favorisList = array('');
+		}
+
 		$locations = Location::with('translation');
 		$locations = $locations
 		->join('buildings','locations.building_id','=','buildings.id')
@@ -58,8 +63,8 @@ class AccountController extends AccountBaseController {
 				))
 		->where( 'locations.'.Config::get( 'var.l_validateCol' ) , 1 )
 		->where( 'locations.'.Config::get( 'var.l_availableCol' ) , 1 )
-		->whereIn( 'locations.id', $favorisList)
 		->where( Config::get( 'var.l_placesCol' ) ,'>', 0 )
+		->whereIn( 'locations.id', $favorisList)
 		->distinct('building')
 		->get( );
 
@@ -142,7 +147,7 @@ class AccountController extends AccountBaseController {
 
 				if( Input::get('from') == 'p'){
 
-						return Redirect::route('index_localisation_building', Auth::user()->slug);
+					return Redirect::route('index_localisation_building', Auth::user()->slug);
 
 				}else{
 

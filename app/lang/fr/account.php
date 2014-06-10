@@ -86,4 +86,5 @@ return array (
   'your_favoris' => 'Liste vos favoris',
   'infos_perso_title' => 'Informations personnels',
   'settings_title' => 'Paramètre du compte',
+  'noFavoris' => ' Aucun favoris ajouté',
 );

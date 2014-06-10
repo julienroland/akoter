@@ -29,9 +29,10 @@
 			@endif
 
 			<li><a href="{{route('indexFavoris', array(Auth::user()->slug))}}" class="tooltip-ui-s" title="{{trans('account.check_bookmark')}}"><span class="icon icon-big61"></span>{{trans('account.bookmark')}}</a></li>
-
+			@if(Auth::user()->isOwner)
 			<li><a href="" ><span class="icon icon-medal30"></span>{{trans('account.likes')}}</a></li>
-
+			@endif
+			
 			<li><a href="" title="{{trans('account.check_locations')}}" class="tooltip-ui-s"><span class="icon icon-address14"></span>{{trans('account.manage_locations')}}</a></li>
 
 			@if(Auth::user()->isOwner == 1)

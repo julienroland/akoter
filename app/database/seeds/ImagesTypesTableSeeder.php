@@ -16,8 +16,8 @@ class ImagesTypesTableSeeder extends Seeder {
 				),
 			array(
 				'name'=>'medium',
-				'width'=>185,
-				'height'=>null,
+				'width'=>184,
+				'height'=>184,
 				'extension'=>'jpg',
 				),
 			array(

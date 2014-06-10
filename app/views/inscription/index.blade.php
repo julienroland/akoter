@@ -5,7 +5,6 @@
 <div class="inscription">
 	<div class="hero">
 		<div class="wrapper">
-
 			<h2 aria-level="2" role="heading" class="mainTitle">{{trans('inscription.create_account')}}</h2>
 			<div class="intro">
 				{{trans('inscription.create_account_intro')}}
@@ -90,7 +89,9 @@
 					<label for="cgu">{{trans('inscription.cgu_accept')}}</label>
 					<input type="checkbox" name="cgu" id="cgu">
 				</div>
+				@if(Helpers::isOk($cgu))
 				<a href="{{route('showPost', $cgu->translation[0]->value)}}" targer="_blank">{{trans('inscription.cgu')}}</a>
+				@endif
 				{{Form::hidden('region',Session::has('inscription') && isset(Session::get('inscription')['region']) ? Session::get('inscription')['region']:'',array('class'=>'autocomplete'))}}
 				{{Form::hidden('locality',Session::has('inscription') && isset(Session::get('inscription')['locality']) ? Session::get('inscription')['locality']:'',array('class'=>'autocomplete'))}}
 				{{Form::hidden('address',Session::has('inscription') && isset(Session::get('inscription')['address']) ? Session::get('inscription')['address']:'',array('class'=>'autocomplete'))}}
