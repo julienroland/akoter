@@ -94,7 +94,7 @@ return array(
 			),
 		trans('form.date') => array(
 			'available:desc'=>trans('form.available'),
-			'created_at:asc'=>trans('form.created_date'),
+			'created_at:desc'=>trans('form.created_date'),
 			),
 		),
 	'articles_photo'=>array(
@@ -133,7 +133,7 @@ return array(
 		2=>'index_photo_advert',
 
 		),
-	'img_quality'=>90,
+	'img_quality'=>100,
 	'keywords'=>trans('seo.keywords'),
 	'lat'=>'50,28',
 	'lng'=>'4.52',

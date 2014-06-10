@@ -115,4 +115,5 @@ return array (
   'building_created' => 'Utiliser un bâtiment déjà crée',
   'choose_building' => 'Choisissez ou laisser vide',
   'reuse_building' => 'Si vous souhaitez créer un nouveau bâtiment, <a href="#part2">descendez</a> et ne remplissez pas cette partie du formulaire',
+  'check_shools' => 'Vérifier les écoles enregistrées sur le site',
 );

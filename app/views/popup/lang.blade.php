@@ -16,7 +16,7 @@
         </a>
       </div>
       <div class="lang-choice english {{Helpers::isCurrentLanguage( 'en' )}}">
-        <a href="/en" title="Changer vers le Français" tabindex="3">
+        <a href="{{url('/en')}}" title="Changer vers le Français" tabindex="3">
           <span class="country-english flag"></span>
           <span class="country-text btn-nav">English</span>
         </a>

@@ -103,7 +103,7 @@
 						</div>
 					</li>
 
-					<li class="filterItem particularity"><a href="javascript:void(0)">{{trans('form.particularity')}}</a>
+					<!-- <li class="filterItem particularity"><a href="javascript:void(0)">{{trans('form.particularity')}}</a>
 						<div class="alertbox">
 							<div class="formSelect">
 								<div class="group label particularity">
@@ -123,7 +123,7 @@
 								<a href="" class="btn submit">{{trans('form.order')}}</a>
 								<a href="" class="goOn btn-basic">{{trans('form.continue')}}</a>
 							</div>
-						</li>
+						</li> -->
 					</ul>
 
 					<div class="left orderBy"><label class="section" for="classify">{{trans('form.order')}} {{trans('general.by')}}: </label>{{Form::select('classify',Config::get('var.filter'),isset($input['classify']) ? $input['classify'] : (isset(Session::get('filter')['classify']) ? Session::get('filter')['classify'] :''),array('id'=>'classify','class'=>'classify'))}}</div>

@@ -16,7 +16,7 @@ return array (
   'see_typeAndLocation' => 'Voir les :type de :city',
   'goTo' => 'Aller sur la fiche de l\'annonce :title',
   'photoOf' => 'Photo principal de l\'annonce :title',
-  'nb_result' => 'résultats',
+  'nb_result' => 'résultat(s)',
   'nb_locations' => 'Nombre de votes',
   'nb_location' => 'Location',
   'equipment' => 'Equipement',

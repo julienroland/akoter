@@ -22,5 +22,5 @@
 </p>
 <br>
 
-<a href="{{route('seeRequest',$user->slug)}}">Voir la demande sur votre compte Akoter</a>
+<a href="{{route('seeOwnerRequest',$user->slug)}}">Voir la demande sur votre compte Akoter</a>
 @stop

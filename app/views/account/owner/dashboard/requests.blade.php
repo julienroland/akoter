@@ -37,12 +37,13 @@
 				<p class="created">{{$req->created_at}}</p>
 			</div>			
 		</div>
-	</div>
-	<div class="actions">
+		<div class="actions">
 		<a href="{{route('validRequest',array(Auth::user()->slug,$req->pivot->id))}}" class="accept tooltip-ui-e icon icon-approve" title="{{trans('account.accept')}}"></a>
 		<a href="{{route('refuseRequest',array(Auth::user()->slug,$req->pivot->id))}}" class="refuse tooltip-ui-e icon icon-remove11" title="{{trans('account.refuse')}}"></a>
 
 	</div>
+	</div>
+	
 	@endforeach
 	@else
 	<p class="informations">{{trans('account.no_request_location',array('number'=>$location->id))}}</p>

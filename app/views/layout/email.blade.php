@@ -17,6 +17,7 @@ background-color:#F1F1F1;
 <table style="
 width:100%;
 border-spacing:0;
+margin-bottom:3em;
 ">
 <!-- background-color: #EF672F; -->
 <tr style="

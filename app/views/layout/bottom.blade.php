@@ -34,28 +34,6 @@
 
 @endif
 
-@if(isset($widget) && in_array('gallery', $widget))
-
-{{HTML::script('js/min/grid.js')}}
-
-<script>
-
-  $(document).ready(function($) {
-    var $container = $('#pictures-tab');
-    $("#tabspicture").on("click",function(){
-
-      $container.masonry({
-        itemSelector: '.picture-gallery',
-        "isOriginLeft": true,
-        gutter: 12,
-        isFitWidth: true,
-      });
-    });
-  });
-
-
-</script>
-@endif
 
 @if( isset($widget) && Helpers::isOk($widget) && in_array('schoolMap', $widget)  )
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCJSSKlpz3C7EwQd2kvgn1JRBd7Ojrl9dM&sensor=false"></script>
@@ -83,7 +61,7 @@
       stop: function(event, ui) {
         var data = {};
 
-        $("#sortable li").each(function(i, el){
+        $(".sortable li").each(function(i, el){
           var p = $(el).find('a').attr('data-id');
           data[p]=$(el).index()+1;
         });
@@ -94,7 +72,7 @@
       create: function(event, ui) {
         var data = {};
 
-        $("#sortable li").each(function(i, el){
+        $(".sortable li").each(function(i, el){
           var p = $(el).find('a').attr('data-id');
           data[p]=$(el).index()+1;
         });
@@ -106,7 +84,7 @@
 
         var data = {};
 
-        $("#sortable li").each(function(i, el){
+        $(".sortable li").each(function(i, el){
           var p = $(el).find('a').attr('data-id');
           data[p]=$(el).index()+1;
 
@@ -256,7 +234,7 @@
 
 
 @if(isset($widget) && in_array('upload', $widget))
-<script>$('.baseFile').hide();</script>
+<script>/*$('.baseFile').hide();*/</script>
 {{HTML::script('js/jquery.uploadfile.min.js')}}
 {{HTML::script('js/jquery.validationEngine.js')}}
 {{HTML::script('js/jquery.validationEngine-fr.js')}}
@@ -412,6 +390,30 @@
 {{HTML::script('js/min/addLocalisation.js')}}
 
 @endif
+
+@if(isset($widget) && in_array('gallery', $widget))
+
+{{HTML::script('js/min/grid.js')}}
+
+<script>
+
+  $(document).ready(function($) {
+    var $container = $('#pictures-tab');
+    $("#tabspicture").on("click",function(){
+
+      $container.masonry({
+        itemSelector: '.picture-gallery',
+        "isOriginLeft": true,
+        gutter: 12,
+        isFitWidth: true,
+      });
+    });
+  });
+
+
+</script>
+@endif
+
 
 {{HTML::script('js/min/retina.js')}}
 

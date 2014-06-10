@@ -26,7 +26,24 @@ class AccountController extends AccountBaseController {
 			$invalidLocations = User::getInvalidLocations( Auth::user() );
 
 			return View::make('account.index', array('page'=>'account'))
-			->with(compact(array('activeLocations','waitingLocations','invalidLocations','inactiveBuilding','numberRequest')));
+			->with(compact(array('activeLocations','waitingLocations','invalidLocations')));
+
+		}elseif(Auth::user()->isTenant == 1){
+
+			$acceptedRequests = Auth::user()->acceptedRequest()->count();
+
+			$waitingRequests = Auth::user()->waitingRequest()->count();
+
+			$refusedRequests = Auth::user()->refusedRequest()->count();
+
+			$locations = Auth::user()->acceptedRequest()->with(array('translation'=>function($query){
+				$query->whereKey('slug');
+			}))->get();
+
+			$now = Carbon::now();
+
+			return View::make('account.index', array('page'=>'account'))
+			->with(compact(array('acceptedRequests','waitingRequests','refusedRequests','locations','now')));
 
 		}
 		/*$notices = Notice::valid()*/
@@ -145,9 +162,13 @@ class AccountController extends AccountBaseController {
 
 			if( Input::has('from') ){
 
-				if( Input::get('from') == 'p'){
+				if( Input::get('from') == 'p' ){
 
 					return Redirect::route('index_localisation_building', Auth::user()->slug);
+
+				}elseif( Input::get('from') == 't' ){
+
+					return Redirect::route('how_be_tenant', Auth::user()->slug);
 
 				}else{
 
@@ -342,7 +363,7 @@ class AccountController extends AccountBaseController {
 		return View::make('account.tenant.how_be', array('page'=>'account'));
 	}
 
-	public function indexRequest($user_slug){
+	public function indexOwnerRequest($user_slug){
 
 		$requests = Auth::user()->building()->with(array('location.request','location.translation'=>function($query){
 			$query->whereKey('title');
@@ -352,6 +373,26 @@ class AccountController extends AccountBaseController {
 		->withRequests($requests);
 	}
 
+	public function indexTenantRequest($user_slug){
+
+		$requests = Auth::user()->location()->with(array('translation'=>function($query){
+			$query->whereKey('slug');
+		}))->get();
+
+		return View::make('account.tenant.request', array('page'=>'account'))
+		->withRequests($requests);
+	}
+
+	public function deleteTenantRequest( $user_slug, $request_id ){
+
+		$requestToDelete = UserLocation::where('id',$request_id)->whereUserId(Auth::user()->id)->firstOrFail();
+
+		$requestToDelete->delete();
+
+		return Redirect::back()
+		->withSuccess(trans('validation.custom.removeTenantRequest'));
+
+	}
 	public function validRequest( $user_slug, $id_request){
 
 		$request = UserLocation::findOrFail($id_request);
@@ -364,6 +405,7 @@ class AccountController extends AccountBaseController {
 		}
 		$request->request = 0;
 		$request->status = 1;
+		$request->reject = 0;
 		$request->save();
 
 		if($location->remaining_room != 0){
@@ -376,10 +418,18 @@ class AccountController extends AccountBaseController {
 
 		if($location->remaining_room == 0 && $location->remaining_location != 0){
 
-			$location->remaining_location -= $request->nb_locations;
-			$location->remaining_room = $location->nb_room; 
+			if($location->remaining_location > 1){
+
+				$location->remaining_location -= $request->nb_locations;
+				$location->remaining_room = $location->nb_room; 
+
+			}else{
+
+				$location->remaining_location -= $request->nb_locations;
+
+			}
 		}
-		
+
 		$location->save();
 
 
@@ -392,7 +442,10 @@ class AccountController extends AccountBaseController {
 		$request = UserLocation::findOrFail($id_request);
 		$location = Location::findOrFail($request->location_id);
 
-		$request->delete();
+		$request->reject = 1;
+		$request->request = 0;
+		$request->status = 0;
+		$request->save();
 
 		return Redirect::back()
 		->withSuccess(trans('validation.custom.rejectValidation'));

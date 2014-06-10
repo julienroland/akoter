@@ -12,7 +12,7 @@
         "intervention/image": "1.*",
         "intervention/imagecache": "1.*",
         "barryvdh/laravel-ide-helper": "1.*",
-        "barryvdh/laravel-translation-manager": "*",
+        "barryvdh/laravel-translation-manager": "0.1.x",
         "torann/geoip": "dev-master",
         "detectlanguage/detectlanguage": "*",
         "anahkiasen/rocketeer": "dev-master"

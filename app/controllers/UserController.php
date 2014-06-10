@@ -18,6 +18,9 @@ class UserController extends BaseController
 			$favoris->location_id = $location->id;
 			$favoris->save();
 
+			Auth::user()->isTenant = 1;
+			Auth::user()->save();
+
 			return Redirect::back();
 		}
 
@@ -103,7 +106,7 @@ class UserController extends BaseController
 
 			if(isset($input['translate'])){ 
 
-				$input['text'] = Helpers::translate($input['text'], Config::get('var.lang')[$user->language_id], Config::get('var.lang')[$user->language_id]);
+				$input['text'] = Helpers::translate($input['text'], null , Config::get('var.lang')[$user->language_id]);
 			}
 
 			$input['subject'] = Helpers::translate('Message à propos de votre bien n°:'.$location->id, 'fr', Config::get('var.lang')[$user->language_id]);
@@ -127,6 +130,9 @@ class UserController extends BaseController
 			$message->subject = $input['subject'];
 			$message->content = $input['text'];
 			$message->save();
+
+			Auth::user()->isTenant = 1;
+			Auth::user()->save();
 
 			return Redirect::back()
 			->withSuccess(trans('validation.custom.message_success'));
@@ -193,6 +199,9 @@ class UserController extends BaseController
 					'text'=>$input['text'],
 					));
 			}
+
+			Auth::user()->isTenant = 1;
+			Auth::user()->save();
 
 			return Redirect::back()
 			->withSuccess(trans('validation.custom.request_reservation_succes'));

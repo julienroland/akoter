@@ -4,6 +4,7 @@
 
 <div class="comments_location">
     <div class="comments">
+    @if($comments->count())
         <?php $i=0; ?>
         @foreach($comments as $comment)
         <?php $translation = $comment->translation->lists('value','key'); ?>
@@ -75,6 +76,9 @@
       </div>
       <?php $i++; ?>
       @endforeach
+      @else
+      <p>{{trans('dashboard.no_comments')}}</p>
+      @endif
   </div>
 
 </div>            

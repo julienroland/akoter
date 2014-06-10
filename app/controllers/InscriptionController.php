@@ -62,6 +62,7 @@ class InscriptionController extends AccountBaseController {
 			$user->email = $input['email'];
 			$user->password = Hash::make($input['password']);
 			$user->active = 1;
+			$user->validate = 1;
 			$user->role_id = 1;
 			$user->subscription_id = 1;
 			$user->key = Helpers::createEmailKey($input['email']);
@@ -71,6 +72,13 @@ class InscriptionController extends AccountBaseController {
 			$user->save();
 
 			if($user){
+
+				Mailgun::send('emails.inscription_success', array('user'=>$user), function($message) use($user){
+
+					$message
+					->to( $user->email, $user->first_name.' '.$user->name )
+					->subject(Helpers::translate('Confirmation de votre inscription', 'fr', Config::get('var.lang')[$user->language_id]));
+				});
 
 				Auth::login($user);
 
@@ -713,6 +721,7 @@ class InscriptionController extends AccountBaseController {
 				$location_id = (int)explode('_',$keyInput)[1];
 
 				$location = Location::find($location_id);
+
 				if(isset($input['agency'])){
 					$location->agence_id = $input['agency'];	
 				}
@@ -729,7 +738,7 @@ class InscriptionController extends AccountBaseController {
 				$location->comments_status = isset($input['comments']) ? 1 : 0;
 				$location->charge_type = isset($input['charge']) ? $input['charge'] : 0;
 				$location->accessible = isset($input['accessible']) ? 1 : 0;
-				$location->register_step = $location->register_step < 6 && $location->register_step == 5 ? 6 : $location->register_step;
+				$location->register_step = $location->register_step < 6  ? 6 : $location->register_step;
 				
 
 					$location->option()->detach();

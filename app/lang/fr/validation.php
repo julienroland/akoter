@@ -102,6 +102,7 @@ return array (
     'commonImageBuilding'=>'Images manquantes concernant les pièces communes',
     'inscription_advertsPhoto'=>'Images bien enregistrés !',
     'notAvailableNotice'=>'Vous devez avoir fait vérifier votre email pour pouvoir donner votre avis',
+    'removeTenantRequest'=>'Votre demande à bien été enregistré',
   ),
   'attributes' => 
   array (

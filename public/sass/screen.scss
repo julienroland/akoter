@@ -372,6 +372,13 @@ strong {
 		color: white;
 	}
 }
+.titleTenant{
+	font-size:$large;
+	font-weight:bold;
+	display: inline-block;
+	margin-bottom:$gutter / 2;
+	border-bottom: 1px solid $borange;
+}
 .advertTitle{
 	@extend .mainTitle;
 	text-align: left;
@@ -1641,6 +1648,9 @@ input[type="checkbox"]:checked + label {
 	.priceLocation {
 		height: 46px;
 		background-color: $mc;
+		a{
+			text-decoration: none;
+		}
 		.priceCharge {
 			@include cl-nm(5);
 			font-weight: bold;
@@ -2007,7 +2017,8 @@ input[type="checkbox"]:checked + label {
 	@include c(12);
 	background-color: white;
 	min-height: 100px;
-	padding: 3em 0;
+	padding-top: 3em;
+	padding-bottom: 2pem;
 
 	.permalink {
 		li {
@@ -2719,8 +2730,6 @@ $country-h: 100px;
 	@include box-shadow(rgba(0, 0, 0, 0.3) 0 0 3px 0);
 
 	.wrapper {
-		overflow: visible;
-		-webkit-backface-visibility: hidden;
 
 	}
 	.formSearch {
@@ -2773,7 +2782,8 @@ $country-h: 100px;
 		}
 	}
 	select {
-		height: 40px;
+		margin:$gutter / 2 0;
+/* 		height: 40px;
 		background: none;
 		border: 0;
 		text-overflow: ellipsis;
@@ -2789,7 +2799,7 @@ $country-h: 100px;
 		-webkit-appearance: none;
 		&:focus {
 			outline: 0;
-		}
+		} */
 	}
 	.orderBy {
 		width: 100px;
@@ -2812,6 +2822,9 @@ $country-h: 100px;
 	.filterType {
 		margin-left: $gutter;
 		float: left;
+		a{
+			color:white;
+		}
 		.filterItem {
 			display: inline-block;
 			height: 100%;
@@ -2905,6 +2918,7 @@ $country-h: 100px;
 			@include cl(6);
 			font-weight: 400;
 			height: 30px;
+			color:$mc;
 			line-height: 30px;
 			font-size: $small;
 			text-align: center;
@@ -2973,6 +2987,59 @@ $country-h: 100px;
 	background-color: $greyL;
 	min-height: 100%;
 	padding: 3em 0;
+	.waitingLocation{
+		padding:3em 1em;
+		margin-bottom: $gutter;
+		background-color: $greyL;
+		.date{
+			@include c(12);
+			margin-bottom: $gutter / 2;
+		}
+		.dateDiff{
+			display: inline-block;
+			background-color: $borange;
+			padding:5px $gutter / 2;
+			@include border-radius(5px);
+			color:white;
+			font-size: $x-large;
+		}
+	}
+	.requests{
+		padding:3em 1em;
+		.request{
+			@include c(12);
+			background-color: $greyL;
+			padding:2em 1em;
+			margin-bottom: $gutter;
+			&.refuse{
+				background-color:$errorBackground;
+			}
+			.actions{
+				display: inline-block;
+				a{
+					color:$error;
+					&:before{
+						font-size: $large;
+					}
+				}
+			}
+			.title-location{
+				font-weight: bold;
+				display: block;
+			}
+			.seat,.nb_locations{
+				display: block;
+			}
+			.actions{
+				.accept{
+					color:$bgreen;
+					&:before{
+						font-size: $medium;
+					}
+				}
+			}
+		}
+	}
 	.account-dates{
 		@include c(12);
 		background-color:$greyL;
@@ -2983,6 +3050,23 @@ $country-h: 100px;
 			color:$borange;
 			font-size:$medium;
 			font-weight:400;
+		}
+	}
+	.requests-tenant{
+		@include c(12);
+		background-color:$greyL;
+		padding:2em;
+		.request-tenant{
+			@include c(12);
+			&.waiting{
+				color:$info;
+			}
+			&.accepted{
+				color:$success;
+			}
+			&.refused{
+				color:$error;
+			}
 		}
 	}
 	.account-actions{
@@ -3016,7 +3100,7 @@ $country-h: 100px;
 	}
 	.nav-account {
 		@include cl(2.5);
-		height: 100%;
+		min-height: 100%;
 		min-width: 150px;
 		padding: 1em 0;
 		position: relative;
@@ -3097,6 +3181,7 @@ $country-h: 100px;
 	}
 	.account-content {
 		@include cl(9.5);
+		min-height: 500px;
 		min-height: 100%;
 		background-color: white;
 		max-width: ($mw - 150px) - $gutter * 2;
@@ -3227,7 +3312,7 @@ $country-h: 100px;
 	.title-location-account{
 		font-weight: 500;
 		display: block;
-		height: 1em;
+		height: 1.2em;
 		word-wrap:break-word;
 		overflow:hidden;
 		text-overflow:ellipsis;
@@ -4272,7 +4357,7 @@ $country-h: 100px;
 					font-size: 40px;
 					text-align: center;
 					color: $error;
-					line-height: 63px;
+					line-height: 42px;
 					background-color: $greyL;
 					background-color: rgba($greyL, 0.6);
 					visibility: hidden;

@@ -29,7 +29,7 @@
 						<th>Role</th>
 						<th>Langue</th>
 						<th>Email-Comfirm</th>
-						<th>Validaté</th>
+						<th>Valider</th>
 						<th>Propriétaire</th>
 						<th>Supprimé</th>
 						<th>Dernière connexion</th>

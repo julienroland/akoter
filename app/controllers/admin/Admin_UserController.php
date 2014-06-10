@@ -16,7 +16,7 @@ class Admin_UserController extends \Admin_AdminController
 			->orWhere('email','like','%'.Input::get('search').'%');
 		}
 
-		$users =  $users->orderBy('created_at','desc')->paginate(20);
+		$users =  $users->orderBy('validate','asc')->paginate(20);
 
 		return View::make('admin.user.index')
 		->with(compact('users'));

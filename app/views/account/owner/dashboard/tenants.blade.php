@@ -3,7 +3,7 @@
 <div class="tenants">
     <div class="current">
             <h3 aria-level="3" role="heading" class="title">{{trans('dashboard.currentTenant')}}</h3>
-            
+        @if($tenants->count())
         @foreach($tenants as $tenant)
 
         <div class="tenant">
@@ -31,8 +31,12 @@
         </div>
 
         @endforeach
+        @else
+        <p>{{trans('dashboard.no_tenants_atm')}}</p>
+        @endif
     </div>
     <div class="all">
+        @if($all->count())
         @foreach($all as $tenant)
 
         <div class="tenant">
@@ -60,6 +64,9 @@
         </div>
 
         @endforeach
+        @else
+        <p>{{trans('dashboard.no_tenants')}}</p>
+        @endif
     </div>
 </div>
 

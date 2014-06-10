@@ -126,6 +126,8 @@ var filterMenu = function( e ){
 			top:0,
 		});
 
+		$filterMenu.find('.wrapper').css("-webkit-backface-visibility", "hidden");
+
 		$searchBar.css('display','none');
 
 		$map.css({

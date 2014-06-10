@@ -43,6 +43,8 @@ class LocationController extends BaseController
 		$location->nb_views +=  1;
 		$location->save();
 
+		Session::put('oldPage_reserved', Request::url());
+		
 		return View::make('advert.show', array(
 			'title'=>trans('title.showLocation',
 				array(
@@ -242,7 +244,7 @@ class LocationController extends BaseController
 		$input = Input::except('page');
 
 		Session::put('filter', $input );
-		
+
 		return View::make('listing.locations', array( 
 			'page' => 'locations',
 			'title'=>trans('title.listing',array('region'=>isset($input['city']) ? $input['city']:'')),
@@ -255,8 +257,6 @@ class LocationController extends BaseController
 			'grid',
 			'listing',
 			'map',
-			'slider',
-			'slideshow',
 			)))
 		->with(compact('locations','typeLocation','particularity','input'));
 	}

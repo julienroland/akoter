@@ -17,7 +17,7 @@
 		@include('includes.errors')
 		<?php User::$reserved_rules['seat'] = 'required|numeric|min:1|max:'.$location->remaining_room ;?>
 		<?php User::$reserved_rules['nb_locations'] = 'required|numeric|min:0|max:'.$location->remaining_location ;?>
-		{{Form::open(array('route'=>array('reserved_location', Route::current()->parameter('location_slug')->translation()->whereKey('slug')->pluck('value')),'class'=>'mainType rules','data-rules'=>json_encode(User::$reserved_rules)))}}
+		{{Form::open(array('route'=>array('reserved_location', Route::current()->parameter('location_available_slug')->translation()->whereKey('slug')->pluck('value')),'class'=>'mainType rules','data-rules'=>json_encode(User::$reserved_rules)))}}
 		
 		<div class="field">
 
@@ -29,7 +29,7 @@
 		<div class="field">
 			
 			<label for="nb_locations">{{trans('form.nb_locations')}} *</label>
-			<input type="number"  max="{{$location->remaining_location}}" name="nb_locations" id="nb_locations" required value="0" placeholder="{{trans('form.nb_max',array('number'=>$location->remaining_location))}}">
+			<input type="number"  min="0" max="{{$location->remaining_location}}" name="nb_locations" id="nb_locations" required value="0" placeholder="{{trans('form.nb_max',array('number'=>$location->remaining_location))}}">
 			<div class="informations">{{trans('form.info_nb_location')}}</div>
 		</div>
 		
@@ -38,8 +38,8 @@
 			<input type="text" class="datepicker" name="start_date"  id="start_date" required  value="{{Helpers::dateNaForm($location->start_date)}}"/>
 		</div>
 		<div class="field">
-			<label for="text">{{trans('form.message')}} *</label>
-			<textarea  name="text"  id="start_date" required></textarea>
+			<label for="text">{{trans('form.message')}}</label>
+			<textarea  name="text"  id="start_date" ></textarea>
 			<div class="informations">{{trans('form.info_message_location')}}</div>
 		</div>
 		<div class="form-group">
@@ -49,7 +49,7 @@
 		<div class="field choice-2">
 
 			{{Form::submit(trans('form.send'))}}
-			<a href="{{route('showLocation', Route::current()->parameter('location_slug')->translation()->whereKey('slug')->pluck('value') )}}">{{trans('form.back')}}</a>
+			<a href="{{route('showLocation', Route::current()->parameter('location_available_slug')->translation()->whereKey('slug')->pluck('value') )}}">{{trans('form.back')}}</a>
 		</div>
 		{{Form::close()}}
 	</div>

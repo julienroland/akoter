@@ -56,8 +56,8 @@
 			@endforeach
 		</ul>
 		<div id="info_situation" class="informations">
-					{{trans('inscription.situations_tuto')}}
-				</div>
+			{{trans('inscription.situations_tuto')}}
+		</div>
 		@foreach(Config::get('var.langId') as $lang => $langId)
 		<div id="{{$lang}}-situation">
 			<div class="field">
@@ -68,7 +68,7 @@
 		</div>
 		@endforeach
 	</div>		
-	
+	<a href="{{route('addSchools')}}">{{trans('inscription.check_shools')}}</a>
 	
 	<div class="tabs">
 		<ul>

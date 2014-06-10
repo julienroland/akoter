@@ -110,10 +110,11 @@
              @else
              <b>{{$location->remaining_room}}</b> {{Lang::get('locations.seat')}}
              @endif
-
-             @endif
            </span>
          </div>
+         @endif
+         
+       </div>
        </div>
        <div class="priceLocation">
 

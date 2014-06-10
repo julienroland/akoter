@@ -19,6 +19,9 @@
 
 				@endif
 			</p>
+			@if($personnal)
+			<a href="{{route('account_personnal', array(Auth::user()->slug,'f'=>'t'))}}" class="btn-inscription">{{trans('account.completeProfileBtn')}}</a>
+			@endif
 		</div>
 		<div class="how_be_step {{Auth::user()->email_comfirm == 0 ? 'notdone' : 'done'}}">
 
@@ -38,7 +41,6 @@
 
 		</div>
 		<div class="how_be_step {{Auth::user()->validate == 0 ? 'notdone' : 'done'}}">
-		@include('includes.success')
 			<p>
 				{{trans('inscription.how_be.admin')}}
 			</p>
@@ -50,5 +52,6 @@
 			@endif
 		</div>
 	</div>
+	<a href="{{url(Session::get('oldPage_reserved'))}}">{{trans('form.back')}}</a>
 </div>
 @stop

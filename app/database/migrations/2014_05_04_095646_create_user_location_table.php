@@ -20,12 +20,13 @@ class CreateUserLocationTable extends Migration {
 			$table->integer('location_id')->unsigned();
 			$table->foreign('location_id')->references('id')->on('locations');
 			$table->boolean('status');
+			$table->boolean('reject');
 			$table->boolean('request');
 			$table->integer('seat');
 			$table->integer('nb_locations');
 			$table->text('text');
-			$table->timestamp('begin');
-			$table->timestamp('end');
+			$table->date('begin');
+			$table->date('end');
 			$table->timestamps();
 		});
 	}

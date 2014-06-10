@@ -14,7 +14,7 @@
 <div class="formContainer large">
 	
 	@include('includes.steps')
-{{Session::forget('adverts')}}
+	{{Session::forget('adverts')}}
 
 	{{Form::open(array('route'=>array('save_inscription_adverts', Auth::user()->slug, $building->id, Helpers::isOK($currentLocation) ? $currentLocation->id : ''),'class'=>'mainType'))}}
 
@@ -163,7 +163,8 @@
 				<label for="location_{{$location->id}}[garantee]">{{trans('inscription.garantee').trans('form.required')}} <span class="icon-required" aria-hidden="true"></span></label>
 				<input type="number" value="{{isset(Session::get('adverts')['location_'.$location->id]) ? Session::get('adverts')['location_'.$location->id]['garantee'] : (isset($locationsData) ? $locationsData[$location->id][0]->garantee : '')}}" name="location_{{$location->id}}[garantee]" id="location_{{$location->id}}[garantee]" placeholder="{{trans('inscription.garantee_placeholder')}}">
 			</div>
-			<div class="field checkbox" {{isset(Session::get('adverts')['location_'.$location->id]['available']) ? 'checked' : (isset($locationsData) && $locationsData[$location->id][0]->available == 1 ? 'checked' : '')}}  name="location_{{$location->id}}[available]" id="location_{{$location->id}}[available]">
+			<div class="field checkbox">
+				<input type="checkbox" {{isset(Session::get('adverts')['location_'.$location->id]['available']) ? 'checked' : (isset($locationsData) && $locationsData[$location->id][0]->available == 1 ? 'checked' : 'checked')}}  name="location_{{$location->id}}[available]" id="location_{{$location->id}}[available]">
 				<label for="location_{{$location->id}}[available]">{{trans('form.isAvailableLocation')}}</label>
 
 			</div>
@@ -266,7 +267,7 @@
 			
 		</div>
 		@elseif(Helpers::isNotOk($currentLocation))
-			<div id="{{$location->id}}-advert">
+		<div id="{{$location->id}}-advert">
 			
 			@if($location->nb_locations > 1)
 			<div class="informations">{{trans('inscription.groupAdvert',array('number'=>$location->nb_locations,'type'=>strtolower($location->typeLocation->translation[0]->value)))}} </div>
@@ -373,7 +374,8 @@
 				<label for="location_{{$location->id}}[garantee]">{{trans('inscription.garantee').trans('form.required')}} <span class="icon-required" aria-hidden="true"></span></label>
 				<input type="number" value="{{isset(Session::get('adverts')['location_'.$location->id]) ? Session::get('adverts')['location_'.$location->id]['garantee'] : (isset($locationsData) ? $locationsData[$location->id][0]->garantee : '')}}" name="location_{{$location->id}}[garantee]" id="location_{{$location->id}}[garantee]" placeholder="{{trans('inscription.garantee_placeholder')}}">
 			</div>
-			<div class="field checkbox" {{isset(Session::get('adverts')['location_'.$location->id]['available']) ? 'checked' : (isset($locationsData) && $locationsData[$location->id][0]->available == 1 ? 'checked' : '')}}  name="location_{{$location->id}}[available]" id="location_{{$location->id}}[available]">
+			<div class="field checkbox">
+				<input type="checkbox" {{isset(Session::get('adverts')['location_'.$location->id]['available']) ? 'checked' : (isset($locationsData) && $locationsData[$location->id][0]->available == 1 ? 'checked' : 'checked')}}  name="location_{{$location->id}}[available]" id="location_{{$location->id}}[available]">
 				<label for="location_{{$location->id}}[available]">{{trans('form.isAvailableLocation')}}</label>
 
 			</div>
@@ -414,7 +416,7 @@
 			<div class="group">
 				<div class="label">{{trans('form.options')}}:</div>
 				<div class="row">
-				<?php $locationsData[$location->id][0]->option->groupBy('id'); ?>
+					<?php $locationsData[$location->id][0]->option->groupBy('id'); ?>
 
 					@foreach($options as $option)
 					<div class="field listCheckbox">

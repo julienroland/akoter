@@ -39,7 +39,7 @@ App::after(function($request, $response)
 App::error(function(ModelNotFoundException $e)
 {
 
-	/*return Response::make(Lang::get('general.introuvable'), 404);*/
+	return Response::make(Lang::get('general.introuvable'), 404);
 });
 
 /**
@@ -58,6 +58,7 @@ Route::filter('agenceBoss', function(){
 	}
 
 });
+
 /**
  * Filter admin
  */
@@ -96,16 +97,13 @@ Route::filter('lang', function(){
 			Session::put('lang',$lang );
 			Session::put('langId', Config::get('var.langId')[$lang]);	
 
-		}
-
-		if(App::getLocale() !== $lang){
-
 			App::setLocale($lang);
 			
-			if(Helpers::isOk(Route::currentRouteName()))
+			if(Input::has('fl'))
 			{
 
-				return Redirect::route(Route::currentRouteName());
+
+				return Redirect::to($lang.'/'.Input::get('fl'));
 
 			}
 			else{
@@ -206,7 +204,7 @@ Route::filter('allow_advance', function(){
 
 	$email_comfirm = Auth::user()->email_comfirm;
 
-	
+
 	if(Helpers::isOK($personnalNotComplete) && $personnalNotComplete->count < $personnalNotComplete->total ){ //|| $email_comfirm == 0
 		
 		return Redirect::route('how_be_owner', Auth::user()->slug );

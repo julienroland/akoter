@@ -13561,5 +13561,176 @@ namespace {
 		 }
 
 	}
+	class Rocketeer extends \Rocketeer\Facades\Rocketeer{
+		/**
+		 * Build a new TasksQueue Instance
+		 *
+		 * @param Container  $app
+		 * @static 
+		 */
+		 public static function __construct($app){
+			//Method inherited from \Rocketeer\TasksHandler
+			 \Rocketeer\TasksHandler::__construct($app);
+		 }
+
+		/**
+		 * Delegate methods to TasksQueue for now to
+		 * keep public API intact
+		 *
+		 * @param string $method
+		 * @param array  $parameters
+		 * @return mixed
+		 * @static 
+		 */
+		 public static function __call($method, $parameters){
+			//Method inherited from \Rocketeer\TasksHandler
+			return \Rocketeer\TasksHandler::__call($method, $parameters);
+		 }
+
+		/**
+		 * Register a custom Task with Rocketeer
+		 *
+		 * @param Task|string $task
+		 * @param string      $name
+		 * @return Container
+		 * @static 
+		 */
+		 public static function add($task, $name = null){
+			//Method inherited from \Rocketeer\TasksHandler
+			return \Rocketeer\TasksHandler::add($task, $name);
+		 }
+
+		/**
+		 * Register a task with Rocketeer
+		 *
+		 * @param string $name
+		 * @param mixed  $task
+		 * @return void
+		 * @static 
+		 */
+		 public static function task($name, $task){
+			//Method inherited from \Rocketeer\TasksHandler
+			 \Rocketeer\TasksHandler::task($name, $task);
+		 }
+
+		/**
+		 * Execute a Task before another one
+		 *
+		 * @param string                $task
+		 * @param string|Closure|Task   $listeners
+		 * @param integer               $priority
+		 * @return void
+		 * @static 
+		 */
+		 public static function before($task, $listeners, $priority = 0){
+			//Method inherited from \Rocketeer\TasksHandler
+			 \Rocketeer\TasksHandler::before($task, $listeners, $priority);
+		 }
+
+		/**
+		 * Execute a Task after another one
+		 *
+		 * @param string                $task
+		 * @param string|Closure|Task   $listeners
+		 * @param integer               $priority
+		 * @return void
+		 * @static 
+		 */
+		 public static function after($task, $listeners, $priority = 0){
+			//Method inherited from \Rocketeer\TasksHandler
+			 \Rocketeer\TasksHandler::after($task, $listeners, $priority);
+		 }
+
+		/**
+		 * Register with the Dispatcher the events in the configuration
+		 *
+		 * @return void
+		 * @static 
+		 */
+		 public static function registerConfiguredEvents(){
+			//Method inherited from \Rocketeer\TasksHandler
+			 \Rocketeer\TasksHandler::registerConfiguredEvents();
+		 }
+
+		/**
+		 * Register listeners for a particular event
+		 *
+		 * @param string  $event
+		 * @param array   $listeners
+		 * @param integer $priority
+		 * @return string
+		 * @static 
+		 */
+		 public static function listenTo($event, $listeners, $priority = 0){
+			//Method inherited from \Rocketeer\TasksHandler
+			return \Rocketeer\TasksHandler::listenTo($event, $listeners, $priority);
+		 }
+
+		/**
+		 * Bind a listener to a task
+		 *
+		 * @param string  $task
+		 * @param string  $event
+		 * @param mixed   $listeners
+		 * @param integer $priority
+		 * @static 
+		 */
+		 public static function addTaskListeners($task, $event, $listeners, $priority = 0){
+			//Method inherited from \Rocketeer\TasksHandler
+			 \Rocketeer\TasksHandler::addTaskListeners($task, $event, $listeners, $priority);
+		 }
+
+		/**
+		 * Get all of a task's listeners
+		 *
+		 * @param Task    $task
+		 * @param string  $event
+		 * @param boolean $flatten
+		 * @return array
+		 * @static 
+		 */
+		 public static function getTasksListeners($task, $event, $flatten = false){
+			//Method inherited from \Rocketeer\TasksHandler
+			return \Rocketeer\TasksHandler::getTasksListeners($task, $event, $flatten);
+		 }
+
+		/**
+		 * Register a Rocketeer plugin with Rocketeer
+		 *
+		 * @param string $plugin
+		 * @param array  $configuration
+		 * @return void
+		 * @static 
+		 */
+		 public static function plugin($plugin, $configuration = array()){
+			//Method inherited from \Rocketeer\TasksHandler
+			 \Rocketeer\TasksHandler::plugin($plugin, $configuration);
+		 }
+
+		/**
+		 * Get an instance from the Container
+		 *
+		 * @param string $key
+		 * @return object
+		 * @static 
+		 */
+		 public static function __get($key){
+			//Method inherited from \Rocketeer\Traits\AbstractLocatorClass
+			return \Rocketeer\TasksHandler::__get($key);
+		 }
+
+		/**
+		 * Set an instance on the Container
+		 *
+		 * @param string $key
+		 * @param object $value
+		 * @static 
+		 */
+		 public static function __set($key, $value){
+			//Method inherited from \Rocketeer\Traits\AbstractLocatorClass
+			 \Rocketeer\TasksHandler::__set($key, $value);
+		 }
+
+	}
 }
 

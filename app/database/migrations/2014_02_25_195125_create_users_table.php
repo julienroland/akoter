@@ -30,6 +30,7 @@ class CreateUsersTable extends Migration {
 			$table->boolean('email_comfirm');
 			$table->boolean('active');
 			$table->boolean('isOwner');
+			$table->boolean('isTenant');
 			$table->boolean('delete');
 			$table->boolean('suspend');
 			$table->boolean('pro');

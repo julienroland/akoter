@@ -9,7 +9,7 @@
 			<meta content="{{Helpers::extractLatLng($location->building->latlng, 'lat')}}" itemprop="latitude">
 			<meta content="{{Helpers::extractLatLng($location->building->latlng, 'lng')}}" itemprop="longitude">
 		</div>
-		<h1 aria-level="1" role="heading" itemprop="name" class="advertTitle">{{$translations['title']}}</h1>
+		<h1 aria-level="1" role="heading" itemprop="name" title="{{$translations['title']}}" class="advertTitle">{{$translations['title']}}</h1>
 		<div class="tabs">
 			<div class="ref">{{trans('locations.ref',array('ref'=>$location->id))}}</div>
 			<ul class="advert-tabs">
@@ -72,7 +72,7 @@
 							{{trans('locations.more_situation_infos')}}
 						</span>
 						<p>
-							{{$building_translations['advert']}}
+							{{html_entity_decode($building_translations['advert'])}}
 						</p>
 					</div>
 				</div>
@@ -192,7 +192,7 @@
 					</div>
 					@else
 
-					@if(Auth::user()->location()->whereLocationId($location->id)->count())
+					@if(Auth::user()->location()->whereLocationId($location->id)->whereRequest(0)->count())
 
 					<p class="no_comment">{{trans('locations.no_comments_allow')}}</p>
 
@@ -207,12 +207,12 @@
 
 					@if(Auth::check())
 
-					@if(Auth::user()->location()->whereLocationId($location->id)->count())
+					@if(Auth::user()->location()->whereLocationId($location->id)->whereRequest(0)->count())
 
 					{{Form::open(array('route'=>array('addComments', $location->id),'class'=>'mainType rules','data-rules'=>json_encode(Location::$comment_rules)))}}
 					<div class="user">
 						<div class="user-photo">
-							@if(Helpers::isOk($user->photo))
+							@if(Helpers::isOk(Auth::user()->photo))
 							<img  class="thumbnail" width="{{Config::get('var.user_photo_width')}}" height="{{Config::get('var.user_photo_height')}}" src="{{'/'.Config::get('var.images_dir').Config::get('var.users_dir').Auth::user()->id.'/'.Config::get('var.profile_dir').Auth::user()->photo}}">
 							@else
 							@if(Auth::user()->civility == 0)
@@ -329,7 +329,7 @@
 				<a href="" class="icon icon-key105 reserved">{{trans('locations.activeTenant')}}</a>
 
 				@else
-				<a href="{{route('reserved', $translations['slug'])}}" class="icon icon-key105 reserved {{Auth::check() && Helpers::isOk($location->user()->whereUserId(Auth::user()->id)->whereRequest(1)->first()) ?  $location->user()->whereUserId(Auth::user()->id)->whereRequest(1)->first()->count() ? 'waiting': '': ''}}">{{Auth::check() && Helpers::isOk($location->user()->whereUserId(Auth::user()->id)->whereRequest(1)->first()) ? $location->user()->whereUserId(Auth::user()->id)->whereRequest(1)->first()->count() ? trans('locations.waiting_reserved'):trans('locations.reserved') : trans('locations.reserved')}}</a>
+				<a href="{{route('reserved', array($translations['slug']))}}" class="icon icon-key105 reserved {{Auth::check() && Helpers::isOk($location->user()->whereUserId(Auth::user()->id)->whereRequest(1)->first()) ?  $location->user()->whereUserId(Auth::user()->id)->whereRequest(1)->first()->count() ? 'waiting': '': ''}}">{{Auth::check() && Helpers::isOk($location->user()->whereUserId(Auth::user()->id)->whereRequest(1)->first()) ? $location->user()->whereUserId(Auth::user()->id)->whereRequest(1)->first()->count() ? trans('locations.waiting_reserved'):trans('locations.reserved') : trans('locations.reserved')}}</a>
 				@endif
 				@if(Auth::guest())
 				<div class="informations">{{trans('general.required_connected')}}</div>

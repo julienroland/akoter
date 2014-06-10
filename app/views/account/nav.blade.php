@@ -29,20 +29,25 @@
 			@endif
 
 			<li><a href="{{route('indexFavoris', array(Auth::user()->slug))}}" class="tooltip-ui-s" title="{{trans('account.check_bookmark')}}"><span class="icon icon-big61"></span>{{trans('account.bookmark')}}</a></li>
-			@if(Auth::user()->isOwner)
-			<li><a href="" ><span class="icon icon-medal30"></span>{{trans('account.likes')}}</a></li>
-			@endif
-			
-			<li><a href="" title="{{trans('account.check_locations')}}" class="tooltip-ui-s"><span class="icon icon-address14"></span>{{trans('account.manage_locations')}}</a></li>
 
+			<li><a href="" title="{{trans('account.check_locations')}}" class="tooltip-ui-s"><span class="icon icon-address14"></span>{{trans('account.manage_locations')}}</a></li>
+			
 			@if(Auth::user()->isOwner == 1)
 
-			<li><a href="{{route('seeRequest', Auth::user()->slug)}}" title="{{trans('account.number_request')}}" class="tooltip-ui-s"><span class="icon icon-gearwheels"></span>{{trans('account.request')}}
+			<li><a href="{{route('seeOwnerRequest', Auth::user()->slug)}}" title="{{trans('account.owner_number_request')}}" class="tooltip-ui-s"><span class="icon icon-gearwheels"></span>{{trans('account.requests')}}
 				@if($request > 0 )<span class="nb_request">{{$request}}</span>
 				@endif
 			</a></li>
 
 			<li><a href="{{route('indexAdverts',Auth::user()->slug)}}" title="{{trans('account.check_advert')}}" class="tooltip-ui-s"><span class="icon icon-gearwheels"></span>{{trans('account.manage_locations_propri')}}</a></li>
+
+			@endif
+
+			@if(Auth::user()->isTenant)
+
+			<li>
+				<a href="{{route('seeTenantRequest', Auth::user()->slug)}}" title="{{trans('account.tenant_number_request')}}" class="tooltip-ui-s"><span class="icon icon-speech76"></span>{{trans('account.tenantRequests')}}</a>
+			</li>
 
 			@endif
 

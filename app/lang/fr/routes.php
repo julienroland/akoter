@@ -41,7 +41,8 @@ return array (
   'contact-owner' => 'contacter-le-proprietaire',
   'on-location' => 'a-propos-de-sa-location-numero',
   'reserved' => 'reservation-pour-ce-logement',
-  'request' => 'demandes-de-locations',
+  'owner_request' => 'demandes-de-locations',
+  'tenant_request' => 'vos-demandes-de-locations',
   'requestValidation' => 'accelerer-la-validation',
   'newsletter' => 'ajout-a-la-newsletter',
   'add_notice' => 'ajout-un-avis-sur-akoter',
@@ -64,4 +65,5 @@ return array (
   'remove_member_agence'=>'supprimer-le-membre',
   'add_schools'=>'ajouter-des-ecoles',
   'posts_owner'=>'articles-pour-les-proprietaires',
+  'removeRequest'=>'supprimer-votre-requete',
 );

@@ -167,8 +167,6 @@ public function postBuildingImage( $type='more', $id=null )
 
       $photo->type = $type;
 
-      $photo =  Building::find( $id )->photo()->save($photo);
-
       $nb_order = Building::find($id)->photo()->whereType($type)->max('order') + 1;
 
       $image->grab( 2500, 1600 )->save( $destinationPath.$filename )->encode('jpg', Config::get('var.img_quality'));
@@ -179,7 +177,7 @@ public function postBuildingImage( $type='more', $id=null )
 
         if($type->name == Config::get('var.img_gallery') || $type->name == Config::get('var.img_small') || $type->name == Config::get('var.img_medium')){
 
-         $image->resize( $type->width, $type->height , true)->save( $destinationPath.$filename )->encode('jpg', Config::get('var.img_quality'));
+         $image->resize( $type->width, Helpers::isNotOk($type->height)  ? null : $type->height , true)->save( $destinationPath.$filename )->encode('jpg', Config::get('var.img_quality'));
 
        }else{
 
@@ -189,6 +187,8 @@ public function postBuildingImage( $type='more', $id=null )
 
     }
 
+    $photo =  Building::find( $id )->photo()->save($photo);
+
 
 
   }
@@ -196,8 +196,8 @@ public function postBuildingImage( $type='more', $id=null )
 else //single file
 {   
 
-  $imageType = ImageType::orderBy('width','desc')->get();
-
+  $imageType = ImageType::orderBy('height','asc')->get();
+  
   $extension = 'jpg';
 
   $image = Image::make( Input::file('file')->getRealPath() );
@@ -214,8 +214,6 @@ else //single file
 
   $photo->type = $type;
 
-  $photo = Building::find( $id )->photo()->save($photo);
-
   $image->grab( 2500, 1600 )->save( $destinationPath.$filename )->encode('jpg', Config::get('var.img_quality'));
 
   foreach( $imageType as $type){
@@ -224,7 +222,7 @@ else //single file
 
     if($type->name == Config::get('var.img_gallery') || $type->name == Config::get('var.img_small') || $type->name == Config::get('var.img_medium')){
 
-      $image->resize( $type->width, $type->height, true )->save( $destinationPath.$filename )->encode('jpg', Config::get('var.img_quality'));
+      $image->resize( $type->width, Helpers::isNotOk($type->height)  ? null : $type->height, true )->save( $destinationPath.$filename )->encode('jpg', Config::get('var.img_quality'));
 
     }else{
 
@@ -234,6 +232,7 @@ else //single file
 
   }
 
+  $photo = Building::find( $id )->photo()->save($photo);
 
 
 }
@@ -317,17 +316,15 @@ public function postLocationImage( $type='location', $id=null )
 
       $photo->order = $nb_order;
 
-      $photo =  $location->photo()->save($photo);
-
       $image->grab( 2500, 1600 )->save( $destinationPath.$filename )->encode('jpg', Config::get('var.img_quality'));
 
       foreach( $imageType as $type){
 
         $filename = Helpers::toSlug(Helpers::addTimestamp( $part->getClientOriginalName(),'-'.$type->name ,$type->extension , $timestamp));
 
-        if($type->name == Config::get('var.img_gallery') || $type->name == Config::get('var.img_small') || $type->name == Config::get('var.img_medium')){
+        if($type->name == Config::get('var.img_gallery') ){
 
-          $image->resize( $type->width, $type->height, true )->save( $destinationPath.$filename )->encode('jpg', Config::get('var.img_quality'));
+          $image->resize( $type->width, Helpers::isNotOk($type->height)  ? null : $type->height, true )->save( $destinationPath.$filename )->encode('jpg', Config::get('var.img_quality'));
 
         }else{
 
@@ -336,11 +333,15 @@ public function postLocationImage( $type='location', $id=null )
         }
 
       }
+
+      $photo =  $location->photo()->save($photo);
+
     }
   }
 else //single file
 {   
   $nb_photos = $location->photo()->count();
+
   if( $nb_photos >= Config::get('var.buildingMaxImage') ){
 
     return Response::json(array('error'=>trans('validation.custom.tooMuchImage')), 200);
@@ -362,17 +363,15 @@ else //single file
 
   $photo->order = $nb_order;
 
-  $photo = $location->photo()->save($photo);
-
   $image->grab( 2500, 1600 )->save( $destinationPath.$filename )->encode('jpg', Config::get('var.img_quality'));
 
   foreach( $imageType as $type){
 
     $filename = Helpers::toSlug(Helpers::addTimestamp( $file->getClientOriginalName(),'-'.$type->name ,$type->extension , $timestamp));
 
-    if($type->name == Config::get('var.img_gallery') || $type->name == Config::get('var.img_small') || $type->name == Config::get('var.img_medium')){
+    if($type->name == Config::get('var.img_gallery')){
 
-      $image->resize( $type->width, $type->height, true )->save( $destinationPath.$filename )->encode('jpg', Config::get('var.img_quality'));
+      $image->resize( $type->width, Helpers::isNotOk($type->height)  ? null : $type->height, true )->save( $destinationPath.$filename )->encode('jpg', Config::get('var.img_quality'));
 
     }else{
 
@@ -381,6 +380,8 @@ else //single file
     }
 
   }
+
+  $photo =  $location->photo()->save($photo);
 
 }
 
@@ -567,7 +568,7 @@ if( $photo ){
 *
 **/
 
-$destinationPath = public_path(). '/'.Config::get('var.images_dir').Config::get('var.users_dir').Auth::user()->id.'/'.Config::get('var.buildings_dir').'/'.$proprieteId.'/'.$type.'/';
+$destinationPath =  public_path().'/'.Config::get('var.images_dir').Config::get('var.users_dir').Auth::user()->id.'/'.Config::get('var.buildings_dir').$proprieteId.'/';
 
 /**
 *
@@ -582,6 +583,7 @@ $imgTypes = ImageType::all();
 * Si le fichier de base existe
 *
 **/
+
 
 if(File::exists( $destinationPath.$photo->url )){
 

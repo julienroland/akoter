@@ -4,6 +4,8 @@ use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableInterface;
 use Cviebrock\EloquentSluggable\SluggableInterface;
 use Cviebrock\EloquentSluggable\SluggableTrait;
+use Carbon\Carbon;
+
 class User extends Eloquent implements UserInterface, RemindableInterface, SluggableInterface {
 	use SluggableTrait;
 
@@ -26,7 +28,6 @@ class User extends Eloquent implements UserInterface, RemindableInterface, Slugg
 		'seat' => 'required| numeric',
 		'nb_locations' => 'required| numeric',
 		'start_date'=>'date|required',
-		'text'=>'required',
 		);
 	public static $contact_rules = array(
 		'first_name'=>'required |alpha ',
@@ -195,9 +196,38 @@ class User extends Eloquent implements UserInterface, RemindableInterface, Slugg
 
 	public function location(){
 		return $this->belongsToMany('Location','user_location')
+		->withPivot('id','status','begin','end')
+		->withTimestamps(); 
+	}
+
+	public function acceptedRequest(){
+		return $this->belongsToMany('Location','user_location')
+		->where('status', 1)
+		->where('request', 0)
+		->where('user_location.created_at','>', Carbon::now()->subYear())
 		->withPivot('status','begin','end')
 		->withTimestamps(); 
 	}
+
+	public function refusedRequest(){
+		return $this->belongsToMany('Location','user_location')
+		->where('status', 0)
+		->where('request', 0)
+		->where('reject', 1)
+		->where('user_location.created_at','>', Carbon::now()->subYear())
+		->withPivot('status','begin','end')
+		->withTimestamps(); 
+	}
+
+	public function waitingRequest(){
+		return $this->belongsToMany('Location','user_location')
+		->where('status', 0)
+		->where('request', 1)
+		->where('user_location.created_at','>', Carbon::now()->subYear())
+		->withPivot('status','begin','end')
+		->withTimestamps(); 
+	}
+
 	public function allLocations()
 	{
 		return $this->belongsToMany('Location','user_location')

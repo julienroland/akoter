@@ -42,9 +42,10 @@
 
 <div class="mapControls" data-intro='Intéragisez!' data-step="2">
  <div class="tab">
-   <a aria-label="{{trans('general.hide_panel')}}" role="button" href="javascript:void(0)" title="{{trans('general.hide_panel')}}" aria-hidden="true">
+   <a aria-hidden="true" href="javascript:void(0)"></a>
+   <!-- <a aria-label="{{trans('general.hide_panel')}}" role="button" href="javascript:void(0)" title="{{trans('general.hide_panel')}}" aria-hidden="true">
      <span aria-hidden="true" class="icon icon-prohibited1"></span>
-   </a>
+   </a> -->
  </div>
  <ul>
    <li class="controlItem colorBlind"> 

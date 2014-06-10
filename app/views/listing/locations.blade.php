@@ -7,7 +7,7 @@
 <div class="listing">
 	<div class="wrapper">
 		@if(isset($locations) && Helpers::isOk($locations))
-		<p class="nb_result">{{$locations->getTotal()}} {{trans('locations.nb_result')}}</p>
+		<p class="nb_result">{{$locations->getTotal()-1}} {{trans('locations.nb_result')}}</p>
 		@endif
 		<div class="residence" id="residence">
 			<div class="wrapper">

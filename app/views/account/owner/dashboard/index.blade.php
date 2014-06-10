@@ -100,7 +100,8 @@
 
             </div>
             <div class="view">
-                <span class="icon icon-view6">{{trans('locations.views', array('number'=>$location->nb_views))}}</span>
+                <span class="icon icon-view6"></span>
+                {{trans('locations.views', array('number'=>$location->nb_views))}}
             </div>
             <div class="rating">
                 <div class="icons rating tooltip-ui-w" title="{{Helpers::getRating($location->rating)}} {{Lang::get('locations.stars')}} {{trans('general.on')}} {{trans('locations.nb_vote',array('number'=>$location->nb_rate))}}">

@@ -29,6 +29,7 @@
 			<p>Crée le : {{Helpers::beTime($post->created_at)}}</p>
 			<p>Dernière modification le : {{Helpers::beTime($post->updated_at)}}</p>
 			<p>Publié: <a href="{{$post->publish == 1 ? url('admin/articles/notpublish', $post->id) :url('admin/articles/publish', $post->id) }}" title="{{$post->publish == 1 ? 'Ne pas publier' : 'Le mettre en ligne'}}"><span class="glyphicon glyphicon-{{$post->publish == 1 ? 'ok alert-success' :'remove alert-danger' }}"></span></a></p>
+			<p><label for="type">Type:</label> {{Form::select('type',$postTypes,$post->post_type_id)}}</p>
 			<p>Page: <input type="text" name="page" value="{{$post->content_type}}"></p>
 			<p>Position: <input type="text" name="position" value="{{$post->content_position}}"></p>
 			<div>

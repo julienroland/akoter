@@ -117,6 +117,7 @@ public function oldTenants(){
 	->withPivot('status','begin','end')
 	->whereStatus(0)
 	->whereRequest(0)
+	->whereReject(0)
 	->withTimestamps(); 
 }
 public function allTenants(){
@@ -124,6 +125,7 @@ public function allTenants(){
 	return $this->belongsToMany('User','user_location')
 	->withPivot('status','begin','end')
 	->whereRequest(0)
+	->whereReject(0)
 	->withTimestamps(); 
 }
 public function option(){
@@ -443,7 +445,8 @@ public static function getLocationsFilter( $input = null, $nb_obj = null, $pagin
 			->join('translations as j2', 'locations.id','=',DB::raw('j2.content_id AND j2.content_type = "Location" AND j2.language_id = '.Session::get('langId')))
 			->join('translations as j3', 'locations.type_location_id','=',DB::raw('j3.content_id AND j3.content_type = "TypeLocation" AND j3.language_id = '.Session::get('langId')))
 			->where('j2.key','=','title')
-			->where('j2.value', 'like', '%'.$input['search'].'%')
+			->where('locations.id','=',$input['search'])
+			->orWhere('j2.value', 'like', '%'.$input['search'].'%')
 			->orWhere('j3.value', 'like', '%'.$input['search'].'%')
 			->with('translations')
 			->distinct();
@@ -621,6 +624,7 @@ if(isset($list) && Helpers::isOk($list)){
 
 		dd($locations);*/
 		$locations = $locations->paginate( $paginate );
+
 		return $locations;
 	}
 }

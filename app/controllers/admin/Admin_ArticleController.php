@@ -108,9 +108,10 @@ class Admin_ArticleController extends \Admin_AdminController
 		
 	}
 	public function edit( $post ){
-
+		$postTypes = PostType::all()->lists('name','id');
 		return View::make('admin.article.show', array('widget'=>array('editor')))
-		->withPost($post);
+		->withPost($post)
+		->with('postTypes',$postTypes);
 	}
 	
 	public function unpublish( $post ){
@@ -155,6 +156,7 @@ class Admin_ArticleController extends \Admin_AdminController
 			}
 			
 			$post->content_type = $input['page'];
+			$post->post_type_id = $input['type'];
 			$post->content_position = $input['position'];
 			$post->save();
 

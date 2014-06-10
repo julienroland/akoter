@@ -67,7 +67,7 @@
 					{{trans('inscription.about_image_sort')}}
 				</div>
 				<div id="images" data-type="{{$location->id}}-advert" >
-					<ul id="sortable" data-type="{{$location->id}}-advert">
+					<ul class="sortable" data-type="location">
 
 						@foreach( $photos[$location->id][0]->photo as $photo)
 
@@ -121,7 +121,7 @@
 					{{trans('inscription.about_image_sort')}}
 				</div>
 				<div id="images" data-type="{{$location->id}}-advert" >
-					<ul id="sortable" data-type="{{$location->id}}-advert">
+					<ul class="sortable" data-type="location">
 
 						@foreach( $photos[$location->id][0]->photo as $photo)
 

@@ -407,7 +407,7 @@ var getLocationPhoto = function( userId, locationId, sType ){
 			url: sBasePath+'ajax/getLocationPhoto/'+sType+'/'+ locationId,
 			dataType: "json",
 			success:function( oData ){
-
+				console.log(oData);
 				if( oData ){
 
 					if($('#images[data-type="'+sType+'"]').length == 0){
@@ -420,7 +420,7 @@ var getLocationPhoto = function( userId, locationId, sType ){
 				}
 				for( var i in oData ){
 
-                $('#images[data-type="'+sType+'"] ul').append('<li><span class="handle icon icon-move6"></span><a href="" class="deleteAdvertImage icon icon-remove11" data-id='+oData[i].id+' data-locationId='+oData[i].building_id+'  title='+oLang.form.delete_image+'><div class="image"><img class="thumbnail" src="'+ imgs_dir +'users/'+ userId + '/locations/' + locationId + '/' + addBeforeExtension(oData[i].url, 'small') +'"></div></a></li>'); //userId/ProprieteId/
+                $('#images[data-type="'+sType+'"] ul').append('<li><span class="handle icon icon-move6"></span><a href="" class="deleteAdvertImage icon icon-remove11" data-id='+oData[i].id+' data-locationId='+oData[i].location_id+'  title='+oLang.form.delete_image+'><div class="image"><img class="thumbnail" src="'+ imgs_dir +'users/'+ userId + '/locations/' + locationId + '/' + addBeforeExtension(oData[i].url, 'small') +'"></div></a></li>'); //userId/ProprieteId/
 
                 $('.deleteAdvertImage').on('click', function( e ){
                 	e.preventDefault();

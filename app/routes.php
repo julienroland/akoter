@@ -328,12 +328,42 @@ Route::group(array('prefix' => $lang), function () use ($lang) {
         
         Route::post('editPhoto', array('as'=>'editPhotoProfile','uses'=>'UserController@editPhoto'));
 
+
+        Route::bind('location_available_slug', function ($value, $route) {
+
+            $translation = Translation::whereKey('slug')->whereContentType('Location')->whereValue($value)->first();
+            
+          /*  if(Helpers::isNotOk($translation)){    
+                $translation = $location->translation()->whereKey('slug')->firstOrFail();
+                $route->forgetParameter('location_slug');
+                $route->setParameter('location_slug', $translation->value);
+            }*/
+
+            return Location::whereId($translation->content_id)->where('remaining_room','>', 0)->whereAvailable(1)->where('register_step','>', 6)->firstOrFail();
+
+        });
         /**
         *
         * show
         *
         **/
-        Route::get(trans('routes.locations').'/{location_slug}',array('as'=>'showLocation','uses'=>'LocationController@show'));
+
+        Route::get(trans('routes.locations').'/{location_available_slug}',array('as'=>'showLocation','uses'=>'LocationController@show'));
+
+           /**
+            *
+            * Reserved
+            *
+            **/
+           
+
+           Route::group(array('before'=>'available_user'), function(){
+
+            Route::get(trans('routes.reserved').'/{location_available_slug}/', array('as'=>'reserved','uses'=>'UserController@reserved'));
+
+            Route::post(trans('routes.reserved').'/{location_available_slug}/', array('as'=>'reserved_location','uses'=>'UserController@reserved_location'));
+
+        });
 
         /**
         *
@@ -341,7 +371,11 @@ Route::group(array('prefix' => $lang), function () use ($lang) {
         *
         **/
         
-        Route::get(trans('routes.account') . '/{user_slug}/' .trans('routes.request'),array('as'=>'seeRequest','uses'=>'AccountController@indexRequest'));
+        Route::get(trans('routes.account') . '/{user_slug}/' .trans('routes.owner_request'),array('as'=>'seeOwnerRequest','uses'=>'AccountController@indexOwnerRequest'));
+
+        Route::get(trans('routes.account') . '/{user_slug}/' .trans('routes.tenant_request'),array('as'=>'seeTenantRequest','uses'=>'AccountController@indexTenantRequest'));
+
+        Route::get(trans('routes.account') . '/{user_slug}/' .trans('routes.tenant_request').'/'.trans('routes.removeRequest').'/{request_id}',array('as'=>'removeRequest','uses'=>'AccountController@deleteTenantRequest'));
 
         Route::get(trans('routes.account') . '/{user_slug}/' .trans('routes.request').'/'.trans('routes.validRequest').'/{request_id}',array('as'=>'validRequest','uses'=>'AccountController@validRequest'));
 
@@ -538,20 +572,20 @@ Route::group(array('prefix' => $lang), function () use ($lang) {
                     *
                     **/
 
-                    Route::bind('school_id', function ($value, $route) {
+                     Route::bind('school_id', function ($value, $route) {
 
                         return School::findOrFail($value);
 
                     });
 
-                    Route::get('schools', array('uses'=>'Admin_SchoolController@index'));
+                     Route::get('schools', array('uses'=>'Admin_SchoolController@index'));
 
-                    Route::get('schools/validate/{school_id}', array('uses'=>'Admin_SchoolController@validate'));
+                     Route::get('schools/validate/{school_id}', array('uses'=>'Admin_SchoolController@validate'));
 
-                    Route::get('schools/devalidate/{school_id}', array('uses'=>'Admin_SchoolController@devalidate'));
+                     Route::get('schools/devalidate/{school_id}', array('uses'=>'Admin_SchoolController@devalidate'));
 
-                    Route::get('schools/delete/{school_id}', array('uses'=>'Admin_SchoolController@delete'));
-                        
+                     Route::get('schools/delete/{school_id}', array('uses'=>'Admin_SchoolController@delete'));
+
                     /**
                     *
                     * Notice
@@ -582,21 +616,8 @@ Route::group(array('prefix' => $lang), function () use ($lang) {
              * Profil
              *
              **/
-
-            /**
-            *
-            * Reserved
-            *
-            **/
             Route::get( trans('routes.account') . '/{user_slug}/' .trans('routes.how_be_tenant'), array('as'=>'how_be_tenant', 'uses'=>'AccountController@howBeTenant'));
-            
-            Route::group(array('before'=>'available_user'), function(){
 
-                Route::get(trans('routes.reserved').'/{location_slug}/', array('as'=>'reserved','uses'=>'UserController@reserved'));
-
-                Route::post(trans('routes.reserved').'/{location_slug}/', array('as'=>'reserved_location','uses'=>'UserController@reserved_location'));
-
-            });
 
             /**
             *
@@ -631,6 +652,7 @@ Route::group(array('prefix' => $lang), function () use ($lang) {
             Route::bind('user_slug', function($value, $route)
             {
                 if(Auth::check()){
+
                     if(User::whereSlug($value)->firstOrFail()){
 
                         if($value === Auth::user()->slug){
