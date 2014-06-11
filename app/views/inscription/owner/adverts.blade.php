@@ -161,7 +161,7 @@
 			</fieldset> 
 			<div class="field">
 				<label for="location_{{$location->id}}[garantee]">{{trans('inscription.garantee').trans('form.required')}} <span class="icon-required" aria-hidden="true"></span></label>
-				<input type="number" value="{{isset(Session::get('adverts')['location_'.$location->id]) ? Session::get('adverts')['location_'.$location->id]['garantee'] : (isset($locationsData) ? $locationsData[$location->id][0]->garantee : '')}}" name="location_{{$location->id}}[garantee]" id="location_{{$location->id}}[garantee]" placeholder="{{trans('inscription.garantee_placeholder')}}">
+				<input type="number" min="0" value="{{isset(Session::get('adverts')['location_'.$location->id]) ? Session::get('adverts')['location_'.$location->id]['garantee'] : (isset($locationsData) ? $locationsData[$location->id][0]->garantee : '')}}" name="location_{{$location->id}}[garantee]" id="location_{{$location->id}}[garantee]" placeholder="{{trans('inscription.garantee_placeholder')}}">
 			</div>
 			<div class="field checkbox">
 				<input type="checkbox" {{isset(Session::get('adverts')['location_'.$location->id]['available']) ? 'checked' : (isset($locationsData) && $locationsData[$location->id][0]->available == 1 ? 'checked' : 'checked')}}  name="location_{{$location->id}}[available]" id="location_{{$location->id}}[available]">

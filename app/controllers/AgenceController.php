@@ -120,7 +120,7 @@ class AgenceController extends BaseController
 
 					Auth::user()->pro = 1;
 					Auth::user()->save();
-					
+
 					return Redirect::route('index_agence', Auth::user()->slug);
 
 

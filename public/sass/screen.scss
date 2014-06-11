@@ -3660,6 +3660,9 @@ $country-h: 100px;
 	padding:2em;
 	max-width: 400px;
 	background-color: $greyL;
+	a{
+		color:$mc;
+	}
 	span{
 		display: block;
 		line-height: 1.5;

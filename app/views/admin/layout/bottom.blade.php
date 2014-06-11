@@ -18,19 +18,17 @@
     }
 </script>
 
-<!-- {{HTML::script('js/polyfiller.js')}} -->
 @endif
 
 @if(isset($widget) && in_array('upload', $widget))
-
-{{HTML::script('js/jquery.uploadfile.min.js')}}
-{{HTML::script('js/jquery.validationEngine.js')}}
-{{HTML::script('js/jquery.validationEngine-fr.js')}}
 <script>
-        console.log($('.baseFile'));
         $('.baseFile').remove();
 
 </script>
+{{HTML::script('js/jquery.uploadfile.min.js')}}
+{{HTML::script('js/jquery.validationEngine.js')}}
+{{HTML::script('js/jquery.validationEngine-fr.js')}}
+
 @endif
 
 @if(isset($widget) && in_array('map', $widget))

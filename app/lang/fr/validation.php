@@ -103,6 +103,7 @@ return array (
     'inscription_advertsPhoto'=>'Images bien enregistrés !',
     'notAvailableNotice'=>'Vous devez avoir fait vérifier votre email pour pouvoir donner votre avis',
     'removeTenantRequest'=>'Votre demande à bien été enregistré',
+    'params_changed'=>'Vos nouveaux paramètres ont bien été enregistrés !',
   ),
   'attributes' => 
   array (

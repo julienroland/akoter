@@ -17,13 +17,13 @@ class Building extends Eloquent {
 	public static $infos_general_rules = array(
 		'situations'=>'required|array',
 		'situations.en'=>'required_without_all:situations.fr,situations.nl',
-		'situations.en'=>'min:30 |max:2048',
-		'situations.fr'=>'min:30 |max:2048',
-		'situations.nl'=>'min:30 |max:2048',
+		'situations.en'=>'min:30 |max:10000',
+		'situations.fr'=>'min:30 |max:10000',
+		'situations.nl'=>'min:30 |max:10000',
 		'advert.en'=>'required_without_all:advert.fr,advert.nl',
-		'advert.en'=>'min:50 |max:2048',
-		'advert.fr'=>'min:50 |max:2048',
-		'advert.nl'=>'min:50 |max:2048',
+		'advert.en'=>'min:50 |max:10000',
+		'advert.fr'=>'min:50 |max:10000',
+		'advert.nl'=>'min:50 |max:10000',
 		);
 
 

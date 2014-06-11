@@ -74,7 +74,7 @@ class InscriptionController extends AccountBaseController {
 
 			if($user){
 
-				Mailgun::send('emails.inscription_success', array('user'=>$user), function($message) use($user){
+				Mailgun::later(5,'emails.inscription_success', array('user'=>$user), function($message) use($user){
 
 					$message
 					->to( $user->email, $user->first_name.' '.$user->name )
@@ -654,8 +654,8 @@ class InscriptionController extends AccountBaseController {
 				$building->save();
 			}
 
-				return Redirect::route('index_inscription_adverts', array(Auth::user()->slug, $building->id, Helpers::isOk($currentLocation) ? $currentLocation->id : '' ))
-		->withSuccess(trans('validation.custom.inscription_photoBuilding'));
+			return Redirect::route('index_inscription_adverts', array(Auth::user()->slug, $building->id, Helpers::isOk($currentLocation) ? $currentLocation->id : '' ))
+			->withSuccess(trans('validation.custom.inscription_photoBuilding'));
 
 		}else{
 
@@ -723,7 +723,7 @@ class InscriptionController extends AccountBaseController {
 
 				$location = Location::find($location_id);
 
-				if(isset($input['agency'])){
+				if(isset($input['agency']) && Helpers::isOk($input['agency'])){
 					$location->agence_id = $input['agency'];	
 				}
 				$location->price = $input['price'];
@@ -741,14 +741,16 @@ class InscriptionController extends AccountBaseController {
 				$location->accessible = isset($input['accessible']) ? 1 : 0;
 				$location->register_step = $location->register_step < 6  ? 6 : $location->register_step;
 				
+				$location->option()->detach();
 
-					$location->option()->detach();
-					
+				if(isset($input['option'])){
 
 					foreach($input['option'] as $key => $option){
 
 						$location->option()->attach($key);
 					}
+
+				}
 
 				if(isset($input['particularity']) && Helpers::isOk($input['particularity'])){
 

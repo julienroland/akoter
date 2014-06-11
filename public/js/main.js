@@ -449,7 +449,7 @@ var uploadFile = function(){
 		$(this).uploadFile({
 			url: sBasePath + "ajax/uploadBuildingImage/"+sType+"/"+nProprieteId,
 			method: "post",
-			allowedTypes:"jpg,gif,bmp,png",
+			allowedTypes:"jpg,gif,bmp,png,jpeg",
 			fileName: "file",
 			autoSubmit:true,
 			multiple:true,
@@ -496,7 +496,7 @@ settingsAdvertUpload = $(".mulitpleLocationfileuploader").each(function(){
 	$(this).uploadFile({
 		url: sBasePath + "ajax/uploadLocationImage/"+sType+"/"+nLocationId,
 		method: "post",
-		allowedTypes:"jpg,gif,bmp,png",
+		allowedTypes:"jpg,gif,bmp,png,jpeg",
 		fileName: "file",
 		autoSubmit:true,
 		multiple:true,

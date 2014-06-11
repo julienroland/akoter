@@ -1230,7 +1230,6 @@ var ajaxAllSchool = function(){
 
     success: function ( oResponse ){
      oSchools = oResponse;
-     console.log(oSchools);
      createMarkerSchool(oSchools);
 
    }

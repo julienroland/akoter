@@ -13,10 +13,10 @@ class Location extends Eloquent{
 		'room'=>' numeric',
 		'chargePrice'=>'required_with:charge | numeric',
 		'start_date'=>'required_with:available | date ',
-		'end_date'=>'required_with:available,start_date | date',
-		'advert.en'=>'min:20 |max:2048',
-		'advert.fr'=>'min:20 |max:2048',
-		'advert.nl'=>'min:20 |max:2048',
+		'end_date'=>'required_with:available | date',
+		'advert.en'=>'min:20 |max:10000',
+		'advert.fr'=>'min:20 |max:10000',
+		'advert.nl'=>'min:20 |max:10000',
 		);
 
 	public static $comment_rules = array(

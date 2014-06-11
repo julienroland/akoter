@@ -235,6 +235,7 @@ class AccountController extends AccountBaseController {
 		if($validator->passes()){
 
 			$language_id = Language::whereShort( $input['language'])->pluck('id');
+
 			$user = Auth::user();
 
 			$user->email = $input['email'];
@@ -250,7 +251,8 @@ class AccountController extends AccountBaseController {
 
 			Session::forget('account_params');
 
-			return Redirect::route('account_home', Auth::user()->slug);
+			return Redirect::route('account_params', Auth::user()->slug)
+			->withSuccess(trans('validation.custom.params_changed'));
 
 		}else{
 

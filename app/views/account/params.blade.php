@@ -17,7 +17,7 @@
 	@if(Auth::user()->email_comfirm == 0  )
 	<a href="{{route('checkEmail',Auth::user()->slug)}}" class="checkemail btn-inscription">{{trans('form.checkEmail')}}</a>
 	@endif
-	{{Form::open(array('route'=>'save_params','method'=>'put','class'=>'inlineType rules','data-rules'=>json_encode(User::$params_rules_password)))}}
+	{{Form::open(array('route'=>array('save_params', Auth::user()->slug),'method'=>'put','class'=>'inlineType rules','data-rules'=>json_encode(User::$params_rules_password)))}}
 
 	@if(Helpers::isNotOk($user->password))
 			<div class="informations">

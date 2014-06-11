@@ -234,7 +234,7 @@
 
 
 @if(isset($widget) && in_array('upload', $widget))
-<script>/*$('.baseFile').hide();*/</script>
+<script>$('.baseFile').hide();</script>
 {{HTML::script('js/jquery.uploadfile.min.js')}}
 {{HTML::script('js/jquery.validationEngine.js')}}
 {{HTML::script('js/jquery.validationEngine-fr.js')}}
@@ -257,7 +257,7 @@
 
 </script>
 
-{{HTML::script('js/map.js')}}
+{{HTML::script('js/min/map.js')}}
 @endif
 
 

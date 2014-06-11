@@ -53,27 +53,34 @@
 				<div class="thumbnail showmap">
 					<div  id="showMap" data-location="{{$building->latlng}}"></div>
 				</div>
-				<div class="localisation">
 
+				<div class="localisation">
 					<address itemscope itemprop="address" class="address">
 						<div class="line"><span class="number">{{$location->building->number}}</span> <span itemprop="streetAddress" class="street">{{$location->building->address}}</span></div>
 						<div class="line"><span class="postal" itemprop="postal">{{$location->building->postal}}</span>  <span itemprop="addressRegion" class="locality">{{$location->building->locality->name}}</span> (<span class="region">{{$region}}</span>)</div>
 						<meta content="BE" itemprop="addressCountry">
 					</address>
+
 					<div class="informations-situation">
 
+						@if(isset($building_translations['situations']))
 						<span class="title-situation">
 							{{trans('locations.situation_title')}}
 						</span>
 						<p>
-							{{$building_translations['situations']}}
+							{{isset($building_translations['situations']) ? $building_translations['situations'] : ''}}
 						</p>
+						@endif
+
+						@if(isset($building_translations['advert']))
 						<span class="title-situation">
 							{{trans('locations.more_situation_infos')}}
 						</span>
 						<p>
 							{{isset($building_translations['advert']) ? html_entity_decode($building_translations['advert']) :''}}
 						</p>
+						@endif
+
 					</div>
 				</div>
 			</div>

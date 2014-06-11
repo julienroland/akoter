@@ -28,7 +28,9 @@
 				<ul class="permalink">
 					@foreach(Helpers::footer() as $post)
 					<?php $data = $post->translation->lists('value','key'); ?>
+					@if(isset($data['slug']))
 					<li><a href="{{route('showPost', $data['slug'])}}">{{$data['title']}}</a></li>
+					@endif
 					@endforeach
 					<li><a href="{{route('contact')}}">{{trans('footer.contact-us')}}</a></li>
 					<li><a href="{{route('contact')}}">{{trans('footer.mapSite')}}</a></li>

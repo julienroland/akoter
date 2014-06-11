@@ -322,7 +322,7 @@ public function postLocationImage( $type='location', $id=null )
 
         $filename = Helpers::toSlug(Helpers::addTimestamp( $part->getClientOriginalName(),'-'.$type->name ,$type->extension , $timestamp));
 
-        if($type->name == Config::get('var.img_gallery') ){
+        if($type->name == Config::get('var.img_gallery') || $type->name == Config::get('var.img_small')){
 
           $image->resize( $type->width, Helpers::isNotOk($type->height)  ? null : $type->height, true )->save( $destinationPath.$filename )->encode('jpg', Config::get('var.img_quality'));
 
@@ -369,7 +369,7 @@ else //single file
 
     $filename = Helpers::toSlug(Helpers::addTimestamp( $file->getClientOriginalName(),'-'.$type->name ,$type->extension , $timestamp));
 
-    if($type->name == Config::get('var.img_gallery')){
+    if($type->name == Config::get('var.img_gallery') ){
 
       $image->resize( $type->width, Helpers::isNotOk($type->height)  ? null : $type->height, true )->save( $destinationPath.$filename )->encode('jpg', Config::get('var.img_quality'));
 
