@@ -350,20 +350,7 @@ Route::group(array('prefix' => $lang), function () use ($lang) {
 
         Route::get(trans('routes.locations').'/{location_available_slug}',array('as'=>'showLocation','uses'=>'LocationController@show'));
 
-           /**
-            *
-            * Reserved
-            *
-            **/
-           
-
-           Route::group(array('before'=>'available_user'), function(){
-
-            Route::get(trans('routes.reserved').'/{location_available_slug}/', array('as'=>'reserved','uses'=>'UserController@reserved'));
-
-            Route::post(trans('routes.reserved').'/{location_available_slug}/', array('as'=>'reserved_location','uses'=>'UserController@reserved_location'));
-
-        });
+         
 
         /**
         *
@@ -618,7 +605,20 @@ Route::group(array('prefix' => $lang), function () use ($lang) {
              **/
             Route::get( trans('routes.account') . '/{user_slug}/' .trans('routes.how_be_tenant'), array('as'=>'how_be_tenant', 'uses'=>'AccountController@howBeTenant'));
 
+             /**
+            *
+            * Reserved
+            *
+            **/
+           
 
+           Route::group(array('before'=>'available_user'), function(){
+
+            Route::get(trans('routes.reserved').'/{location_available_slug}/', array('as'=>'reserved','uses'=>'UserController@reserved'));
+
+            Route::post(trans('routes.reserved').'/{location_available_slug}/', array('as'=>'reserved_location','uses'=>'UserController@reserved_location'));
+
+        });
             /**
             *
             * Test if user is a owner

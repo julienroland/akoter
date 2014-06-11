@@ -199,7 +199,7 @@
 					</div>
 					@else
 
-					@if(Auth::user()->location()->whereLocationId($location->id)->whereRequest(0)->count())
+					@if(Auth::check() && Auth::user()->location()->whereLocationId($location->id)->whereRequest(0)->count())
 
 					<p class="no_comment">{{trans('locations.no_comments_allow')}}</p>
 
@@ -307,9 +307,6 @@
 				<span class="price">{{round($location->price)}}€</span>
 				<span class="perMonth">{{trans('general.perMonth')}}</span>
 				<span class="charge">{{trans('locations.charge')}} {{Config::get('var.charges')[$location->charge_type]}} {{$location->charge_price > 0 ? '&nbsp;('.round($location->charge_price) .'€)' : ''}}</span>
-				@if($location->charge_type == 1)
-				<span class="chargePrice">{{$location->charge_price}}€</span>
-				@endif
 				<span class="typeLocation"><i class="icon icon-longa"></i>{{$typeLocation}}	<span class="section">{{trans('locations.typeLocation',array('name'=>$typeLocation))}}</span></span>
 				<span class="nb_seat"><i class="icon icon-user3"></i>{{trans('locations.nb_seat',array('number'=>$location->remaining_room))}}</span>
 

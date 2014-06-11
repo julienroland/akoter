@@ -43,12 +43,12 @@
 							<div class="photo" >
 
 								@if(Helpers::isOk($notice->photo))
-								<img src="{{Config::get('var.path').Config::get('var.images_dir').Config::get('var.users_dir').$notice->user_id.'/'.Config::get('var.profile_dir').$notice->photo}}" alt="{{trans('account.imageProfile', array('name'=>$notice->firstname. ' ' .$notice->name))}}" width="{{Config::get('var.user_photo_width')}}" height="{{Config::get('var.user_photo_height')}}">
+								<img width="64" height="64" src="{{Config::get('var.path').Config::get('var.images_dir').Config::get('var.users_dir').$notice->user_id.'/'.Config::get('var.profile_dir').$notice->photo}}" alt="{{trans('account.imageProfile', array('name'=>$notice->firstname. ' ' .$notice->name))}}" width="{{Config::get('var.user_photo_width')}}" height="{{Config::get('var.user_photo_height')}}">
 								@else
 								@if($notice->civility == 0)
-								<img itemprop="image" src="{{Config::get('var.img_dir').Config::get('var.no_photoUserM')}}" alt="{{Lang::get('errors.no_location_image_alt')}}">
+								<img width="64" height="64" itemprop="image" src="{{Config::get('var.img_dir').Config::get('var.no_photoUserM')}}" alt="{{Lang::get('errors.no_location_image_alt')}}">
 								@else
-								<img itemprop="image" src="{{Config::get('var.img_dir').Config::get('var.no_photoUserF')}}" alt="{{Lang::get('errors.no_location_image_alt')}}">
+								<img width="64" height="64" itemprop="image" src="{{Config::get('var.img_dir').Config::get('var.no_photoUserF')}}" alt="{{Lang::get('errors.no_location_image_alt')}}">
 								@endif
 								@endif
 							</div>

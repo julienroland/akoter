@@ -918,7 +918,7 @@ a {
   						color: white;
   						float: left;
   						height: 1em;
-  						padding: .4em .8em;
+  						padding: .4em .5em;
   						@include border-radius(0.769em);
   						font-size: $x-small;
   						background-color: #48515c;
@@ -931,7 +931,11 @@ a {
   						color: $greyD;
   						font-size: $small;
   						margin-left: $gutter / 4;
-  						line-height: 1;
+  						line-height: 1.5;
+  						max-width: 60px;
+  						/* word-break:break-all; */
+  						overflow: hidden;
+  						text-overflow:ellipsis;
   					}
   				}
 

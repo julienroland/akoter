@@ -7,7 +7,7 @@
 
 			<li><a href="{{route('account_home',Auth::user()->slug)}}" ><span class="icon icon-home63"></span>{{trans('account.home')}}</a></li>
 
-			@if(Auth::user()->isOwner == 1)
+			@if(Auth::user()->isOwner == 1 || Auth::user()->isTenant == 1)
 
 			<li><a href="{{route('index_add_notice', Auth::user()->slug)}}" ><span class="icon icon-thumbs26"></span>{{trans('account.notice')}}</a></li>
 

@@ -22,7 +22,7 @@
         <div class="photo">
 
           @if(isset($location->accroche[0]))
-          <img itemprop="image" src="{{'/'.Config::get('var.images_dir').Config::get('var.users_dir').$location->building->user->id.'/'.Config::get('var.locations_dir').$location->id.'/'.Helpers::addBeforeExtension($location->accroche[0]->url, Config::get('var.img_medium'))}}" alt="{{trans('locations.photoOf',array('title'=>$title))}}">
+          <img itemprop="image" width="184" height="184" src="{{'/'.Config::get('var.images_dir').Config::get('var.users_dir').$location->building->user->id.'/'.Config::get('var.locations_dir').$location->id.'/'.Helpers::addBeforeExtension($location->accroche[0]->url, Config::get('var.img_medium'))}}" alt="{{trans('locations.photoOf',array('title'=>$title))}}">
           @else
           <img itemprop="image" width="184" height="184" src="{{Config::get('var.img_dir').Config::get('var.no_photoLocation')}}" alt="{{Lang::get('errors.no_location_image_alt')}}">
           @endif
