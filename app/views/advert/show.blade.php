@@ -72,7 +72,7 @@
 							{{trans('locations.more_situation_infos')}}
 						</span>
 						<p>
-							{{html_entity_decode($building_translations['advert'])}}
+							{{isset($building_translations['advert']) ? html_entity_decode($building_translations['advert']) :''}}
 						</p>
 					</div>
 				</div>

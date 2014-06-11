@@ -3,7 +3,7 @@
 	<div class="account-intro">
 		<h2 aria-level="2" role="heading" class="title-account">{{trans('account.your_locations')}}</h2>
 	</div>
-	
+	@if($locations->count())
 	<div class="waitingLocation">	
 
 		@foreach($locations as $location)
@@ -14,6 +14,7 @@
 		@endforeach
 
 	</div>	
+	@endif
 	
 	<div class="requests-tenant">
 

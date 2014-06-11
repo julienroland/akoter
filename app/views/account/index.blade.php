@@ -2,7 +2,11 @@
 
 @section('account')
 
-@if(Auth::user()->isOwner == 1 || (Auth::user()->isOwner == 1 && Auth::user()->isTenant == 1))
+@if(Auth::user()->isOwner == 1 && Auth::user()->isTenant == 1)
+
+@include('account.indexboth')
+
+@elseif(Auth::user()->isOwner == 1 )
 
 @include('account.owner.index')
 

@@ -47,6 +47,7 @@ class InscriptionController extends AccountBaseController {
 			$user->first_name = ucfirst($input['first_name']);
 			$user->name = ucfirst($input['name']);
 			$user->civility = $input['civility'];
+
 			if(isset($input['locality']) && Helpers::isOk($input['locality']) && $input['locality'] != 0){
 				$user->locality_id = $locality_id;
 			}

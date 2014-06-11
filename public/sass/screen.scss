@@ -1498,11 +1498,12 @@ input[type="checkbox"]:checked + label {
     background-color: white;
 
     &.prenium {
-      /* border:8px solid white;
-     @include border-radius(0.5em); */
- }
- .mainInfos {
- 	@include c(12);
+    }
+    a{
+    	text-decoration:none;
+    }
+    .mainInfos {
+    	@include c(12);
       /*height:350px;*/
       height: 300px;
       padding: $gutter / 2;
@@ -2018,7 +2019,7 @@ input[type="checkbox"]:checked + label {
 	background-color: white;
 	min-height: 100px;
 	padding-top: 3em;
-	padding-bottom: 2pem;
+	padding-bottom: 2em;
 
 	.permalink {
 		li {
@@ -3655,7 +3656,7 @@ $country-h: 100px;
 	
 }
 .agence-info{
-	margin:2em auto;
+	margin:2em 0;
 	padding:2em;
 	max-width: 400px;
 	background-color: $greyL;
@@ -3725,6 +3726,9 @@ $country-h: 100px;
 			color:$mc;
 		}
 	}
+	.titlePopup{
+		text-align:left;
+	}
 }
 
 .agence-profile{
@@ -3733,7 +3737,7 @@ $country-h: 100px;
 		@include c(12);
 		position: relative;
 		background-color: $greyL3;
-		margin-bottom: $gutter / 2;
+		margin-bottom: $gutter * 2;
 		.wrapper{
 			position: relative;
 			height: 100%;

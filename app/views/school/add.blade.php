@@ -48,7 +48,7 @@
 
 			<div class="field">
 				<label for="web">{{trans('form.web')}}</label>
-				<input type="url" name="web" id="web">		
+				<input type="url" data-validator="false" name="web" id="web">		
 			</div>
 			<div class="field">
 				{{Form::submit(trans('form.add'))}}

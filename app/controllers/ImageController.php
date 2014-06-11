@@ -104,7 +104,7 @@ public function updateLogoAgence( $agence ){
 }
 }
 
-public function postBuildingImage( $type='more', $id=null )
+public function postBuildingImage( $type ='more', $id=null )
 { 
 
   if(Helpers::isOk( $id ) && Helpers::isOk( $type )){
@@ -196,8 +196,8 @@ public function postBuildingImage( $type='more', $id=null )
 else //single file
 {   
 
-  $imageType = ImageType::orderBy('height','asc')->get();
-  
+  $imageType = ImageType::orderBy('width','desc')->get();
+
   $extension = 'jpg';
 
   $image = Image::make( Input::file('file')->getRealPath() );
@@ -583,7 +583,6 @@ $imgTypes = ImageType::all();
 * Si le fichier de base existe
 *
 **/
-
 
 if(File::exists( $destinationPath.$photo->url )){
 

@@ -35,7 +35,7 @@
         oEcoles,
         bSchoolClick =false,
         aKots = [],
-        oSchool = [],
+        oSchools = [],
         gSchool = new google.maps.LatLng(),
         sNom = [],
         sCachet,
@@ -55,7 +55,7 @@
         $city = $('#form-city'),
         $range = $('#form-range'),
         $l_range = $('.label-range'),
-        optionsPlaces = {types: ['(cities)'],componentRestrictions: {country:"be"},setTypes: ['geocode']},
+        optionsPlaces = {types: ['geocode'],componentRestrictions: {country:"be"},setTypes: ['geocode']},
         gPlaceAutoComplete,
         isAutoComplete = false,
         gCurrentPlace,
@@ -1230,6 +1230,7 @@ var ajaxAllSchool = function(){
 
     success: function ( oResponse ){
      oSchools = oResponse;
+     console.log(oSchools);
      createMarkerSchool(oSchools);
 
    }
@@ -1319,7 +1320,6 @@ var getLocations = function( nId ){
         $listLocations.find('li').remove();
 
       }
-
       $.each(oData.photo, function(i){
 
         $slider.append('<li><img width="'+oData.photo[i].width+'" height="'+oData.photo[i].height+'" src='+getDir(sBuildingDir, {"building_id": oData.id, "user_id":oData.user_id})+beforeUrl(oData.photo[i].url,'-mapslider')+'></li>');
@@ -1398,9 +1398,13 @@ var drawMarkerSchool = function ( mPosition, sId , i)
    gMap.setZoom(17);
 
    gMap.panTo(this.getPosition());
-   var oDataOneSchool = oSchools[this.id];
+   console.log(oSchools);
+   console.log(this.getPosition());
+   console.log(this);
+   var oDataOneSchool = oSchools[this.order];
 
    gCurrentPlace = this.getPosition();
+
    var contentString = 
    '<div class="school">'+
    '<h3 aria-level="3" role="heading" class="titleSchool">'+
@@ -1509,7 +1513,6 @@ $listKot.attr('value',JSON.stringify(aKots));
 var displayNumberResult = function( nNumber ){
 
 	if($l_range.html().indexOf('(') < 0){
-    console.log(oLang);
 		$l_range.html( $l_range.html() + ' ('+ nNumber +')');
 
 	}else{

@@ -15,7 +15,7 @@
 
 			<ul>
 				<li {{Helpers::isActive('show_agenceProfile') ? 'class="active"' :''}}>
-					<a  href="{{route('show_agence',  array($agence->slug))}}">{{trans('agence.locations')}}</a>
+					<a  href="{{route('show_agenceProfile',  array($agence->slug))}}">{{trans('agence.locations')}}</a>
 				</li>
 				<li {{Helpers::isActive('member_agenceProfile') ? 'class="active"' :''}}>
 					<a  href="{{route('member_agenceProfile',  array( $agence->slug))}}">{{trans('agence.members')}}</a>

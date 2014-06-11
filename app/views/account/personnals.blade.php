@@ -78,13 +78,13 @@
 
 		<div class="field">
 			{{Form::label('region',trans('form.region'))}}
-			{{Form::select('region',$regionList->data,'',array('class'=>'select','data-placeholder'=>trans('form.region'),'id'=>'region','data-validator'=>'false'))}}
+			{{Form::select('region',$regionList->data,isset($user) ? $user->region_id : '',array('class'=>'select','data-placeholder'=>trans('form.region'),'id'=>'region','data-validator'=>'false'))}}
 			<i class="icon-required" aria-hidden="true"></i>
 		</div>
 
 		<div class="field">
 			{{Form::label('locality',ucfirst(trans('form.city')))}}
-			{{Form::select('locality',$localityList->data,'',array('class'=>'select','data-placeholder'=>trans('form.city'),'id'=>'locality','data-validator'=>'false'))}}
+			{{Form::select('locality',$localityList->data, isset($user) ? $user->locality_id : '',array('class'=>'select','data-placeholder'=>trans('form.city'),'id'=>'locality','data-validator'=>'false'))}}
 			<i class="icon-required" aria-hidden="true"></i>
 		</div>
 

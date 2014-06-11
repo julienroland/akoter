@@ -118,7 +118,9 @@ class AgenceController extends BaseController
 
 					$agence->user()->attach(Auth::user()->id);
 
-
+					Auth::user()->pro = 1;
+					Auth::user()->save();
+					
 					return Redirect::route('index_agence', Auth::user()->slug);
 
 
@@ -240,7 +242,7 @@ class AgenceController extends BaseController
 			$agence->region_id = Translation::whereContentType('Region')->whereKey('name')->where('value','like', $input['region'])->pluck('content_id');
 			$agence->postal = $input['postal'];
 			$agence->email = $input['email'];
-			$agence->web = $input['web'];
+			$agence->url = $input['web'];
 			$agence->validate = 1;
 			$agence->visible = 1;
 
@@ -251,6 +253,8 @@ class AgenceController extends BaseController
 			$agence->save();
 
 			Auth::user()->agence()->attach($agence->id);
+			Auth::user()->pro = 1;
+			Auth::user()->save();
 
 
 			if($agence){

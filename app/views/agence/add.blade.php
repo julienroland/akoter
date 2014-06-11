@@ -32,7 +32,7 @@
 
    <div class="field">
     {{Form::label('web',trans('agence.web'))}}
-    {{Form::input('url','web','',array('placeholder'=>trans('agence.web'), 'class'=>isset(Session::get('field')['web']) ? 'form-error':''))}}
+    {{Form::input('url','web','',array('data-validator'=>'false','placeholder'=>trans('agence.web'), 'class'=>isset(Session::get('field')['web']) ? 'form-error':''))}}
     <i class="icon-required" aria-hidden="true"></i>
   </div>
 

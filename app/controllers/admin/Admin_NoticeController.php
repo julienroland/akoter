@@ -14,7 +14,7 @@ class Admin_NoticeController extends \Admin_AdminController
 			$notices = $search;
 		}
 
-		$notices = $notices->with('user');
+		$notices = $notices->with('user')->orderBy('validate');
 		
 		$notices = $notices->paginate(20);
 

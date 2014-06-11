@@ -16,8 +16,30 @@ class AccountController extends AccountBaseController {
 	public function index(){
 
 		/*$currentLocation = $user->currentLocation()->first();*/
+		if(Auth::user()->isOwner == 1 && Auth::user()->isTenant == 1){
 
-		if(Auth::user()->isOwner == 1){
+			$activeLocations = User::getActiveLocations( Auth::user() );
+
+			$waitingLocations = User::getWaitingLocations( Auth::user() );
+
+			$invalidLocations = User::getInvalidLocations( Auth::user() );
+
+			$acceptedRequests = Auth::user()->acceptedRequest()->count();
+
+			$waitingRequests = Auth::user()->waitingRequest()->count();
+
+			$refusedRequests = Auth::user()->refusedRequest()->count();
+
+			$locations = Auth::user()->acceptedRequest()->with(array('translation'=>function($query){
+				$query->whereKey('slug');
+			}))->get();
+
+			$now = Carbon::now();
+
+			return View::make('account.index', array('page'=>'account'))
+			->with(compact(array('acceptedRequests','waitingRequests','refusedRequests','locations','now','activeLocations','waitingLocations','invalidLocations')));
+
+		}elseif(Auth::user()->isOwner == 1){
 
 			$activeLocations = User::getActiveLocations( Auth::user() );
 

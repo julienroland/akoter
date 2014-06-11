@@ -22,10 +22,15 @@
 @endif
 
 @if(isset($widget) && in_array('upload', $widget))
-<script>/*$('.baseFile').remove();*/</script>
+
 {{HTML::script('js/jquery.uploadfile.min.js')}}
 {{HTML::script('js/jquery.validationEngine.js')}}
 {{HTML::script('js/jquery.validationEngine-fr.js')}}
+<script>
+        console.log($('.baseFile'));
+        $('.baseFile').remove();
+
+</script>
 @endif
 
 @if(isset($widget) && in_array('map', $widget))

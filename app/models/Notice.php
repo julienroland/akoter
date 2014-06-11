@@ -20,7 +20,7 @@ class Notice extends Eloquent {
 		->where(Config::get('var.t_langCol'), Session::get('langId'));
 	}
 
-	public static function getHomeNotices(  $nb_obj = 3, $orderBy = 'created_at'  , $orderWay = 'asc' , $lang_id = null  )
+	public static function getHomeNotices(  $nb_obj = 3, $orderBy = 'created_at'  , $orderWay = 'desc' , $lang_id = null  )
 	{
 		if($orderBy === 'date' || $orderBy === 'create' || $orderBy === 'created' || $orderBy === 'created_at')
 		{

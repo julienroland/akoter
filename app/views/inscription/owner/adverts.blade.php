@@ -63,7 +63,7 @@
 			<div class="informations">{{trans('inscription.specificAdvert',array('type'=>strtolower($location->typeLocation->translation[0]->value)))}} </div>
 			@endif
 			
-			@if(count($agency) < 1)
+			@if(count($agency) > 1)
 			<div class="field">
 				<label for="location_{{$location->id}}[agency]">{{trans('inscription.location_of_agency')}}</label>
 				{{Form::select('location_'.$location->id.'[agency]', $agency, $location->agence_id, array('data-placeholder'=>trans('inscription.choose_agence'),'class'=>'select'))}}

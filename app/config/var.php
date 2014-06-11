@@ -133,7 +133,7 @@ return array(
 		2=>'index_photo_advert',
 
 		),
-	'img_quality'=>100,
+	'img_quality'=>90,
 	'keywords'=>trans('seo.keywords'),
 	'lat'=>'50,28',
 	'lng'=>'4.52',
