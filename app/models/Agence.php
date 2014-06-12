@@ -76,7 +76,9 @@ class Agence extends Eloquent implements SluggableInterface {
 
 	public function location()
 	{
-		return $this->hasMany('Location');
+		return $this->hasMany('Location')
+		->whereAvailable(1)
+		->where('register_step','>',6);
 	}
 
 	public function locality()

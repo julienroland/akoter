@@ -100,4 +100,5 @@ return array (
   'remove_request' => 'Annuler la demande',
   'refuse'=>'Refuser',
   'daysBeforeLocation'=>'jours avant le début du bail pour la location <a href=":url">n°:ref</a>',
+  'locationNotAvailable'=>'Vous n\'avez pas activé la location',
 );

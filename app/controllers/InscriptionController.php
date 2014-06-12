@@ -17,7 +17,7 @@ class InscriptionController extends AccountBaseController {
 	}
 
 	public function index(){
-		$cgu = Post::whereId(4)->with(array('translation'=>function($query){
+		$cgu = Post::whereId(5)->with(array('translation'=>function($query){
 			$query->whereKey('slug');
 		}))->first();
 
@@ -144,12 +144,12 @@ class InscriptionController extends AccountBaseController {
 	public function saveLocalisation($user_slug, $building = null, $currentLocation=null){
 
 		$input = Input::all();
-		
-		$validator = Validator::make($input, Building::$inscription_rules);
-
-		Session::put('inscription.localisation_input', $input );
 
 		if(!isset($input['building']) || Helpers::isNotOk($input['building'])){
+
+			$validator = Validator::make($input, Building::$inscription_rules);
+
+			Session::put('inscription.localisation_input', $input );
 
 			if( $validator->passes() ){
 
@@ -191,6 +191,7 @@ class InscriptionController extends AccountBaseController {
 				->withFields($fields);
 
 			}
+
 		}else{
 
 			$building = Building::findOrFail($input['building']);
@@ -338,11 +339,11 @@ class InscriptionController extends AccountBaseController {
 		
 		$specifique = isset($input['global']) ? $input['global'] : null;
 
-		if(count(array_filter($input['number'])) == 0 ){
+		/*if(count(array_filter($input['number'])) == 0 ){
 
 			return Redirect::back()
 			->withErrors(array(trans('inscription.no_typeLocation')));
-		}
+		}*/
 
 		foreach($typeLocation as $key => $type){
 
@@ -697,7 +698,7 @@ class InscriptionController extends AccountBaseController {
 
 		$options = Option::whereTypeOptionId(3)->with('translation')->get();
 
-		$particularities = particularity::with('translation')->get();
+		$particularities = Particularity::with('translation')->get();
 
 		$agency = User::agenceList();
 		

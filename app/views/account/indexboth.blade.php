@@ -71,8 +71,8 @@
 							<span class="building">{{trans('account.building_id',array('number'=>$building->id))}}</span>
 							<span class="location">{{trans('account.location_id',array('number'=>$location->id))}}</span>
 							@endif
-							@if(!$location->active)
-							<span class="not_available">Vous n'avez pas activé la location</span>
+							@if(!$location->available)
+							<span class="not_available">{{trans('account.locationNotAvailable')}}</span>
 							@endif
 							<div class="remainingPlace">
 								@if(Helpers::isNotOk($location->nb_locations))

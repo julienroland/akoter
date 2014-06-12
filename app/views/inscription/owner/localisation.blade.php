@@ -14,21 +14,16 @@
 	
 	@include('includes.steps')
 	
-	@if( isset($building) && Helpers::isOk($building) )
-
-	{{Form::open(array('route'=>array('update_localisation_building', Auth::user()->slug, $building->id, Helpers::isOK($currentLocation) ? $currentLocation->id : '') ,'method'=>'put','class'=>'mainType rules','data-rules'=>json_encode(Building::$inscription_rules)))}}
-
-	@else
-
-	{{Form::open(array('route'=>array('save_localisation_building', Auth::user()->slug, Helpers::isOk($currentLocation) ? $currentLocation->id:''),'class'=>'mainType rules','data-rules'=>json_encode(Building::$inscription_rules)))}}
-
-	@endif
 
 	<div class="requiredField"><span class="icon-required" aria-hidden="true"></span>{{trans('form.required_field')}}</div>
 
 
 	@if($buildings->count() > 1)
+
 	@if( !isset($building) || Helpers::isNotOk($building) )
+
+	{{Form::open(array('route'=>array('save_localisation_building', Auth::user()->slug, Helpers::isOk($currentLocation) ? $currentLocation->id:''),'class'=>'mainType'))}}
+
 	<div class="informations">{{trans('inscription.reuse_building')}}</div>
 	<fieldset>
 		<div class="field">
@@ -59,12 +54,23 @@
 			@endfor
 		</div>
 	</fieldset>
+	{{Form::submit(trans('form.next'))}}
+	{{Form::close()}}
 	<span class="or">{{strtolower(trans('connections.or'))}}</span>
 
 	@endif
 	@endif
 	
+	@if( isset($building) && Helpers::isOk($building) )
 
+	{{Form::open(array('route'=>array('update_localisation_building', Auth::user()->slug, $building->id, Helpers::isOK($currentLocation) ? $currentLocation->id : '') ,'method'=>'put','class'=>'mainType rules','data-rules'=>json_encode(Building::$inscription_rules)))}}
+
+	@else
+
+	{{Form::open(array('route'=>array('save_localisation_building', Auth::user()->slug, Helpers::isOk($currentLocation) ? $currentLocation->id:''),'class'=>'mainType rules','data-rules'=>json_encode(Building::$inscription_rules)))}}
+
+	@endif
+	
 	@include('includes.errors')
 
 	@include('includes.success')

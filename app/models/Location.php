@@ -316,6 +316,7 @@ public static function getLocationsMapList( $ids , $paginate,  $orderBy = 'creat
 	->where( Config::get( 'var.l_validateCol' ) , 1 )
 	->where( Config::get( 'var.l_placesCol' ) ,'>', 0 )
 	->where( Config::get( 'var.l_availableCol' ) , 1 )
+	->where( 'register_step' ,'>', 6 )
 	->orderBy( $orderBy , $orderWay )
 	->take( $nb_obj )
 	->paginate( $paginate );
@@ -374,6 +375,7 @@ public static function getLocationsList( $nb_obj = null, $paginate = null, $orde
 	->where( 'locations.'.Config::get( 'var.l_validateCol' ) , 1 )
 	->where( 'locations.'.Config::get( 'var.l_availableCol' ) , 1 )
 	->where( Config::get( 'var.l_placesCol' ) ,'>', 0 )
+	->where( 'locations.register_step' ,'>', 6 )
 	->distinct('building')
 	->orderBy( $orderBy , $orderWay )
 	->take( $nb_obj )
@@ -491,6 +493,7 @@ $locations = $locations->with(
 		))
 ->where( 'locations.'.Config::get( 'var.l_validateCol' ) , 1 )
 ->where( 'locations.'.Config::get( 'var.l_availableCol' ) , 1 )
+->where( 'locations.register_step' ,'>', 6 )
 ->where( Config::get( 'var.l_placesCol' ) ,'>', 0 );
 
 if(isset($list) && Helpers::isOk($list)){

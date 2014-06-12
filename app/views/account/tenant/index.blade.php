@@ -8,7 +8,7 @@
 
 		@foreach($locations as $location)
 		<div class="date">
-			<span class="dateDiff">{{$now->diffInDays(Helpers::createCarbonDate($location->pivot->begin))}}</span> <span>{{trans('account.daysBeforeLocation', array('ref'=>$location->id,'url'=>$location->translation[0]->value))}}</span>
+			<span class="dateDiff">{{$now->diffInDays(Helpers::createCarbonDate($location->pivot->begin))}}</span> <span>{{trans('account.daysBeforeLocation', array('ref'=>$location->id,'url'=>route('showLocation', array($location->translation[0]->value))))}}</span>
 		</div>
 
 		@endforeach

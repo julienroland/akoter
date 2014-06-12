@@ -33,7 +33,7 @@ class BuildingController extends BaseController
 
 		return Response::json($building->whereId($building->id)->with(array('photo'=>function($query){
 			$query->orderBy('order');
-		},'activeLocation.typeLocation.translation','activeLocation.accroche','activeLocation.translation'=>function($query){
+		},'availableLocation.typeLocation.translation','availableLocation.accroche','availableLocation.translation'=>function($query){
 			$query->whereKey('slug');
 		}))->firstOrFail(),200);
 	}

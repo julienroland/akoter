@@ -99,16 +99,10 @@ Route::filter('lang', function(){
 
 			App::setLocale($lang);
 			
-			if(Input::has('fl'))
-			{
 
+			return Redirect::to($lang.'/');
 
-				return Redirect::to($lang.'/'.Input::get('fl'));
-
-			}
-			else{
-				return Redirect::to('/');
-			}
+			
 		}
 
 
@@ -221,9 +215,9 @@ Route::filter('available_user', function(){
 
 });
 
-Route::filter('isOwner', function(){
+Route::filter('isOwnerOrTenant', function(){
 
-	if(Auth::user()->isOwner != 1 || Auth::user()->active != 1 || Auth::user()->email_comfirm != 1){
+	if( (Auth::user()->isOwner != 1 && Auth::user()->isTenant != 1) || Auth::user()->active != 1 || Auth::user()->email_comfirm != 1){
 
 		return Redirect::back()
 		->withErrors(trans('validation.custom.notAvailableNotice'));

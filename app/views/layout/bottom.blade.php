@@ -248,7 +248,7 @@
 </script>
 <script type="text/javascript">
 
-  var script = '<script type="text/javascript" src="./js/min/markerClusterer';
+  var script = '<script type="text/javascript" src="/js/min/markerClusterer';
   if (document.location.search.indexOf('compiled') !== -1) {
     script += '_compiled';
   }

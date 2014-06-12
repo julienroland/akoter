@@ -913,7 +913,7 @@ a {
   					}
   					.number {
   						display: inline-block;
-  						margin-left: $gutter / 2;
+  						margin-left: $gutter / 4;
   						font-weight: 500;
   						color: white;
   						float: left;
@@ -932,7 +932,7 @@ a {
   						font-size: $small;
   						margin-left: $gutter / 4;
   						line-height: 1.5;
-  						max-width: 60px;
+  						max-width: 50px;
   						/* word-break:break-all; */
   						overflow: hidden;
   						text-overflow:ellipsis;
@@ -3763,6 +3763,9 @@ $country-h: 100px;
 		}
 		.nb_employes{
 			@include abs-bot-right($gutter / 2, $gutter / 2);
+		}
+		.locations{
+			margin-top: 3em;
 		}
 	}
 }

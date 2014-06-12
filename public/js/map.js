@@ -13,7 +13,7 @@
        //GENERAL
        var
        gMap,
-       sImgDir = 'img/',
+       sImgDir = '/img/',
        sBuildingDir = '/images/users/:user_id/buildings/:building_id/',
        sLocationDir = '/images/users/:user_id/locations/:location_id/',
         //ICONS
@@ -1211,7 +1211,7 @@ var ajaxAllKot = function(){
 
 	$.ajax({
 		dataType:"json",
-		url:"ajax/getKots",
+		url:"/ajax/getKots",
 		type:"get",
 
     success: function ( oData ){
@@ -1225,7 +1225,7 @@ var ajaxAllKot = function(){
 var ajaxAllSchool = function(){
 	$.ajax({
 		dataType: "json",
-		url:"ajax/getSchools",
+		url:"/ajax/getSchools",
 		type:"get",
 
     success: function ( oResponse ){
@@ -1304,7 +1304,7 @@ var beforeUrl = function(sUrl, string ){
 var getLocations = function( nId ){
   $.ajax({
     dataType: "json",
-    url:"ajax/getLocations/"+nId,
+    url:"/ajax/getLocations/"+nId,
     type:"get",
     success:function(oData){
 
@@ -1324,9 +1324,9 @@ var getLocations = function( nId ){
         $slider.append('<li><img width="'+oData.photo[i].width+'" height="'+oData.photo[i].height+'" src='+getDir(sBuildingDir, {"building_id": oData.id, "user_id":oData.user_id})+beforeUrl(oData.photo[i].url,'-mapslider')+'></li>');
 
       });
-      $.each(oData.active_location, function(i){
+      $.each(oData.available_location, function(i){
 
-        $listLocations.append('<li><a href="'+oLang.routes.locations+'/'+oData.active_location[i].translation[0].value+'" class="tooltip-ui-w" title="'+oLang.locations.goLocation+'"><div class="type"><img classs="thumbnail" src="'+getDir(sLocationDir, {"location_id": oData.active_location[i].id, "user_id":oData.user_id})+beforeUrl(oData.active_location[i].accroche[0].url,'-small')+'"><span class="number" title="'+oLang.locations.remaining_room+'">'+oData.active_location[i].remaining_room+'</span><span class="typeLocation">'+oData.active_location[i].type_location.translation[0].value+'</span></div><div class="price"><span class="expensive">'+Math.round(oData.active_location[i].price)+'€</span></div></a></li>'); //<div class="oneLocation"><ul><li><a href=""></a><div class="infosLocation"></div></li></ul></div>
+        $listLocations.append('<li><a href="'+oLang.routes.locations+'/'+oData.available_location[i].translation[0].value+'" class="tooltip-ui-w" title="'+oLang.locations.goLocation+'"><div class="type"><img classs="thumbnail" src="'+getDir(sLocationDir, {"location_id": oData.available_location[i].id, "user_id":oData.user_id})+beforeUrl(oData.available_location[i].accroche[0].url,'-small')+'"><span class="number" title="'+oLang.locations.remaining_room+'">'+oData.available_location[i].remaining_room+'</span><span class="typeLocation">'+oData.available_location[i].type_location.translation[0].value+'</span></div><div class="price"><span class="expensive">'+Math.round(oData.available_location[i].price)+'€</span></div></a></li>'); //<div class="oneLocation"><ul><li><a href=""></a><div class="infosLocation"></div></li></ul></div>
 
       });
 
