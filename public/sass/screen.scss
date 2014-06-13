@@ -33,7 +33,9 @@ body {
   //background-color: $greyL2;
   text-rendering: optimizeLegibility;
 }
-
+.clear{
+	clear:both;
+}
 .mce-tinymce {
 	margin-top: 3px !important;
 	margin-bottom: $gutter / 2 !important;
@@ -2761,7 +2763,7 @@ $country-h: 100px;
 		input[type="submit"] {
 			margin-top: 0;
 		}
-		.pannel {
+		.pannel-morelisting {
 			.toogleMap, .toogleList {
 				margin-top: 5px;
 				@include cl-nm(6);
@@ -3764,9 +3766,10 @@ $country-h: 100px;
 		.nb_employes{
 			@include abs-bot-right($gutter / 2, $gutter / 2);
 		}
-		.locations{
-			margin-top: 3em;
-		}
+		
+	}
+	.locations{
+		margin-top: 3em;
 	}
 }
 .agence {
@@ -7486,6 +7489,7 @@ div.wijmo-wijmenu .wijmo-wijmenu-child .wijmo-wijmenu-text {
 		margin: $gutter / 2 0;
 		a{
 			@include c(12);
+			color:$borange;
 		}
 		.user-picture{
 			@include c(12);

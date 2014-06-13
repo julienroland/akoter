@@ -3,7 +3,31 @@
 @if(isset($widget) && !in_array('nojs', $widget) || !isset($widget))
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 @endif
-{{HTML::script('js/nprogress.js')}}
+
+@if(isset($widget) && in_array('map', $widget))
+
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCJSSKlpz3C7EwQd2kvgn1JRBd7Ojrl9dM&amp;sensor=false&amp;libraries=places,geometry"></script>
+
+<script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/markerclusterer/src/markerclusterer.js">
+</script>
+<script type="text/javascript">
+
+  var script = '<script type="text/javascript" src="/js/min/markerClusterer';
+  if (document.location.search.indexOf('compiled') !== -1) {
+    script += '_compiled';
+  }
+  script += '.js"><' + '/script>';
+  document.write(script);
+
+</script>
+
+<!-- {{HTML::script('js/min/map.js')}} -->
+@endif
+
+
+{{HTML::script('js/global.js')}}
+
+<!-- {{HTML::script('js/nprogress.js')}} -->
 <script>
   NProgress.start();
   $(window).bind("load", function() {
@@ -13,7 +37,7 @@
 
 @if(isset($widget) && in_array('circles', $widget))
 
-{{HTML::script('js/circles.js')}}
+<!-- {{HTML::script('js/circles.js')}} -->
 
 <script>
   var myCircle = Circles.create({
@@ -47,7 +71,7 @@
 
 @endif
 @if(isset($widget) && in_array('ui', $widget))
-{{HTML::script('js/min/ui.js')}}
+<!-- {{HTML::script('js/min/ui.js')}} -->
 
 
 @if(isset($widget) && in_array('tabs', $widget))
@@ -213,7 +237,7 @@
 @endif
 
 @if(isset($widget) && in_array('select', $widget))
-{{HTML::script('js/min/chosen.jquery.js')}}
+<!-- {{HTML::script('js/min/chosen.jquery.js')}} -->
 <script>
 
   var config = {
@@ -228,47 +252,27 @@
   }
 </script>
 
-<!-- {{HTML::script('js/polyfiller.js')}} -->
 @endif
 
 
 
 @if(isset($widget) && in_array('upload', $widget))
 <script>$('.baseFile').hide();</script>
-{{HTML::script('js/jquery.uploadfile.min.js')}}
+<!-- {{HTML::script('js/jquery.uploadfile.min.js')}}
 {{HTML::script('js/jquery.validationEngine.js')}}
-{{HTML::script('js/jquery.validationEngine-fr.js')}}
+{{HTML::script('js/jquery.validationEngine-fr.js')}} -->
 @endif
 
-@if(isset($widget) && in_array('map', $widget))
-
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCJSSKlpz3C7EwQd2kvgn1JRBd7Ojrl9dM&amp;sensor=false&amp;libraries=places,geometry"></script>
-
-<script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/markerclusterer/src/markerclusterer.js">
-</script>
-<script type="text/javascript">
-
-  var script = '<script type="text/javascript" src="/js/min/markerClusterer';
-  if (document.location.search.indexOf('compiled') !== -1) {
-    script += '_compiled';
-  }
-  script += '.js"><' + '/script>';
-  document.write(script);
-
-</script>
-
-{{HTML::script('js/min/map.js')}}
-@endif
 
 
 
 @if(isset($widget) && in_array('listing', $widget))
-{{HTML::script('js/min/morelisting.js')}}
+<!-- {{HTML::script('js/min/morelisting.js')}} -->
 @endif
 
 
 @if(isset($widget) && in_array('grid', $widget))
-{{HTML::script('js/grid.js')}}
+<!-- {{HTML::script('js/grid.js')}} -->
 
 <script>
 
@@ -284,19 +288,19 @@
 @endif
 
 @if(isset($widget) && in_array('slider', $widget))
-{{HTML::script('js/min/simple-slider.min.js')}}
+<!-- {{HTML::script('js/min/simple-slider.min.js')}} -->
 @endif
 
 @if(isset($widget) && in_array('mousewheel', $widget))
-{{HTML::script('js/min/jquery.mousewheel.min.js')}}
+<!-- {{HTML::script('js/min/jquery.mousewheel.min.js')}} -->
 @endif
 
 @if(isset($widget) && !in_array('nojs', $widget) || !isset($widget))
-{{HTML::script('js/main.js')}}
+<!-- {{HTML::script('js/main.js')}} -->
 @endif
 
 @if(isset($widget) && in_array('lightbox', $widget))
-{{HTML::script('js/lightbox.js')}}
+<!-- {{HTML::script('js/lightbox.js')}} -->
 
 <script type="text/javascript">
 
@@ -316,7 +320,7 @@
 </script>
 @endif
 @if(isset($widget) && in_array('slideshow', $widget))
-{{HTML::script('js/min/responsiveslides.js')}}
+<!-- {{HTML::script('js/min/responsiveslides.js')}} -->
 <script>
   $(function () {
     $("#slider").responsiveSlides({
@@ -335,7 +339,7 @@
 
 @if(isset($widget) && in_array('validator', $widget))
 
-{{HTML::script('js/min/validator.js')}}
+<!-- {{HTML::script('js/min/validator.js')}} -->
 
 @endif
 
@@ -349,7 +353,7 @@
 
 @if(isset($widget) && in_array('city_autocomplete', $widget))
 <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCJSSKlpz3C7EwQd2kvgn1JRBd7Ojrl9dM&amp;libraries=places&amp;sensor=false&amp;language=language&amp;components=country:be"></script>
-{{HTML::script('js/city_autocomplete.js')}}
+ {{HTML::script('js/city_autocomplete.js')}}
 @endif
 
 
@@ -386,14 +390,14 @@
 
 @if(isset($page) && $page ==='inscription_localisation')
 
-
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCJSSKlpz3C7EwQd2kvgn1JRBd7Ojrl9dM&amp;sensor=false"></script>
 {{HTML::script('js/min/addLocalisation.js')}}
 
 @endif
 
 @if(isset($widget) && in_array('gallery', $widget))
 
-{{HTML::script('js/min/grid.js')}}
+<!-- {{HTML::script('js/min/grid.js')}} -->
 
 <script>
 
@@ -415,9 +419,9 @@
 @endif
 
 
-{{HTML::script('js/min/retina.js')}}
+<!-- {{HTML::script('js/min/retina.js')}} -->
 
-{{HTML::script('js/min/jquery.tipsy.js')}}
+<!-- {{HTML::script('js/min/jquery.tipsy.js')}} -->
 <script>
  $(function() {
    $('.tooltip-ui-e').tipsy({ aria: true,fade: true, gravity:'w', delayIn: 200, delayOut: 300, opacity: 0.9});

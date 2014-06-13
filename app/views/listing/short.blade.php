@@ -131,7 +131,7 @@
 			</div>
 			<div class="searchSubmit">
 			{{Form::submit(trans('form.search'))}}
-			<div class="pannel">
+			<div class="pannel-morelisting">
 				<a href="javascript:void(0)" class="toogleMap">{{trans('general.carte')}}</a>
 				<a href="javascript:void(0)" class="toogleList active">{{trans('general.list')}}</a>
 			</div>

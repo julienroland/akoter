@@ -34,6 +34,47 @@ webp = require('gulp-webp')
 
 ;
 
+gulp.task('concatCSS', function() {
+  gulp.src([
+  	'css/screen.css',
+  	 'css/simple-slider-volume.css',
+  	  'css/chosen-mk.css',
+  	  ])
+    .pipe(concat('global.css'))
+    .pipe(autoprefixer("last 15 version", "ie 8"))
+    .pipe(minifyCSS())
+    .pipe(notify({ message: 'CSS bien globalisé maître Julien !' }))
+    .pipe(gulp.dest('css'))
+});
+
+gulp.task('concatJS', function() {
+  gulp.src([
+  	'js/ui.js',
+  	'js/main.js',
+  	'js/map.js',
+  	'js/nprogress.js',
+  	'js/min/chosen.jquery.js',
+  	'js/markerCluster.js',
+  	'js/responsiveslides.js',
+  	'js/retina.js',
+  	'js/validator.js',
+  	'js/jquery.tipsy.js',
+  	'js/circles.js',
+  	'js/grid.js',
+  	'js/jquery.uploadfile.min.js',
+  	'js/jquery.jquery.validationEngine.js',
+  	'js/jquery.jquery.validationEngine-fr.js',
+  	'js/lightbox.js',
+  	'js/morelisting.js',
+  	'js/simple-slider.min.js',
+  	'js/jquery.mousewheel.min.js',
+  	])
+    .pipe(concat('global.js'))
+    .pipe(uglify())
+    .pipe(notify({ message: 'JS bien globalisé maître Julien !' }))
+    .pipe(gulp.dest('js'))
+});
+
 gulp.task('css', function() {
 	return gulp.src('sass/*.scss')
 	.pipe(changed('css'))
@@ -48,6 +89,7 @@ gulp.task('css', function() {
 	}))
 	.pipe(autoprefixer("last 15 version", "ie 8"))
 	.pipe(minifyCSS())
+	.pipe(concat('global.css'))
 	.pipe(gulp.dest('css'))
 	.pipe(notify({ message: 'SASS bien compilé maître Julien !' }))
 	.pipe(livereload());
@@ -92,6 +134,7 @@ gulp.task('default' , function() {
 
 	gulp.watch('sass/**/*.scss', function() {
 		gulp.run('css');
+		gulp.run('concatCSS');
 	});
 
 	gulp.watch('js/**/*.js', function() {

@@ -22,7 +22,7 @@
   <div class="oneBuilding">
 
   
-    <div class="slider">
+    <div class="slider-mapManage">
     <ul class="rslides" id="slider">
 
     </ul>

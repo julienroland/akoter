@@ -88,7 +88,7 @@ return array (
   'seeSteps_owner' => 'plus d\'informations',
   'check_bookmark' => 'Voir la liste de vos favoris',
   'your_favoris' => 'Liste vos favoris',
-  'infos_perso_title' => 'Informations personnels',
+  'infos_perso_title' => 'Informations personnelles',
   'settings_title' => 'Paramètre du compte',
   'noFavoris' => ' Aucun favoris ajouté',
   'your_locations' => 'Vos locations',
